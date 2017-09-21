@@ -1,0 +1,8 @@
+.users-list {
+  box-shadow: 2px 2px 5px 2px #17B321;
+
+  li {
+    background: linear-gradient(141deg, #0fb8ad 0%, #1fc8db 51%, #2cb5e8 75%);
+    border-bottom: 1px solid $bg-color;
+  }
+}

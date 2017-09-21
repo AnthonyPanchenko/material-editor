@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <style>
+        body {
+            background-color: #252525;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+        }
+    </style>
+    <script>
+        window.onload = function () {
+
+            class Circle {
+                constructor(width) {
+                    this.init();
+                }
+
+                init() {
+                    this.pos = {
+                        x: Math.random() * width,
+                        y: height + Math.random() * 100,
+                    };
+
+                    this.alpha = 0.1 + Math.random() * 0.3;
+                    this.scale = 0.1 + Math.random() * 0.3;
+                    this.velocity = Math.random();
+                }
+
+                draw() {
+                    if (this.alpha <= 0) {
+                        this.init();
+                    }
+                    this.pos.y -= this.velocity;
+                    this.alpha -= 0.0005;
+                    ctx.beginPath();
+                    ctx.arc(this.pos.x, this.pos.y, this.scale * 10, 0, 2 * Math.PI, false);
+                    ctx.fillStyle = 'rgba(255,255,255,' + this.alpha + ')';
+                    ctx.fill();
+                }
+            };
+
+
+            var width, height, canvas, ctx, circles, target, animateHeader = true;
+
+            // Main
+            initHeader();
+            addListeners();
+
+            function initHeader() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                target = {
+                    x: 0,
+                    y: height
+                };
+
+                canvas = document.getElementById('demo-canvas');
+                canvas.width = width;
+                canvas.height = height;
+                ctx = canvas.getContext('2d');
+
+                // create particles
+                circles = [];
+                for (var x = 0; x < width * 0.5; x++) {
+                    var c = new Circle(width);
+                    circles.push(c);
+                }
+                animate();
+            }
+
+            // Event handling
+            function addListeners() {
+                window.addEventListener('scroll', scrollCheck);
+                window.addEventListener('resize', resize);
+            }
+
+            function scrollCheck() {
+                if (document.body.scrollTop > height) animateHeader = false;
+                else animateHeader = true;
+            }
+
+            function resize() {
+                width = window.innerWidth;
+                height = window.innerHeight;
+                canvas.width = width;
+                canvas.height = height;
+            }
+
+            function animate() {
+                if (animateHeader) {
+                    ctx.clearRect(0, 0, width, height);
+                    for (var i in circles) {
+                        circles[i].draw();
+                    }
+                }
+                requestAnimationFrame(animate);
+            }
+
+        };
+    </script>
+</head>
+
+<body>
+
+    <canvas id="demo-canvas"></canvas>
+
+</body>
+
+</html>

@@ -1,0 +1,7 @@
+<router-link v-if="link" :to="link" :class="customClass" @click="onCustomBtnClick">
+  <i v-if="iconClass" :class="iconClass" /> {{ title }}
+</router-link>
+
+<button v-else :type="type" :class="customClass" @click="onCustomBtnClick">
+  <i v-if="iconClass" :class="iconClass" /> {{ title }}
+</button>

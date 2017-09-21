@@ -5,7 +5,7 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const open = require('open');
-const config = require('../config');
+const config = require('../app.config');
 
 const API = config.apiUrl;
 const PORT = process.env.PORT || config.serverPort;

@@ -1,0 +1,26 @@
+{
+  "extends": "airbnb-base",
+  "parser": "babel-eslint",
+  "parserOptions": {
+    "sourceType": "module"
+  },
+  "plugins": [
+    "html"
+  ],
+  "rules": {
+    "no-new": 0,
+    "max-len": 0,
+    "no-console": 0,
+    "no-param-reassign": 0,
+    "no-nested-ternary": 0,
+    "linebreak-style": "off",
+    "arrow-parens": "off",
+    "global-require": "warn",
+    "import/no-extraneous-dependencies": "off",
+    "generator-star-spacing": 0
+  },
+  "env": {
+    "browser": true,
+    "node": true
+  }
+}

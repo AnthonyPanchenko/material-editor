@@ -3,7 +3,7 @@ const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
 const baseConfig = require('./base');
-const config = require('../config');
+const config = require('../app.config');
 
 const resultConfig = Object.assign({}, {
   devtool: 'inline-source-map',

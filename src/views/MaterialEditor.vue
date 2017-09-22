@@ -34,6 +34,7 @@ export default {
       presentation-header
     </header>
     <div slot="presentation-content" class="content">
+      <aside>aside</aside>
       <canvas-board />
     </div>
     <footer slot="presentation-footer" class="footer">

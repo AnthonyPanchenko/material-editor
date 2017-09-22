@@ -1,0 +1,37 @@
+.main-layout {
+  width: inherit;
+  height: inherit;
+  display: table;
+
+  .controls-section,
+  .presentation-section {
+    height: inherit;
+    display: table-cell;
+    position: relative;
+    vertical-align: top;
+    border-left: 1px solid #2e2e2e;
+    border-right: 1px solid #2e2e2e;
+  }
+
+  .presentation-section {
+    min-width: 500px;
+  }
+
+  .controls-section {
+    .grab {
+      position: absolute;
+      display: inline-block;
+      cursor: col-resize;
+      background-color: rgba(156, 214, 255, 0.2);
+      right: -2px;
+      top: 0;
+      width: 3px;
+      bottom: 0;
+      z-index: 2;
+
+      &:hover {
+        background-color: #636363;
+      }
+    }
+  }
+}

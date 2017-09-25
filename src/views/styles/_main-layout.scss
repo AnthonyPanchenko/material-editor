@@ -1,28 +1,51 @@
 .main-layout {
   width: inherit;
   height: inherit;
-  display: table;
+  flex-direction: row;
+  display: flex;
 
-  .controls-section,
-  .presentation-section {
-    height: inherit;
-    display: table-cell;
+  .controls-layout,
+  .presentation-layout {
+    display: flex;
+    flex-direction: column;
     position: relative;
-    vertical-align: top;
-    border-left: 1px solid #2e2e2e;
-    border-right: 1px solid #2e2e2e;
+    border-left: 1px solid $main-layout-borders-color;
+    border-right: 1px solid $main-layout-borders-color;
+
+    header,
+    footer {
+      order: 0;
+      flex: 0 1 auto;
+
+      .controls-box {
+        display: table;
+        height: $controls-box-height;
+        background-color: $controls-box-bg;
+        width: 100%;
+      }
+    }
+
+    section {
+      order: 0;
+      flex-grow: 1;
+      flex-shrink: 2;
+      flex-basis: 100%;
+      border-bottom: 1px solid $content-border-color;
+      border-top: 1px solid $content-border-color;
+    }
   }
 
-  .presentation-section {
-    min-width: 500px;
-  }
+  .controls-layout {
+    order: 0;
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: 40%; // width calc via js
 
-  .controls-section {
     .grab {
       position: absolute;
       display: inline-block;
       cursor: col-resize;
-      background-color: rgba(156, 214, 255, 0.2);
+      background-color: $grab-color;
       right: -2px;
       top: 0;
       width: 3px;
@@ -30,8 +53,15 @@
       z-index: 2;
 
       &:hover {
-        background-color: #636363;
+        background-color: $grab-hover-color;
       }
     }
+  }
+
+  .presentation-layout {
+    order: 0;
+    flex-grow: 1;
+    flex-shrink: 1;
+    flex-basis: 100%;
   }
 }

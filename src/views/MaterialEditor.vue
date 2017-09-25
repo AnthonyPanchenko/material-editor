@@ -20,25 +20,31 @@ export default {
 
 <template>
   <main-layout>
-    <header slot="controls-header" class="header">
-      <custom-button :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-material-editor" />
+    <header slot="controls-header">
+      <div class="controls-box">
+        <custom-button :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-material-editor" />
+      </div>
     </header>
-    <div slot="controls-content" class="content">
+
+    <section slot="controls-content">
       controls-content
-    </div>
-    <footer slot="controls-footer" class="footer">
-      controls-footer
+    </section>
+
+    <footer slot="controls-footer">
+      <div class="controls-box"> controls box </div>
     </footer>
 
-    <header slot="presentation-header" class="header">
-      presentation-header
+    <header slot="presentation-header">
+      <div class="controls-box"> presentation-header </div>
     </header>
-    <div slot="presentation-content" class="content">
-      <aside>aside</aside>
-      <canvas-board />
-    </div>
-    <footer slot="presentation-footer" class="footer">
-      presentation-footer
+
+    <section slot="presentation-content">
+      <aside class="sidebar"> aside </aside>
+      <div class="canvas-box"> canvas </div>
+    </section>
+
+    <footer slot="presentation-footer">
+      <div class="controls-box"> controls box </div>
     </footer>
   </main-layout>
 </template>

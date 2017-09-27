@@ -2,10 +2,12 @@ $body-text-color: #9e9e9e;
 $body-bg-color: #272727;
 $body-font-family: Arial, sans-serif;
 
-$main-layout-borders-color: lighten($body-bg-color, 4%);
-
 $controls-box-height: 30px;
 $controls-box-bg: lighten($body-bg-color, 5%);
+
+$ctrl-border-left-color: lighten($body-bg-color, 15%);
+
+$sidebar-bg: lighten($body-bg-color, 5%);
 
 $content-border-color: lighten($body-bg-color, 12%);
 

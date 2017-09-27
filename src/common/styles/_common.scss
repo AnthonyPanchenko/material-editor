@@ -24,6 +24,34 @@ body,
   clear: both;
 }
 
+.controls-row {
+  > .ctrl-btn:not(:first-child) {
+    border-left: 1px solid $ctrl-border-left-color;
+  }
+}
+
+.ctrl-btn {
+  color: #6b7a82;
+  font-size: 13px;
+  background-color: rgba(121, 136, 185, 0.14);
+
+  &:hover {
+    background-color: rgba(121, 136, 185, 0.29);
+  }
+
+  &:focus {
+    outline: none;
+    color: #64add1;
+  }
+}
+
+.ctrl-inp {
+  &:focus {
+    outline: none;
+    box-shadow: 0 0 2px 0 #64add1 inset;
+  }
+}
+
 .row {
   display: table;
   height: 25px;

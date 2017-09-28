@@ -1,12 +1,12 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import users from './modules/users/vuex/store';
+import itemObjects from './modules/item-obj-list/vuex/store';
 
 Vue.use(Vuex);
 
 const MainStore = new Vuex.Store({
   modules: {
-    users,
+    itemObjects,
   },
 });
 

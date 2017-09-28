@@ -26,7 +26,7 @@ body,
 
 .controls-row {
   > .ctrl-btn:not(:first-child) {
-    border-left: 1px solid $ctrl-border-left-color;
+    border-left: 1px solid $ctrl-border-color;
   }
 }
 

@@ -1,13 +1,13 @@
 <script>
 import MainLayout from './MainLayout.vue';
-import Users from '../modules/users/Users.vue';
+import ItemObjList from '../modules/item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../modules/canvas-board/CanvasBoard.vue';
 import internalUrls from '../common/constants/internal-urls';
 
 export default {
   name: 'MaterialEditor',
   components: {
-    Users,
+    ItemObjList,
     CanvasBoard,
     MainLayout,
   },
@@ -30,7 +30,6 @@ export default {
 
     <section slot="controls-content" class="controls-content">
       controls-content
-      <users></users>
     </section>
 
     <footer slot="controls-footer" class="controls-footer">
@@ -42,18 +41,7 @@ export default {
     </header>
 
     <section slot="presentation-content" class="presentation-content">
-      <aside class="sidebar">
-         <div class="item-obj controls-row">
-           <button type="button" class="show-hide-obj ctrl-btn"><i class="icon-eye" /></button>
-           <button type="button" class="obj-name ctrl-btn">Plane</button>
-           <button type="button" class="trash-bin ctrl-btn"><i class="icon-trash-bin" /></button>
-         </div>
-         <div class="item-obj controls-row">
-           <button type="button" class="show-hide-obj ctrl-btn"><i class="icon-eye-blocked" /></button>
-           <button type="button" class="obj-name ctrl-btn">Sphere</button>
-           <button type="button" class="trash-bin ctrl-btn"><i class="icon-trash-bin" /></button>
-         </div>
-      </aside>
+      <item-obj-list></item-obj-list>
       <div class="canvas-box"> canvas </div>
     </section>
 

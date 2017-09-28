@@ -1,13 +1,11 @@
 <script>
 import MainLayout from './MainLayout.vue';
-import Users from '../modules/users/Users.vue';
 import CanvasBoard from '../modules/canvas-board/CanvasBoard.vue';
 import internalUrls from '../common/constants/internal-urls';
 
 export default {
   name: 'ShaderEditor',
   components: {
-    Users,
     CanvasBoard,
     MainLayout,
   },
@@ -30,7 +28,6 @@ export default {
 
     <section slot="controls-content" class="controls-content">
       controls-content
-      <users></users>
     </section>
 
     <footer slot="controls-footer" class="controls-footer">

@@ -65,38 +65,6 @@
       flex-direction: row;
       flex-wrap: nowrap;
 
-      .sidebar {
-        flex-grow: 1;
-        flex-shrink: 0;
-        flex-basis: 200px;
-        background-color: $sidebar-bg;
-        position: relative;
-
-        .item-obj {
-          display: flex;
-          margin-bottom: 1px;
-
-          .obj-name,
-          .trash-bin,
-          .show-hide-obj {
-            padding-top: 5px;
-            padding-bottom: 5px;
-          }
-
-          .trash-bin,
-          .show-hide-obj {
-            flex: 0 0 30px;
-          }
-
-          .obj-name {
-            text-align: left;
-            flex: 1 1 auto;
-            padding-right: 5px;
-            padding-left: 5px;
-          }
-        }
-      }
-
       .canvas-box {
         flex: 1 1 100%;
       }

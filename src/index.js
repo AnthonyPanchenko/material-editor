@@ -3,7 +3,8 @@ import { sync } from 'vuex-router-sync';
 import VueResource from 'vue-resource';
 import Router from './router';
 import MainStore from './main-store';
-import { API_PATH } from './common/constants/api-constants';
+import * as apiConstants from './common/constants/api-constants';
+import * as fakeData from './fake-data';
 import './common/components/custom-button';
 
 import './main.scss';
@@ -30,12 +31,12 @@ Vue.use(VueResource);
 // mock data
 if (process.env.NODE_ENV !== 'production') {
   const data = {
-    '/users': [{ id: 'qwwe1e234', name: 223, surname: 'qqq' }, { id: 're24w4wer', name: 456, surname: 'www' }, { id: 'ewr3t4rdg', name: 345, surname: 'rrr' }],
+    [`${apiConstants.MATERIAL_EDITOR_URL_PART}${apiConstants.ITEM_OBJ_LIST_URL_SUFIX}`]: fakeData.itemObjects,
   };
 
   Vue.http.interceptors.push((request, next) => {
     const url = request.getUrl();
-    const key = url.replace(API_PATH, '');
+    const key = url.replace(apiConstants.API_PATH, '');
 
     next(request.respondWith(data[key], {
       status: data[key] ? 200 : 500,

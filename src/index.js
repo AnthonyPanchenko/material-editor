@@ -3,6 +3,7 @@ import { sync } from 'vuex-router-sync';
 import VueResource from 'vue-resource';
 import Router from './router';
 import MainStore from './main-store';
+import { API_PATH } from './common/constants/api-constants';
 import './common/components/custom-button';
 
 import './main.scss';
@@ -27,22 +28,21 @@ Vue.use(VueResource);
 // });
 
 // mock data
-// if (process.env.NODE_ENV !== 'production') {
-//   const data = {
-//     '/users/me': { me: 223 }, // some json
-//     '/auth/local': { local: 4646 }, // some json
-//   };
+if (process.env.NODE_ENV !== 'production') {
+  const data = {
+    '/users': [{ id: 'qwwe1e234', name: 223, surname: 'qqq' }, { id: 're24w4wer', name: 456, surname: 'www' }, { id: 'ewr3t4rdg', name: 345, surname: 'rrr' }],
+  };
 
-//   Vue.http.interceptors.push((request, next) => {
-//     const url = request.getUrl();
-//     const key = url.replace('/api', '');
-//     console.log('request:', url, data[key]);
-//     next(request.respondWith(data[key], {
-//       status: data[key] ? 200 : 500,
-//       ok: !!data[key],
-//     }));
-//   });
-// }
+  Vue.http.interceptors.push((request, next) => {
+    const url = request.getUrl();
+    const key = url.replace(API_PATH, '');
+
+    next(request.respondWith(data[key], {
+      status: data[key] ? 200 : 500,
+      ok: !!data[key],
+    }));
+  });
+}
 
 const App = new Vue({
   router: Router,

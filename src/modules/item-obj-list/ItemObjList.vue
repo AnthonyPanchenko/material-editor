@@ -54,7 +54,7 @@ export default {
 <template>
   <aside class="sidebar">
     <transition-group name="obj-list">
-      <div class="item-obj controls-row" v-for="obj in $store.state.itemObjects.list" :key="`${obj.id}`">
+      <div class="item-obj controls-row" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
         <button type="button" class="show-hide-obj ctrl-btn">
           <i class="icon-eye" />
         </button>

@@ -24,7 +24,12 @@ export default {
   <main-layout>
     <header slot="controls-header" class="controls-header">
       <div class="controls-box">
-        <custom-button :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-material-editor" />
+        <button type="button" class="ctrl-btn-default"><i class="icon-shader-editor" /> Object</button>
+        <button type="button" class="ctrl-btn-default"><i class="icon-shader-editor" /> Geometry</button>
+        <button type="button" class="ctrl-btn-default"><i class="icon-shader-editor" /> Material</button>
+        <router-link :to="`/${urls.SHADER_EDITOR}`" class="ctrl-btn-default">
+          <i class="icon-shader-editor" />
+        </router-link>
       </div>
     </header>
 

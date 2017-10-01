@@ -24,24 +24,50 @@ body,
   clear: both;
 }
 
-.controls-row {
-  > .ctrl-btn:not(:first-child) {
-    border-left: 1px solid $ctrl-border-color;
+.controls-box {
+  display: flex;
+  flex-direction: row;
+  align-items: stretch;
+  height: $controls-box-height;
+  background-color: $controls-box-bg;
+
+  > [class^="ctrl-btn"],
+  > [class*=" ctrl-btn"] {
+    font-size: 14px;
+    text-align: center;
+
+    &:not(:first-child) {
+      border-left: 1px solid $ctrl-border-color;
+    }
   }
 }
 
-.ctrl-btn {
+[class^="ctrl-btn"],
+[class*=" ctrl-btn"] {
+  background-color: #343434;
+  text-decoration: none;
   color: #6b7a82;
   font-size: 13px;
-  background-color: rgba(121, 136, 185, 0.14);
-
-  &:hover {
-    background-color: rgba(121, 136, 185, 0.29);
-  }
+  padding: 5px;
 
   &:focus {
     outline: none;
+  }
+}
+
+.ctrl-btn-default {
+  &:focus,
+  &:hover {
+    background-color: rgba(121, 136, 185, 0.14);
     color: #64add1;
+  }
+}
+
+.ctrl-btn-danger {
+  &:focus,
+  &:hover {
+    background-color: rgba(253, 74, 74, 0.63);
+    color: #ffeded;
   }
 }
 
@@ -52,38 +78,3 @@ body,
   }
 }
 
-.row {
-  display: table;
-  height: 25px;
-  border-bottom: 1px solid #424242;
-  table-layout: fixed;
-  background-color: rgba(255, 255, 255, 0.04);
-  width: 100%;
-
-  .col {
-    font-size: 12px;
-    display: table-cell;
-    vertical-align: middle;
-    padding-left: 5px;
-  }
-}
-
-.col-xs {
-  width: 25px;
-}
-
-.col-s {
-  width: 50px;
-}
-
-.col-m {
-  width: 100px;
-}
-
-.col-l {
-  width: 150px;
-}
-
-.col-xl {
-  width: 200px;
-}

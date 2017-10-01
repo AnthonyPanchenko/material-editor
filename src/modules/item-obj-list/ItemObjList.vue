@@ -52,17 +52,15 @@ export default {
 </script>
 
 <template>
-  <aside class="sidebar">
-    <transition-group name="obj-list">
-      <div class="item-obj controls-row" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
-        <button type="button" class="show-hide-obj ctrl-btn">
-          <i class="icon-eye" />
-        </button>
-        <button type="button" class="obj-name ctrl-btn">{{obj.title}}</button>
-        <button type="button" class="trash-bin ctrl-btn" v-on:click="onRemoveItemObjById({ id: obj.id })">
-          <i class="icon-trash-bin" />
-        </button>
-      </div>
-    </transition-group>
-  </aside>
+  <transition-group tag="aside" class="sidebar" name="obj-list">
+    <div class="item-obj" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
+      <button type="button" class="show-hide-obj ctrl-btn-default">
+        <i class="icon-eye" />
+      </button>
+      <button type="button" class="obj-name ctrl-btn-default">{{obj.title}}</button>
+      <button type="button" class="trash-bin ctrl-btn-danger" v-on:click="onRemoveItemObjById({ id: obj.id })">
+        <i class="icon-trash-bin" />
+      </button>
+    </div>
+  </transition-group>
 </template>

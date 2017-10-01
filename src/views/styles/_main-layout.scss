@@ -17,13 +17,6 @@
     .presentation-header,
     .presentation-footer {
       flex: 0 1 auto;
-
-      .controls-box {
-        display: table;
-        height: $controls-box-height;
-        background-color: $controls-box-bg;
-        width: 100%;
-      }
     }
 
     .controls-content,

@@ -22,7 +22,7 @@ export default {
   <main-layout>
     <header slot="controls-header" class="controls-header">
       <div class="controls-box">
-        <custom-button :link="`/${urls.MATERIAL_EDITOR}`" iconClass="icon-shader-editor" />
+        <custom-button :link="`/${urls.MATERIAL_EDITOR}`" iconClass="icon-material-editor" />
       </div>
     </header>
 

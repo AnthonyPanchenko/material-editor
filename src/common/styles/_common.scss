@@ -17,36 +17,40 @@ body,
   background-color: $body-bg-color;
 }
 
-.clearfix:after {
-  content: "";
-  display: table;
-  widows: 100%;
-  clear: both;
-}
-
-.controls-box {
+.controls-row {
   display: flex;
-  flex-direction: row;
-  align-items: stretch;
-  height: $controls-box-height;
-  background-color: $controls-box-bg;
+  height: $controls-row-height;
+  background-color: $controls-row-bg;
 
   > [class^="ctrl-btn"],
   > [class*=" ctrl-btn"] {
     font-size: 14px;
     text-align: center;
+    flex: 1 1 auto;
+
+    i[class^="icon-"],
+    i[class*=" icon-"] {
+      font-size: 17px;
+    }
 
     &:not(:first-child) {
       border-left: 1px solid $ctrl-border-color;
     }
   }
+
+  .label {
+    text-align: center;
+    align-self: center;
+    font-size: 14px;
+    padding: 5px;
+  }
 }
 
 [class^="ctrl-btn"],
 [class*=" ctrl-btn"] {
-  background-color: #343434;
+  background-color: $ctrl-btn-bg-color;
   text-decoration: none;
-  color: #6b7a82;
+  color: $ctrl-btn-color;
   font-size: 13px;
   padding: 5px;
 
@@ -56,18 +60,26 @@ body,
 }
 
 .ctrl-btn-default {
+  &.active {
+    background-color: $ctrl-btn-default-bg-color;
+  }
+
   &:focus,
   &:hover {
-    background-color: rgba(121, 136, 185, 0.14);
-    color: #64add1;
+    background-color: $ctrl-btn-default-bg-color;
+    color: $ctrl-btn-default-color;
   }
 }
 
 .ctrl-btn-danger {
+  &.active {
+    background-color: $ctrl-btn-danger-bg-color;
+  }
+
   &:focus,
   &:hover {
-    background-color: rgba(253, 74, 74, 0.63);
-    color: #ffeded;
+    background-color: $ctrl-btn-danger-bg-color;
+    color: $ctrl-btn-danger-color;
   }
 }
 

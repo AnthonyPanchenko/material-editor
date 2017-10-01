@@ -1,11 +1,13 @@
 <script>
 import MainLayout from './MainLayout.vue';
+import ItemObjList from '../modules/item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../modules/canvas-board/CanvasBoard.vue';
 import internalUrls from '../common/constants/internal-urls';
 
 export default {
   name: 'ShaderEditor',
   components: {
+    ItemObjList,
     CanvasBoard,
     MainLayout,
   },
@@ -97,7 +99,7 @@ export default {
     </header>
 
     <section slot="presentation-content" class="presentation-content">
-      <aside class="sidebar"> sidebar </aside>
+      <item-obj-list></item-obj-list>
       <div class="canvas-box"> canvas </div>
     </section>
 

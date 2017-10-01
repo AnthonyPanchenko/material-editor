@@ -51,7 +51,20 @@ export default {
     </footer>
 
     <header slot="presentation-header" class="presentation-header">
-      <div class="controls-row"> presentation-header </div>
+      <div class="controls-row">
+        <button type="button" class="ctrl-btn-default">
+          <i class="icon-list" />
+        </button>
+        <button type="button" class="ctrl-btn-default">
+          Translate
+        </button>
+        <button type="button" class="ctrl-btn-default">
+          Rotate
+        </button>
+        <button type="button" class="ctrl-btn-default">
+          Scale
+        </button>
+      </div>
     </header>
 
     <section slot="presentation-content" class="presentation-content">
@@ -61,7 +74,10 @@ export default {
 
     <footer slot="presentation-footer" class="presentation-footer">
       <div class="controls-row">
-        <span class="label">FPS 60</span>
+        <span class="label fps">FPS 60</span>
+        <button type="button" class="ctrl-btn-default">
+          <i class="icon-maximize" />
+        </button>
       </div>
     </footer>
   </main-layout>

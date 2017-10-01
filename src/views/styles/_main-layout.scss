@@ -62,5 +62,12 @@
         flex: 1 1 100%;
       }
     }
+
+    .presentation-footer .controls-row {
+      .label.fps {
+        flex-grow: 20;
+        text-align: left;
+      }
+    }
   }
 }

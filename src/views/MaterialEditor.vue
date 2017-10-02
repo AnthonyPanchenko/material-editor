@@ -24,7 +24,7 @@ export default {
   <main-layout>
     <header slot="controls-header" class="controls-header">
       <div class="controls-row">
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-settings" />
         </button>
         <button type="button" class="ctrl-btn-default">
@@ -36,7 +36,7 @@ export default {
         <button type="button" class="ctrl-btn-default">
           Material
         </button>
-        <router-link :to="`/${urls.SHADER_EDITOR}`" class="ctrl-btn-default">
+        <router-link :to="`/${urls.SHADER_EDITOR}`" class="ctrl-btn-default xs">
           <i class="icon-shader-editor" />
         </router-link>
       </div>
@@ -52,16 +52,16 @@ export default {
 
     <header slot="presentation-header" class="presentation-header">
       <div class="controls-row">
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-list" />
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default md">
           Translate
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default md">
           Rotate
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default md">
           Scale
         </button>
       </div>
@@ -75,7 +75,7 @@ export default {
     <footer slot="presentation-footer" class="presentation-footer">
       <div class="controls-row">
         <span class="label fps">FPS 60</span>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-maximize" />
         </button>
       </div>

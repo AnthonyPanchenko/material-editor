@@ -37,7 +37,6 @@ i[class*=" icon-"] {
   > [class*=" ctrl-btn"] {
     font-size: 14px;
     text-align: center;
-    flex: 1 1 auto;
 
     i[class^="icon-"],
     i[class*=" icon-"] {
@@ -63,6 +62,7 @@ i[class*=" icon-"] {
   text-decoration: none;
   color: $ctrl-btn-color;
   font-size: 13px;
+  flex: 1 1 auto;
   padding: 5px;
 
   &:focus {
@@ -92,6 +92,22 @@ i[class*=" icon-"] {
     background-color: $ctrl-btn-danger-bg-color;
     color: $ctrl-btn-danger-color;
   }
+}
+
+.xs {
+  flex: 0 1 50px;
+}
+
+.sm {
+  flex: 0 1 100px;
+}
+
+.md {
+  flex: 0 1 150px;
+}
+
+.lg {
+  flex: 0 1 200px;
 }
 
 .ctrl-inp {

@@ -24,7 +24,7 @@ export default {
   <main-layout>
     <header slot="controls-header" class="controls-header">
       <div class="controls-row">
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-settings" />
         </button>
         <button type="button" class="ctrl-btn-default">
@@ -33,19 +33,19 @@ export default {
         <button type="button" class="ctrl-btn-default">
           <i class="icon-vertex" /> Vertex
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-new-file" />
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-save" />
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-folder" />
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-gallery" />
         </button>
-        <router-link :to="`/${urls.MATERIAL_EDITOR}`" class="ctrl-btn-default">
+        <router-link :to="`/${urls.MATERIAL_EDITOR}`" class="ctrl-btn-default xs">
           <i class="icon-material-editor" />
         </router-link>
       </div>
@@ -66,7 +66,7 @@ export default {
         <button type="button" class="ctrl-btn-default">
           Textures
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-expand-vertical" />
         </button>
       </div>
@@ -74,7 +74,7 @@ export default {
 
     <header slot="presentation-header" class="presentation-header">
       <div class="controls-row">
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-list" />
         </button>
         <button type="button" class="ctrl-btn-default">
@@ -92,7 +92,7 @@ export default {
         <button type="button" class="ctrl-btn-default">
           <i class="icon-plane" />
         </button>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-upload" />
         </button>
       </div>
@@ -106,7 +106,7 @@ export default {
     <footer slot="presentation-footer" class="presentation-footer">
       <div class="controls-row">
         <span class="label fps">FPS 60</span>
-        <button type="button" class="ctrl-btn-default">
+        <button type="button" class="ctrl-btn-default xs">
           <i class="icon-maximize" />
         </button>
       </div>

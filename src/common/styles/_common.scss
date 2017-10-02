@@ -1,6 +1,6 @@
 * {
   box-sizing: border-box;
-  cursor: default;
+  font-family: $body-font-family;
   padding: 0;
   margin: 0;
 }
@@ -13,8 +13,19 @@ body,
   overflow: hidden;
   color: $body-text-color;
   position: relative;
-  font-family: $body-font-family;
   background-color: $body-bg-color;
+}
+
+i[class^="icon-"],
+i[class*=" icon-"] {
+  font-family: 'icomoon' !important;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 .controls-row {

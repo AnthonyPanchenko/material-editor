@@ -1,23 +1,3 @@
-@font-face {
-  font-family: 'icomoon';
-  src: url('icomoon.eot?rvzxo8');
-  src: url('icomoon.eot?rvzxo8#iefix') format('embedded-opentype'), url('icomoon.ttf?rvzxo8') format('truetype'), url('icomoon.woff?rvzxo8') format('woff'), url('icomoon.svg?rvzxo8#icomoon') format('svg');
-  font-weight: normal;
-  font-style: normal;
-}
-
-i[class^="icon-"],
-i[class*=" icon-"] {
-  font-family: 'icomoon' !important;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .icon-arrow-down:before {
   content: "\e900";
 }

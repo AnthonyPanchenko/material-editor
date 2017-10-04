@@ -1,8 +1,8 @@
 <script>
-import Resizer from '../directives/Resizer';
-import ItemObjList from '../modules/item-obj-list/ItemObjList.vue';
-import CanvasBoard from '../modules/canvas-board/CanvasBoard.vue';
-import internalUrls from '../common/constants/internal-urls';
+import ItemObjList from '../item-obj-list/ItemObjList.vue';
+import CanvasBoard from '../canvas-board/CanvasBoard.vue';
+import internalUrls from '../../common/constants/internal-urls';
+import Resizer from '../../directives/Resizer';
 
 export default {
   name: 'MaterialEditor',

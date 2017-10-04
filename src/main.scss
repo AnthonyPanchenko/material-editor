@@ -3,12 +3,7 @@
 @import './common/styles/_reset';
 @import './common/styles/_common';
 @import './common/styles/_font-icons';
+@import './common/styles/_editor-container';
 
-@import './common/components/custom-button/_button';
-
-@import './views/styles/_main-layout';
-@import './views/styles/_material-editor';
-@import './views/styles/_shader-editor';
-@import './views/styles/_not-found';
-
-@import './modules/item-obj-list/styles/_item-obj-list';
+@import './components/item-obj-list/styles/_item-obj-list';
+@import './components/not-found/styles/_not-found';

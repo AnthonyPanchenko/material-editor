@@ -1,6 +1,6 @@
 import Vue from 'vue';
 import Vuex from 'vuex';
-import itemObjects from './modules/item-obj-list/vuex/store';
+import itemObjects from './components/item-obj-list/vuex/store';
 
 Vue.use(Vuex);
 

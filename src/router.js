@@ -2,9 +2,9 @@ import Vue from 'vue';
 import VueRouter from 'vue-router';
 import internalUrls from './common/constants/internal-urls';
 
-import MaterialEditor from './views/MaterialEditor.vue';
-import ShaderEditor from './views/ShaderEditor.vue';
-import NotFound from './views/NotFound.vue';
+import MaterialEditor from './components/material-editor/MaterialEditor.vue';
+import ShaderEditor from './components/shader-editor/ShaderEditor.vue';
+import NotFound from './components/not-found/NotFound.vue';
 
 Vue.use(VueRouter);
 

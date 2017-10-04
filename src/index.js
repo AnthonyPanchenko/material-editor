@@ -5,7 +5,6 @@ import Router from './router';
 import MainStore from './main-store';
 import * as apiConstants from './common/constants/api-constants';
 import * as fakeData from './fake-data';
-import './common/components/custom-button';
 
 import './main.scss';
 

@@ -25,7 +25,7 @@ export default {
     <header slot="controls-header" class="controls-header">
       <div class="controls-row">
         <button type="button" class="ctrl-btn-default xs">
-          <i class="icon-settings" />
+          <i class="icon-settings" aria-hidden="true" />
         </button>
         <button type="button" class="ctrl-btn-default">
           Object
@@ -37,7 +37,7 @@ export default {
           Material
         </button>
         <router-link :to="`/${urls.SHADER_EDITOR}`" class="ctrl-btn-default xs">
-          <i class="icon-shader-editor" />
+          <i class="icon-shader-editor" aria-hidden="true" />
         </router-link>
       </div>
     </header>
@@ -53,7 +53,7 @@ export default {
     <header slot="presentation-header" class="presentation-header">
       <div class="controls-row">
         <button type="button" class="ctrl-btn-default xs">
-          <i class="icon-list" />
+          <i class="icon-list" aria-hidden="true" />
         </button>
         <button type="button" class="ctrl-btn-default md">
           Translate
@@ -76,7 +76,7 @@ export default {
       <div class="controls-row">
         <span class="label fps">FPS 60</span>
         <button type="button" class="ctrl-btn-default xs">
-          <i class="icon-maximize" />
+          <i class="icon-maximize" aria-hidden="true" />
         </button>
       </div>
     </footer>

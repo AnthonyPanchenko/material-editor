@@ -1,0 +1,17 @@
+.resize-box {
+  position: relative;
+
+  .grab {
+    position: absolute;
+    cursor: col-resize;
+    background-color: $grab-color;
+    right: 0;
+    top: 0;
+    width: 2px;
+    bottom: 0;
+
+    &:hover {
+      background-color: $grab-hover-color;
+    }
+  }
+}

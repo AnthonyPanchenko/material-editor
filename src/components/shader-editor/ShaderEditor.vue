@@ -1,17 +1,15 @@
 <script>
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
+import ResizeBox from '../resize-box/ResizeBox.vue';
 import internalUrls from '../../common/constants/internal-urls';
-import Resizer from '../../directives/Resizer';
 
 export default {
   name: 'ShaderEditor',
   components: {
     ItemObjList,
     CanvasBoard,
-  },
-  directives: {
-    Resizer,
+    ResizeBox,
   },
   data() {
     return {
@@ -25,9 +23,8 @@ export default {
 <template>
   <div class="editor-container">
 
-    <section class="controls-layout">
-
-      <header slot="controls-header" class="controls-header">
+    <resize-box tag="section" resize="column" :size="45" className="controls-section">
+      <header class="controls-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">
             <i class="icon-settings" aria-hidden="true" />
@@ -56,11 +53,11 @@ export default {
         </div>
       </header>
 
-      <section slot="controls-content" class="controls-content">
+      <section class="controls-content">
         controls-content
       </section>
 
-      <footer slot="controls-footer" class="controls-footer">
+      <footer class="controls-footer">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default">
             Attributes
@@ -76,13 +73,10 @@ export default {
           </button>
         </div>
       </footer>
+    </resize-box>
 
-      <div class="grab" v-resizer="'column'" />
-    </section>
-
-    <section class="presentation-layout">
-
-      <header slot="presentation-header" class="presentation-header">
+    <section class="presentation-section">
+      <header class="presentation-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">
             <i class="icon-list" aria-hidden="true" />
@@ -108,12 +102,12 @@ export default {
         </div>
       </header>
 
-      <section slot="presentation-content" class="presentation-content">
+      <section class="presentation-content">
         <item-obj-list></item-obj-list>
         <div class="canvas-box"> canvas </div>
       </section>
 
-      <footer slot="presentation-footer" class="presentation-footer">
+      <footer class="presentation-footer">
         <div class="controls-row">
           <span class="label fps">FPS 60</span>
           <button type="button" class="ctrl-btn-default xs">
@@ -121,7 +115,6 @@ export default {
           </button>
         </div>
       </footer>
-
     </section>
 
   </div>

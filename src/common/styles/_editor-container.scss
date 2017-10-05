@@ -5,18 +5,17 @@
   flex-direction: row;
   display: flex;
 
-  .controls-layout,
-  .presentation-layout {
+  .controls-section,
+  .presentation-section {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
-    position: relative;
 
     .controls-header,
     .controls-footer,
     .presentation-header,
     .presentation-footer {
-      flex: 0 1 auto;
+      flex: 0 0 auto;
     }
 
     .controls-content,
@@ -27,30 +26,13 @@
     }
   }
 
-  .controls-layout {
+  .controls-section {
     flex-grow: 1;
     flex-shrink: 0;
-    flex-basis: 40%; // width calc via js
-    padding-right: 3px;
-
-    .grab {
-      position: absolute;
-      display: inline-block;
-      cursor: col-resize;
-      background-color: $grab-color;
-      right: 0;
-      top: 0;
-      width: 3px;
-      bottom: 0;
-      z-index: 2;
-
-      &:hover {
-        background-color: $grab-hover-color;
-      }
-    }
+    padding-right: 2px;
   }
 
-  .presentation-layout {
+  .presentation-section {
     flex: 1 1 100%;
 
     .presentation-content {

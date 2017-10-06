@@ -6,6 +6,7 @@ import internalUrls from '../../common/constants/internal-urls';
 
 export default {
   name: 'MaterialEditor',
+  store: $store.state.materialEditor,
   components: {
     ItemObjList,
     CanvasBoard,
@@ -23,7 +24,7 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box tag="section" resize="column" :size="30" className="controls-section">
+    <resize-box tag="section" resize="column" :size="$store.state.materialEditor.widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">

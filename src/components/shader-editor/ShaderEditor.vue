@@ -23,7 +23,7 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box tag="section" resize="column" :size="45" className="controls-section">
+    <resize-box tag="section" resize="column" :size="$store.state.shaderEditor.widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">

@@ -8,6 +8,9 @@ export default {
       type: String,
       default: 'div',
     },
+    onEndOfResize: {
+      type: Function,
+    },
     className: {
       type: String,
     },
@@ -52,6 +55,10 @@ export default {
     },
     completeResize() {
       this.grabState[this.resize] = false;
+
+      if (typeof this.onEndOfResize === 'function') {
+        this.onEndOfResize(this.size);
+      }
     },
   },
   mounted() {

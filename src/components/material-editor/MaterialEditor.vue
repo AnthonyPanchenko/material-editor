@@ -1,5 +1,7 @@
 <script>
-import { mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
+
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
@@ -19,16 +21,15 @@ export default {
       urls: internalUrls,
     }
   },
-  methods: mapActions({
-    onSetCtrlBoxWidth: actionTypes.MATERIAL_EDITOR_ON_SET_CTRL_BOX_WIDTH,
-  }),
+  computed: mapState(['widthCtrlBox', 'isVisibleControlsBox', 'isVisibleObjectsList']),
+  methods: mapActions(['onSetCtrlBoxWidth']),
 }
 </script>
 
 <template>
   <div class="editor-container">
 
-    <resize-box tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="$store.state.materialEditor.widthCtrlBox" className="controls-section">
+    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">
@@ -77,7 +78,7 @@ export default {
       </header>
 
       <section class="presentation-content">
-        <item-obj-list></item-obj-list>
+        <item-obj-list v-if="isVisibleObjectsList" />
         <div class="canvas-box"> canvas </div>
       </section>
 

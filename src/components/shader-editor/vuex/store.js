@@ -3,10 +3,12 @@ import mutations from './mutations';
 // import getters from './getters';
 
 const shaderEditor = {
+  namespaced: true,
   state: {
     shaders: [],
-    isVisibleCtrlBox: true,
-    widthCtrlBox: 45,
+    isVisibleControlsBox: true,
+    isVisibleObjectsList: true,
+    widthCtrlBox: 47,
   },
   actions,
   mutations,

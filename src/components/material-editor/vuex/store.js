@@ -3,10 +3,12 @@ import mutations from './mutations';
 // import getters from './getters';
 
 const materialEditor = {
+  namespaced: true,
   state: {
     materials: [],
-    isVisibleCtrlBox: true,
-    widthCtrlBox: 30,
+    isVisibleControlsBox: true,
+    isVisibleObjectsList: true,
+    widthCtrlBox: 21,
   },
   actions,
   mutations,

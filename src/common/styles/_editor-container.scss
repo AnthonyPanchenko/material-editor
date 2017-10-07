@@ -1,6 +1,5 @@
 .editor-container {
   background-color: inherit;
-  box-shadow: 0px 1px 3px 0px #484848;
   width: inherit;
   height: inherit;
   flex-wrap: nowrap;
@@ -14,17 +13,20 @@
     flex-direction: column;
 
     .controls-header,
+    .presentation-header {
+      flex: 0 0 auto;
+      border-bottom: 1px solid $content-border-color;
+    }
+
     .controls-footer,
-    .presentation-header,
     .presentation-footer {
       flex: 0 0 auto;
+      border-top: 1px solid $content-border-color;
     }
 
     .controls-content,
     .presentation-content {
       flex: 1 2 100%;
-      border-bottom: 1px solid $content-border-color;
-      border-top: 1px solid $content-border-color;
     }
   }
 

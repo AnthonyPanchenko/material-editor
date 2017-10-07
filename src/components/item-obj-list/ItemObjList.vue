@@ -1,7 +1,8 @@
 <script>
-import { mapActions } from 'vuex';
+import { createNamespacedHelpers } from 'vuex';
+const { mapActions } = createNamespacedHelpers('itemObjects');
+
 import mutationTypes from '../../common/constants/mutation-types';
-import actionTypes from '../../common/constants/action-types';
 import * as apiConstants from '../../common/constants/api-constants';
 
 export default {
@@ -14,12 +15,6 @@ export default {
   beforeMount() {
     this.getItemObjList();
   },
-  mounted() {
-    console.log('mounted ItemObjList');
-  },
-  updated() {
-    console.log('updated ItemObjList');
-  },
   methods: {
     getItemObjList() {
       this.$http({
@@ -30,7 +25,7 @@ export default {
           console.log('start to run spinner');
         },
       }).then(res => {
-        this.$store.commit(mutationTypes.LOAD_ITEM_OBJ_LIST_SUCCESS, { list: res.body });
+        this.$store.commit(mutationTypes.LOAD_ITEM_OBJ_LIST_SUCCESS, res.body);
       }, res => {
         console.log('error', res);
       });
@@ -43,9 +38,7 @@ export default {
       //   id: userId,
       // });
     },
-    ...mapActions({
-      onRemoveItemObjById: actionTypes.ON_REMOVE_ITEM_OBJ_BY_ID,
-    }),
+    ...mapActions(['onRemoveItemObjById']),
   },
 }
 </script>
@@ -57,7 +50,7 @@ export default {
         <i class="icon-eye" />
       </button>
       <button type="button" class="obj-name ctrl-btn-default">{{obj.title}}</button>
-      <button type="button" class="trash-bin ctrl-btn-danger" v-on:click="onRemoveItemObjById({ id: obj.id })">
+      <button type="button" class="trash-bin ctrl-btn-danger" v-on:click="onRemoveItemObjById(obj.id)">
         <i class="icon-trash-bin" />
       </button>
     </div>

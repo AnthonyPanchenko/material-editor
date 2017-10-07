@@ -3,6 +3,7 @@ import { sync } from 'vuex-router-sync';
 import VueResource from 'vue-resource';
 import Router from './router';
 import MainStore from './main-store';
+import MainLayout from './components/main-layout/MainLayout.vue';
 import * as apiConstants from './common/constants/api-constants';
 import * as fakeData from './fake-data';
 
@@ -47,6 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 const App = new Vue({
   router: Router,
   store: MainStore,
+  render: createElement => createElement(MainLayout),
 });
 
 App.$mount('#app');

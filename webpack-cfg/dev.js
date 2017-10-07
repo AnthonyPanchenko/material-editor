@@ -11,7 +11,7 @@ const resultConfig = Object.assign({}, {
   entry: [
     `webpack-dev-server/client?http://${config.clientHost}:${config.clientPort}`,
     'webpack/hot/only-dev-server',
-    './src/index',
+    './src/main',
   ],
 
   plugins: [

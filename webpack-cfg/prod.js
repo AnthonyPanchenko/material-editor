@@ -3,7 +3,7 @@ const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
 
 const resultConfig = Object.assign({}, {
-  entry: ['./src/index'],
+  entry: ['./src/main'],
 
   plugins: [
     new webpack.NoEmitOnErrorsPlugin(),

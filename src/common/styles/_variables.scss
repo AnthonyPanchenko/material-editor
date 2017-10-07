@@ -1,9 +1,9 @@
 $body-text-color: #9e9e9e;
-$body-bg-color: #272727;
+$body-bg-color: #262626;
 $body-font-family: 'Oxygen', Arial, sans-serif;
 
 $controls-row-height: 30px;
-$controls-row-bg: lighten($body-bg-color, 5%);
+$controls-row-bg: lighten($body-bg-color, 7%);
 
 $ctrl-border-color: lighten($body-bg-color, 15%);
 
@@ -14,7 +14,7 @@ $content-border-color: lighten($body-bg-color, 12%);
 $grab-color: lighten($body-bg-color, 12%);
 $grab-hover-color: #41586c;
 
-$ctrl-btn-bg-color: #343434;
+$ctrl-btn-bg-color: lighten($body-bg-color, 7%);
 $ctrl-btn-color: #6b7a82;
 
 $ctrl-btn-default-color: #64add1;

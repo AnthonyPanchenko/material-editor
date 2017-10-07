@@ -2,10 +2,8 @@ import mutationTypes from '../../../common/constants/mutation-types';
 import actionTypes from '../../../common/constants/action-types';
 
 const actions = {
-  [actionTypes.ON_REMOVE_ITEM_OBJ_BY_ID](context, payload) { // ({ commit, state })
-    context.commit(mutationTypes.REMOVE_ITEM_OBJ_BY_ID, {
-      id: payload.id,
-    });
+  [actionTypes.MATERIAL_EDITOR_ON_SET_CTRL_BOX_WIDTH](context, width) { // ({ commit, state })
+    context.commit(mutationTypes.MATERIAL_EDITOR_SET_CTRL_BOX_WIDTH, width);
   },
 };
 

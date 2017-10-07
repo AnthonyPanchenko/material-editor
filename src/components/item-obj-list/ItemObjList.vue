@@ -42,7 +42,6 @@ export default {
       // this.$store.commit(mutationTypes.REMOVE_USER_BY_ID, {
       //   id: userId,
       // });
-      // this.onRemoveItemObjById({ id: userId });
     },
     ...mapActions({
       onRemoveItemObjById: actionTypes.ON_REMOVE_ITEM_OBJ_BY_ID,

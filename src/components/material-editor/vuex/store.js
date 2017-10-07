@@ -1,6 +1,6 @@
-// import actions from './actions';
+import actions from './actions';
+import mutations from './mutations';
 // import getters from './getters';
-// import mutations from './mutations';
 
 const materialEditor = {
   state: {
@@ -8,8 +8,8 @@ const materialEditor = {
     isVisibleCtrlBox: true,
     widthCtrlBox: 30,
   },
-  // actions,
-  // mutations,
+  actions,
+  mutations,
   // getters,
 };
 

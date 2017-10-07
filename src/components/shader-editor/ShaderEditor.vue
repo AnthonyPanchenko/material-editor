@@ -1,7 +1,9 @@
 <script>
+import { mapActions } from 'vuex';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
+import actionTypes from '../../common/constants/action-types';
 import internalUrls from '../../common/constants/internal-urls';
 
 export default {
@@ -17,13 +19,16 @@ export default {
       urls: internalUrls,
     }
   },
+  methods: mapActions({
+    onSetCtrlBoxWidth: actionTypes.SHADER_EDITOR_ON_SET_CTRL_BOX_WIDTH,
+  }),
 }
 </script>
 
 <template>
   <div class="editor-container">
 
-    <resize-box tag="section" resize="column" :size="$store.state.shaderEditor.widthCtrlBox" className="controls-section">
+    <resize-box tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="$store.state.shaderEditor.widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <button type="button" class="ctrl-btn-default xs">

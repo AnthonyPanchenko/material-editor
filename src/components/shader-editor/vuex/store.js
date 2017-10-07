@@ -1,6 +1,6 @@
-// import actions from './actions';
+import actions from './actions';
+import mutations from './mutations';
 // import getters from './getters';
-// import mutations from './mutations';
 
 const shaderEditor = {
   state: {
@@ -8,8 +8,8 @@ const shaderEditor = {
     isVisibleCtrlBox: true,
     widthCtrlBox: 45,
   },
-  // actions,
-  // mutations,
+  actions,
+  mutations,
   // getters,
 };
 

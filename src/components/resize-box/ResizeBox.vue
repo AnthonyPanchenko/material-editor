@@ -25,6 +25,7 @@ export default {
   },
   data() {
     return {
+      currentSize: this.size,
       rootNode: null,
       grab: null,
       grabState: {
@@ -44,20 +45,20 @@ export default {
       if (this.grabState.row) {
         const currentY = this.rootNode.parentNode.clientHeight - e.pageY;
         const heightPercentages = (currentY * 100) / this.rootNode.parentNode.clientHeight;
-        this.size = clamp(heightPercentages, 0, 100);
+        this.currentSize = clamp(heightPercentages, 0, 100);
       }
 
       if (this.grabState.column) {
         const currentX = this.rootNode.parentNode.clientWidth - e.pageX;
         const widthPercentages = 100 - ((currentX * 100) / this.rootNode.parentNode.clientWidth);
-        this.size = clamp(widthPercentages, 0, 100);
+        this.currentSize = clamp(widthPercentages, 0, 100);
       }
     },
     completeResize() {
       this.grabState[this.resize] = false;
 
       if (typeof this.onEndOfResize === 'function') {
-        this.onEndOfResize(this.size);
+        this.onEndOfResize(this.currentSize);
       }
     },
   },
@@ -77,7 +78,7 @@ export default {
   render(createElement) {
     return createElement(
       this.tag,
-      { class: `${this.className} resize-box`, ref: 'rootNode', style: { 'flex-basis': `${this.size}%` } },
+      { class: `${this.className} resize-box`, ref: 'rootNode', style: { 'flex-basis': `${this.currentSize}%` } },
       [
         this.$slots.default,
         createElement('div', { class: 'grab', ref: 'grab' })

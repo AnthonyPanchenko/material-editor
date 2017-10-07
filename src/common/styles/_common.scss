@@ -28,34 +28,6 @@ i[class*=" icon-"] {
   -moz-osx-font-smoothing: grayscale;
 }
 
-.controls-row {
-  display: flex;
-  height: $controls-row-height;
-  background-color: $controls-row-bg;
-
-  > [class^="ctrl-btn"],
-  > [class*=" ctrl-btn"] {
-    font-size: 14px;
-    text-align: center;
-
-    i[class^="icon-"],
-    i[class*=" icon-"] {
-      font-size: 17px;
-    }
-
-    &:not(:first-child) {
-      border-left: 1px solid $ctrl-border-color;
-    }
-  }
-
-  .label {
-    text-align: center;
-    align-self: center;
-    font-size: 14px;
-    padding: 5px;
-  }
-}
-
 [class^="ctrl-btn"],
 [class*=" ctrl-btn"] {
   background-color: $ctrl-btn-bg-color;
@@ -64,6 +36,9 @@ i[class*=" icon-"] {
   font-size: 13px;
   flex: 1 1 auto;
   padding: 5px;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  overflow: hidden;
 
   &:focus {
     outline: none;
@@ -91,6 +66,34 @@ i[class*=" icon-"] {
   &:hover {
     background-color: $ctrl-btn-danger-bg-color;
     color: $ctrl-btn-danger-color;
+  }
+}
+
+.controls-row {
+  display: flex;
+  height: $controls-row-height;
+  background-color: $controls-row-bg;
+
+  > [class^="ctrl-btn"],
+  > [class*=" ctrl-btn"] {
+    font-size: 14px;
+    text-align: center;
+
+    i[class^="icon-"],
+    i[class*=" icon-"] {
+      font-size: 17px;
+    }
+
+    &:not(:first-child) {
+      border-left: 1px solid $ctrl-border-color;
+    }
+  }
+
+  .label {
+    text-align: center;
+    align-self: center;
+    font-size: 14px;
+    padding: 5px;
   }
 }
 

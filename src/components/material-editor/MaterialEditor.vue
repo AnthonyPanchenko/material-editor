@@ -16,12 +16,11 @@ export default {
   },
   data() {
     return {
-      pageName: 'MaterialEditor',
       urls: internalUrls,
     }
   },
   computed: mapState(['widthCtrlBox', 'isVisibleControlsBox', 'isVisibleObjectsList']),
-  methods: mapActions(['onSetCtrlBoxWidth']),
+  methods: mapActions(['onSetCtrlBoxWidth', 'onToggleObjectsList']),
 }
 </script>
 
@@ -61,7 +60,7 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <button type="button" class="ctrl-btn-default xs">
+          <button type="button" class="ctrl-btn-default xs" @click="onToggleObjectsList">
             <i class="icon-list" aria-hidden="true" />
           </button>
           <button type="button" class="ctrl-btn-default md">
@@ -77,7 +76,9 @@ export default {
       </header>
 
       <section class="presentation-content">
-        <item-obj-list v-if="isVisibleObjectsList" />
+        <transition name="slide-obj-list">
+          <item-obj-list v-if="isVisibleObjectsList" />
+        </transition>
         <div class="canvas-box"> canvas </div>
       </section>
 

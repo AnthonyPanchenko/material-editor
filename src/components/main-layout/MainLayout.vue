@@ -5,7 +5,7 @@ export default {
 </script>
 
 <template>
-  <transition name="slide">
+  <transition name="page-fade">
     <router-view></router-view>
   </transition>
 </template>

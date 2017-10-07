@@ -5,7 +5,6 @@ const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
-import actionTypes from '../../common/constants/action-types';
 import internalUrls from '../../common/constants/internal-urls';
 
 export default {

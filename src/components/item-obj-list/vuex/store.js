@@ -3,6 +3,7 @@ import getters from './getters';
 import mutations from './mutations';
 
 const itemObjects = {
+  namespaced: true,
   state: {
     list: [],
   },

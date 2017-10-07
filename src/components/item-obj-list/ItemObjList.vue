@@ -16,6 +16,7 @@ export default {
     this.getItemObjList();
   },
   methods: {
+    ...mapActions(['onRemoveItemObjById', 'onSuccessLoadObjectsList']),
     getItemObjList() {
       this.$http({
         url: apiConstants.GET_MATERIAL_EDITOR_ITEM_OBJ_LIST,
@@ -25,20 +26,11 @@ export default {
           console.log('start to run spinner');
         },
       }).then(res => {
-        this.$store.commit(mutationTypes.LOAD_ITEM_OBJ_LIST_SUCCESS, res.body);
+        this.onSuccessLoadObjectsList(res.body);
       }, res => {
         console.log('error', res);
       });
     },
-    onRemoveUser(/* userId */) {
-      // this.$store.dispatch(actionTypes.ON_REMOVE_USER_BY_ID, {
-      //   id: userId,
-      // });
-      // this.$store.commit(mutationTypes.REMOVE_USER_BY_ID, {
-      //   id: userId,
-      // });
-    },
-    ...mapActions(['onRemoveItemObjById']),
   },
 }
 </script>

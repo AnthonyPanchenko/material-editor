@@ -7,6 +7,10 @@ const mutations = {
   [mutationTypes.SHOW_HIDE_OBJECTS_LIST](state) {
     state.isVisibleObjectsList = !state.isVisibleObjectsList;
   },
+  [mutationTypes.TOGGLE_FULLSCREEN_MODE](state) {
+    state.isVisibleObjectsList = !state.isVisibleControlsBox && state.isVisibleObjectsList;
+    state.isVisibleControlsBox = !state.isVisibleControlsBox;
+  },
 };
 
 export default mutations;

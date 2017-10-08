@@ -4,6 +4,7 @@ const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
+import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
 import internalUrls from '../../common/constants/internal-urls';
 
@@ -13,6 +14,7 @@ export default {
     ItemObjList,
     CanvasBoard,
     ResizeBox,
+    PresentationFooter,
   },
   data() {
     return {
@@ -20,7 +22,7 @@ export default {
     }
   },
   computed: mapState(['widthCtrlBox', 'isVisibleControlsBox', 'isVisibleObjectsList']),
-  methods: mapActions(['onSetCtrlBoxWidth', 'onToggleObjectsList']),
+  methods: mapActions(['onSetCtrlBoxWidth', 'onToggleObjectsList', 'onToggleFullScreenMode']),
 }
 </script>
 
@@ -113,14 +115,7 @@ export default {
         <div class="canvas-box"> canvas </div>
       </section>
 
-      <footer class="presentation-footer">
-        <div class="controls-row">
-          <span class="label fps">FPS 60</span>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-maximize" aria-hidden="true" />
-          </button>
-        </div>
-      </footer>
+      <presentation-footer :onToggleFullScreenMode="onToggleFullScreenMode" />
     </section>
 
   </div>

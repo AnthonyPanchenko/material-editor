@@ -7,6 +7,9 @@ const actions = {
   onToggleObjectsList(context) {
     context.commit(mutationTypes.SHOW_HIDE_OBJECTS_LIST);
   },
+  onToggleFullScreenMode(context) {
+    context.commit(mutationTypes.TOGGLE_FULLSCREEN_MODE);
+  },
 };
 
 export default actions;

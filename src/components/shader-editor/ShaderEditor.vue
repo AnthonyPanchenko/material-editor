@@ -115,7 +115,7 @@ export default {
         <div class="canvas-box"> canvas </div>
       </section>
 
-      <presentation-footer :onToggleFullScreenMode="onToggleFullScreenMode" />
+      <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />
     </section>
 
   </div>

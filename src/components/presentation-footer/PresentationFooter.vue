@@ -6,6 +6,10 @@ export default {
       type: Function,
       required: true,
     },
+    isInFullScreenMode: {
+      type: Boolean,
+      default: true,
+    },
   },
 }
 </script>
@@ -15,7 +19,7 @@ export default {
     <div class="controls-row">
       <span class="label fps">FPS 60</span>
       <button type="button" class="ctrl-btn-default xs" @click="onToggleFullScreenMode">
-        <i class="icon-maximize" aria-hidden="true" />
+        <i :class="!isInFullScreenMode ? 'icon-minimize' : 'icon-maximize'" aria-hidden="true" />
       </button>
     </div>
   </footer>

@@ -1,29 +1,21 @@
 <script>
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+
 export default {
   name: 'ShaderEditorFooter',
-  // isVisibleFooterContent
+  components: {
+    CustomBtn,
+  },
 }
 </script>
 
 <template>
   <footer class="controls-footer shader-editor-footer">
     <div class="controls-row">
-      <button type="button" class="ctrl-btn-default" disabled>
-        Attributes
-      </button>
-      <button type="button" class="ctrl-btn-default active">
-        <i class="icon-plus" aria-hidden="true" /> Uniforms
-      </button>
-      <button type="button" class="ctrl-btn-default">
-        Textures
-      </button>
-      <button type="button" class="ctrl-btn-default xs" @dblclick="onToggleFooterContent">
-        <i class="icon-expand-vertical" aria-hidden="true" />
-      </button>
-    </div>
-
-    <div class="shader-settings">
-
+      <custom-btn title="Attributes" disabled />
+      <custom-btn title="Uniforms" iconClass="icon-plus" customClass="ctrl-btn-default active" />
+      <custom-btn title="Textures" />
+      <custom-btn iconClass="icon-expand-vertical" customClass="ctrl-btn-default xs" />
     </div>
   </footer>
 </template>

@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
@@ -11,6 +12,7 @@ import internalUrls from '../../common/constants/internal-urls';
 export default {
   name: 'MaterialEditor',
   components: {
+    CustomBtn,
     ItemObjList,
     CanvasBoard,
     ResizeBox,
@@ -32,21 +34,11 @@ export default {
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-settings" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            Object
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            Geometry
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            Material
-          </button>
-          <router-link :to="`/${urls.SHADER_EDITOR}`" class="ctrl-btn-default xs">
-            <i class="icon-shader-editor" aria-hidden="true" />
-          </router-link>
+          <custom-btn iconClass="icon-settings" customClass="ctrl-btn-default xs" />
+          <custom-btn title="Object" />
+          <custom-btn title="Geometry" />
+          <custom-btn title="Material" />
+          <custom-btn :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-shader-editor" customClass="ctrl-btn-default xs" />
         </div>
       </header>
 
@@ -62,18 +54,10 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <button type="button" class="ctrl-btn-default xs" @click="onToggleObjectsList">
-            <i class="icon-list" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default md">
-            Translate
-          </button>
-          <button type="button" class="ctrl-btn-default md">
-            Rotate
-          </button>
-          <button type="button" class="ctrl-btn-default md">
-            Scale
-          </button>
+          <custom-btn iconClass="icon-list" customClass="ctrl-btn-default xs" :onCustomClick="onToggleObjectsList" />
+          <custom-btn title="Translate" customClass="ctrl-btn-default md" />
+          <custom-btn title="Rotate" customClass="ctrl-btn-default md" />
+          <custom-btn title="Scale" customClass="ctrl-btn-default md" />
         </div>
       </header>
 

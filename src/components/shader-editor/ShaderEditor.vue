@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
@@ -12,6 +13,7 @@ import internalUrls from '../../common/constants/internal-urls';
 export default {
   name: 'ShaderEditor',
   components: {
+    CustomBtn,
     ItemObjList,
     CanvasBoard,
     ResizeBox,
@@ -34,30 +36,14 @@ export default {
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" className="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-settings" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-fragment" aria-hidden="true" /> Fragment
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-vertex" aria-hidden="true" /> Vertex
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-new-file" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-save" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-folder" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-gallery" aria-hidden="true" />
-          </button>
-          <router-link :to="`/${urls.MATERIAL_EDITOR}`" class="ctrl-btn-default xs">
-            <i class="icon-material-editor" aria-hidden="true" />
-          </router-link>
+          <custom-btn iconClass="icon-settings" customClass="ctrl-btn-default xs" />
+          <custom-btn title="Fragment" />
+          <custom-btn title="Vertex" />
+          <custom-btn iconClass="icon-new-file" customClass="ctrl-btn-default xs" />
+          <custom-btn iconClass="icon-save" customClass="ctrl-btn-default xs" />
+          <custom-btn iconClass="icon-folder" customClass="ctrl-btn-default xs" />
+          <custom-btn iconClass="icon-gallery" customClass="ctrl-btn-default xs" />
+          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" iconClass="icon-material-editor" customClass="ctrl-btn-default xs" />
         </div>
       </header>
 
@@ -71,27 +57,13 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <button type="button" class="ctrl-btn-default xs" @click="onToggleObjectsList">
-            <i class="icon-list" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-sphere" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-cube" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-cylinder" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-torus" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-plane" aria-hidden="true" />
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-upload" aria-hidden="true" />
-          </button>
+          <custom-btn iconClass="icon-list" customClass="ctrl-btn-default xs" :onCustomClick="onToggleObjectsList" />
+          <custom-btn iconClass="icon-sphere" />
+          <custom-btn iconClass="icon-cube" />
+          <custom-btn iconClass="icon-cylinder" />
+          <custom-btn iconClass="icon-torus" />
+          <custom-btn iconClass="icon-plane" />
+          <custom-btn iconClass="icon-upload" customClass="ctrl-btn-default xs" />
         </div>
       </header>
 

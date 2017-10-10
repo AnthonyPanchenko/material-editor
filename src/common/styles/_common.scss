@@ -27,76 +27,10 @@ i[class*=" icon-"] {
   -moz-osx-font-smoothing: grayscale;
 }
 
-[class^="ctrl-btn"],
-[class*=" ctrl-btn"] {
-  background-color: $ctrl-btn-bg-color;
-  text-decoration: none;
-  color: $ctrl-btn-color;
-  font-size: 13px;
-  flex: 1 1 auto;
-  padding: 5px;
-  white-space: nowrap;
-  text-overflow: ellipsis;
-  overflow: hidden;
-
-  &:focus {
-    outline: none;
-  }
-
-  &:disabled {
-    color: #000;
-
-    &:hover {
-      cursor: not-allowed;
-      background: none;
-      color: #000;
-    }
-  }
-}
-
-.ctrl-btn-default {
-  &.active {
-    background-color: $ctrl-btn-default-bg-color;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: $ctrl-btn-default-bg-color;
-    color: $ctrl-btn-default-color;
-  }
-}
-
-.ctrl-btn-danger {
-  &.active {
-    background-color: $ctrl-btn-danger-bg-color;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: $ctrl-btn-danger-bg-color;
-    color: $ctrl-btn-danger-color;
-  }
-}
-
 .controls-row {
   display: flex;
   height: $controls-row-height;
   background-color: $controls-row-bg;
-
-  > [class^="ctrl-btn"],
-  > [class*=" ctrl-btn"] {
-    font-size: 13.5px;
-    text-align: center;
-
-    i[class^="icon-"],
-    i[class*=" icon-"] {
-      font-size: 17px;
-    }
-
-    &:not(:first-child) {
-      border-left: 1px solid $ctrl-border-color;
-    }
-  }
 
   .label {
     text-align: center;
@@ -106,26 +40,9 @@ i[class*=" icon-"] {
   }
 }
 
-.xs {
-  flex: 0 1 50px;
-}
-
-.sm {
-  flex: 0 1 100px;
-}
-
-.md {
-  flex: 0 1 150px;
-}
-
-.lg {
-  flex: 0 1 200px;
-}
-
 .ctrl-inp {
   &:focus {
     outline: none;
     box-shadow: 0 0 2px 0 #64add1 inset;
   }
 }
-

@@ -1,6 +1,7 @@
 import actions from './actions';
 import mutations from './mutations';
 // import getters from './getters';
+import tabNames from '../constants/tabNames';
 
 const materialEditor = {
   namespaced: true,
@@ -8,6 +9,7 @@ const materialEditor = {
     materials: [],
     isVisibleControlsBox: true,
     isVisibleObjectsList: true,
+    activeTabName: tabNames.MATERIAL,
     widthCtrlBox: 21,
   },
   actions,

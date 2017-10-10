@@ -6,6 +6,7 @@ import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ResizeBox from '../resize-box/ResizeBox.vue';
+import ShaderEditorFooter from '../shader-editor-footer/ShaderEditorFooter.vue';
 import internalUrls from '../../common/constants/internal-urls';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     ItemObjList,
     CanvasBoard,
     ResizeBox,
+    ShaderEditorFooter,
     PresentationFooter,
   },
   data() {
@@ -63,22 +65,7 @@ export default {
         controls-content
       </section>
 
-      <footer class="controls-footer">
-        <div class="controls-row">
-          <button type="button" class="ctrl-btn-default">
-            Attributes
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            <i class="icon-plus" aria-hidden="true" /> Uniforms
-          </button>
-          <button type="button" class="ctrl-btn-default">
-            Textures
-          </button>
-          <button type="button" class="ctrl-btn-default xs">
-            <i class="icon-expand-vertical" aria-hidden="true" />
-          </button>
-        </div>
-      </footer>
+      <shader-editor-footer />
     </resize-box>
 
     <section class="presentation-section">

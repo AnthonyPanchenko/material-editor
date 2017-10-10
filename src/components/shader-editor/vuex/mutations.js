@@ -7,6 +7,9 @@ const mutations = {
   [mutationTypes.SHOW_HIDE_OBJECTS_LIST](state) {
     state.isVisibleObjectsList = !state.isVisibleObjectsList;
   },
+  [mutationTypes.SET_ACTIVE_TAB_NAME](state, activeTabName) {
+    state.activeTabName = activeTabName;
+  },
   [mutationTypes.TOGGLE_FULLSCREEN_MODE](state) {
     state.isVisibleObjectsList = !state.isVisibleControlsBox && state.isVisibleObjectsList;
     state.isVisibleControlsBox = !state.isVisibleControlsBox;

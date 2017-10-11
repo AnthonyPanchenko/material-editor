@@ -24,8 +24,10 @@ export default {
       <custom-btn title="Textures" />
       <custom-btn iconClass="icon-expand-vertical" customClass="ctrl-btn-default xs" />
     </div>
-    <div v-if="isVisibleFooterContent">
-      footer content
-    </div>
+    <transition name="footer-content">
+      <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
+        footer content
+      </div>
+    </transition>
   </resize-box>
 </template>

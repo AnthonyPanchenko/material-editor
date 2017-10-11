@@ -1,5 +1,6 @@
 <script>
 import clamp from '../../common/utils/clamp';
+import noop from '../../common/utils/noop';
 
 export default {
   name: 'ResizeBox',
@@ -10,9 +11,14 @@ export default {
     },
     onEndOfResize: {
       type: Function,
+      default: noop,
     },
     customClass: {
       type: String,
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     resize: {
       type: String,
@@ -27,7 +33,6 @@ export default {
     return {
       currentSize: this.size,
       rootNode: null,
-      grab: null,
       grabState: {
         column: false,
         row: false,
@@ -56,31 +61,25 @@ export default {
     },
     completeResize() {
       this.grabState[this.resize] = false;
-
-      if (typeof this.onEndOfResize === 'function') {
-        this.onEndOfResize(this.currentSize);
-      }
+      this.onEndOfResize(this.currentSize);
     },
   },
   mounted() {
     this.rootNode = this.$refs.rootNode;
-    this.grab = this.$refs.grab;
 
-    this.grab.addEventListener('mousedown', this.startResize);
     document.addEventListener('mousemove', this.processResize);
     document.addEventListener('mouseup', this.completeResize);
   },
   beforeDestroy() {
-    this.grab.removeEventListener('mousedown', this.startResize);
     document.removeEventListener('mousemove', this.processResize);
     document.removeEventListener('mouseup', this.completeResize);
   },
   render(createElement) {
     return createElement(
       this.tag,
-      { class: `${this.customClass} resize-box`, ref: 'rootNode', style: { 'flex-basis': `${this.currentSize}%` } },
+      { class: `${this.customClass} resize-box`, ref: 'rootNode', style: { 'flex-basis': this.disabled ? 'auto' : `${this.currentSize}%` } },
       [
-        createElement('div', { class: 'grab', ref: 'grab' }),
+        this.disabled ? null : createElement('div', { on: { mousedown: this.startResize }, class: `grab-resize-${this.resize}` }),
         this.$slots.default,
       ]
     )

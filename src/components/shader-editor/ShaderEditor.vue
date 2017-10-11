@@ -33,7 +33,7 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" className="controls-section">
+    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn iconClass="icon-settings" customClass="ctrl-btn-default xs" />

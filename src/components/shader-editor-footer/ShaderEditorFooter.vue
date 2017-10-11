@@ -1,21 +1,31 @@
 <script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
+
+import ResizeBox from '../resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
   name: 'ShaderEditorFooter',
   components: {
     CustomBtn,
+    ResizeBox,
   },
+  computed: mapState(['isVisibleFooterContent', 'activeTabName', 'footerHeight']),
+  methods: mapActions(['onToggleFooterContent', 'onSetActiveTabName', 'onSetFooterHeight']),
 }
 </script>
 
 <template>
-  <footer class="controls-footer shader-editor-footer">
+  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" customClass="controls-footer shader-editor-footer">
     <div class="controls-row">
       <custom-btn title="Attributes" disabled />
       <custom-btn title="Uniforms" iconClass="icon-plus" customClass="ctrl-btn-default active" />
       <custom-btn title="Textures" />
       <custom-btn iconClass="icon-expand-vertical" customClass="ctrl-btn-default xs" />
     </div>
-  </footer>
+    <div v-if="isVisibleFooterContent">
+      footer content
+    </div>
+  </resize-box>
 </template>

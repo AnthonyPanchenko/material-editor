@@ -13,6 +13,7 @@ const mutationTypes = {
 
   SHOW_HIDE_OBJECTS_LIST: 'SHOW_HIDE_OBJECTS_LIST',
   SET_CTRL_BOX_WIDTH: 'SET_CTRL_BOX_WIDTH',
+  SET_FOOTER_HEIGHT: 'SET_FOOTER_HEIGHT',
 };
 
 export default mutationTypes;

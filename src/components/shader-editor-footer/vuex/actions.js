@@ -7,6 +7,9 @@ const actions = {
   onSetActiveTabName(context, activeTabName) {
     context.commit(mutationTypes.SET_ACTIVE_TAB_NAME, activeTabName);
   },
+  onSetFooterHeight(context, height) {
+    context.commit(mutationTypes.SET_FOOTER_HEIGHT, height);
+  },
 };
 
 export default actions;

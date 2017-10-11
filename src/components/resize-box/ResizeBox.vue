@@ -11,7 +11,7 @@ export default {
     onEndOfResize: {
       type: Function,
     },
-    className: {
+    customClass: {
       type: String,
     },
     resize: {
@@ -78,10 +78,10 @@ export default {
   render(createElement) {
     return createElement(
       this.tag,
-      { class: `${this.className} resize-box`, ref: 'rootNode', style: { 'flex-basis': `${this.currentSize}%` } },
+      { class: `${this.customClass} resize-box`, ref: 'rootNode', style: { 'flex-basis': `${this.currentSize}%` } },
       [
+        createElement('div', { class: 'grab', ref: 'grab' }),
         this.$slots.default,
-        createElement('div', { class: 'grab', ref: 'grab' })
       ]
     )
   },

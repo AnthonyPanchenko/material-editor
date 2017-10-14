@@ -13,9 +13,7 @@ export default {
       type: Function,
       default: noop,
     },
-    customClass: {
-      type: String,
-    },
+    customClass: String,
     disabled: {
       type: Boolean,
       default: false,

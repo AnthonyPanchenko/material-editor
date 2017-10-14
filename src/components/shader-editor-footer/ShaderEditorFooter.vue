@@ -4,6 +4,7 @@ const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
 
 import ResizeBox from '../resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+import InputBtn from '../../common/components/input-btn/InputBtn.vue';
 import tabNames from './constants/tabNames';
 
 export default {
@@ -14,6 +15,7 @@ export default {
     }
   },
   components: {
+    InputBtn,
     CustomBtn,
     ResizeBox,
   },
@@ -25,6 +27,9 @@ export default {
     },
     defineCustomClass(tabName) {
       return (this.activeTabName === tabName) && this.isVisibleFooterContent ? 'ctrl-btn-default active' : 'ctrl-btn-default';
+    },
+    onChangeCheckBox(event) {
+      console.log(event.target.checked);
     },
     onTabClick(event) {
       if (event.target.dataset.tab === this.activeTabName) {
@@ -46,7 +51,16 @@ export default {
       <custom-btn :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" customClass="ctrl-btn-default xs" :onCustomClick="onToggleFooterContent" />
     </div>
     <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
-      footer content
+      <input-btn type="checkbox" titleStart="Some checkbox" :onChange="onChangeCheckBox" disabled />
+      <br />
+      <br />
+      <hr />
+      <br />
+      <input-btn type="radio" name="name1" titleEnd="Some radio" value="value1" :onChange="onChangeCheckBox" checked />
+      <br />
+      <input-btn type="radio" name="name1" titleEnd="Some radio" value="value2" :onChange="onChangeCheckBox" disabled />
+      <br />
+      <input-btn type="radio" name="name1" titleEnd="Some radio" value="value3" :onChange="onChangeCheckBox" />
     </div>
   </resize-box>
 </template>

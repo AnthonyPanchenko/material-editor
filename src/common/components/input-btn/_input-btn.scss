@@ -58,7 +58,7 @@ $bg-active-color: #79d651;
 
   &.disabled {
     cursor: not-allowed;
-    color: #000;
+    opacity: 0.3;
 
     .switch-icon {
       cursor: inherit;
@@ -89,7 +89,7 @@ $bg-active-color: #79d651;
 
   &.disabled {
     cursor: not-allowed;
-    color: #000;
+    opacity: 0.3;
 
     .switch-icon {
       cursor: inherit;

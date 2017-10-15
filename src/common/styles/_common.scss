@@ -17,6 +17,7 @@ body {
 
 i[class^="icon-"],
 i[class*=" icon-"] {
+  pointer-events: none;
   font-family: 'icomoon' !important;
   font-style: normal;
   font-weight: normal;

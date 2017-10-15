@@ -53,7 +53,6 @@ export default {
     <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
       <input-btn type="checkbox" titleStart="Some checkbox" :onChange="onChangeCheckBox" disabled />
       <br />
-      <br />
       <hr />
       <br />
       <input-btn type="radio" name="name1" titleEnd="Some radio" value="value1" :onChange="onChangeCheckBox" checked />

@@ -1,0 +1,53 @@
+.checkbox-btn {
+  font-size: 13px;
+  align-items: center;
+  display: flex;
+
+  .switch-icon {
+    margin-left: 4px;
+    margin-right: 4px;
+    position: relative;
+    display: inline-block;
+    width: ($input-btn-size * 2) - 4;
+    height: $input-btn-size;
+    border-radius: $input-btn-size;
+    background-color: $bg-color;
+    transition: background-color 200ms linear;
+
+    &:before {
+      content: "";
+      position: absolute;
+      display: inherit;
+      top: 0;
+      left: 2px;
+      bottom: 0;
+      width: $input-btn-size - 4;
+      height: $input-btn-size - 4;
+      margin: auto;
+      border-radius: $input-btn-size;
+      background-color: $dot-color;
+      transition: left 100ms linear;
+    }
+  }
+
+  input[type="checkbox"] {
+    display: none;
+
+    &:checked + .switch-icon {
+      background-color: $bg-active-color;
+
+      &:before {
+        left: $input-btn-size - 2;
+      }
+    }
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+
+    .switch-icon {
+      cursor: inherit;
+    }
+  }
+}

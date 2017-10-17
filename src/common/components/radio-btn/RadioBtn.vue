@@ -4,6 +4,9 @@ import noop from '../../utils/noop';
 export default {
   name: 'RadioBtn',
   props: {
+    name: String,
+    value: String,
+    label: [String, Number],
     onChange: {
       type: Function,
       default: noop,
@@ -12,12 +15,12 @@ export default {
       type: Boolean,
       default: false,
     },
-    name: String,
-    value: String,
-    customClass: String,
-    label: [String, Number],
     picked: {
       type: [String, Number],
+      default: '',
+    },
+    customClass: {
+      type: String,
       default: '',
     },
   },
@@ -35,9 +38,8 @@ export default {
 </script>
 
 <template>
-  <label :class="`radio-btn ${disabled ? 'disabled' : ''} ${customClass || ''}`">
+  <label class="radio-btn" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
     <input type="radio" :name="name" v-model="pickedValue" :value="value" @change="onChangeRadioBtn" :disabled="disabled">
-    <span class="switch-icon" />
-    {{ label }}
+    <span class="switch-icon" /> {{ label }}
   </label>
 </template>

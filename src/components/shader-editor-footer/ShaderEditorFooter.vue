@@ -15,6 +15,7 @@ export default {
     return {
       tabNames,
       options: [
+        { title: 'NONE', id: '' },
         { title: 'One', id: 'aaa' },
         { title: 'Two', id: 'bbb' },
         { title: 'Three', id: 'ccc' },

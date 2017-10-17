@@ -16,7 +16,11 @@ export default {
     },
     customClass: {
       type: String,
-      default: 'ctrl-select',
+      default: '',
+    },
+    disabled: {
+      type: Boolean,
+      default: false,
     },
     options: {
       type: Array,
@@ -37,10 +41,11 @@ export default {
 </script>
 
 <template>
-  <select v-model="selectedOption" :name="name" :class="customClass" @change="onSelectChange">
-    <option :selected="selectedOption === ''" value="">not selected</option>
-    <option v-for="option in options" :key="option.id" :value="option.id">
-      {{ option.title }}
-    </option>
-  </select>
+  <div class="ctrl-select" :class="customClass">
+    <select v-model="selectedOption" :name="name" @change="onSelectChange" :disabled="disabled">
+      <option v-for="(option, index) in options" :key="option.id" :value="option.id">
+        {{ option.title }}
+      </option>
+    </select>
+  </div>
 </template>

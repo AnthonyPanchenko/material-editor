@@ -4,6 +4,9 @@ import noop from '../../utils/noop';
 export default {
   name: 'CheckboxBtn',
   props: {
+    name: String,
+    value: [String, Number],
+    label: [String, Number],
     onChange: {
       type: Function,
       default: noop,
@@ -16,10 +19,10 @@ export default {
       type: Boolean,
       default: false,
     },
-    name: String,
-    value: [String, Number],
-    customClass: String,
-    label: [String, Number],
+    customClass: {
+      type: String,
+      default: '',
+    },
   },
   data() {
     return {
@@ -35,7 +38,7 @@ export default {
 </script>
 
 <template>
-  <label :class="`checkbox-btn ${disabled ? 'disabled' : ''} ${customClass || ''}`">
+  <label class="checkbox-btn" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
     {{ label }}
     <input type="checkbox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
     <span class="switch-icon" />

@@ -81,17 +81,25 @@ export default {
       <custom-btn :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" customClass="ctrl-btn-default xs" :onCustomClick="onToggleFooterContent" />
     </div>
     <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
-      <checkbox-btn label="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-      <br />
-      <hr />
-      <br />
-      <radio-btn name="name1" label="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
-      <br />
-      <radio-btn name="name1" label="Some radio" value="value2" :onChange="onChangeRadioBtn" picked="value1" disabled />
-      <br />
-      <radio-btn name="name1" label="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
-      <br />
-      <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+      <div v-if="activeTabName === tabNames.ATTRIBUTES">
+          tabNames.ATTRIBUTES
+      </div>
+      <div v-if="activeTabName === tabNames.UNIFORMS">
+        <checkbox-btn label="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+        <br />
+        <hr />
+        <br />
+        <radio-btn name="name1" label="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+        <br />
+        <radio-btn name="name1" label="Some radio" value="value2" :onChange="onChangeRadioBtn" picked="value1" disabled />
+        <br />
+        <radio-btn name="name1" label="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        <br />
+        <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+      </div>
+      <div v-if="activeTabName === tabNames.TEXTURES">
+          tabNames.TEXTURES
+      </div>
     </div>
   </resize-box>
 </template>

@@ -2,6 +2,10 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("materialEditor");
 
+import InputFile from "../../common/components/input-file/InputFile.vue";
+import InputNumber from "../../common/components/input-number/InputNumber.vue";
+import CheckboxBtn from "../../common/components/checkbox-btn/CheckboxBtn.vue";
+import CustomSelect from "../../common/components/custom-select/CustomSelect.vue";
 import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
 import ItemObjList from "../item-obj-list/ItemObjList.vue";
 import CanvasBoard from "../canvas-board/CanvasBoard.vue";
@@ -13,6 +17,10 @@ import tabNames from "./constants/tabNames";
 export default {
   name: "MaterialEditor",
   components: {
+    InputFile,
+    InputNumber,
+    CheckboxBtn,
+    CustomSelect,
     CustomBtn,
     ItemObjList,
     CanvasBoard,
@@ -22,6 +30,12 @@ export default {
   data() {
     return {
       tabNames,
+      options: [
+        { title: "NONE", id: "" },
+        { title: "One", id: "aaa" },
+        { title: "Two", id: "bbb" },
+        { title: "Three", id: "ccc" }
+      ],
       urls: internalUrls
     };
   },
@@ -38,6 +52,18 @@ export default {
       "onToggleObjectsList",
       "onToggleFullScreenMode"
     ]),
+    onChangeSelect(selectedValue, name) {
+      console.log(selectedValue);
+      console.log(name);
+    },
+    onChangeFileInput(file) {
+      console.log(file);
+    },
+    onChangeCheckBox(state, value, name) {
+      console.log(state);
+      console.log(value);
+      console.log(name);
+    },
     onTabClick(event) {
       if (event.target.dataset.tab === this.activeTabName) {
         console.log("create new setting");
@@ -63,15 +89,41 @@ export default {
         </div>
       </header>
 
-      <section class="controls-content">
-        <div v-if="activeTabName === tabNames.OBJECT">
-            tabNames.OBJECT
-        </div>
-        <div v-if="activeTabName === tabNames.GEOMETRY">
-            tabNames.GEOMETRY
-        </div>
-        <div v-if="activeTabName === tabNames.MATERIAL">
-            tabNames.MATERIAL
+      <section v-if="activeTabName === tabNames.OBJECT" class="controls-content fieldset">
+        OBJECT
+      </section>
+
+      <section v-if="activeTabName === tabNames.GEOMETRY" class="controls-content fieldset">
+          GEOMETRY
+      </section>
+
+      <section v-if="activeTabName === tabNames.MATERIAL" class="controls-content fieldset">
+        <div class="type"><span class="label">Type:</span> Mesh Normal Material</div>
+        <div class="name"><span class="label">Name:</span> Material</div>
+        <div class="controls">
+          <div class="row">
+            <span class="label">Specular Map</span>
+            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+          </div>
+
+          <div class="row">
+            <span class="label">Env Map</span>
+            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            <input-number />
+          </div>
+
+          <div class="row">
+            <span class="label">Light Map</span>
+            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+          </div>
+
+          <div class="row">
+            <span class="label">AO Map</span>
+            <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+          </div>
         </div>
       </section>
 

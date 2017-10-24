@@ -4,12 +4,12 @@
 
   select {
     width: 100%;
-    background-color: $ctrl-btn-bg-color;
+    background-color: #4b4b4b;
     border: none;
-    color: #9e9e9e;
+    color: #f1f1f1;
     padding-right: 20px;
     padding-left: 5px;
-    height: 20px;
+    height: 24px;
     font-size: 13px;
     line-height: 13px;
     appearance: none;
@@ -26,8 +26,13 @@
     }
 
     option {
-      color: $ctrl-btn-color;
-      background-color: $ctrl-btn-bg-color;
+      color: #f1f1f1;
+      background-color: #4b4b4b;
+
+      &:checked {
+        background-color: $bg-active-color;
+        color: $bg-color;
+      }
     }
 
     &:disabled {
@@ -50,12 +55,12 @@
   }
 
   &:before {
-    top: calc(50% - 3px);
+    top: calc(50% - 4px);
     border-bottom: 3px solid #9e9e9e;
   }
 
   &:after {
-    bottom: calc(50% - 6px);
+    bottom: calc(50% - 4px);
     border-top: 3px solid #9e9e9e;
   }
 }

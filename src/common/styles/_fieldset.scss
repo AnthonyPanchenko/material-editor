@@ -1,0 +1,43 @@
+.fieldset {
+  font-size: 13px;
+  flex-direction: column;
+  display: flex;
+
+  .type,
+  .name {
+    cursor: default;
+    border-bottom: 1px solid #454545;
+    height: 29.5px;
+    align-items: center;
+    display: flex;
+    color: #7f7f7f;
+    background-color: rgba(194, 199, 215, 0.04);
+
+    .label {
+      opacity: 0.7;
+      width: 52px;
+      padding-left: 5px;
+    }
+  }
+
+  .controls {
+    overflow-y: auto;
+    flex: 1 1 100%;
+
+    .row {
+      display: flex;
+      align-items: center;
+      height: 26px;
+
+      .label {
+        width: 100px;
+        flex: 0 0 100px;
+        padding-left: 5px;
+      }
+
+      &:nth-child(even) {
+        background-color: rgba(194, 199, 215, 0.04);
+      }
+    }
+  }
+}

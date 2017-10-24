@@ -1,0 +1,25 @@
+.input-file {
+  font-size: 13px;
+  align-items: center;
+  display: flex;
+  justify-content: center;
+  user-select: none;
+  margin-left: 5px;
+  margin-right: 5px;
+  height: 26px;
+  width: 45px;
+
+  &:hover {
+    background-color: $ctrl-btn-default-bg-color;
+    color: $ctrl-btn-default-color;
+  }
+
+  input[type="file"] {
+    display: none;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+  }
+}

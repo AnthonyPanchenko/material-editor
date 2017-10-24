@@ -90,7 +90,30 @@ export default {
       </header>
 
       <section v-if="activeTabName === tabNames.OBJECT" class="controls-content fieldset">
-        OBJECT
+        <div class="type"><span class="label">Type:</span> Mesh</div>
+        <div class="name"><span class="label">Name:</span> Plane 18</div>
+        <div class="controls">
+          <div class="row">
+            <span class="label">Position</span>
+            <input-number />
+            <input-number />
+            <input-number />
+          </div>
+
+          <div class="row">
+            <span class="label">Rotation</span>
+            <input-number />
+            <input-number />
+            <input-number />
+          </div>
+
+          <div class="row">
+            <span class="label">Scale</span>
+            <input-number />
+            <input-number />
+            <input-number />
+          </div>
+        </div>
       </section>
 
       <section v-if="activeTabName === tabNames.GEOMETRY" class="controls-content fieldset">

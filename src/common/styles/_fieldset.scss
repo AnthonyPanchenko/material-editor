@@ -30,9 +30,16 @@
       height: 26.5px;
 
       .label {
-        width: 100px;
         flex: 0 0 100px;
         padding-left: 5px;
+      }
+
+      .switch-icon,
+      .input-file,
+      .ctrl-select,
+      .input-number,
+      .input-number {
+        margin-left: 2.5px;
       }
 
       &:nth-child(even) {

@@ -113,6 +113,12 @@ export default {
             <input-number />
             <input-number />
           </div>
+
+          <div class="row">
+            <span class="label">Shadow</span>
+            <checkbox-btn customClass="checkbox-revers" label="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            <checkbox-btn customClass="checkbox-revers" label="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          </div>
         </div>
       </section>
 

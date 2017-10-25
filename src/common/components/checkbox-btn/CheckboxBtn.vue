@@ -39,7 +39,7 @@ export default {
 
 <template>
   <label class="checkbox-btn" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
-    {{ label }}
+    <span v-if="label" class="str">{{ label }}</span>
     <input type="checkbox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
     <span class="switch-icon" />
   </label>

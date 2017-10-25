@@ -39,8 +39,8 @@ export default {
 
 <template>
   <label class="radio-btn" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+    <span v-if="label" class="str">{{ label }}</span>
     <input type="radio" :name="name" v-model="pickedValue" :value="value" @change="onChangeRadioBtn" :disabled="disabled">
     <span class="switch-icon" />
-    {{ label }}
   </label>
 </template>

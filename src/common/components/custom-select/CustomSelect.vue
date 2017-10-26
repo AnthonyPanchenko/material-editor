@@ -41,7 +41,7 @@ export default {
 </script>
 
 <template>
-  <div class="ctrl-select" :class="customClass">
+  <div class="ctrl-select" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
     <select v-model="selectedOption" :name="name" @change="onSelectChange" :disabled="disabled">
       <option v-for="(option, index) in options" :key="option.id" :value="option.id">
         {{ option.title }}

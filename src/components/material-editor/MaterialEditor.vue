@@ -134,29 +134,29 @@ export default {
             <div class="row">
               <span class="label">Specular Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-file label="+file" name="file1" disabled :onChange="onChangeFileInput" />
             </div>
 
             <div class="row">
               <span class="label">Env Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn name="n2ame31" value="value1" disabled :onChange="onChangeCheckBox" />
               <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-              <input-number />
+              <input-number disabled />
             </div>
 
             <div class="row">
               <span class="label">Light Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-file label="+file" name="file1" disabled :onChange="onChangeFileInput" />
             </div>
 
             <div class="row">
               <span class="label">AO Map</span>
-              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+              <custom-select :options="options" name="selectname" disabled :onChange="onChangeSelect" />
             </div>
             <div class="row">
               <span class="label">Specular Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn name="n2ame31" value="value1" disabled :onChange="onChangeCheckBox" />
               <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
             </div>
 

@@ -6,9 +6,16 @@
   user-select: none;
   padding-left: 10px;
   padding-right: 10px;
+  background-color: transparent;
+  transition: background-color 150ms ease-in-out;
   height: 26px;
   width: 45px;
 
+  &:focus {
+    outline: none;
+  }
+
+  &:focus,
   &:hover {
     background-color: $ctrl-btn-default-bg-color;
     color: $ctrl-btn-default-color;

@@ -42,6 +42,21 @@
     }
   }
 
+  &:focus {
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    color: $ctrl-btn-default-color;
+
+    .switch-icon {
+      &:before {
+        background-color: #fff;
+      }
+    }
+  }
+
   &.disabled {
     cursor: not-allowed;
     opacity: 0.3;

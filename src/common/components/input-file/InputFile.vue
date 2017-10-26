@@ -1,49 +1,52 @@
 <script>
-import noop from '../../utils/noop';
+import noop from "../../utils/noop";
 
 export default {
-  name: 'InputFile',
+  name: "InputFile",
   props: {
     name: String,
     value: [String, Number],
     label: [String, Number],
     onChange: {
       type: Function,
-      default: noop,
+      default: noop
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     multiple: {
       type: Boolean,
-      default: false,
+      default: false
     },
     customClass: {
       type: String,
-      default: '',
+      default: ""
     },
     accept: {
       type: String,
-      default: 'image/*',
-    },
+      default: "image/*"
+    }
   },
   data() {
     return {
-      files: [],
-    }
+      files: []
+    };
   },
   methods: {
     onChangeInputFile(event) {
       this.onChange(this.checkedState, this.value, this.name);
+    },
+    onPressEnter() {
+      this.$refs.inputFile.click();
     }
-  },
-}
+  }
+};
 </script>
 
 <template>
-  <label class="input-file" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label class="input-file" tabindex="0" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
     {{ label }}
-    <input type="file" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
+    <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
   </label>
 </template>

@@ -12,7 +12,10 @@ $sidebar-bg: lighten($body-bg-color, 5%);
 $content-border-color: lighten($body-bg-color, 12%);
 
 $grab-color: lighten($body-bg-color, 12%);
-$grab-hover-color: #41586c;
+$grab-hover-color: #5598c5;
+
+$scrollbar-thumb-bg-color: $grab-hover-color;
+$scrollbar-track-bg-color: #4c4c4c;
 
 $ctrl-btn-bg-color: lighten($body-bg-color, 7%);
 $ctrl-btn-color: #6b7a82;

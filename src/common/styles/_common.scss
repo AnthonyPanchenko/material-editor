@@ -5,6 +5,18 @@
   margin: 0;
 }
 
+.scroll-box::-webkit-scrollbar {
+  width: 4px;
+}
+
+.scroll-box::-webkit-scrollbar-thumb {
+  background-color: $scrollbar-thumb-bg-color;
+}
+
+.scroll-box::-webkit-scrollbar-track {
+  background-color: $scrollbar-track-bg-color;
+}
+
 html,
 body {
   width: 100%;

@@ -89,69 +89,462 @@ export default {
         </div>
       </header>
 
-      <section v-if="activeTabName === tabNames.OBJECT" class="controls-content fieldset">
-        <div class="type"><span class="label">Type:</span> Mesh</div>
-        <div class="name"><span class="label">Name:</span> Plane 18</div>
-        <div class="controls">
-          <div class="row">
-            <span class="label">Position</span>
-            <input-number />
-            <input-number />
-            <input-number />
-          </div>
+      <section class="controls-content">
+        <div v-if="activeTabName === tabNames.OBJECT" class="fieldset">
+          <div class="type"><span class="label">Type:</span> Mesh</div>
+          <div class="name"><span class="label">Name:</span> Plane 18</div>
+          <div class="controls scroll-box">
+            <div class="row">
+              <span class="label">Position</span>
+              <input-number />
+              <input-number />
+              <input-number />
+            </div>
 
-          <div class="row">
-            <span class="label">Rotation</span>
-            <input-number />
-            <input-number />
-            <input-number />
-          </div>
+            <div class="row">
+              <span class="label">Rotation</span>
+              <input-number />
+              <input-number />
+              <input-number />
+            </div>
 
-          <div class="row">
-            <span class="label">Scale</span>
-            <input-number />
-            <input-number />
-            <input-number />
-          </div>
+            <div class="row">
+              <span class="label">Scale</span>
+              <input-number />
+              <input-number />
+              <input-number />
+            </div>
 
-          <div class="row">
-            <span class="label">Shadow</span>
-            <checkbox-btn customClass="checkbox-revers" label="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-            <checkbox-btn customClass="checkbox-revers" label="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            <div class="row">
+              <span class="label">Shadow</span>
+              <checkbox-btn customClass="checkbox-revers" label="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn customClass="checkbox-revers" label="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+            </div>
           </div>
         </div>
-      </section>
 
-      <section v-if="activeTabName === tabNames.GEOMETRY" class="controls-content fieldset">
-          GEOMETRY
-      </section>
+        <div v-if="activeTabName === tabNames.GEOMETRY" class="fieldset">
+            GEOMETRY
+        </div>
 
-      <section v-if="activeTabName === tabNames.MATERIAL" class="controls-content fieldset">
-        <div class="type"><span class="label">Type:</span> Mesh Normal Material</div>
-        <div class="name"><span class="label">Name:</span> Material</div>
-        <div class="controls">
-          <div class="row">
-            <span class="label">Specular Map</span>
-            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-          </div>
+        <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">
+          <div class="type"><span class="label">Type:</span> Mesh Normal Material</div>
+          <div class="name"><span class="label">Name:</span> Material</div>
+          <div class="controls scroll-box">
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
 
-          <div class="row">
-            <span class="label">Env Map</span>
-            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-            <input-number />
-          </div>
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
 
-          <div class="row">
-            <span class="label">Light Map</span>
-            <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-            <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-          </div>
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
 
-          <div class="row">
-            <span class="label">AO Map</span>
-            <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
+            <div class="row">
+              <span class="label">Specular Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-number />
+            </div>
+
+            <div class="row">
+              <span class="label">Light Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">AO Map</span>
+              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
+            </div>
           </div>
         </div>
       </section>

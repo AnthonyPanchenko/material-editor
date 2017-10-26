@@ -6,7 +6,7 @@
     right: 0;
     top: 0;
     left: 0;
-    height: 2px;
+    height: 3px;
   }
 
   .grab-resize-column {
@@ -14,13 +14,14 @@
     right: 0;
     top: 0;
     bottom: 0;
-    width: 2px;
+    width: 3px;
   }
 
   .grab-resize-row,
   .grab-resize-column {
     position: absolute;
     background-color: $grab-color;
+    transition: background-color 300ms ease-in-out;
 
     &:hover {
       background-color: $grab-hover-color;

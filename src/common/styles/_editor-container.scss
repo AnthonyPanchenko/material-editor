@@ -26,14 +26,15 @@
 
     .controls-content,
     .presentation-content {
-      flex: 1 1 100%;
+      flex: 1 1 auto;
+      display: flex;
     }
   }
 
   .controls-section {
     flex-grow: 1;
     flex-shrink: 0;
-    padding-right: 2px;
+    padding-right: 3px;
   }
 
   .presentation-section {

@@ -1,15 +1,17 @@
 .fieldset {
   font-size: 13px;
   flex-direction: column;
+  flex-basis: 100%;
   display: flex;
 
   .type,
   .name {
     cursor: default;
     border-bottom: 1px solid #454545;
-    height: 29.5px;
+    height: 28px;
     align-items: center;
     display: flex;
+    flex: 0 0 auto;
     color: #7f7f7f;
     background-color: rgba(194, 199, 215, 0.04);
 
@@ -22,9 +24,10 @@
 
   .controls {
     overflow-y: auto;
-    flex: 1 1 100%;
+    direction: rtl;
 
     .row {
+      direction: initial;
       display: flex;
       align-items: center;
       height: 26.5px;

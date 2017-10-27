@@ -46,7 +46,7 @@ export default {
 </script>
 
 <template>
-  <transition-group tag="aside" class="sidebar" name="obj-list">
+  <transition-group tag="aside" class="sidebar scroll-box" name="obj-list">
     <div class="item-obj" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
       <custom-btn iconClass="icon-eye" customClass="show-hide-obj ctrl-btn-default" :data-id="obj.id" :onCustomClick="onSetVisibleObjById" />
       <custom-btn :title="obj.title" customClass="obj-name ctrl-btn-default" :data-id="obj.id" :onCustomClick="onSelectObjById" />

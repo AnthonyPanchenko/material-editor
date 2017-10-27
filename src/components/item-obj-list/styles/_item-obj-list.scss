@@ -6,7 +6,7 @@ $sidebar-transition-duration: 70ms;
   flex-shrink: 0;
   flex-basis: $sidebar-width;
   background-color: $sidebar-bg;
-  position: relative;
+  overflow-y: auto;
 
   .item-obj {
     display: flex;

@@ -10,8 +10,8 @@ const actions = {
   onToggleFullScreenMode(context) {
     context.commit(mutationTypes.TOGGLE_FULLSCREEN_MODE);
   },
-  onSetActiveTabName(context, activeTabName) {
-    context.commit(mutationTypes.SET_ACTIVE_TAB_NAME, activeTabName);
+  onSetActiveTabName(context, event) {
+    context.commit(mutationTypes.SET_ACTIVE_TAB_NAME, event.target.dataset.tab);
   },
 };
 

@@ -1,33 +1,45 @@
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
+import { createNamespacedHelpers } from "vuex";
+const { mapState, mapActions } = createNamespacedHelpers("shaderEditor");
 
-import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-import ItemObjList from '../item-obj-list/ItemObjList.vue';
-import CanvasBoard from '../canvas-board/CanvasBoard.vue';
-import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
-import ResizeBox from '../resize-box/ResizeBox.vue';
-import ShaderEditorFooter from '../shader-editor-footer/ShaderEditorFooter.vue';
-import internalUrls from '../../common/constants/internal-urls';
+import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
+import ItemObjList from "../item-obj-list/ItemObjList.vue";
+import CanvasBoard from "../canvas-board/CanvasBoard.vue";
+import PresentationFooter from "../presentation-footer/PresentationFooter.vue";
+import ResizeBox from "../resize-box/ResizeBox.vue";
+import ShaderEditorFooter from "../shader-editor-footer/ShaderEditorFooter.vue";
+import internalUrls from "../../common/constants/internal-urls";
+import tabNames from "./constants/tabNames";
 
 export default {
-  name: 'ShaderEditor',
+  name: "ShaderEditor",
   components: {
     CustomBtn,
     ItemObjList,
     CanvasBoard,
     ResizeBox,
     ShaderEditorFooter,
-    PresentationFooter,
+    PresentationFooter
   },
   data() {
     return {
-      urls: internalUrls,
-    }
+      tabNames,
+      urls: internalUrls
+    };
   },
-  computed: mapState(['widthCtrlBox', 'isVisibleControlsBox', 'isVisibleObjectsList']),
-  methods: mapActions(['onSetCtrlBoxWidth', 'onToggleObjectsList', 'onToggleFullScreenMode']),
-}
+  computed: mapState([
+    "widthCtrlBox",
+    "activeTabName",
+    "isVisibleControlsBox",
+    "isVisibleObjectsList"
+  ]),
+  methods: mapActions([
+    "onSetCtrlBoxWidth",
+    "onSetActiveTabName",
+    "onToggleObjectsList",
+    "onToggleFullScreenMode"
+  ])
+};
 </script>
 
 <template>
@@ -37,8 +49,8 @@ export default {
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn iconClass="icon-settings" customClass="ctrl-btn-default xs" />
-          <custom-btn title="Fragment" />
-          <custom-btn title="Vertex" />
+          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data-tab="tabNames.FRAGMENT_SHADER" :onCustomClick="onSetActiveTabName" />
+          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data-tab="tabNames.VERTEX_SHADER" :onCustomClick="onSetActiveTabName" />
           <custom-btn iconClass="icon-new-file" customClass="ctrl-btn-default xs" />
           <custom-btn iconClass="icon-save" customClass="ctrl-btn-default xs" />
           <custom-btn iconClass="icon-folder" customClass="ctrl-btn-default xs" />
@@ -48,7 +60,12 @@ export default {
       </header>
 
       <section class="controls-content">
-        controls-content
+        <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
+          tabNames.FRAGMENT_SHADER
+        </div>
+        <div v-if="activeTabName === tabNames.VERTEX_SHADER">
+          tabNames.VERTEX_SHADER
+        </div>
       </section>
 
       <shader-editor-footer />

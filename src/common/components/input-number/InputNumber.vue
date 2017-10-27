@@ -1,28 +1,40 @@
 <script>
-import noop from '../../utils/noop';
+import noop from "../../utils/noop";
 
 export default {
-  name: 'InputNumber',
+  name: "InputNumber",
   props: {
     name: String,
     value: Number,
+    min: Number,
+    max: Number,
+    prefix: [String, Number],
+    sufix: [String, Number],
+    disabled: {
+      type: Boolean,
+      default: false
+    },
     onChange: {
       type: Function,
-      default: noop,
+      default: noop
     },
     customClass: {
       type: String,
-      default: '',
-    },
+      default: ""
+    }
   },
   methods: {
     onChangeInputNumber(event) {
       this.onChange(this.checkedState, this.value, this.name);
     }
-  },
-}
+  }
+};
 </script>
 
 <template>
-  <input type="number" class="input-number" :class="customClass" :name="name" @change="onChangeInputNumber" :value="value">
+  <label class="input-number" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
+    <input type="number" :name="name" :min="min" :max="max" @change="onChangeInputNumber" :value="value" :disabled="disabled">
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
+  </label>
 </template>

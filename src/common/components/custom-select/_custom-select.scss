@@ -17,6 +17,7 @@
     appearance: none;
     user-select: none;
 
+    &:hover,
     &:focus {
       outline: none;
       background-color: $ctrl-btn-default-bg-color;

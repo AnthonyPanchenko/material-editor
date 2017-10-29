@@ -141,7 +141,7 @@ export default {
               <span class="label">Env Map</span>
               <checkbox-btn name="n2ame31" value="value1" disabled :onChange="onChangeCheckBox" />
               <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-              <input-number disabled />
+              <input-number disabled prefix="Z" sufix="%" />
             </div>
 
             <div class="row">
@@ -187,7 +187,7 @@ export default {
               <span class="label">Env Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
               <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
-              <input-number />
+              <input-number prefix="Z" sufix="%" />
             </div>
 
             <div class="row">

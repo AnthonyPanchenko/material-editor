@@ -32,9 +32,9 @@ export default {
 </script>
 
 <template>
-  <label class="input-number" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label class="input-number" :class="`${disabled ? 'disabled' : ''} ${customClass}`" :title="value">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="number" :name="name" :min="min" :max="max" @change="onChangeInputNumber" :value="value" :disabled="disabled">
+    <input type="number" :name="name" :min="min" :max="max" @change="onChangeInputNumber" v-model="value" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

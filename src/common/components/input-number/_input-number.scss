@@ -1,6 +1,8 @@
 .input-number {
   font-size: 13px;
   height: 25px;
+  display: flex;
+  align-items: center;
   background-color: rgba(255, 255, 255, 0.14);
   color: #f1f1f1;
   width: 100%;
@@ -13,6 +15,17 @@
     height: inherit;
     padding-left: 5px;
     padding-right: 5px;
+    text-overflow: ellipsis;
+    -moz-appearance: none;
+    -webkit-appearance: none;
+
+    &::-webkit-outer-spin-button,
+    &::-webkit-inner-spin-button {
+      -webkit-appearance: none;
+      -moz-appearance: none;
+      appearance: none;
+      margin: 0;
+    }
 
     &:hover,
     &:focus {
@@ -24,6 +37,14 @@
     &:disabled {
       cursor: not-allowed;
     }
+  }
+
+  .prefix,
+  .sufix {
+    padding-left: 3px;
+    padding-right: 3px;
+    text-transform: uppercase;
+    color: #979797;
   }
 
   &.disabled {

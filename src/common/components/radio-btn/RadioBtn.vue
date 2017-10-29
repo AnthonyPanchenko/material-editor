@@ -6,7 +6,8 @@ export default {
   props: {
     name: String,
     value: String,
-    label: [String, Number],
+    prefix: [String, Number],
+    sufix: [String, Number],
     onChange: {
       type: Function,
       default: noop
@@ -31,16 +32,22 @@ export default {
   },
   methods: {
     onChangeRadioBtn() {
-      this.onChange(this.pickedValue, this.name);
+      if (!this.disabled) {
+        this.onChange(this.pickedValue, this.name);
+      }
     },
-  },
+    onPressEnter() {
+      this.$refs.radioBtn.click();
+    }
+  }
 };
 </script>
 
 <template>
-  <label class="radio-btn" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
-    <span v-if="label" class="str">{{ label }}</span>
-    <input type="radio" :name="name" v-model="pickedValue" :value="value" @change="onChangeRadioBtn" :disabled="disabled">
+  <label class="radio-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
+    <input type="radio" ref="radioBtn" :name="name" v-model="pickedValue" :value="value" @change="onChangeRadioBtn" :disabled="disabled">
     <span class="switch-icon" />
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

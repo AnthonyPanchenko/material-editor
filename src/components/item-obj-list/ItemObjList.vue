@@ -48,9 +48,9 @@ export default {
 <template>
   <transition-group tag="aside" class="sidebar scroll-box" name="obj-list">
     <div class="item-obj" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
-      <custom-btn iconClass="icon-eye" customClass="show-hide-obj ctrl-btn-default" :data-id="obj.id" :onCustomClick="onSetVisibleObjById" />
-      <custom-btn :title="obj.title" customClass="obj-name ctrl-btn-default" :data-id="obj.id" :onCustomClick="onSelectObjById" />
-      <custom-btn iconClass="icon-trash-bin" customClass="trash-bin ctrl-btn-danger" :data-id="obj.id" :onCustomClick="onRemoveItemObjById" />
+      <custom-btn iconClass="icon-eye" customClass="show-hide-obj" :data-id="obj.id" :onClick="onSetVisibleObjById" />
+      <custom-btn :title="obj.title" customClass="obj-name" :data-id="obj.id" :onClick="onSelectObjById" />
+      <custom-btn iconClass="icon-trash-bin" customClass="trash-bin" type="danger" :data-id="obj.id" :onClick="onRemoveItemObjById" />
     </div>
   </transition-group>
 </template>

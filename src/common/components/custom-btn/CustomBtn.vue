@@ -1,43 +1,57 @@
 <script>
-import noop from '../../utils/noop';
+import noop from "../../utils/noop";
 
 export default {
-  name: 'CustomBtn',
+  name: "CustomBtn",
   props: {
-    onCustomClick: {
+    onClick: {
       type: Function,
-      default: noop,
+      default: noop
     },
     customClass: {
       type: String,
-      default: 'ctrl-btn-default',
+      default: ""
+    },
+    type: {
+      type: String,
+      default: "default"
+    },
+    size: {
+      type: String,
+      default: ""
+    },
+    disabled: {
+      type: Boolean,
+      default: false
     },
     link: String,
     iconClass: String,
     title: [String, Number],
+    dataset: {
+      type: [Object, Array],
+      default: null
+    },
     active: {
       type: Boolean,
-      default: false,
-    },
-    type: {
-      type: String,
-      default: 'button',
-    },
+      default: false
+    }
   },
   methods: {
-    defineCustomClass() {
-      return this.active ? `${this.customClass} active` : this.customClass;
-    },
+    onButtonClick(event) {
+      if (!this.disabled) {
+        this.onClick(event, this.dataset);
+      }
+    }
   }
-}
+};
 </script>
 
 <template>
-  <router-link v-if="link" :to="link" :class="defineCustomClass()" @click="onCustomClick">
+  <router-link v-if="link" :to="link" :tabindex="`${disabled ? -1 : 0}`" :event="disabled ? '' : 'click'" :class="`ctrl-btn ${type} ${size} ${active ? 'active' : ''} ${disabled ? 'disabled' : ''} ${this.customClass}`" @click.native="onButtonClick">
     <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
   </router-link>
 
-  <button v-else :type="type" :class="defineCustomClass()" @click="onCustomClick">
+  <button v-else type="button" :tabindex="`${disabled ? -1 : 0}`" :class="`ctrl-btn ${type} ${size} ${active ? 'active' : ''} ${this.customClass}`" :disabled="disabled" @click="onButtonClick">
     <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
   </button>
 </template>

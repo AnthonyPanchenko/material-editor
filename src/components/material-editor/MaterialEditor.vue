@@ -81,11 +81,11 @@ export default {
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-settings" customClass="ctrl-btn-default xs" />
-          <custom-btn title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onCustomClick="onTabClick" />
-          <custom-btn title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onCustomClick="onTabClick" />
-          <custom-btn title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onCustomClick="onTabClick" />
-          <custom-btn :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-shader-editor" customClass="ctrl-btn-default xs" />
+          <custom-btn iconClass="icon-settings" size="xs" />
+          <custom-btn title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onClick="onTabClick" />
+          <custom-btn title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onClick="onTabClick" />
+          <custom-btn title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onClick="onTabClick" />
+          <custom-btn :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-shader-editor" size="xs" />
         </div>
       </header>
 
@@ -117,8 +117,8 @@ export default {
 
             <div class="row">
               <span class="label">Shadow</span>
-              <checkbox-btn customClass="checkbox-revers" label="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <checkbox-btn customClass="checkbox-revers" label="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn customClass="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn customClass="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
             </div>
           </div>
         </div>
@@ -390,10 +390,10 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-list" customClass="ctrl-btn-default xs" :onCustomClick="onToggleObjectsList" />
-          <custom-btn title="Translate" customClass="ctrl-btn-default md" />
-          <custom-btn title="Rotate" customClass="ctrl-btn-default md" />
-          <custom-btn title="Scale" customClass="ctrl-btn-default md" />
+          <custom-btn iconClass="icon-list" size="xs" :onClick="onToggleObjectsList" />
+          <custom-btn title="Translate" size="md" />
+          <custom-btn title="Rotate" size="md" />
+          <custom-btn title="Scale" size="md" />
         </div>
       </header>
 

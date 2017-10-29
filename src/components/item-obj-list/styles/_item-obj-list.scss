@@ -11,9 +11,11 @@ $sidebar-transition-duration: 70ms;
   .item-obj {
     display: flex;
 
-    .ctrl-btn-danger:not(:hover):not(:focus),
-    .ctrl-btn-default:not(:focus) {
-      background-color: transparent;
+    .ctrl-btn {
+      &.danger:not(:hover):not(:focus),
+      &.default:not(:focus) {
+        background-color: transparent;
+      }
     }
 
     &:not(:first-child) {

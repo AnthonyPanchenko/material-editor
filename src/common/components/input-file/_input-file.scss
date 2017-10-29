@@ -1,3 +1,6 @@
+$input-file-hover-color: #64add1;
+$input-file-hover-bg-color: rgba(121, 136, 185, 0.14);
+
 .input-file {
   font-size: 13px;
   align-items: center;
@@ -17,8 +20,8 @@
 
   &:focus,
   &:hover {
-    background-color: $ctrl-btn-default-bg-color;
-    color: $ctrl-btn-default-color;
+    background-color: $input-file-hover-bg-color;
+    color: $input-file-hover-color;
   }
 
   input[type="file"] {
@@ -28,5 +31,11 @@
   &.disabled {
     cursor: not-allowed;
     opacity: 0.3;
+
+    &:focus,
+    &:hover {
+      background-color: inherit;
+      color: inherit;
+    }
   }
 }

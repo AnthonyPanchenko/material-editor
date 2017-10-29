@@ -1,3 +1,10 @@
+$checkbox-btn-ctrl-size: 14px;
+$checkbox-btn-dot-color: #171717;
+$checkbox-btn-bg-active-color: #1e90ff;
+$checkbox-btn-bg-color: #727272;
+$checkbox-btn-hover-color: #64add1;
+$checkbox-btn-bg-hover-color: #fff;
+
 .checkbox-btn {
   font-size: 13px;
   align-items: center;
@@ -8,10 +15,10 @@
     cursor: pointer;
     position: relative;
     display: inline-block;
-    width: ($input-btn-size * 2) - 4;
-    height: $input-btn-size;
-    border-radius: $input-btn-size;
-    background-color: $bg-color;
+    width: ($checkbox-btn-ctrl-size * 2) - 4;
+    height: $checkbox-btn-ctrl-size;
+    border-radius: $checkbox-btn-ctrl-size;
+    background-color: $checkbox-btn-bg-color;
     transition: background-color 200ms linear;
 
     &:before {
@@ -21,23 +28,33 @@
       top: 0;
       left: 2px;
       bottom: 0;
-      width: $input-btn-size - 4;
-      height: $input-btn-size - 4;
+      width: $checkbox-btn-ctrl-size - 4;
+      height: $checkbox-btn-ctrl-size - 4;
       margin: auto;
-      border-radius: $input-btn-size;
-      background-color: $dot-color;
+      border-radius: $checkbox-btn-ctrl-size;
+      background-color: $checkbox-btn-dot-color;
       transition: left 100ms linear;
     }
+  }
+
+  .prefix {
+    cursor: inherit;
+    padding-right: 3px;
+  }
+
+  .sufix {
+    cursor: inherit;
+    padding-left: 3px;
   }
 
   input[type="checkbox"] {
     display: none;
 
     &:checked + .switch-icon {
-      background-color: $bg-active-color;
+      background-color: $checkbox-btn-bg-active-color;
 
       &:before {
-        left: $input-btn-size - 2;
+        left: $checkbox-btn-ctrl-size - 2;
       }
     }
   }
@@ -48,21 +65,26 @@
 
   &:focus,
   &:hover {
-    color: $ctrl-btn-default-color;
+    color: $checkbox-btn-hover-color;
 
     .switch-icon {
       &:before {
-        background-color: #fff;
+        background-color: $checkbox-btn-bg-hover-color;
       }
     }
   }
 
   &.disabled {
     cursor: not-allowed;
+    color: inherit;
     opacity: 0.3;
 
     .switch-icon {
       cursor: inherit;
+
+      &:before {
+        background-color: $checkbox-btn-dot-color;
+      }
     }
   }
 }

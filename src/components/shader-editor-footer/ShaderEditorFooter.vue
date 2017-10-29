@@ -75,25 +75,34 @@ export default {
 <template>
   <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" customClass="controls-footer shader-editor-footer" :disabled="!isVisibleFooterContent">
     <div class="controls-row">
-      <custom-btn title="Attributes" :iconClass="defineIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.ATTRIBUTES" :onCustomClick="onTabClick" />
-      <custom-btn title="Uniforms" :iconClass="defineIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.UNIFORMS" :onCustomClick="onTabClick" />
-      <custom-btn title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.TEXTURES" :onCustomClick="onTabClick" />
-      <custom-btn :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" customClass="ctrl-btn-default xs" :onCustomClick="onToggleFooterContent" />
+      <custom-btn title="Attributes" :iconClass="defineIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.ATTRIBUTES" :onClick="onTabClick" />
+      <custom-btn title="Uniforms" :iconClass="defineIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.UNIFORMS" :onClick="onTabClick" />
+      <custom-btn title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.TEXTURES" :onClick="onTabClick" />
+      <custom-btn :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" size="xs" :onClick="onToggleFooterContent" />
     </div>
     <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
       <div v-if="activeTabName === tabNames.ATTRIBUTES">
           tabNames.ATTRIBUTES
       </div>
       <div v-if="activeTabName === tabNames.UNIFORMS">
-        <checkbox-btn label="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+        <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+        <br />
+        <checkbox-btn disabled sufix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+        <br />
+        <checkbox-btn disabled checked sufix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
         <br />
         <hr />
         <br />
-        <radio-btn name="name1" label="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+        <custom-btn title="Some button 1" />
         <br />
-        <radio-btn name="name1" label="Some radio" value="value2" :onChange="onChangeRadioBtn" picked="value1" disabled />
         <br />
-        <radio-btn name="name1" label="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        <custom-btn title="Some button 2" type="danger" />
+        <br />
+        <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+        <br />
+        <radio-btn name="name1" prefix="Some radio" value="value2" :onChange="onChangeRadioBtn" picked="value1" disabled />
+        <br />
+        <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
         <br />
         <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
       </div>

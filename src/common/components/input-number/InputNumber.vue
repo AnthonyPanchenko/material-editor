@@ -25,7 +25,9 @@ export default {
   },
   methods: {
     onChangeInputNumber(event) {
-      this.onChange(this.checkedState, this.value, this.name);
+      if (!this.disabled) {
+        this.onChange(this.checkedState, this.value, this.name);
+      }
     }
   }
 };

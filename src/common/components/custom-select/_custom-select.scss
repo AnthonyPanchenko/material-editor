@@ -1,3 +1,13 @@
+$select-appearance-border-size: 3px;
+$select-appearance-before-after-position: calc(50% - 5px);
+$select-appearance-before-after-bg-color: #9e9e9e;
+$select-color: #f1f1f1;
+$select-bg-color: #4b4b4b;
+$select-bg-active-color: #1e90ff;
+$select-hover-color: #64add1;
+$select-bg-hover-color: rgba(121, 136, 185, 0.14);
+$select-option-checked-bg-color: #727272;
+
 .ctrl-select {
   position: relative;
   display: block;
@@ -5,10 +15,10 @@
 
   select {
     width: 100%;
-    background-color: #4b4b4b;
+    background-color: $select-bg-color;
     border: none;
     cursor: pointer;
-    color: #f1f1f1;
+    color: $select-color;
     padding-right: 20px;
     padding-left: 5px;
     height: 25px;
@@ -20,8 +30,8 @@
     &:hover,
     &:focus {
       outline: none;
-      background-color: $ctrl-btn-default-bg-color;
-      color: $ctrl-btn-default-color;
+      background-color: $select-bg-hover-color;
+      color: $select-hover-color;
     }
 
     &::-ms-expand {
@@ -29,17 +39,23 @@
     }
 
     option {
-      color: #f1f1f1;
-      background-color: #4b4b4b;
+      color: $select-color;
+      background-color: $select-bg-color;
 
       &:checked {
-        background-color: $bg-active-color;
-        color: $bg-color;
+        background-color: $select-bg-active-color;
+        color: $select-option-checked-bg-color;
       }
     }
 
     &:disabled {
       cursor: not-allowed;
+
+      &:hover,
+      &:focus {
+        background-color: $select-bg-color;
+        color: $select-color;
+      }
     }
   }
 
@@ -49,18 +65,18 @@
     position: absolute;
     right: 6px;
     pointer-events: none;
-    border-left: 3px solid transparent;
-    border-right: 3px solid transparent;
+    border-left: $select-appearance-border-size solid transparent;
+    border-right: $select-appearance-border-size solid transparent;
   }
 
   &:before {
-    top: calc(50% - 4px);
-    border-bottom: 3px solid #9e9e9e;
+    top: $select-appearance-before-after-position;
+    border-bottom: $select-appearance-border-size solid $select-appearance-before-after-bg-color;
   }
 
   &:after {
-    bottom: calc(50% - 4px);
-    border-top: 3px solid #9e9e9e;
+    bottom: $select-appearance-before-after-position;
+    border-top: $select-appearance-border-size solid $select-appearance-before-after-bg-color;
   }
 
   &.disabled {

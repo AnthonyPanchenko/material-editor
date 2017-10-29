@@ -40,19 +40,12 @@
       .checkbox-btn,
       .input-file,
       .ctrl-select,
-      .input-number,
       .input-number {
         margin-left: 2.5px;
       }
 
-      .checkbox-revers {
-        flex-direction: row-reverse;
-
-        .str {
-          cursor: inherit;
-          margin-left: 4px;
-          margin-right: 10px;
-        }
+      .check-box {
+        margin-right: 10px;
       }
 
       &:nth-child(even) {

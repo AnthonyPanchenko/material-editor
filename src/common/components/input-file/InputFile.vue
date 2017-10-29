@@ -35,7 +35,9 @@ export default {
   },
   methods: {
     onChangeInputFile(event) {
-      this.onChange(this.checkedState, this.value, this.name);
+      if (!this.disabled) {
+        this.onChange(this.checkedState, this.value, this.name);
+      }
     },
     onPressEnter() {
       this.$refs.inputFile.click();
@@ -45,7 +47,7 @@ export default {
 </script>
 
 <template>
-  <label class="input-file" tabindex="0" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label class="input-file" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
     {{ label }}
     <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
   </label>

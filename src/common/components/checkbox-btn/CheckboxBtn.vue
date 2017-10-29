@@ -6,7 +6,8 @@ export default {
   props: {
     name: String,
     value: [String, Number],
-    label: [String, Number],
+    prefix: [String, Number],
+    sufix: [String, Number],
     onChange: {
       type: Function,
       default: noop
@@ -31,7 +32,9 @@ export default {
   },
   methods: {
     onChangeCheckBox() {
-      this.onChange(this.checkedState, this.value, this.name);
+      if (!this.disabled) {
+        this.onChange(this.checkedState, this.value, this.name);
+      }
     },
     onPressEnter() {
       this.$refs.checkBox.click();
@@ -41,9 +44,10 @@ export default {
 </script>
 
 <template>
-  <label class="checkbox-btn" tabindex="0" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
-    <span v-if="label" class="str">{{ label }}</span>
+  <label class="checkbox-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
     <input type="checkbox" ref="checkBox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
     <span class="switch-icon" />
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

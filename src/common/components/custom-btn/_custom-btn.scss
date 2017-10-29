@@ -1,8 +1,18 @@
-[class^="ctrl-btn"],
-[class*=" ctrl-btn"] {
-  background-color: $ctrl-btn-bg-color;
+$ctrl-btn-default-color: #bebebe;
+$ctrl-btn-default-bg-color: #3c3c3c;
+$ctrl-btn-default-active-bg-color: rgba(0, 173, 255, 0.09);
+$ctrl-btn-default-hover-color: #bebebe;
+$ctrl-btn-default-hover-bg-color: rgba(0, 173, 255, 0.09);
+
+// =========================
+$ctrl-btn-danger-color: #bebebe;
+$ctrl-btn-danger-bg-color: #ab4646;
+$ctrl-btn-danger-active-bg-color: rgba(253, 74, 74, 0.63);
+$ctrl-btn-danger-hover-color: #bebebe;
+$ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
+
+.ctrl-btn {
   text-decoration: none;
-  color: $ctrl-btn-color;
   text-align: center;
   font-size: 13px;
   flex: 1 1 auto;
@@ -16,13 +26,13 @@
     outline: none;
   }
 
+  &.disabled,
   &:disabled {
-    color: #000;
+    cursor: not-allowed;
+    opacity: 0.3;
 
     &:hover {
       cursor: not-allowed;
-      background: none;
-      color: #000;
     }
   }
 
@@ -41,11 +51,40 @@
   &.lg {
     flex: 0 1 200px;
   }
+
+  &.default {
+    background-color: $ctrl-btn-default-bg-color;
+    color: $ctrl-btn-default-color;
+
+    &.active {
+      background-color: $ctrl-btn-default-active-bg-color;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $ctrl-btn-default-hover-bg-color;
+      color: $ctrl-btn-default-hover-color;
+    }
+  }
+
+  &.danger {
+    background-color: $ctrl-btn-danger-bg-color;
+    color: $ctrl-btn-danger-color;
+
+    &.active {
+      background-color: $ctrl-btn-danger-active-bg-color;
+    }
+
+    &:focus,
+    &:hover {
+      background-color: $ctrl-btn-danger-hover-bg-color;
+      color: $ctrl-btn-danger-hover-color;
+    }
+  }
 }
 
 .controls-row {
-  > [class^="ctrl-btn"],
-  > [class*=" ctrl-btn"] {
+  > .ctrl-btn {
     font-size: 13.5px;
 
     i[class^="icon-"],
@@ -56,29 +95,5 @@
     &:not(:first-child) {
       border-left: 1px solid $ctrl-border-color;
     }
-  }
-}
-
-.ctrl-btn-default {
-  &.active {
-    background-color: $ctrl-btn-default-bg-color;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: $ctrl-btn-default-bg-color;
-    color: $ctrl-btn-default-color;
-  }
-}
-
-.ctrl-btn-danger {
-  &.active {
-    background-color: $ctrl-btn-danger-bg-color;
-  }
-
-  &:focus,
-  &:hover {
-    background-color: $ctrl-btn-danger-bg-color;
-    color: $ctrl-btn-danger-color;
   }
 }

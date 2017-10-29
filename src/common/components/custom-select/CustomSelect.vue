@@ -1,48 +1,50 @@
 <script>
-import noop from '../../utils/noop';
-import emptyArray from '../../utils/emptyArray';
+import noop from "../../utils/noop";
+import emptyArray from "../../utils/emptyArray";
 
 export default {
-  name: 'CustomSelect',
+  name: "CustomSelect",
   props: {
     name: String,
     onChange: {
       type: Function,
-      default: noop,
+      default: noop
     },
     selected: {
       type: String,
-      default: '',
+      default: ""
     },
     customClass: {
       type: String,
-      default: '',
+      default: ""
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     options: {
       type: Array,
-      default: emptyArray,
-    },
+      default: emptyArray
+    }
   },
   data() {
     return {
-      selectedOption: this.selected,
+      selectedOption: this.selected
     };
   },
   methods: {
     onSelectChange() {
-      this.onChange(this.selectedOption, this.name);
+      if (!this.disabled) {
+        this.onChange(this.selectedOption, this.name);
+      }
     }
-  },
-}
+  }
+};
 </script>
 
 <template>
   <div class="ctrl-select" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
-    <select v-model="selectedOption" :name="name" @change="onSelectChange" :disabled="disabled">
+    <select v-model="selectedOption" :tabindex="`${disabled ? -1 : 0}`" :name="name" @change="onSelectChange" :disabled="disabled">
       <option v-for="(option, index) in options" :key="option.id" :value="option.id">
         {{ option.title }}
       </option>

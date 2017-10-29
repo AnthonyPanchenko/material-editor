@@ -5,16 +5,20 @@
   margin: 0;
 }
 
-.scroll-box::-webkit-scrollbar {
-  width: 4px;
-}
+.scroll-box {
+  overflow-y: auto;
 
-.scroll-box::-webkit-scrollbar-thumb {
-  background-color: $scrollbar-thumb-bg-color;
-}
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
 
-.scroll-box::-webkit-scrollbar-track {
-  background-color: $scrollbar-track-bg-color;
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-bg-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $scrollbar-track-bg-color;
+  }
 }
 
 html,
@@ -42,7 +46,7 @@ i[class*=" icon-"] {
 
 .controls-row {
   display: flex;
-  height: $controls-row-height;
+  flex: 1 0 $controls-row-height;
   background-color: $controls-row-bg;
 
   .label {

@@ -1,3 +1,24 @@
 .shader-editor-footer {
+  display: flex;
+  flex-direction: column;
 
+  .shader-ctrl-settings {
+    flex-direction: column;
+    flex-basis: 100%;
+    display: flex;
+
+    .create-new {
+    }
+
+    .controls {
+      direction: rtl;
+
+      .row {
+        direction: initial;
+        display: flex;
+        align-items: center;
+        height: 26.5px;
+      }
+    }
+  }
 }

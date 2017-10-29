@@ -80,35 +80,94 @@ export default {
       <custom-btn title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.TEXTURES" :onClick="onTabClick" />
       <custom-btn :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" size="xs" :onClick="onToggleFooterContent" />
     </div>
-    <div v-if="isVisibleFooterContent" class="shader-ctrl-settings">
-      <div v-if="activeTabName === tabNames.ATTRIBUTES">
-          tabNames.ATTRIBUTES
-      </div>
-      <div v-if="activeTabName === tabNames.UNIFORMS">
-        <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-        <br />
-        <checkbox-btn disabled sufix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-        <br />
-        <checkbox-btn disabled checked sufix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-        <br />
-        <hr />
-        <br />
-        <custom-btn title="Some button 1" />
-        <br />
-        <br />
-        <custom-btn title="Some button 2" type="danger" />
-        <br />
-        <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
-        <br />
-        <radio-btn name="name1" prefix="Some radio" value="value2" :onChange="onChangeRadioBtn" picked="value1" disabled />
-        <br />
-        <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
-        <br />
+
+    <div v-if="isVisibleFooterContent && activeTabName === tabNames.ATTRIBUTES" class="shader-ctrl-settings">
+        tabNames.ATTRIBUTES
+    </div>
+
+    <div v-if="isVisibleFooterContent && activeTabName === tabNames.UNIFORMS" class="shader-ctrl-settings">
+      <div class="create-new">
         <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
       </div>
-      <div v-if="activeTabName === tabNames.TEXTURES">
-          tabNames.TEXTURES
+      <div class="controls scroll-box">
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
+        <div class="row">
+          <checkbox-btn prefix="Some checkbox" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+          <custom-btn title="Some button 2" type="danger" />
+          <radio-btn name="name1" prefix="Some radio" value="value1" :onChange="onChangeRadioBtn" picked="value1" />
+          <radio-btn name="name1" sufix="Some radio" value="value3" :onChange="onChangeRadioBtn" picked="value1" />
+        </div>
       </div>
     </div>
+
+    <div v-if="isVisibleFooterContent && activeTabName === tabNames.TEXTURES" class="shader-ctrl-settings">
+        tabNames.TEXTURES
+    </div>
+
   </resize-box>
 </template>

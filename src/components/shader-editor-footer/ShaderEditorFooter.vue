@@ -91,11 +91,11 @@ export default {
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.UNIFORMS" class="shader-ctrl-settings">
       <div class="create-new">
         <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
-        <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
-        <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
-        <input type="text" name="tex" placeholder="name">
-        <custom-btn iconClass="icon-checkmark" size="xs" />
-        <custom-btn iconClass="icon-close" size="xs" />
+        <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
+        <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
+        <input type="text" name="tex" placeholder="name" class="new-shader-ctrl">
+        <custom-btn iconClass="icon-checkmark" size="xs" customClass="new-shader-ctrl" />
+        <custom-btn iconClass="icon-close" size="xs" customClass="new-shader-ctrl" />
       </div>
       <div class="controls scroll-box">
         <div class="row">

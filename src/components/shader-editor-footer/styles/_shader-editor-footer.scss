@@ -9,6 +9,18 @@
 
     .create-new {
       display: flex;
+      padding: 5px;
+      background-color: #616161;
+      align-items: center;
+
+      .radio-ctrl {
+        padding-left: 4px;
+        padding-right: 4px;
+      }
+
+      .new-shader-ctrl {
+        margin-left: 3px;
+      }
     }
 
     .controls {

@@ -1,7 +1,7 @@
 $radio-btn-ctrl-size: 14px;
 $radio-btn-dot-color: #171717;
 $radio-btn-hover-color: #64add1;
-$radio-btn-bg-hover-color: #fff;
+$radio-btn-border-hover-color: #fff;
 $radio-btn-bg-active-color: #1e90ff;
 $radio-btn-border-color: #727272;
 
@@ -18,7 +18,7 @@ $radio-btn-border-color: #727272;
     height: $radio-btn-ctrl-size;
     border-radius: $radio-btn-ctrl-size;
     background-color: $radio-btn-dot-color;
-    border-width: $radio-btn-ctrl-size / 4.5;
+    border-width: $radio-btn-ctrl-size / 5.5;
     border-style: solid;
     border-color: $radio-btn-border-color;
     transition: border-color 200ms linear, border-width 200ms linear;
@@ -38,8 +38,7 @@ $radio-btn-border-color: #727272;
     display: none;
 
     &:checked + .switch-icon {
-      border-color: $radio-btn-bg-active-color;
-      border-width: $radio-btn-ctrl-size / 4.5;
+      background-color: $radio-btn-bg-active-color;
     }
   }
 
@@ -52,7 +51,7 @@ $radio-btn-border-color: #727272;
     color: $radio-btn-hover-color;
 
     .switch-icon {
-      background-color: $radio-btn-bg-hover-color;
+      border-color: $radio-btn-border-hover-color;
     }
   }
 

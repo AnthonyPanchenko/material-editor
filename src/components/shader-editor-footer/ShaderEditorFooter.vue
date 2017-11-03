@@ -94,8 +94,8 @@ export default {
         <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
         <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
         <input type="text" name="tex" placeholder="name">
-        <custom-btn iconClass="icon-checkmark" />
-        <custom-btn iconClass="icon-close" />
+        <custom-btn iconClass="icon-checkmark" size="xs" />
+        <custom-btn iconClass="icon-close" size="xs" />
       </div>
       <div class="controls scroll-box">
         <div class="row">

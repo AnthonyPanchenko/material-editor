@@ -18,7 +18,7 @@ export default {
   <footer class="presentation-footer">
     <div class="controls-row">
       <span class="label fps">FPS 60</span>
-      <button type="button" class="ctrl-btn default xs" @click="onToggleFullScreenMode">
+      <button type="button" class="ctrl-btn default xs" accesskey="b" @click="onToggleFullScreenMode">
         <i :class="isInFullScreenMode ? 'icon-maximize' : 'icon-minimize'" aria-hidden="true" />
       </button>
     </div>

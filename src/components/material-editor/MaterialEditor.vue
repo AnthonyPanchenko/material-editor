@@ -81,11 +81,11 @@ export default {
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-settings" size="xs" />
-          <custom-btn title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onClick="onTabClick" />
-          <custom-btn title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onClick="onTabClick" />
-          <custom-btn title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onClick="onTabClick" />
-          <custom-btn :link="`/${urls.SHADER_EDITOR}`" iconClass="icon-shader-editor" size="xs" />
+          <custom-btn accesskey="s" iconClass="icon-settings" size="xs" />
+          <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onClick="onTabClick" />
+          <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onClick="onTabClick" />
+          <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onClick="onTabClick" />
+          <custom-btn :link="`/${urls.SHADER_EDITOR}`" accesskey="w" iconClass="icon-shader-editor" size="xs" />
         </div>
       </header>
 
@@ -390,7 +390,7 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-list" size="xs" :onClick="onToggleObjectsList" />
+          <custom-btn iconClass="icon-list" size="xs" accesskey="q" :onClick="onToggleObjectsList" />
           <custom-btn title="Translate" size="md" />
           <custom-btn title="Rotate" size="md" />
           <custom-btn title="Scale" size="md" />

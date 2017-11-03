@@ -48,14 +48,14 @@ export default {
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-settings" size="xs" />
+          <custom-btn accesskey="s" iconClass="icon-settings" size="xs" />
           <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data-tab="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName" />
           <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data-tab="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName" />
           <custom-btn iconClass="icon-new-file" size="xs" />
           <custom-btn iconClass="icon-save" size="xs" />
           <custom-btn iconClass="icon-folder" size="xs" />
           <custom-btn iconClass="icon-gallery" size="xs" />
-          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" iconClass="icon-material-editor" size="xs" />
+          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" size="xs" />
         </div>
       </header>
 
@@ -74,7 +74,7 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-list" size="xs" :onClick="onToggleObjectsList" />
+          <custom-btn iconClass="icon-list" size="xs" accesskey="q" :onClick="onToggleObjectsList" />
           <custom-btn iconClass="icon-sphere" />
           <custom-btn iconClass="icon-cube" />
           <custom-btn iconClass="icon-cylinder" />

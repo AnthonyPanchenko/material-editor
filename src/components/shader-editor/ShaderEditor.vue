@@ -53,7 +53,7 @@ export default {
           <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data-tab="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName" />
           <custom-btn iconClass="icon-new-file" size="xs" />
           <custom-btn iconClass="icon-save" size="xs" />
-          <custom-btn iconClass="icon-folder" size="xs" />
+          <custom-btn iconClass="icon-open-folder" size="xs" />
           <custom-btn iconClass="icon-gallery" size="xs" />
           <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" size="xs" />
         </div>

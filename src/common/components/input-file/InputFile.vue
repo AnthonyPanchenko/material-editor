@@ -36,7 +36,7 @@ export default {
   methods: {
     onChangeInputFile(event) {
       if (!this.disabled) {
-        this.onChange(this.checkedState, this.value, this.name);
+        this.onChange(this.value, this.name);
       }
     },
     onPressEnter() {

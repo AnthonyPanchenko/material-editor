@@ -26,7 +26,7 @@ export default {
   methods: {
     onChangeInputNumber(event) {
       if (!this.disabled) {
-        this.onChange(this.checkedState, this.value, this.name);
+        this.onChange(this.value, this.name, this.min, this.max);
       }
     }
   }

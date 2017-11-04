@@ -16,7 +16,7 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
   text-align: center;
   font-size: 13px;
   flex: 1 1 auto;
-  padding: 5px;
+  padding: 4px;
   white-space: nowrap;
   text-overflow: ellipsis;
   overflow: hidden;
@@ -37,19 +37,19 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
   }
 
   &.xs {
-    flex: 0 1 50px;
+    flex: 0 0 50px;
   }
 
   &.sm {
-    flex: 0 1 100px;
+    flex: 0 0 100px;
   }
 
   &.md {
-    flex: 0 1 150px;
+    flex: 0 0 150px;
   }
 
   &.lg {
-    flex: 0 1 200px;
+    flex: 0 0 200px;
   }
 
   &.default {

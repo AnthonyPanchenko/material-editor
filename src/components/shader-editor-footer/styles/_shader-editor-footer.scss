@@ -9,19 +9,32 @@
 
     .create-new {
       display: flex;
-      align-items: center;
+      flex-direction: column;
       padding: 7px 5px;
       background-color: #616161;
       border-bottom: 1px solid #787878;
       border-top: 1px solid #787878;
 
-      .radio-ctrl {
-        padding-left: 4px;
-        padding-right: 4px;
+      .settings-row {
+        display: flex;
+        align-items: center;
+        padding-bottom: 5px;
+        border-bottom: 1px solid #787878;
+
+        .radio-ctrl {
+          padding-left: 4px;
+          padding-right: 4px;
+        }
+
+        .new-shader-ctrl {
+          margin-left: 3px;
+        }
       }
 
-      .new-shader-ctrl {
-        margin-left: 3px;
+      .parameters-row {
+        display: flex;
+        align-items: center;
+        padding-top: 5px;
       }
     }
 

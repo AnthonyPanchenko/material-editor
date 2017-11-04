@@ -9,9 +9,11 @@
 
     .create-new {
       display: flex;
-      padding: 5px;
-      background-color: #616161;
       align-items: center;
+      padding: 7px 5px;
+      background-color: #616161;
+      border-bottom: 1px solid #787878;
+      border-top: 1px solid #787878;
 
       .radio-ctrl {
         padding-left: 4px;

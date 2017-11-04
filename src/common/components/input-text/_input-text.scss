@@ -1,0 +1,64 @@
+$input-text-color: #f1f1f1;
+$input-text-bg-color: rgba(255, 255, 255, 0.14);
+$input-text-hover-color: #64add1;
+$input-text-hover-bg-color: rgba(121, 136, 185, 0.14);
+
+.input-text {
+  font-size: 13px;
+  height: 25px;
+  display: flex;
+  align-items: center;
+  background-color: $input-text-bg-color;
+  color: $input-text-color;
+  width: 100%;
+
+  input[type="text"] {
+    cursor: initial;
+    background-color: inherit;
+    color: inherit;
+    width: inherit;
+    height: inherit;
+    padding-left: 5px;
+    padding-right: 5px;
+    text-overflow: ellipsis;
+
+    &::placeholder {
+      color: lighten($input-text-hover-color, 10%);
+    }
+
+    &:hover,
+    &:focus {
+      outline: none;
+      background-color: $input-text-hover-bg-color;
+      color: $input-text-hover-color;
+    }
+
+    &:disabled {
+      cursor: not-allowed;
+
+      &:hover,
+      &:focus {
+        background-color: inherit;
+        color: inherit;
+      }
+    }
+  }
+
+  .prefix,
+  .sufix {
+    min-width: 16px;
+    text-align: center;
+    text-transform: uppercase;
+    color: #979797;
+  }
+
+  &.disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+
+    .prefix,
+    .sufix {
+      cursor: not-allowed;
+    }
+  }
+}

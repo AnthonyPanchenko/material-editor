@@ -4,6 +4,7 @@ const { mapState, mapActions } = createNamespacedHelpers("shaderEditorFooter");
 
 import ResizeBox from "../resize-box/ResizeBox.vue";
 import InputNumber from "../../common/components/input-number/InputNumber.vue";
+import InputText from "../../common/components/input-text/InputText.vue";
 import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
 import CheckboxBtn from "../../common/components/checkbox-btn/CheckboxBtn.vue";
 import RadioBtn from "../../common/components/radio-btn/RadioBtn.vue";
@@ -28,6 +29,7 @@ export default {
     CustomSelect,
     CheckboxBtn,
     InputNumber,
+    InputText,
     RadioBtn,
     CustomBtn,
     ResizeBox
@@ -93,7 +95,7 @@ export default {
         <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
         <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
         <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
-        <input type="text" name="tex" placeholder="name" class="new-shader-ctrl">
+        <input-text name="tex" placeholder="name" class="new-shader-ctrl" />
         <custom-btn iconClass="icon-checkmark" size="xs" customClass="new-shader-ctrl" />
         <custom-btn iconClass="icon-close" size="xs" customClass="new-shader-ctrl" />
       </div>

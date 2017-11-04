@@ -98,7 +98,7 @@ export default {
           <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
           <input-text name="tex" placeholder="name" class="new-shader-ctrl" />
           <custom-btn iconClass="icon-checkmark" size="xs" customClass="new-shader-ctrl" />
-          <custom-btn iconClass="icon-close" size="xs" customClass="new-shader-ctrl" />
+          <custom-btn iconClass="icon-close" size="xs" type="danger" customClass="new-shader-ctrl" />
         </div>
         <div class="parameters-row">
           <input-number prefix="R:" />
@@ -108,16 +108,28 @@ export default {
       </div>
       <div class="controls scroll-box">
         <div class="row">
-          <input-number prefix="R" />
-          <input-number prefix="G" />
-          <input-number prefix="B" />
-          <input-number prefix="A" />
+          <div class="info">
+            <span class="name">paintColor</span>
+            <span class="type">vec3</span>
+          </div>
+          <input-number prefix="R:" />
+          <input-number prefix="G:" />
+          <input-number prefix="B:" />
+          <custom-btn iconClass="icon-color-palette" size="xs" customClass="color-picker-btn" />
+          <custom-btn iconClass="icon-pencil" size="xs" />
+          <custom-btn iconClass="icon-trash-bin" type="danger" size="xs" />
         </div>
         <div class="row">
-          <input-number prefix="X" />
-          <input-number prefix="Y" />
-          <input-number prefix="Z" />
-          <input-number prefix="W" />
+          <div class="info">
+            <span class="name">lightPosition</span>
+            <span class="type">vec3</span>
+          </div>
+          <input-number prefix="X:" />
+          <input-number prefix="Y:" />
+          <input-number prefix="Z:" />
+          <custom-btn iconClass="icon-xyz" size="xs" customClass="vec3-picker-btn" />
+          <custom-btn iconClass="icon-pencil" size="xs" />
+          <custom-btn iconClass="icon-trash-bin" type="danger" size="xs" />
         </div>
       </div>
     </div>

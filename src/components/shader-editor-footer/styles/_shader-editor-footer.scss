@@ -45,7 +45,30 @@
         direction: initial;
         display: flex;
         align-items: center;
-        height: 26.5px;
+        margin-top: 3px;
+        margin-bottom: 3px;
+        padding: 5px;
+        border-bottom: 1px solid #383838;
+
+        .info {
+          display: flex;
+          flex-direction: column;
+          flex: 0 0 100px;
+          padding-right: 3px;
+
+          .name {
+            font-size: 13px;
+          }
+
+          .type {
+            font-size: 11px;
+            color: #505050;
+          }
+        }
+
+        > button {
+          margin-left: 3px;
+        }
       }
     }
   }

@@ -2,6 +2,10 @@
   display: flex;
   flex-direction: column;
 
+  .grab-resize-row {
+    top: -3px;
+  }
+
   .shader-ctrl-settings {
     flex-direction: column;
     flex-basis: 100%;

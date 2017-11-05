@@ -167,7 +167,7 @@ export default {
       <header class="presentation-header">
         <div class="controls-row">
           <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
-          <custom-btn iconClass="icon-translate" class="xs" />
+          <custom-btn iconClass="icon-move" class="xs" />
           <custom-btn iconClass="icon-rotate" class="xs" />
           <custom-btn iconClass="icon-scale" class="xs" />
         </div>

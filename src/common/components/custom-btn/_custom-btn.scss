@@ -1,15 +1,15 @@
 $ctrl-btn-default-color: #a2a2a2;
 $ctrl-btn-default-bg-color: #3c3c3c;
-$ctrl-btn-default-active-bg-color: rgba(0, 173, 255, 0.09);
-$ctrl-btn-default-hover-color: #d5d5d5;
-$ctrl-btn-default-hover-bg-color: rgba(0, 173, 255, 0.09);
+$ctrl-btn-default-active-bg-color: #4788a7;
+$ctrl-btn-default-hover-color: #fafafa;
+$ctrl-btn-default-hover-bg-color: #4788a7;
 
 // =========================
 $ctrl-btn-danger-color: #a2a2a2;
 $ctrl-btn-danger-bg-color: #ab4646;
-$ctrl-btn-danger-active-bg-color: rgba(253, 74, 74, 0.63);
-$ctrl-btn-danger-hover-color: #d5d5d5;
-$ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
+$ctrl-btn-danger-active-bg-color: #e82d2d;
+$ctrl-btn-danger-hover-color: #fafafa;
+$ctrl-btn-danger-hover-bg-color: #e82d2d;
 
 .ctrl-btn {
   text-decoration: none;
@@ -23,9 +23,11 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
   user-select: none;
   background-color: $ctrl-btn-default-bg-color;
   color: $ctrl-btn-default-color;
+  transition: background-color 150ms linear, color 150ms linear;
 
   &.active {
     background-color: $ctrl-btn-default-active-bg-color;
+    color: $ctrl-btn-default-hover-color;
   }
 
   &:focus {
@@ -70,6 +72,7 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
 
     &.active {
       background-color: $ctrl-btn-danger-active-bg-color;
+      color: $ctrl-btn-danger-hover-color;
     }
 
     &:focus,

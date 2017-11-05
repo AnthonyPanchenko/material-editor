@@ -140,16 +140,26 @@ export default {
             </div>
 
             <div class="row">
-              <span class="label">Env Map</span>
+              <span class="label">Specular Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
               <input-file name="file1" :onChange="onChangeFileInput" />
+            </div>
+
+            <div class="row">
+              <span class="label">Env Map</span>
+              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
               <input-number />
+              <input-file name="file1" :onChange="onChangeFileInput">
+                <img-box />
+              </input-file>
             </div>
 
             <div class="row">
               <span class="label">Light Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file name="file1" :onChange="onChangeFileInput" />
+              <input-file name="file1" :onChange="onChangeFileInput">
+                <img-box url="/img/texture_img.jpg" />
+              </input-file>
             </div>
 
             <div class="row">

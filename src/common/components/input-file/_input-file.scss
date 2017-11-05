@@ -4,18 +4,26 @@ $input-file-hover-color: #fff;
 $input-file-hover-bg-color: #f79d00;
 
 .input-file {
-  font-size: 13px;
   align-items: center;
   display: flex;
   justify-content: center;
   user-select: none;
-  padding-left: 10px;
-  padding-right: 10px;
-  color: $input-file-color;
-  background-color: $input-file-bg-color;
-  transition: background-color 150ms ease-in-out;
-  min-height: 25px;
-  width: 100%;
+
+  .button {
+    cursor: pointer;
+    font-size: 13px;
+    padding-left: 10px;
+    padding-right: 10px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $input-file-color;
+    background-color: $input-file-bg-color;
+    transition: background-color 150ms ease-in-out;
+    height: 27px;
+    min-width: 50px;
+    width: 100%;
+  }
 
   &:focus {
     outline: none;
@@ -23,8 +31,10 @@ $input-file-hover-bg-color: #f79d00;
 
   &:focus,
   &:hover {
-    background-color: $input-file-hover-bg-color;
-    color: $input-file-hover-color;
+    .button {
+      background-color: $input-file-hover-bg-color;
+      color: $input-file-hover-color;
+    }
   }
 
   input[type="file"] {
@@ -37,8 +47,11 @@ $input-file-hover-bg-color: #f79d00;
 
     &:focus,
     &:hover {
-      color: $input-file-color;
-      background-color: $input-file-bg-color;
+      .button {
+        cursor: inherit;
+        color: $input-file-color;
+        background-color: $input-file-bg-color;
+      }
     }
   }
 }

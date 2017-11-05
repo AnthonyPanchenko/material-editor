@@ -97,7 +97,7 @@ export default {
           <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
           <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
           <input-text name="tex" placeholder="name" />
-          <custom-btn iconClass="icon-checkmark" class="xs" />
+          <custom-btn iconClass="icon-checkmark" class="success xs" />
           <custom-btn iconClass="icon-close" class="danger xs" />
         </div>
         <div class="parameters-row">
@@ -116,7 +116,7 @@ export default {
           <input-number prefix="G:" />
           <input-number prefix="B:" />
           <custom-btn iconClass="icon-color-palette" class="xs" />
-          <custom-btn iconClass="icon-pencil" class="xs" />
+          <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
         <div class="row">
@@ -128,7 +128,7 @@ export default {
           <input-number prefix="Y:" />
           <input-number prefix="Z:" />
           <custom-btn iconClass="icon-xyz" class="xs" />
-          <custom-btn iconClass="icon-pencil" class="xs" />
+          <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
       </div>

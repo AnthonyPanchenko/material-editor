@@ -7,11 +7,16 @@ export default {
     url: {
       type: String,
       default: ""
-    },
+    }
   },
+  data() {
+    return {
+      styleBg: this.url ? { backgroundImage: `url(${this.url})` } : {},
+    };
+  }
 };
 </script>
 
 <template>
-  <div :class="['img-box', { 'bg-img': url }]" :style="{ backgroundImage: `url(${url})` }" />
+  <div :class="['img-box', { 'bg-img': url }]" :style="styleBg" />
 </template>

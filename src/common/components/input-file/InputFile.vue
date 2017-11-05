@@ -45,7 +45,9 @@ export default {
   <label :class="['input-file', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
     <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
     <slot>
-      <i class="icon-upload" aria-hidden="true" />
+      <span class="button">
+        <i class="icon-upload" aria-hidden="true" />
+      </span>
     </slot>
   </label>
 </template>

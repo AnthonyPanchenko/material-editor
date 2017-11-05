@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("shaderEditor");
 
+import InputFile from "../../common/components/input-file/InputFile.vue";
 import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
 import ItemObjList from "../item-obj-list/ItemObjList.vue";
 import CanvasBoard from "../canvas-board/CanvasBoard.vue";
@@ -16,6 +17,7 @@ export default {
   components: {
     CustomBtn,
     ItemObjList,
+    InputFile,
     CanvasBoard,
     ResizeBox,
     ShaderEditorFooter,
@@ -80,7 +82,7 @@ export default {
           <custom-btn iconClass="icon-cylinder" />
           <custom-btn iconClass="icon-torus" />
           <custom-btn iconClass="icon-plane" />
-          <custom-btn iconClass="icon-upload" class="xs" />
+          <input-file name="file1" />
         </div>
       </header>
 

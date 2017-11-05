@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("materialEditor");
 
+import Vec2Picker from "../../common/components/vec2-picker/Vec2Picker.vue";
 import InputFile from "../../common/components/input-file/InputFile.vue";
 import InputNumber from "../../common/components/input-number/InputNumber.vue";
 import ImgBox from "../../common/components/img-box/ImgBox.vue";
@@ -20,6 +21,7 @@ export default {
   components: {
     ImgBox,
     InputFile,
+    Vec2Picker,
     InputNumber,
     CheckboxBtn,
     CustomSelect,
@@ -127,6 +129,7 @@ export default {
 
         <div v-if="activeTabName === tabNames.GEOMETRY" class="fieldset">
             GEOMETRY
+            <vec2-picker />
         </div>
 
         <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">

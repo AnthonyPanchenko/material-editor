@@ -1,5 +1,5 @@
 $input-text-color: #f1f1f1;
-$input-text-bg-color: rgba(255, 255, 255, 0.14);
+$input-text-bg-color: #3c3c3c;
 $input-text-hover-color: #64add1;
 $input-text-hover-bg-color: rgba(121, 136, 185, 0.14);
 
@@ -21,10 +21,6 @@ $input-text-hover-bg-color: rgba(121, 136, 185, 0.14);
     padding-left: 5px;
     padding-right: 5px;
     text-overflow: ellipsis;
-
-    &::placeholder {
-      color: lighten($input-text-hover-color, 10%);
-    }
 
     &:hover,
     &:focus {
@@ -50,6 +46,14 @@ $input-text-hover-bg-color: rgba(121, 136, 185, 0.14);
     text-align: center;
     text-transform: uppercase;
     color: #979797;
+  }
+
+  .prefix {
+    padding-left: 5px;
+  }
+
+  .sufix {
+    padding-right: 5px;
   }
 
   &.disabled {

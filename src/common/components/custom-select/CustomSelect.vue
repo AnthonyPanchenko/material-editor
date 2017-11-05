@@ -39,11 +39,11 @@ export default {
 </script>
 
 <template>
-  <div :class="['ctrl-select', { 'disabled': disabled }]">
+  <label :class="['ctrl-select', { 'disabled': disabled }]">
     <select v-model="selectedOption" :tabindex="`${disabled ? -1 : 0}`" :name="name" @change="onSelectChange" :disabled="disabled">
       <option v-for="(option, index) in options" :key="option.id" :value="option.id">
         {{ option.title }}
       </option>
     </select>
-  </div>
+  </label>
 </template>

@@ -21,6 +21,7 @@ $ctrl-btn-danger-hover-bg-color: #e82d2d;
   text-overflow: ellipsis;
   overflow: hidden;
   user-select: none;
+  min-height: 25px;
   background-color: $ctrl-btn-default-bg-color;
   color: $ctrl-btn-default-color;
   transition: background-color 150ms linear, color 150ms linear;

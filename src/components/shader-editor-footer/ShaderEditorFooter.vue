@@ -94,11 +94,11 @@ export default {
       <div class="create-new">
         <div class="settings-row">
           <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
-          <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" class="new-shader-ctrl radio-ctrl" />
-          <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" class="new-shader-ctrl radio-ctrl" />
-          <input-text name="tex" placeholder="name" class="new-shader-ctrl" />
-          <custom-btn iconClass="icon-checkmark" class="new-shader-ctrl xs" />
-          <custom-btn iconClass="icon-close" class="new-shader-ctrl danger xs" />
+          <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
+          <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
+          <input-text name="tex" placeholder="name" />
+          <custom-btn iconClass="icon-checkmark" class="xs" />
+          <custom-btn iconClass="icon-close" class="danger xs" />
         </div>
         <div class="parameters-row">
           <input-number prefix="R:" />
@@ -115,7 +115,7 @@ export default {
           <input-number prefix="R:" />
           <input-number prefix="G:" />
           <input-number prefix="B:" />
-          <custom-btn iconClass="icon-color-palette" class="color-picker-btn xs" />
+          <custom-btn iconClass="icon-color-palette" class="xs" />
           <custom-btn iconClass="icon-pencil" class="xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
@@ -127,7 +127,7 @@ export default {
           <input-number prefix="X:" />
           <input-number prefix="Y:" />
           <input-number prefix="Z:" />
-          <custom-btn iconClass="icon-xyz" class="vec3-picker-btn xs" />
+          <custom-btn iconClass="icon-xyz" class="xs" />
           <custom-btn iconClass="icon-pencil" class="xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>

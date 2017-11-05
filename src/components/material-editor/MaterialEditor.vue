@@ -4,6 +4,7 @@ const { mapState, mapActions } = createNamespacedHelpers("materialEditor");
 
 import InputFile from "../../common/components/input-file/InputFile.vue";
 import InputNumber from "../../common/components/input-number/InputNumber.vue";
+import ImgBox from "../../common/components/img-box/ImgBox.vue";
 import CheckboxBtn from "../../common/components/checkbox-btn/CheckboxBtn.vue";
 import CustomSelect from "../../common/components/custom-select/CustomSelect.vue";
 import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
@@ -17,6 +18,7 @@ import tabNames from "./constants/tabNames";
 export default {
   name: "MaterialEditor",
   components: {
+    ImgBox,
     InputFile,
     InputNumber,
     CheckboxBtn,
@@ -134,20 +136,20 @@ export default {
             <div class="row">
               <span class="label">Specular Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file label="+file" name="file1" disabled :onChange="onChangeFileInput" />
+              <input-file name="file1" disabled :onChange="onChangeFileInput" />
             </div>
 
             <div class="row">
               <span class="label">Env Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-file name="file1" :onChange="onChangeFileInput" />
               <input-number />
             </div>
 
             <div class="row">
               <span class="label">Light Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file label="+file" name="file1" :onChange="onChangeFileInput" />
+              <input-file name="file1" :onChange="onChangeFileInput" />
             </div>
 
             <div class="row">

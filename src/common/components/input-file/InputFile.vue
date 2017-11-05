@@ -6,7 +6,6 @@ export default {
   props: {
     name: String,
     value: [String, Number],
-    label: [String, Number],
     onChange: {
       type: Function,
       default: noop
@@ -44,7 +43,9 @@ export default {
 
 <template>
   <label :class="['input-file', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
-    {{ label }}
     <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
+    <slot>
+      <i class="icon-upload" aria-hidden="true" />
+    </slot>
   </label>
 </template>

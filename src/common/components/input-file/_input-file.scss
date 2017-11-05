@@ -1,5 +1,7 @@
-$input-file-hover-color: #64add1;
-$input-file-hover-bg-color: rgba(121, 136, 185, 0.14);
+$input-file-color: #fafafa;
+$input-file-bg-color: #c28419;
+$input-file-hover-color: #fff;
+$input-file-hover-bg-color: #f79d00;
 
 .input-file {
   font-size: 13px;
@@ -9,10 +11,11 @@ $input-file-hover-bg-color: rgba(121, 136, 185, 0.14);
   user-select: none;
   padding-left: 10px;
   padding-right: 10px;
-  background-color: transparent;
+  color: $input-file-color;
+  background-color: $input-file-bg-color;
   transition: background-color 150ms ease-in-out;
-  height: 26px;
-  width: 45px;
+  min-height: 25px;
+  width: 100%;
 
   &:focus {
     outline: none;
@@ -34,8 +37,8 @@ $input-file-hover-bg-color: rgba(121, 136, 185, 0.14);
 
     &:focus,
     &:hover {
-      background-color: inherit;
-      color: inherit;
+      color: $input-file-color;
+      background-color: $input-file-bg-color;
     }
   }
 }

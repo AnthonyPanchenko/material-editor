@@ -14,10 +14,6 @@ export default {
       type: String,
       default: ""
     },
-    customClass: {
-      type: String,
-      default: ""
-    },
     disabled: {
       type: Boolean,
       default: false
@@ -43,7 +39,7 @@ export default {
 </script>
 
 <template>
-  <div class="ctrl-select" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <div :class="['ctrl-select', { 'disabled': disabled }]">
     <select v-model="selectedOption" :tabindex="`${disabled ? -1 : 0}`" :name="name" @change="onSelectChange" :disabled="disabled">
       <option v-for="(option, index) in options" :key="option.id" :value="option.id">
         {{ option.title }}

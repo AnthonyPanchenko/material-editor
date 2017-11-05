@@ -21,9 +21,21 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
   text-overflow: ellipsis;
   overflow: hidden;
   user-select: none;
+  background-color: $ctrl-btn-default-bg-color;
+  color: $ctrl-btn-default-color;
+
+  &.active {
+    background-color: $ctrl-btn-default-active-bg-color;
+  }
 
   &:focus {
     outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    background-color: $ctrl-btn-default-hover-bg-color;
+    color: $ctrl-btn-default-hover-color;
   }
 
   &.disabled,
@@ -50,21 +62,6 @@ $ctrl-btn-danger-hover-bg-color: rgba(253, 74, 74, 0.63);
 
   &.lg {
     flex: 0 0 200px;
-  }
-
-  &.default {
-    background-color: $ctrl-btn-default-bg-color;
-    color: $ctrl-btn-default-color;
-
-    &.active {
-      background-color: $ctrl-btn-default-active-bg-color;
-    }
-
-    &:focus,
-    &:hover {
-      background-color: $ctrl-btn-default-hover-bg-color;
-      color: $ctrl-btn-default-hover-color;
-    }
   }
 
   &.danger {

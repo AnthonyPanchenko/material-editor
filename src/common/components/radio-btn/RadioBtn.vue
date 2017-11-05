@@ -19,10 +19,6 @@ export default {
     picked: {
       type: [String, Number],
       default: ""
-    },
-    customClass: {
-      type: String,
-      default: ""
     }
   },
   data() {
@@ -44,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <label class="radio-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label :class="['radio-btn', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
     <input type="radio" ref="radioBtn" :name="name" v-model="pickedValue" :value="value" @change="onChangeRadioBtn" :disabled="disabled">
     <span class="switch-icon" />

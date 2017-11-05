@@ -78,14 +78,14 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
+    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <custom-btn accesskey="s" iconClass="icon-settings" size="xs" />
+          <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
           <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onClick="onTabClick" />
           <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onClick="onTabClick" />
           <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onClick="onTabClick" />
-          <custom-btn :link="`/${urls.SHADER_EDITOR}`" accesskey="w" iconClass="icon-shader-editor" size="xs" />
+          <custom-btn :link="`/${urls.SHADER_EDITOR}`" accesskey="w" iconClass="icon-shader-editor" class="xs" />
         </div>
       </header>
 
@@ -117,8 +117,8 @@ export default {
 
             <div class="row">
               <span class="label">Shadow</span>
-              <checkbox-btn customClass="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <checkbox-btn customClass="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn class="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
+              <checkbox-btn class="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
             </div>
           </div>
         </div>
@@ -166,10 +166,10 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-list" size="xs" accesskey="q" :onClick="onToggleObjectsList" />
-          <custom-btn iconClass="icon-translate" size="xs" />
-          <custom-btn iconClass="icon-rotate" size="xs" />
-          <custom-btn iconClass="icon-scale" size="xs" />
+          <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
+          <custom-btn iconClass="icon-translate" class="xs" />
+          <custom-btn iconClass="icon-rotate" class="xs" />
+          <custom-btn iconClass="icon-scale" class="xs" />
         </div>
       </header>
 

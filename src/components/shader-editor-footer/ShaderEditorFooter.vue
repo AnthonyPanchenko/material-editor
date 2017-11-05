@@ -78,12 +78,12 @@ export default {
 </script>
 
 <template>
-  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" customClass="controls-footer shader-editor-footer" :disabled="!isVisibleFooterContent">
+  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" class="controls-footer shader-editor-footer" :disabled="!isVisibleFooterContent">
     <div class="controls-row">
       <custom-btn accesskey="a" title="Attributes" :iconClass="defineIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.ATTRIBUTES" :onClick="onTabClick" />
       <custom-btn accesskey="u" title="Uniforms" :iconClass="defineIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.UNIFORMS" :onClick="onTabClick" />
       <custom-btn accesskey="t" title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.TEXTURES" :onClick="onTabClick" />
-      <custom-btn accesskey="c" :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" size="xs" :onClick="onToggleFooterContent" />
+      <custom-btn accesskey="c" :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" class="xs" :onClick="onToggleFooterContent" />
     </div>
 
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.ATTRIBUTES" class="shader-ctrl-settings">
@@ -94,11 +94,11 @@ export default {
       <div class="create-new">
         <div class="settings-row">
           <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
-          <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
-          <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" customClass="new-shader-ctrl radio-ctrl" />
+          <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" class="new-shader-ctrl radio-ctrl" />
+          <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" class="new-shader-ctrl radio-ctrl" />
           <input-text name="tex" placeholder="name" class="new-shader-ctrl" />
-          <custom-btn iconClass="icon-checkmark" size="xs" customClass="new-shader-ctrl" />
-          <custom-btn iconClass="icon-close" size="xs" type="danger" customClass="new-shader-ctrl" />
+          <custom-btn iconClass="icon-checkmark" class="new-shader-ctrl xs" />
+          <custom-btn iconClass="icon-close" class="new-shader-ctrl danger xs" />
         </div>
         <div class="parameters-row">
           <input-number prefix="R:" />
@@ -115,9 +115,9 @@ export default {
           <input-number prefix="R:" />
           <input-number prefix="G:" />
           <input-number prefix="B:" />
-          <custom-btn iconClass="icon-color-palette" size="xs" customClass="color-picker-btn" />
-          <custom-btn iconClass="icon-pencil" size="xs" />
-          <custom-btn iconClass="icon-trash-bin" type="danger" size="xs" />
+          <custom-btn iconClass="icon-color-palette" class="color-picker-btn xs" />
+          <custom-btn iconClass="icon-pencil" class="xs" />
+          <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
         <div class="row">
           <div class="info">
@@ -127,9 +127,9 @@ export default {
           <input-number prefix="X:" />
           <input-number prefix="Y:" />
           <input-number prefix="Z:" />
-          <custom-btn iconClass="icon-xyz" size="xs" customClass="vec3-picker-btn" />
-          <custom-btn iconClass="icon-pencil" size="xs" />
-          <custom-btn iconClass="icon-trash-bin" type="danger" size="xs" />
+          <custom-btn iconClass="icon-xyz" class="vec3-picker-btn xs" />
+          <custom-btn iconClass="icon-pencil" class="xs" />
+          <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
       </div>
     </div>

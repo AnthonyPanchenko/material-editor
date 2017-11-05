@@ -8,10 +8,6 @@ export default {
       type: Function,
       default: noop
     },
-    customClass: {
-      type: String,
-      default: ""
-    },
     type: {
       type: String,
       default: "default"
@@ -47,11 +43,11 @@ export default {
 </script>
 
 <template>
-  <router-link v-if="link" :to="link" :tabindex="`${disabled ? -1 : 0}`" :event="disabled ? '' : 'click'" :class="`ctrl-btn ${type} ${size} ${active ? 'active' : ''} ${disabled ? 'disabled' : ''} ${this.customClass}`" @click.native="onButtonClick">
+  <router-link v-if="link" :to="link" :tabindex="`${disabled ? -1 : 0}`" :event="disabled ? '' : 'click'" :class="['ctrl-btn', { 'active': active, 'disabled': disabled }]" @click.native="onButtonClick">
     <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
   </router-link>
 
-  <button v-else type="button" :tabindex="`${disabled ? -1 : 0}`" :class="`ctrl-btn ${type} ${size} ${active ? 'active' : ''} ${this.customClass}`" :disabled="disabled" @click="onButtonClick">
+  <button v-else type="button" :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-btn', { 'active': active }]" :disabled="disabled" @click="onButtonClick">
     <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
   </button>
 </template>

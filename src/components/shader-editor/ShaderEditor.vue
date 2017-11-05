@@ -45,17 +45,17 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" customClass="controls-section">
+    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
-          <custom-btn accesskey="s" iconClass="icon-settings" size="xs" />
+          <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
           <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data-tab="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName" />
           <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data-tab="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName" />
-          <custom-btn iconClass="icon-new-file" size="xs" />
-          <custom-btn iconClass="icon-save" size="xs" />
-          <custom-btn iconClass="icon-open-folder" size="xs" />
-          <custom-btn iconClass="icon-gallery" size="xs" />
-          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" size="xs" />
+          <custom-btn iconClass="icon-new-file" class="xs" />
+          <custom-btn iconClass="icon-save" class="xs" />
+          <custom-btn iconClass="icon-open-folder" class="xs" />
+          <custom-btn iconClass="icon-gallery" class="xs" />
+          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" class="xs" />
         </div>
       </header>
 
@@ -74,13 +74,13 @@ export default {
     <section class="presentation-section">
       <header class="presentation-header">
         <div class="controls-row">
-          <custom-btn iconClass="icon-list" size="xs" accesskey="q" :onClick="onToggleObjectsList" />
+          <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
           <custom-btn iconClass="icon-sphere" />
           <custom-btn iconClass="icon-cube" />
           <custom-btn iconClass="icon-cylinder" />
           <custom-btn iconClass="icon-torus" />
           <custom-btn iconClass="icon-plane" />
-          <custom-btn iconClass="icon-upload" size="xs" />
+          <custom-btn iconClass="icon-upload" class="xs" />
         </div>
       </header>
 

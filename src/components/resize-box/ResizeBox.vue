@@ -13,7 +13,6 @@ export default {
       type: Function,
       default: noop,
     },
-    customClass: String,
     disabled: {
       type: Boolean,
       default: false,
@@ -75,7 +74,7 @@ export default {
   render(createElement) {
     return createElement(
       this.tag,
-      { class: `${this.customClass} resize-box`, ref: 'rootNode', style: { 'flex-basis': this.disabled ? 'auto' : `${this.currentSize}%` } },
+      { class: 'resize-box', ref: 'rootNode', style: { 'flex-basis': this.disabled ? 'auto' : `${this.currentSize}%` } },
       [
         this.disabled ? null : createElement('div', { on: { mousedown: this.startResize }, class: `grab-resize-${this.resize}` }),
         this.$slots.default,

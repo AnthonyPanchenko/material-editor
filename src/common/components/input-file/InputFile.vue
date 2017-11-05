@@ -19,10 +19,6 @@ export default {
       type: Boolean,
       default: false
     },
-    customClass: {
-      type: String,
-      default: ""
-    },
     accept: {
       type: String,
       default: "image/*"
@@ -47,7 +43,7 @@ export default {
 </script>
 
 <template>
-  <label class="input-file" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label :class="['input-file', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
     {{ label }}
     <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
   </label>

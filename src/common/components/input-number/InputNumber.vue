@@ -17,10 +17,6 @@ export default {
     onChange: {
       type: Function,
       default: noop
-    },
-    customClass: {
-      type: String,
-      default: ""
     }
   },
   methods: {
@@ -34,7 +30,7 @@ export default {
 </script>
 
 <template>
-  <label class="input-number" :class="`${disabled ? 'disabled' : ''} ${customClass}`" :title="value">
+  <label :class="['input-number', { 'disabled': disabled }]" :title="value">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
     <input type="number" :name="name" :min="min" :max="max" @change="onChangeInputNumber" v-model="value" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>

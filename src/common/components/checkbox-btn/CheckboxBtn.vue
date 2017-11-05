@@ -19,10 +19,6 @@ export default {
     disabled: {
       type: Boolean,
       default: false
-    },
-    customClass: {
-      type: String,
-      default: ""
     }
   },
   data() {
@@ -44,7 +40,7 @@ export default {
 </script>
 
 <template>
-  <label class="checkbox-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="`${disabled ? 'disabled' : ''} ${customClass}`">
+  <label class="checkbox-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="{ 'disabled': disabled }">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
     <input type="checkbox" ref="checkBox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
     <span class="switch-icon" />

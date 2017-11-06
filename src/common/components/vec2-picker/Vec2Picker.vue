@@ -73,6 +73,6 @@ export default {
   <div class="vec2-picker" ref="vec2Picker" v-on:mousedown="onStartCalcVec2">
     <span class="horizontal-line" />
     <span class="vertical-line" />
-    <i class="circle" :style="{ top: `calc(${posTop}% - 2.5px)`, left: `calc(${posLeft}% - 2.5px)` }" />
+    <i class="circle icon-radio-checked" :style="{ top: `calc(${posTop}% - 3.5px)`, left: `calc(${posLeft}% - 3.5px)` }" />
   </div>
 </template>

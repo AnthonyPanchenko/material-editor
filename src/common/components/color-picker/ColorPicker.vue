@@ -16,8 +16,10 @@ export default {
       posLeft: 0,
       offsets: null,
       isMouseDown: false,
-      range: this.max - this.min,
-      colorPicker: null
+
+      alphaScale: null,
+      gradientBox: null,
+      hueScale: null,
     };
   },
   methods: {
@@ -40,8 +42,16 @@ export default {
       this.isMouseDown = false;
     },
     defineDirection(event) {
-      const currentX = clamp(event.pageX - this.offsets.left, 0, this.colorPicker.clientWidth);
-      const currentY = clamp(event.pageY - this.offsets.top, 0, this.colorPicker.clientHeight);
+      const currentX = clamp(
+        event.pageX - this.offsets.left,
+        0,
+        this.colorPicker.clientWidth
+      );
+      const currentY = clamp(
+        event.pageY - this.offsets.top,
+        0,
+        this.colorPicker.clientHeight
+      );
 
       // this.posLeft = (currentX / this.colorPicker.clientWidth) * 100;
       // this.posTop = (currentY / this.colorPicker.clientHeight) * 100;
@@ -54,14 +64,16 @@ export default {
     }
   },
   mounted() {
-    this.colorPicker = this.$refs.colorPicker;
+    this.alphaScale = this.$refs.alphaScale;
+    this.gradientBox = this.$refs.gradientBox;
+    this.hueScale = this.$refs.hueScale;
 
-    document.addEventListener("mousemove", this.onCalcVec2);
-    document.addEventListener("mouseup", this.onEndCalcVec2);
+    // document.addEventListener("mousemove", this.onCalcVec2);
+    // document.addEventListener("mouseup", this.onEndCalcVec2);
   },
   beforeDestroy() {
-    document.removeEventListener("mousemove", this.onCalcVec2);
-    document.removeEventListener("mouseup", this.onEndCalcVec2);
+    // document.removeEventListener("mousemove", this.onCalcVec2);
+    // document.removeEventListener("mouseup", this.onEndCalcVec2);
   }
 };
 
@@ -98,9 +110,22 @@ window.onload = function () {
 </script>
 
 <template>
-  <div class="color-picker" ref="colorPicker" v-on:mousedown="onStartCalcVec2">
-    <span class="horizontal-line" />
-    <span class="vertical-line" />
-    <i class="circle" :style="{ top: `calc(${posTop}% - 2.5px)`, left: `calc(${posLeft}% - 2.5px)` }" />
+  <div class="color-picker">
+    <div class="alpha-scale" ref="alphaScale" v-on:mousedown="onMouseDownAlphaScale">
+      <span class="bg-gradient"></span>
+      <i class="horizontal-triangles" :style="{ left: `calc(${25}% - 5px)` }" />
+    </div>
+
+    <div class="container">
+      <div class="gradient-box" ref="gradientBox" v-on:mousedown="onMouseDownGradientBox">
+        <i class="circle icon-radio-unchecked" :style="{ color: '#000', top: `calc(${25}% - 5px)`, left: `calc(${25}% - 5px)` }" />
+      </div>
+
+      <div class="hue-scale" ref="hueScale" v-on:mousedown="onMouseDownHueScale">
+        <i class="vertical-triangles" :style="{ top: `calc(${25}% - 5px)` }" />
+      </div>
+    </div>
+
+    <div class="color-controls"></div>
   </div>
 </template>

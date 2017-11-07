@@ -1,12 +1,10 @@
 {
-  "extends": "airbnb-base",
+  "extends": ["vue", "airbnb-base"],
   "parser": "babel-eslint",
   "parserOptions": {
     "sourceType": "module"
   },
-  "plugins": [
-    "html"
-  ],
+  "plugins": ["vue"],
   "rules": {
     "no-new": 0,
     "max-len": 0,

@@ -2,6 +2,10 @@
 import clamp from "../../utils/clamp";
 import getElementOffsets from "../../utils/getElementOffsets";
 
+import AlphaScale from "./utils/AlphaScale";
+import GradientBox from "./utils/GradientBox";
+import HueScale from "./utils/HueScale";
+
 export default {
   name: "ColorPicker",
   props: {
@@ -12,34 +16,20 @@ export default {
   },
   data() {
     return {
-      posTop: 0,
-      posLeft: 0,
-      offsets: null,
-      isMouseDown: false,
-
-      alphaScale: null,
-      gradientBox: null,
-      hueScale: null,
+      alphaScale: new AlphaScale(),
+      gradientBox: new GradientBox(),
+      hueScale: new HueScale()
     };
   },
   methods: {
-    onStartCalcVec2(event) {
-      event.preventDefault();
-      this.isMouseDown = true;
-      this.offsets = getElementOffsets(this.$refs.colorPicker);
-
-      console.log(this.offsets);
-      this.defineDirection(event);
+    onMouseDownAlphaScale(event) {
+      alphaScale.onMouseDown(event);
     },
-    onCalcVec2(event) {
-      event.preventDefault();
-
-      if (this.isMouseDown) {
-        this.defineDirection(event);
-      }
+    onMouseDownGradientBox(event) {
+      gradientBox.onMouseDown(event);
     },
-    onEndCalcVec2() {
-      this.isMouseDown = false;
+    onMouseDownHueScale(event) {
+      hueScale.onMouseDown(event);
     },
     defineDirection(event) {
       const currentX = clamp(
@@ -64,49 +54,36 @@ export default {
     }
   },
   mounted() {
-    this.alphaScale = this.$refs.alphaScale;
-    this.gradientBox = this.$refs.gradientBox;
-    this.hueScale = this.$refs.hueScale;
+    this.alphaScale.init(this.$refs.alphaScale);
+    this.gradientBox.init(this.$refs.gradientBox);
+    this.hueScale.init(this.$refs.hueScale);
 
-    // document.addEventListener("mousemove", this.onCalcVec2);
-    // document.addEventListener("mouseup", this.onEndCalcVec2);
+    document.addEventListener("mousemove", event => {
+      this.alphaScale.onMouseMove(event);
+      this.gradientBox.onMouseMove(event);
+      this.hueScale.onMouseMove(event);
+    });
+
+    document.addEventListener("mouseup", event => {
+      this.alphaScale.onMouseUp(event);
+      this.gradientBox.onMouseUp(event);
+      this.hueScale.onMouseUp(event);
+    });
   },
   beforeDestroy() {
-    // document.removeEventListener("mousemove", this.onCalcVec2);
-    // document.removeEventListener("mouseup", this.onEndCalcVec2);
+    document.removeEventListener("mousemove", event => {
+      this.alphaScale.onMouseMove(event);
+      this.gradientBox.onMouseMove(event);
+      this.hueScale.onMouseMove(event);
+    });
+
+    document.removeEventListener("mouseup", event => {
+      this.alphaScale.onMouseUp(event);
+      this.gradientBox.onMouseUp(event);
+      this.hueScale.onMouseUp(event);
+    });
   }
 };
-
-/*
-window.onload = function () {
-  const canvasGradientAlpha = document.querySelector('.gradient-alpha');
-  const canvasGradientBlock = document.querySelector('.gradient-block');
-  const canvasGradientStrip = document.querySelector('.gradient-strip');
-
-  const gradientAlpha = new GradientAlpha(canvasGradientAlpha);
-  const gradientBlock = new GradientBlock(canvasGradientBlock);
-  const gradientStrip = new GradientStrip(canvasGradientStrip);
-
-  canvasGradientAlpha.addEventListener('mousedown', (e) => gradientAlpha.onMouseDown(e));
-  canvasGradientBlock.addEventListener('mousedown', (e) => gradientBlock.onMouseDown(e));
-  canvasGradientStrip.addEventListener('mousedown', (e) => gradientStrip.onMouseDown(e));
-
-  gradientAlpha.init();
-  gradientBlock.init();
-  gradientStrip.init();
-
-  document.addEventListener('mousemove', (e) => {
-    gradientAlpha.onMouseMove(e);
-    gradientBlock.onMouseMove(e);
-    gradientStrip.onMouseMove(e);
-  });
-  document.addEventListener('mouseup', (e) => {
-    gradientAlpha.onMouseUp(e);
-    gradientBlock.onMouseUp(e);
-    gradientStrip.onMouseUp(e);
-  });
-}
-*/
 </script>
 
 <template>

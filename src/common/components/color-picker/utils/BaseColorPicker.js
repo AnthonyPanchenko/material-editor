@@ -1,39 +1,36 @@
+import clamp from '../../../utils/clamp';
+import getElementOffsets from '../../../utils/getElementOffsets';
+
 class BaseColorPicker {
-  constructor(canvas) {
-    this.canvas = canvas;
-    this.canvasOffsets = getElementOffsets(this.canvas);
-    this.ctx = canvas.getContext("2d");
+  constructor() {
+    this.element = null;
+    this.offsets = null;
 
     this.currentX = 0;
     this.currentY = 0;
 
     this.isMouseDown = false;
 
-    this.width = canvas.width;
-    this.height = canvas.height;
-  }
-
-  clearRect() {
-    this.ctx.clearRect(0, 0, this.width, this.height);
+    this.width = 0;
+    this.height = 0;
   }
 
   setPositions(event) {
-    this.currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
-    this.currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
+    this.currentX = clamp(event.pageX - this.offsets.left, 0, this.width);
+    this.currentY = clamp(event.pageY - this.offsets.top, 0, this.height);
   }
 
   onMouseDown(event) {
     this.isMouseDown = true;
-    this.canvasOffsets = getElementOffsets(this.canvas);
+    this.offsets = getElementOffsets(this.element);
+
     this.setPositions(event);
-    this.clearRect();
   }
 
   onMouseMove(event) {
     if (this.isMouseDown) {
       event.preventDefault();
       this.setPositions(event);
-      this.clearRect();
     }
   }
 
@@ -41,7 +38,12 @@ class BaseColorPicker {
     this.isMouseDown = false;
   }
 
-  get color() {
-    return this.ctx.getImageData(this.currentX, this.currentY, 1, 1).data;
+  init(element) {
+    this.offsets = getElementOffsets(element);
+    this.width = element.clientWidth;
+    this.height = element.clientHeight;
+    this.element = element;
   }
 }
+
+export default BaseColorPicker;

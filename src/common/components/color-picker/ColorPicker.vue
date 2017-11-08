@@ -53,7 +53,7 @@ export default {
 
     <div class="container">
       <mouse-move class="gradient-box" :onMove="onMoveGradientBox">
-        <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 5px)`, left: `calc(${circleLeftPos}% - 5px)` }" />
+        <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
       </mouse-move>
 
       <mouse-move class="hue-scale" :onMove="onMoveHueScale">

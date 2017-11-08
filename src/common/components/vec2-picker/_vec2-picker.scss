@@ -3,6 +3,7 @@
   height: 200px;
   margin-left: 50px;
   cursor: crosshair;
+  line-height: 0;
   border: 2px solid #616161;
   box-sizing: content-box;
   position: relative;
@@ -24,7 +25,7 @@
       content: "-X";
       position: absolute;
       left: 10px;
-      top: 4px;
+      top: 12px;
       font-size: 10px;
       color: #b3b3b3;
     }
@@ -33,7 +34,7 @@
       content: "X";
       position: absolute;
       right: 10px;
-      top: -18px;
+      top: -12px;
       font-size: 10px;
       color: #b3b3b3;
     }
@@ -51,8 +52,8 @@
     &:before {
       content: "Y";
       position: absolute;
-      left: -18px;
-      top: 4px;
+      left: -12px;
+      top: 10px;
       font-size: 10px;
       color: #b3b3b3;
     }
@@ -60,8 +61,8 @@
     &:after {
       content: "-Y";
       position: absolute;
-      right: -18px;
-      bottom: 4px;
+      right: -16px;
+      bottom: 12px;
       font-size: 10px;
       color: #b3b3b3;
     }

@@ -2,7 +2,7 @@
 import { createNamespacedHelpers } from "vuex";
 const { mapState, mapActions } = createNamespacedHelpers("shaderEditorFooter");
 
-import ResizeBox from "../resize-box/ResizeBox.vue";
+import ResizeBox from "../../common/components/resize-box/ResizeBox.vue";
 import InputNumber from "../../common/components/input-number/InputNumber.vue";
 import InputText from "../../common/components/input-text/InputText.vue";
 import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";

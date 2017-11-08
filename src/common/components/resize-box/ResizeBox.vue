@@ -1,6 +1,6 @@
 <script>
-import clamp from '../../common/utils/clamp';
-import noop from '../../common/utils/noop';
+import clamp from '../../utils/clamp';
+import noop from '../../utils/noop';
 
 export default {
   name: 'ResizeBox',

@@ -7,7 +7,7 @@ import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
 import ItemObjList from "../item-obj-list/ItemObjList.vue";
 import CanvasBoard from "../canvas-board/CanvasBoard.vue";
 import PresentationFooter from "../presentation-footer/PresentationFooter.vue";
-import ResizeBox from "../resize-box/ResizeBox.vue";
+import ResizeBox from "../../common/components/resize-box/ResizeBox.vue";
 import ShaderEditorFooter from "../shader-editor-footer/ShaderEditorFooter.vue";
 import internalUrls from "../../common/constants/internal-urls";
 import tabNames from "./constants/tabNames";

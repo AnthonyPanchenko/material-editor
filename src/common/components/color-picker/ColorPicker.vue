@@ -1,15 +1,19 @@
 <script>
 import MouseMove from "../mouse-move/MouseMove.vue";
+import CustomBtn from "../custom-btn/CustomBtn.vue";
+import InputNumber from "../input-number/InputNumber.vue";
 
 export default {
   name: "ColorPicker",
   components: {
     MouseMove,
+    CustomBtn,
+    InputNumber,
   },
   props: {
     color: {
       type: Array,
-      default: [255, 255, 255, 255]
+      default: () => [255, 255, 255, 255]
     }
   },
   data() {
@@ -18,15 +22,19 @@ export default {
       vTrianglesTopPos: 0,
       circleLeftPos: 0,
       circleTopPos: 0,
+      hTrianglesBgColor: '#000',
+      circleColor: '#000',
     };
   },
   methods: {
     onMoveAlphaScale(x, y, node) {
       this.hTrianglesLeftPos = (x / node.clientWidth) * 100;
+      this.hTrianglesBgColor = x > node.clientWidth / 2 ? '#fff' : '#000';
     },
     onMoveGradientBox(x, y, node) {
       this.circleLeftPos = (x / node.clientWidth) * 100;
       this.circleTopPos = (y / node.clientHeight) * 100;
+      this.circleColor = y > node.clientHeight / 2 ? '#fff' : '#000';
     },
     onMoveHueScale(x, y, node) {
       this.vTrianglesTopPos = (y / node.clientHeight) * 100;
@@ -39,12 +47,13 @@ export default {
   <div class="color-picker">
     <mouse-move class="alpha-scale" :onMove="onMoveAlphaScale">
       <span class="bg-gradient"></span>
-      <i class="horizontal-triangles" :style="{ left: `calc(${hTrianglesLeftPos}% - 5px)` }" />
+      <i class="horizontal-triangle top" :style="{ borderTopColor: hTrianglesBgColor, left: `calc(${hTrianglesLeftPos}% - 5px)` }" />
+      <i class="horizontal-triangle bottom" :style="{ borderBottomColor: hTrianglesBgColor, left: `calc(${hTrianglesLeftPos}% - 5px)` }" />
     </mouse-move>
 
     <div class="container">
       <mouse-move class="gradient-box" :onMove="onMoveGradientBox">
-        <i class="circle icon-radio-unchecked" :style="{ color: '#000', top: `calc(${circleTopPos}% - 5px)`, left: `calc(${circleLeftPos}% - 5px)` }" />
+        <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 5px)`, left: `calc(${circleLeftPos}% - 5px)` }" />
       </mouse-move>
 
       <mouse-move class="hue-scale" :onMove="onMoveHueScale">
@@ -52,6 +61,8 @@ export default {
       </mouse-move>
     </div>
 
-    <div class="color-controls"></div>
+    <div class="color-controls">
+
+    </div>
   </div>
 </template>

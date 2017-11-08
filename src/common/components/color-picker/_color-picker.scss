@@ -64,6 +64,7 @@
       .circle {
         font-size: 10px;
         position: absolute;
+        z-index: 1;
       }
     }
 
@@ -77,8 +78,31 @@
     }
   }
 
-  .horizontal-triangles,
+  .horizontal-triangle {
+    position: absolute;
+    width: 10px;
+    top: 0;
+    bottom: 0;
+
+    &.top {
+      top: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-top: 5px solid;
+    }
+
+    &.bottom {
+      bottom: 0;
+      border-left: 5px solid transparent;
+      border-right: 5px solid transparent;
+      border-bottom: 5px solid;
+    }
+  }
+
   .vertical-triangles {
+    left: 0;
+    right: 0;
+    height: 10px;
     position: absolute;
 
     &:before,
@@ -89,32 +113,6 @@
       width: 0;
       height: 0;
     }
-  }
-
-  .horizontal-triangles {
-    width: 10px;
-    top: 0;
-    bottom: 0;
-
-    &:before {
-      top: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-top: 5px solid #000;
-    }
-
-    &:after {
-      bottom: 0;
-      border-left: 5px solid transparent;
-      border-right: 5px solid transparent;
-      border-bottom: 5px solid #000;
-    }
-  }
-
-  .vertical-triangles {
-    left: 0;
-    right: 0;
-    height: 10px;
 
     &:before {
       left: 0;

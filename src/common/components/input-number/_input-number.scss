@@ -52,6 +52,7 @@ $input-number-hover-bg-color: rgba(121, 136, 185, 0.14);
 
   .prefix,
   .sufix {
+    cursor: inherit;
     min-width: 16px;
     text-align: center;
     text-transform: uppercase;

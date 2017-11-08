@@ -8,6 +8,7 @@ export default {
     value: Number,
     min: Number,
     max: Number,
+    step: Number,
     prefix: [String, Number],
     sufix: [String, Number],
     disabled: {
@@ -22,17 +23,23 @@ export default {
   methods: {
     onChangeInputNumber(event) {
       if (!this.disabled) {
-        this.onChange(this.value, this.name, this.min, this.max);
+        this.onChange(this.value, this.name, this.min, this.max, this.step);
       }
     }
-  }
+  },
+  mounted() {
+    this.$refs.inpNumber.addEventListener('mousewheel', noop);
+  },
+  beforeDestroy() {
+    this.$refs.inpNumber.removeEventListener('mousewheel', noop);
+  },
 };
 </script>
 
 <template>
   <label :class="['input-number', { 'disabled': disabled }]" :title="value">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="number" :name="name" :min="min" :max="max" @change="onChangeInputNumber" v-model="value" :disabled="disabled">
+    <input ref="inpNumber" type="number" :name="name" :step="step" :min="min" :max="max" @change="onChangeInputNumber" v-model="value" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

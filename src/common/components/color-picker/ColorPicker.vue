@@ -1,4 +1,5 @@
 <script>
+import colorModelTypes from "../../constants/color-model-types";
 import MouseMove from "../mouse-move/MouseMove.vue";
 import CustomBtn from "../custom-btn/CustomBtn.vue";
 import InputNumber from "../input-number/InputNumber.vue";
@@ -39,6 +40,9 @@ export default {
     onMoveHueScale(x, y, node) {
       this.vTrianglesTopPos = (y / node.clientHeight) * 100;
     },
+    onSwitchColorMode() {
+        // colorModelTypes
+    },
   }
 };
 </script>
@@ -62,7 +66,11 @@ export default {
     </div>
 
     <div class="color-controls">
-
+      <input-number prefix="R" value="255" min="0" max="255" step="1" />
+      <input-number prefix="G" value="134" min="0" max="255" step="1" />
+      <input-number prefix="B" value="74" min="0" max="255" step="1" />
+      <input-number prefix="A" value="1" min="0" max="1" step="0.1" />
+      <custom-btn iconClass="icon-back-forth" :onClick="onSwitchColorMode" />
     </div>
   </div>
 </template>

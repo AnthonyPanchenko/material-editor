@@ -1,9 +1,9 @@
 .color-picker {
   margin-top: 50px;
   margin-left: 50px;
-  border: 2px solid #616161;
+  border: 1px solid #616161;
   background-color: #434343;
-  width: 235px;
+  width: 230px;
 
   .alpha-scale {
     position: relative;
@@ -37,7 +37,7 @@
       overflow: hidden;
       position: relative;
       background-color: #ff0000;
-      margin-right: 5px;
+      margin-right: 3px;
       cursor: crosshair;
       width: 200px;
       height: 200px;
@@ -126,6 +126,35 @@
       border-top: 5px solid transparent;
       border-right: 5px solid #000;
       border-bottom: 5px solid transparent;
+    }
+  }
+
+  .color-controls {
+    display: flex;
+
+    button {
+      flex: 1 0 25px;
+    }
+
+    label {
+      margin-right: 3px;
+      flex-direction: column-reverse;
+      height: auto;
+
+      input {
+        text-align: center;
+        font-size: 11px;
+        border-bottom: 1px solid #505050;
+        padding-top: 2px;
+        padding-bottom: 2px;
+      }
+
+      .prefix {
+        padding-left: initial;
+        font-size: 11px;
+        padding-top: 1px;
+        padding-bottom: 1px;
+      }
     }
   }
 }

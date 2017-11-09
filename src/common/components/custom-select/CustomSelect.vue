@@ -1,9 +1,9 @@
 <script>
-import noop from "../../utils/noop";
-import emptyArray from "../../utils/emptyArray";
+import noop from '../../utils/noop';
+import emptyArray from '../../utils/emptyArray';
 
 export default {
-  name: "CustomSelect",
+  name: 'CustomSelect',
   props: {
     name: String,
     onChange: {
@@ -12,7 +12,7 @@ export default {
     },
     selected: {
       type: String,
-      default: ""
+      default: ''
     },
     disabled: {
       type: Boolean,

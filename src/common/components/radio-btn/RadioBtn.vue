@@ -1,8 +1,8 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "RadioBtn",
+  name: 'RadioBtn',
   props: {
     name: String,
     value: String,
@@ -18,7 +18,7 @@ export default {
     },
     picked: {
       type: [String, Number],
-      default: ""
+      default: ''
     }
   },
   data() {

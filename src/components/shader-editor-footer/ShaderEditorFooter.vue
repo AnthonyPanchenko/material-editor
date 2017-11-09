@@ -1,27 +1,27 @@
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("shaderEditorFooter");
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
 
-import ResizeBox from "../../common/components/resize-box/ResizeBox.vue";
-import InputNumber from "../../common/components/input-number/InputNumber.vue";
-import InputText from "../../common/components/input-text/InputText.vue";
-import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
-import CheckboxBtn from "../../common/components/checkbox-btn/CheckboxBtn.vue";
-import RadioBtn from "../../common/components/radio-btn/RadioBtn.vue";
-import CustomSelect from "../../common/components/custom-select/CustomSelect.vue";
-import tabNames from "./constants/tabNames";
+import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import InputText from '../../common/components/input-text/InputText.vue';
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import RadioBtn from '../../common/components/radio-btn/RadioBtn.vue';
+import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
+import tabNames from './constants/tabNames';
 
 export default {
-  name: "ShaderEditorFooter",
+  name: 'ShaderEditorFooter',
   data() {
     return {
       tabNames,
       options: [
-        { title: "int", id: "int" },
-        { title: "float", id: "float" },
-        { title: "vec2", id: "vec2" },
-        { title: "vec3", id: "vec3" },
-        { title: "vec4", id: "vec4" }
+        { title: 'int', id: 'int' },
+        { title: 'float', id: 'float' },
+        { title: 'vec2', id: 'vec2' },
+        { title: 'vec3', id: 'vec3' },
+        { title: 'vec4', id: 'vec4' }
       ]
     };
   },
@@ -35,20 +35,18 @@ export default {
     ResizeBox
   },
   computed: mapState([
-    "isVisibleFooterContent",
-    "activeTabName",
-    "footerHeight"
+    'isVisibleFooterContent',
+    'activeTabName',
+    'footerHeight'
   ]),
   methods: {
     ...mapActions([
-      "onToggleFooterContent",
-      "onSetActiveTabName",
-      "onSetFooterHeight"
+      'onToggleFooterContent',
+      'onSetActiveTabName',
+      'onSetFooterHeight'
     ]),
     defineIconClass(tabName) {
-      return this.activeTabName === tabName && this.isVisibleFooterContent
-        ? "icon-plus"
-        : "";
+      return this.activeTabName === tabName && this.isVisibleFooterContent ? 'icon-plus' : '';
     },
     isActive(tabName) {
       return this.activeTabName === tabName && this.isVisibleFooterContent;
@@ -68,7 +66,7 @@ export default {
     },
     onTabClick(event) {
       if (event.target.dataset.tab === this.activeTabName) {
-        console.log("create new setting");
+        console.log('create new setting');
       } else {
         this.onSetActiveTabName(event.target.dataset.tab);
       }

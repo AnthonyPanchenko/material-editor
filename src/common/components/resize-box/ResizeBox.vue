@@ -7,23 +7,23 @@ export default {
   props: {
     tag: {
       type: String,
-      default: 'div',
+      default: 'div'
     },
     onEndOfResize: {
       type: Function,
-      default: noop,
+      default: noop
     },
     disabled: {
       type: Boolean,
-      default: false,
+      default: false
     },
     resize: {
       type: String,
-      required: true,
+      required: true
     },
     size: {
       type: Number,
-      default: 35,
+      default: 35
     }
   },
   data() {
@@ -32,8 +32,8 @@ export default {
       rootNode: null,
       grabState: {
         column: false,
-        row: false,
-      },
+        row: false
+      }
     }
   },
   methods: {
@@ -77,9 +77,9 @@ export default {
       { class: 'resize-box', ref: 'rootNode', style: { 'flex-basis': this.disabled ? 'auto' : `${this.currentSize}%` } },
       [
         this.disabled ? null : createElement('div', { on: { mousedown: this.startResize }, class: `grab-resize-${this.resize}` }),
-        this.$slots.default,
+        this.$slots.default
       ]
     )
-  },
+  }
 }
 </script>

@@ -1,8 +1,8 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "InputNumber",
+  name: 'InputNumber',
   props: {
     name: String,
     value: Number,

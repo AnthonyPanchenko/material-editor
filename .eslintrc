@@ -12,6 +12,7 @@
     "no-param-reassign": 0,
     "no-nested-ternary": 0,
     "linebreak-style": "off",
+    "no-plusplus": "off",
     "arrow-parens": "off",
     "global-require": "warn",
     "import/no-extraneous-dependencies": "off",

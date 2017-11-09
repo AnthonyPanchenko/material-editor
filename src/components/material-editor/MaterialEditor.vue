@@ -1,24 +1,24 @@
 <script>
-import { createNamespacedHelpers } from "vuex";
-const { mapState, mapActions } = createNamespacedHelpers("materialEditor");
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
-import ColorPicker from "../../common/components/color-picker/ColorPicker.vue";
-import Vec2Picker from "../../common/components/vec2-picker/Vec2Picker.vue";
-import InputFile from "../../common/components/input-file/InputFile.vue";
-import InputNumber from "../../common/components/input-number/InputNumber.vue";
-import ImgBox from "../../common/components/img-box/ImgBox.vue";
-import CheckboxBtn from "../../common/components/checkbox-btn/CheckboxBtn.vue";
-import CustomSelect from "../../common/components/custom-select/CustomSelect.vue";
-import CustomBtn from "../../common/components/custom-btn/CustomBtn.vue";
-import ItemObjList from "../item-obj-list/ItemObjList.vue";
-import DrawingBoard from "../canvas-board/DrawingBoard.vue";
-import ResizeBox from "../../common/components/resize-box/ResizeBox.vue";
-import PresentationFooter from "../presentation-footer/PresentationFooter.vue";
-import internalUrls from "../../common/constants/internal-urls";
-import tabNames from "./constants/tabNames";
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+import InputFile from '../../common/components/input-file/InputFile.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import ImgBox from '../../common/components/img-box/ImgBox.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+import ItemObjList from '../item-obj-list/ItemObjList.vue';
+import DrawingBoard from '../canvas-board/DrawingBoard.vue';
+import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
+import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
+import internalUrls from '../../common/constants/internal-urls';
+import tabNames from './constants/tabNames';
 
 export default {
-  name: "MaterialEditor",
+  name: 'MaterialEditor',
   components: {
     ImgBox,
     InputFile,
@@ -37,26 +37,26 @@ export default {
     return {
       tabNames,
       options: [
-        { title: "NONE", id: "" },
-        { title: "One", id: "aaa" },
-        { title: "Two", id: "bbb" },
-        { title: "Three", id: "ccc" }
+        { title: 'NONE', id: ' },
+        { title: 'One', id: 'aaa' },
+        { title: 'Two', id: 'bbb' },
+        { title: 'Three', id: 'ccc' }
       ],
       urls: internalUrls
     };
   },
   computed: mapState([
-    "widthCtrlBox",
-    "activeTabName",
-    "isVisibleControlsBox",
-    "isVisibleObjectsList"
+    'widthCtrlBox',
+    'activeTabName',
+    'isVisibleControlsBox',
+    'isVisibleObjectsList'
   ]),
   methods: {
     ...mapActions([
-      "onSetActiveTabName",
-      "onSetCtrlBoxWidth",
-      "onToggleObjectsList",
-      "onToggleFullScreenMode"
+      'onSetActiveTabName',
+      'onSetCtrlBoxWidth',
+      'onToggleObjectsList',
+      'onToggleFullScreenMode'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -72,7 +72,7 @@ export default {
     },
     onTabClick(event) {
       if (event.target.dataset.tab === this.activeTabName) {
-        console.log("create new setting");
+        console.log('create new setting');
       } else {
         this.onSetActiveTabName(event.target.dataset.tab);
       }

@@ -4,7 +4,7 @@ import clamp from "../../utils/clamp";
 import getElementOffsets from "../../utils/getElementOffsets";
 
 export default {
-  name: "MouseMove",
+  name: 'MouseMove',
   props: {
     tag: {
       type: String,

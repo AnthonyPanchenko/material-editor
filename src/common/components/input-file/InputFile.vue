@@ -1,8 +1,8 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "InputFile",
+  name: 'InputFile',
   props: {
     name: String,
     value: [String, Number],
@@ -20,7 +20,7 @@ export default {
     },
     accept: {
       type: String,
-      default: "image/*"
+      default: 'image/*'
     }
   },
   data() {

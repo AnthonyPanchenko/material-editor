@@ -1,8 +1,8 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "CustomBtn",
+  name: 'CustomBtn',
   props: {
     onClick: {
       type: Function,
@@ -10,11 +10,11 @@ export default {
     },
     type: {
       type: String,
-      default: "default"
+      default: 'default'
     },
     size: {
       type: String,
-      default: ""
+      default: ''
     },
     disabled: {
       type: Boolean,

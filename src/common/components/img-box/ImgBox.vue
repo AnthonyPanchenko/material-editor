@@ -1,17 +1,17 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "ImgBox",
+  name: 'ImgBox',
   props: {
     url: {
       type: String,
-      default: ""
+      default: ''
     }
   },
   data() {
     return {
-      styleBg: this.url ? { backgroundImage: `url(${this.url})` } : {},
+      styleBg: this.url ? { backgroundImage: `url(${this.url})` } : {}
     };
   }
 };

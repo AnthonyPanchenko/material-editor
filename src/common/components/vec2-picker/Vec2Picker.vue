@@ -1,8 +1,8 @@
 <script>
-import MouseMove from "../mouse-move/MouseMove.vue";
+import MouseMove from '../mouse-move/MouseMove.vue';
 
 export default {
-  name: "Vec2Picker",
+  name: 'Vec2Picker',
   components: {
     MouseMove,
   },

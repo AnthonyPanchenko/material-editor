@@ -1,18 +1,47 @@
-const getElementOffsets = (element) => {
-  const clientRect = element.getBoundingClientRect();
-  const docElelement = document.documentElement;
+<script>
+import noop from '../../utils/noop';
+import clamp from '../../utils/clamp';
+import getElementOffsets from '../../utils/getElementOffsets';
 
-  return {
-    top: clientRect.top + window.pageYOffset - docElelement.clientTop,
-    left: clientRect.left + window.pageXOffset - docElelement.clientLeft,
-  };
+export default {
+  name: 'NumberPicker',
+  props: {
+    name: String,
+    value: Number,
+    min: Number,
+    max: Number,
+    step: Number,
+    prefix: [String, Number],
+    sufix: [String, Number],
+    disabled: {
+      type: Boolean,
+      default: false
+    },
+    onChange: {
+      type: Function,
+      default: noop
+    }
+  },
+  methods: {
+    onChangeInputNumber(event) {
+      if (!this.disabled) {
+        this.onChange(this.value, this.name, this.min, this.max, this.step);
+      }
+    }
+  },
+  mounted() {
+    this.$refs.inpNumber.addEventListener('mousewheel', noop);
+  },
+  beforeDestroy() {
+    this.$refs.inpNumber.removeEventListener('mousewheel', noop);
+  },
 };
 
 class NumberPicker {
   constructor(canvas) {
     this.canvas = canvas;
     this.canvasOffsetLeft = getElementOffsets(canvas).left;
-    this.ctx = canvas.getContext("2d");
+    this.ctx = canvas.getContext('2d');
 
     this.isMouseDown = false;
 
@@ -35,8 +64,8 @@ class NumberPicker {
     this.ctx.strokeStyle = this.color;
     this.ctx.lineWidth = 1.5;
     this.ctx.beginPath();
-    this.ctx.moveTo(0, 0.5 + this.height * 0.5);
-    this.ctx.lineTo(this.width, 0.5 + this.height * 0.5);
+    this.ctx.moveTo(0, 0.5 + (this.height * 0.5));
+    this.ctx.lineTo(this.width, 0.5 + (this.height * 0.5));
     this.ctx.closePath();
     this.ctx.stroke();
   }
@@ -112,7 +141,6 @@ class NumberPicker {
   onMouseUp() {
     this.isMouseDown = false;
     this.lastDifferenceX = this.commonDifferenceX;
-
   }
 
   init() {
@@ -122,9 +150,7 @@ class NumberPicker {
   }
 }
 
-<canvas class="canvas-board" width="250" height="40"></canvas>
-
-window.onload = function () {
+{/* window.onload = function () {
   const canvas = document.querySelector('.canvas-board');
   const floatPicker = new FloatPicker(canvas);
 
@@ -133,4 +159,10 @@ window.onload = function () {
   document.addEventListener('mouseup', (e) => floatPicker.onMouseUp(e));
 
   floatPicker.init();
-}
+} */}
+
+</script>
+
+<template>
+  <canvas class="canvas-board" width="250" height="40"></canvas>
+</template>

@@ -1,8 +1,8 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
 
 export default {
-  name: "CheckboxBtn",
+  name: 'CheckboxBtn',
   props: {
     name: String,
     value: [String, Number],

@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
+import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
@@ -22,6 +23,7 @@ export default {
   components: {
     ImgBox,
     InputFile,
+    NumberPicker,
     ColorPicker,
     Vec2Picker,
     InputNumber,
@@ -134,6 +136,8 @@ export default {
             <vec2-picker />
             <hr>
             <color-picker />
+            <hr>
+            <number-picker />
         </div>
 
         <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">

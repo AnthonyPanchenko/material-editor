@@ -5,11 +5,11 @@ import mutations from './mutations';
 const itemObjects = {
   namespaced: true,
   state: {
-    list: [],
+    list: []
   },
   actions,
   mutations,
-  getters,
+  getters
 };
 
 export default itemObjects;

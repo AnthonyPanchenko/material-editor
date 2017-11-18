@@ -12,7 +12,7 @@ const actions = {
   },
   onSetActiveTabName(context, activeTabName) {
     context.commit(mutationTypes.SET_ACTIVE_TAB_NAME, activeTabName);
-  },
+  }
 };
 
 export default actions;

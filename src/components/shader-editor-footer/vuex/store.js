@@ -8,11 +8,11 @@ const shaderEditorFooter = {
   state: {
     isVisibleFooterContent: true,
     activeTabName: tabNames.UNIFORMS,
-    footerHeight: 30,
+    footerHeight: 30
   },
   actions,
-  mutations,
-  // getters,
+  mutations
+  // getters
 };
 
 export default shaderEditorFooter;

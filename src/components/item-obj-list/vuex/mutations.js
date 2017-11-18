@@ -6,7 +6,7 @@ const mutations = {
   },
   [mutationTypes.LOAD_ITEM_OBJ_LIST_SUCCESS](state, list) {
     state.list = list;
-  },
+  }
 };
 
 export default mutations;

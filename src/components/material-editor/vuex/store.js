@@ -10,11 +10,11 @@ const materialEditor = {
     isVisibleControlsBox: true,
     isVisibleObjectsList: true,
     activeTabName: tabNames.MATERIAL,
-    widthCtrlBox: 21,
+    widthCtrlBox: 21
   },
   actions,
-  mutations,
-  // getters,
+  mutations
+  // getters
 };
 
 export default materialEditor;

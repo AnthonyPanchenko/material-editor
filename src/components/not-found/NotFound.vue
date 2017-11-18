@@ -5,7 +5,7 @@
       return {
         pageName: 'NotFound',
       }
-    },
+    }
   }
 </script>
 

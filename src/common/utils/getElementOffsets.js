@@ -4,7 +4,7 @@ const getElementOffsets = (element) => {
 
   return {
     top: (clientRect.top + window.pageYOffset) - docElelement.clientTop,
-    left: (clientRect.left + window.pageXOffset) - docElelement.clientLeft,
+    left: (clientRect.left + window.pageXOffset) - docElelement.clientLeft
   };
 };
 

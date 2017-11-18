@@ -40,8 +40,8 @@ export default {
       }, res => {
         console.log('error', res);
       });
-    },
-  },
+    }
+  }
 }
 </script>
 

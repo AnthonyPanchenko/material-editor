@@ -1,7 +1,7 @@
 const tabNames = {
   ATTRIBUTES: 'ATTRIBUTES',
   UNIFORMS: 'UNIFORMS',
-  TEXTURES: 'TEXTURES',
+  TEXTURES: 'TEXTURES'
 };
 
 export default tabNames;

@@ -1,7 +1,7 @@
 const colorModelTypes = {
   RGB: 'RGB',
   HSL: 'HSL',
-  HEX: 'HEX',
+  HEX: 'HEX'
 };
 
 export default colorModelTypes;

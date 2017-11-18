@@ -9,7 +9,7 @@ const mutations = {
   },
   [mutationTypes.SET_FOOTER_HEIGHT](state, height) {
     state.footerHeight = height;
-  },
+  }
 };
 
 export default mutations;

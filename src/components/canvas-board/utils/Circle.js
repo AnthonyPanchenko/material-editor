@@ -8,7 +8,7 @@ class Circle {
   init() {
     this.pos = {
       x: Math.random() * this.width,
-      y: this.height + (Math.random() * 100),
+      y: this.height + (Math.random() * 100)
     };
 
     this.alpha = 0.1 + (Math.random() * 0.3);

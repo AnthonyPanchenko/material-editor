@@ -7,6 +7,7 @@
   "plugins": ["vue"],
   "rules": {
     "no-new": 0,
+    "semi": "off",
     "max-len": 0,
     "no-console": 0,
     "no-param-reassign": 0,
@@ -15,6 +16,8 @@
     "no-plusplus": "off",
     "arrow-parens": "off",
     "global-require": "warn",
+    "object-curly-spacing": "off",
+    "space-before-function-paren": "off",
     "import/no-extraneous-dependencies": "off",
     "generator-star-spacing": 0
   },

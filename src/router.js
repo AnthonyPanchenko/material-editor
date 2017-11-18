@@ -15,8 +15,8 @@ const Router = new VueRouter({
     { path: `/${internalUrls.MATERIAL_EDITOR}`, component: MaterialEditor, meta: { title: 'Material Editor' } },
     { path: `/${internalUrls.SHADER_EDITOR}`, component: ShaderEditor, meta: { title: 'Shader Editor' } },
     { path: `/${internalUrls.NOT_FOUND}`, component: NotFound, meta: { title: 'Page not found' } },
-    { path: '*', redirect: `/${internalUrls.NOT_FOUND}` },
-  ],
+    { path: '*', redirect: `/${internalUrls.NOT_FOUND}` }
+  ]
 });
 
 Router.beforeEach((to, from, next) => {

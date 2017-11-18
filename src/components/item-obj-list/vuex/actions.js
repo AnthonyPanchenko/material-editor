@@ -6,7 +6,7 @@ const actions = {
   },
   onSuccessLoadObjectsList(context, list) {
     context.commit(mutationTypes.LOAD_ITEM_OBJ_LIST_SUCCESS, list);
-  },
+  }
 };
 
 export default actions;

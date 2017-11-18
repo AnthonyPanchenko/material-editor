@@ -31,7 +31,7 @@ Vue.use(VueResource);
 // mock data
 if (process.env.NODE_ENV !== 'production') {
   const data = {
-    [`${apiConstants.MATERIAL_EDITOR_URL_PART}${apiConstants.ITEM_OBJ_LIST_URL_SUFIX}`]: fakeData.itemObjects,
+    [`${apiConstants.MATERIAL_EDITOR_URL_PART}${apiConstants.ITEM_OBJ_LIST_URL_SUFIX}`]: fakeData.itemObjects
   };
 
   Vue.http.interceptors.push((request, next) => {
@@ -40,7 +40,7 @@ if (process.env.NODE_ENV !== 'production') {
 
     next(request.respondWith(data[key], {
       status: data[key] ? 200 : 500,
-      ok: !!data[key],
+      ok: !!data[key]
     }));
   });
 }
@@ -48,7 +48,7 @@ if (process.env.NODE_ENV !== 'production') {
 const App = new Vue({
   router: Router,
   store: MainStore,
-  render: createElement => createElement(MainLayout),
+  render: createElement => createElement(MainLayout)
 });
 
 App.$mount('#app');

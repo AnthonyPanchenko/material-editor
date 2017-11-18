@@ -10,11 +10,11 @@ const shaderEditor = {
     isVisibleControlsBox: true,
     isVisibleObjectsList: true,
     activeTabName: tabNames.FRAGMENT_SHADER,
-    widthCtrlBox: 42,
+    widthCtrlBox: 42
   },
   actions,
-  mutations,
-  // getters,
+  mutations
+  // getters
 };
 
 export default shaderEditor;

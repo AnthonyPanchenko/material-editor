@@ -9,7 +9,7 @@ const actions = {
   },
   onSetFooterHeight(context, height) {
     context.commit(mutationTypes.SET_FOOTER_HEIGHT, height);
-  },
+  }
 };
 
 export default actions;

@@ -4,13 +4,13 @@ export default {
   props: {
     onToggleFullScreenMode: {
       type: Function,
-      required: true,
+      required: true
     },
     isInFullScreenMode: {
       type: Boolean,
-      default: true,
-    },
-  },
+      default: true
+    }
+  }
 }
 </script>
 

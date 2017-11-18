@@ -1,5 +1,4 @@
 const baseConfig = require('./base');
-const CompressionWebpackPlugin = require('compression-webpack-plugin');
 const webpack = require('webpack');
 
 const resultConfig = Object.assign({}, {
@@ -21,13 +20,6 @@ const resultConfig = Object.assign({}, {
     new webpack.LoaderOptionsPlugin({
       minimize: true,
       debug: false,
-    }),
-    new CompressionWebpackPlugin({
-      asset: '[path].gz[query]',
-      algorithm: 'gzip',
-      test: /\.(js|css)(\?.+)?$/,
-      threshold: 10240,
-      minRatio: 0.8,
     }),
   ],
 

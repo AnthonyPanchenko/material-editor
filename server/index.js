@@ -20,10 +20,17 @@ const usersList = [
 ];
 
 // https://github.com/expressjs/cors
+const whitelist = [`http://${config.clientHost}:${config.clientPort}`, 'https://material-editor.herokuapp.com/'];
+
 const corsOptions = {
-  origin: `http://${config.clientHost}:${config.clientPort}`,
+  origin: false,
   credentials: true,
   optionsSuccessStatus: 200,
+};
+
+const corsOptionsDelegate = (req, callback) => {
+  corsOptions.origin = whitelist.indexOf(req.header('Origin')) !== -1;
+  callback(null, corsOptions);
 };
 
 const app = express();
@@ -33,7 +40,7 @@ const server = http.createServer(app);
 server.listen(PORT);
 
 // static files
-app.use(cors(corsOptions)); // CORS middleware on express side
+app.use(cors(corsOptionsDelegate)); // CORS middleware on express side
 app.use(express.static(path.resolve(__dirname, config.static)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));

@@ -6,7 +6,7 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     modules: [resolve(__dirname, config.src), 'node_modules'],
     alias: {
-      'vue$': 'vue/dist/vue.common.js',
+      vue$: 'vue/dist/vue.common.js',
     },
   },
 

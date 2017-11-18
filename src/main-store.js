@@ -12,8 +12,8 @@ const MainStore = new Vuex.Store({
     itemObjects,
     shaderEditor,
     materialEditor,
-    shaderEditorFooter,
-  },
+    shaderEditorFooter
+  }
 });
 
 window.store = MainStore;

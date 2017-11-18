@@ -25,7 +25,7 @@ const whitelist = [`http://${config.clientHost}:${config.clientPort}`, 'https://
 const corsOptions = {
   origin: false,
   credentials: true,
-  optionsSuccessStatus: 200,
+  optionsSuccessStatus: 200
 };
 
 const corsOptionsDelegate = (req, callback) => {
@@ -46,7 +46,7 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(fallback(path.resolve(__dirname, `${config.static}/index.html`)));
 
-app.get('/*', (req, res, next) => {
+app.get('/*', cors(), (req, res, next) => {
   if (req.url.indexOf('/api/') === -1) {
     res.sendFile(path.resolve(__dirname, `${config.static}/index.html`));
     // res.render('index', { title: "React-starter" }); // for ejs
@@ -55,7 +55,7 @@ app.get('/*', (req, res, next) => {
   }
 });
 
-app.get(`${API}/users`, (req, res) => {
+app.get(`${API}/users`, cors(), (req, res) => {
   res.json(usersList);
 });
 

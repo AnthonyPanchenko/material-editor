@@ -4,7 +4,7 @@
   "description": "vue",
   "main": "./server/index.js",
   "scripts": {
-    "start": "node ./server/index.js",
+    "start": "node server.js",
     "server": "node ./dev.starter.js --open",
     "client": "webpack-dev-server --color",
     "build": "webpack --env production -p",

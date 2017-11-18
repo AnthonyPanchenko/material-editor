@@ -8,7 +8,6 @@
     "server": "node ./dev.starter.js --open",
     "client": "webpack-dev-server --color",
     "build": "webpack --env production -p",
-    "postinstall": "webpack --env production -p",
     "lint": "eslint src --color",
     "clean": "rm -r static/app/*"
   },

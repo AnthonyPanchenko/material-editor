@@ -4,15 +4,14 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('../app.config');
-const apiUrlParts = require('../src/common/constants/api-url-parts');
+const api = require('../src/common/constants/api-url-parts');
 const fakeData = require('../src/fake-data');
 
 const app = express();
-const API = config.apiUrl;
 const PORT = process.env.PORT || config.serverPort;
 
 // https://github.com/expressjs/cors
-const whitelist = [`http://${config.clientHost}:${config.clientPort}`, 'https://material-editor.herokuapp.com/'];
+const whitelist = [`http://${config.clientHost}:${config.clientPort}`, 'https://material-editor.herokuapp.com'];
 
 const corsOptions = {
   origin: false,
@@ -42,7 +41,7 @@ app.get('/*', (req, res, next) => {
   }
 });
 
-app.get(`${API}${apiUrlParts.MATERIAL_EDITOR_URL_PART}${apiUrlParts.GET_3D_MODELS_LIST_URL_SUFIX}`, (req, res) => {
+app.get(`${api.API_PATH}${api.MATERIAL_EDITOR_URL_PART}${api.GET_3D_MODELS_LIST_URL_SUFIX}`, (req, res) => {
   res.json(fakeData.itemObjects);
 });
 

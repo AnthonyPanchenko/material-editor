@@ -11,17 +11,17 @@ const resultConfig = Object.assign({}, {
       comments: false,
       compress: {
         warnings: false,
-        drop_console: true,
-      },
+        drop_console: true
+      }
     }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
     }),
     new webpack.LoaderOptionsPlugin({
       minimize: true,
-      debug: false,
-    }),
-  ],
+      debug: false
+    })
+  ]
 
 }, baseConfig);
 

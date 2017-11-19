@@ -6,14 +6,14 @@ module.exports = {
     extensions: ['.js', '.vue', '.json'],
     modules: [resolve(__dirname, config.src), 'node_modules'],
     alias: {
-      vue$: 'vue/dist/vue.common.js',
-    },
+      vue$: 'vue/dist/vue.common.js'
+    }
   },
 
   output: {
     path: resolve(__dirname, config.build),
     publicPath: config.urlBasePath,
-    filename: 'app.js',
+    filename: 'app.js'
   },
 
   module: {
@@ -21,32 +21,32 @@ module.exports = {
       {
         test: /\.js$/,
         include: resolve(__dirname, config.src),
-        use: (process.env.NODE_ENV === 'development') ? ['babel-loader', 'eslint-loader'] : ['babel-loader'],
+        use: (process.env.NODE_ENV === 'development') ? ['babel-loader', 'eslint-loader'] : ['babel-loader']
       },
       {
         test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader']
       },
       {
         test: /\.html$/,
-        use: ['vue-html-loader'],
+        use: ['vue-html-loader']
       },
       {
         test: /\.vue$/,
-        use: ['vue-loader'],
+        use: ['vue-loader']
       },
       {
         test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader'],
+        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
       },
       {
         test: /\.(ico|png|jpg|gif|eot|ttf|svg|woff|woff2)(\?.+)?$/,
-        use: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]'],
+        use: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]']
       },
       {
         test: /\.(json)(\?.+)?$/,
-        use: ['url-loader?name=[path][name].[ext]?[hash]'],
-      },
-    ],
-  },
+        use: ['url-loader?name=[path][name].[ext]?[hash]']
+      }
+    ]
+  }
 };

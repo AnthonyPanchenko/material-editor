@@ -6,7 +6,7 @@ process.env.NODE_ENV = NODE_ENV;
 
 const configs = {
   development: require(resolve(__dirname, './webpack-cfg/dev')),
-  production: require(resolve(__dirname, './webpack-cfg/prod')),
+  production: require(resolve(__dirname, './webpack-cfg/prod'))
 };
 
 module.exports = configs[NODE_ENV];

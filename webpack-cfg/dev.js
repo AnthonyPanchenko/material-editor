@@ -11,7 +11,7 @@ const resultConfig = Object.assign({}, {
   entry: [
     `webpack-dev-server/client?http://${config.clientHost}:${config.clientPort}`,
     'webpack/hot/only-dev-server',
-    './src/main',
+    './src/main'
   ],
 
   plugins: [
@@ -20,9 +20,9 @@ const resultConfig = Object.assign({}, {
     new webpack.NoEmitOnErrorsPlugin(),
     new OpenBrowserPlugin({ url: `http://${config.clientHost}:${config.clientPort}` }),
     new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`,
+      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
     }),
-    new FriendlyErrorsPlugin(),
+    new FriendlyErrorsPlugin()
   ],
 
   devServer: {
@@ -31,9 +31,8 @@ const resultConfig = Object.assign({}, {
     hot: true,
     historyApiFallback: true,
     host: config.clientHost,
-    port: config.clientPort,
-  },
-
+    port: config.clientPort
+  }
 }, baseConfig);
 
 module.exports = resultConfig;

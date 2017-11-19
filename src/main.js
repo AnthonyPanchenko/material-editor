@@ -37,7 +37,7 @@ if (process.env.NODE_ENV !== 'production') {
 
   Vue.http.interceptors.push((request, next) => {
     const url = request.getUrl();
-    const key = url.replace(api.API_PATH, '');
+    const key = url.replace(api.API_PREFIX, '');
 
     next(request.respondWith(data[key], {
       status: data[key] ? 200 : 500,

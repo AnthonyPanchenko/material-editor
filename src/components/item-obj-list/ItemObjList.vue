@@ -4,7 +4,7 @@ const { mapActions } = createNamespacedHelpers('itemObjects');
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
 import mutationTypes from '../../common/constants/mutation-types';
-import * as apiConstants from '../../common/constants/api-constants';
+import * as api from '../../common/constants/api';
 
 export default {
   name: 'ItemObjList',
@@ -17,7 +17,7 @@ export default {
     };
   },
   beforeMount() {
-    this.getItemObjList();
+    this.get3dModelsList();
   },
   methods: {
     ...mapActions(['onRemoveItemObjById', 'onSuccessLoadObjectsList']),
@@ -27,9 +27,9 @@ export default {
     onSelectObjById(event) {
       console.log(event.target.dataset);
     },
-    getItemObjList() {
+    get3dModelsList() {
       this.$http({
-        url: apiConstants.GET_MATERIAL_EDITOR_ITEM_OBJ_LIST,
+        url: api.GET_MATERIAL_EDITOR_3D_MODELS_LIST,
         method: 'GET',
         // credentials: true,
         before: () => {

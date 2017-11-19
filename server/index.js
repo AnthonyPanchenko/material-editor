@@ -4,7 +4,7 @@ const fallback = require('express-history-api-fallback');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const open = require('open');
+// const open = require('open');
 const config = require('../app.config');
 
 const API = config.apiUrl;
@@ -57,9 +57,9 @@ app.get(`${API}/users`, cors(), (req, res) => {
 });
 
 // const server = http.createServer(app);
-app.listen(PORT);
 
-if (process.argv.indexOf('--open') !== -1) {
-  console.log(`Listening at ${config.serverHost}:${PORT}/`);
-  open(`http://${config.serverHost}:${PORT}/`);
+if (!module.parent) {
+  app.listen(PORT, function () {
+    console.log('Express server listening on port ' + PORT + '.');
+  });
 }

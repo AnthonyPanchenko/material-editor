@@ -63,15 +63,11 @@ export default {
 
       indent: 3,
 
+      triangleClassName: opositPositions[position],
       currentOrientation: orientation,
       currentPosition: position,
 
       popoverOffsets: {
-        left: 0,
-        top: 0
-      },
-
-      triggerOffsets: {
         left: 0,
         top: 0
       },
@@ -109,140 +105,121 @@ export default {
       return definedPosition;
     },
 
-    definePopoverOffsetsByPlacement() {
-      switch (this.currentPlacement) {
-        case 'bottom-left':
-          this.popoverOffsets.left = clamp((this.trigger.offsetWidth + this.triggerOffsets.left) - this.popover.offsetWidth, 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top + this.trigger.offsetHeight + this.triangle.offsetHeight + this.indent;
-          break;
+    defineHorizontalOrientation(triggerOffsets) {
+      if (this.currentOrientation === 'left') {
+        this.popoverOffsets.left = clamp((this.trigger.offsetWidth + triggerOffsets.left) - this.popover.offsetWidth, 0, window.innerWidth - this.popover.offsetWidth);
+      }
 
-        case 'bottom-center':
-          this.popoverOffsets.left = clamp(((this.trigger.offsetWidth / 2) + this.triggerOffsets.left) - (this.popover.offsetWidth / 2), 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top + this.trigger.offsetHeight + this.triangle.offsetHeight + this.indent;
-          break;
+      if (this.currentOrientation === 'center') {
+        this.popoverOffsets.left = clamp(((this.trigger.offsetWidth / 2) + triggerOffsets.left) - (this.popover.offsetWidth / 2), 0, window.innerWidth - this.popover.offsetWidth);
+      }
 
-        case 'bottom-right':
-          this.popoverOffsets.left = clamp(this.triggerOffsets.left, 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top + this.trigger.offsetHeight + this.triangle.offsetHeight + this.indent;
-          break;
-
-        case 'top-left':
-          this.popoverOffsets.left = clamp((this.trigger.offsetWidth + this.triggerOffsets.left) - this.popover.offsetWidth, 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top - this.popover.offsetHeight - this.triangle.offsetHeight - this.indent;
-          break;
-
-        case 'top-center':
-          this.popoverOffsets.left = clamp(((this.trigger.offsetWidth / 2) + this.triggerOffsets.left) - (this.popover.offsetWidth / 2), 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top - this.popover.offsetHeight - this.triangle.offsetHeight - this.indent;
-          break;
-
-        case 'top-right':
-          this.popoverOffsets.left = clamp(this.triggerOffsets.left, 0, window.innerWidth - this.popover.offsetWidth);
-          this.popoverOffsets.top = this.triggerOffsets.top - this.popover.offsetHeight - this.triangle.offsetHeight - this.indent;
-          break;
-
-        case 'left-top':
-          this.popoverOffsets.left = this.triggerOffsets.left - this.popover.offsetWidth - this.triangle.offsetWidth - this.indent;
-          this.popoverOffsets.top = clamp(this.triggerOffsets.top, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        case 'left-center':
-          this.popoverOffsets.left = this.triggerOffsets.left - this.popover.offsetWidth - this.triangle.offsetWidth - this.indent;
-          this.popoverOffsets.top = clamp(((this.trigger.offsetHeight / 2) + this.triggerOffsets.top) - this.popover.offsetHeight / 2, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        case 'left-bottom':
-          this.popoverOffsets.left = this.triggerOffsets.left - this.popover.offsetWidth - this.triangle.offsetWidth - this.indent;
-          this.popoverOffsets.top = clamp((this.triggerOffsets.top - this.popover.offsetHeight) + this.trigger.offsetHeight, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        case 'right-top':
-          this.popoverOffsets.left = this.triggerOffsets.left + this.triangle.offsetWidth + this.trigger.offsetWidth + this.indent;
-          this.popoverOffsets.top = clamp(this.triggerOffsets.top, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        case 'right-center':
-          this.popoverOffsets.left = this.triggerOffsets.left + this.triangle.offsetWidth + this.trigger.offsetWidth + this.indent;
-          this.popoverOffsets.top = clamp(((this.trigger.offsetHeight / 2) + this.triggerOffsets.top) - this.popover.offsetHeight / 2, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        case 'right-bottom':
-          this.popoverOffsets.left = this.triggerOffsets.left + this.triangle.offsetWidth + this.trigger.offsetWidth + this.indent;
-          this.popoverOffsets.top = clamp((this.triggerOffsets.top - this.popover.offsetHeight) + this.trigger.offsetHeight, 0, window.innerHeight - this.popover.offsetHeight);
-          break;
-
-        default: this.popoverOffsets;
+      if (this.currentOrientation === 'right') {
+        this.popoverOffsets.left = clamp(triggerOffsets.left, 0, window.innerWidth - this.popover.offsetWidth);
       }
     },
 
-    getTrianglePositionTop() {
-      return ((this.triggerOffsets.top - this.popoverOffsets.top) + (this.trigger.offsetHeight / 2)) - (this.triangle.offsetHeight / 2);
+    defineVerticalOrientation(triggerOffsets) {
+      if (this.currentOrientation === 'top') {
+        this.popoverOffsets.top = clamp(triggerOffsets.top, 0, window.innerHeight - this.popover.offsetHeight);
+      }
+
+      if (this.currentOrientation === 'center') {
+        this.popoverOffsets.top = clamp(((this.trigger.offsetHeight / 2) + triggerOffsets.top) - this.popover.offsetHeight / 2, 0, window.innerHeight - this.popover.offsetHeight);
+      }
+
+      if (this.currentOrientation === 'bottom') {
+        this.popoverOffsets.top = clamp((triggerOffsets.top - this.popover.offsetHeight) + this.trigger.offsetHeight, 0, window.innerHeight - this.popover.offsetHeight);
+      }
     },
 
-    getTrianglePositionLeft() {
-      return ((this.triggerOffsets.left - this.popoverOffsets.left) + (this.trigger.offsetWidth / 2)) - (this.triangle.offsetWidth / 2);
+    definePopoverOffsetsByPlacement(triggerOffsets) {
+      if (this.currentPosition === 'bottom') {
+        this.popoverOffsets.top = triggerOffsets.top + this.trigger.offsetHeight + this.triangle.offsetHeight + this.indent;
+        this.defineHorizontalOrientation(triggerOffsets);
+      }
+
+      if (this.currentPosition === 'top') {
+        this.popoverOffsets.top = triggerOffsets.top - this.popover.offsetHeight - this.triangle.offsetHeight - this.indent;
+        this.defineHorizontalOrientation(triggerOffsets);
+      }
+
+      if (this.currentPosition === 'left') {
+        this.popoverOffsets.left = triggerOffsets.left - this.popover.offsetWidth - this.triangle.offsetWidth - this.indent;
+        this.defineVerticalOrientation(triggerOffsets);
+      }
+
+      if (this.currentPosition === 'right') {
+        this.popoverOffsets.left = triggerOffsets.left + this.triangle.offsetWidth + this.trigger.offsetWidth + this.indent;
+        this.defineVerticalOrientation(triggerOffsets);
+      }
     },
 
-    observeBestFitPosition() {
-      this.bestFitPositions.left = (this.triggerOffsets.left - (this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
-      this.bestFitPositions.top = (this.triggerOffsets.top - (this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
-      this.bestFitPositions.right = (window.innerWidth - (this.triggerOffsets.left + this.trigger.offsetWidth + this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
-      this.bestFitPositions.bottom = (window.innerHeight - (this.triggerOffsets.top + this.trigger.offsetHeight + this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
+    getTrianglePositionTop(triggerOffsets) {
+      return ((triggerOffsets.top - this.popoverOffsets.top) + (this.trigger.offsetHeight / 2)) - (this.triangle.offsetHeight / 2);
+    },
+
+    getTrianglePositionLeft(triggerOffsets) {
+      return ((triggerOffsets.left - this.popoverOffsets.left) + (this.trigger.offsetWidth / 2)) - (this.triangle.offsetWidth / 2);
+    },
+
+    observeBestFitPosition(triggerOffsets) {
+      this.bestFitPositions.left = (triggerOffsets.left - (this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
+      this.bestFitPositions.top = (triggerOffsets.top - (this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
+      this.bestFitPositions.right = (window.innerWidth - (triggerOffsets.left + this.trigger.offsetWidth + this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
+      this.bestFitPositions.bottom = (window.innerHeight - (triggerOffsets.top + this.trigger.offsetHeight + this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
     },
 
     observe() {
-      this.triggerOffsets = getElementOffsets(this.trigger);
-      this.observeBestFitPosition();
+      const triggerOffsets = getElementOffsets(this.trigger);
+      this.observeBestFitPosition(triggerOffsets);
 
-      const splitedPlacement = this.currentPlacement.split('-');
-      const currentPosition = splitedPlacement[0];
-      const currentOrientation = splitedPlacement[1];
+      if (!this.bestFitPositions[this.currentPosition]) {
+        const newPosition = this.getNewPosition(this.bestFitPositions, this.currentPosition);
+        const newOrientation = this.getNewOrientation(newPosition, this.currentOrientation);
 
-      if (!this.bestFitPositions[currentPosition]) {
-        this.triangle.classList.remove(this.opositPositions[currentPosition]);
-        const newPosition = this.getNewPosition(this.bestFitPositions, currentPosition);
-        const newOrientation = this.getNewOrientation(newPosition, currentOrientation);
-        this.currentPlacement = `${newPosition}-${newOrientation}`;
-        this.triangle.classList.add(this.opositPositions[newPosition]);
+        this.currentOrientation = newOrientation;
+        this.currentPosition = newPosition;
+
+        this.triangleClassName = this.opositPositions[newPosition];
       }
 
-      if (this.bestFitPositions[this.defaultPosition]) {
-        this.triangle.classList.remove(this.opositPositions[currentPosition]);
-        this.currentPlacement = this.defaultPlacement;
-        this.triangle.classList.add(this.opositPositions[this.defaultPosition]);
+      if (this.bestFitPositions[this.position]) {
+        this.currentOrientation = this.orientation;
+        this.currentPosition = this.position;
+
+        this.triangleClassName = this.opositPositions[this.position];
       }
 
-      this.definePopoverOffsetsByPlacement();
+      this.definePopoverOffsetsByPlacement(triggerOffsets);
+
       this.popover.style.top = this.popoverOffsets.top + 'px';
       this.popover.style.left = this.popoverOffsets.left + 'px';
 
-      if ((currentPosition === 'left') || (currentPosition === 'right')) {
+      if ((this.currentPosition === 'left') || (this.currentPosition === 'right')) {
         this.triangle.style.left = null;
         this.triangle.style.top = this.getTrianglePositionTop() + 'px';
       }
 
-      if ((currentPosition === 'top') || (currentPosition === 'bottom')) {
+      if ((this.currentPosition === 'top') || (this.currentPosition === 'bottom')) {
         this.triangle.style.top = null;
         this.triangle.style.left = this.getTrianglePositionLeft() + 'px';
       }
     },
 
     init() {
-      const currentPosition = this.currentPlacement.split('-')[0];
-      this.triggerOffsets = getElementOffsets(this.trigger);
-
-      this.triangle.classList.add(this.opositPositions[currentPosition]);
-      this.definePopoverOffsetsByPlacement();
+      const triggerOffsets = getElementOffsets(this.trigger);
+      this.definePopoverOffsetsByPlacement(triggerOffsets);
 
       // this.popover.style.top = this.popoverOffsets.top + 'px';
       // this.popover.style.left = this.popoverOffsets.left + 'px';
 
-      if ((currentPosition === 'left') || (currentPosition === 'right')) {
-        this.triangle.style.top = this.getTrianglePositionTop() + 'px';
+      if ((this.position === 'left') || (this.position === 'right')) {
+        this.triangle.style.top = this.getTrianglePositionTop(triggerOffsets) + 'px';
       }
 
-      if ((currentPosition === 'top') || (currentPosition === 'bottom')) {
-        this.triangle.style.left = this.getTrianglePositionLeft() + 'px';
+      if ((this.position === 'top') || (this.position === 'bottom')) {
+        this.triangle.style.left = this.getTrianglePositionLeft(triggerOffsets) + 'px';
       }
     }
 
@@ -298,7 +275,7 @@ export default {
 <template>
   <transition name="popover-fade">
     <div v-show="isOpen" class="popover" ref="popoverBody" :style="{ top: `${popoverOffsets.top}px`, left: `${popoverOffsets.left}px` }">
-      <span class="triangle" ref="triangle" />
+      <span :class="['triangle', triangleClassName]" ref="triangle" />
       <slot>Content here</slot>
     </div>
   </transition>

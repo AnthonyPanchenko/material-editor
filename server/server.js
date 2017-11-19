@@ -19,9 +19,11 @@ app.get('/simple-cors', cors(), function (req, res) {
 		text: 'Simple CORS requests are working. [GET]'
 	});
 });
+
 app.head('/simple-cors', cors(), function (req, res) {
 	res.send(204);
 });
+
 app.post('/simple-cors', cors(), function (req, res) {
 	res.json({
 		text: 'Simple CORS requests are working. [POST]'

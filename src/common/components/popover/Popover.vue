@@ -193,26 +193,20 @@ export default {
 
       this.definePopoverOffsetsByPlacement(triggerOffsets);
 
-      this.popover.style.top = this.popoverOffsets.top + 'px';
-      this.popover.style.left = this.popoverOffsets.left + 'px';
-
       if ((this.currentPosition === 'left') || (this.currentPosition === 'right')) {
         this.triangle.style.left = null;
-        this.triangle.style.top = this.getTrianglePositionTop() + 'px';
+        this.triangle.style.top = `${this.getTrianglePositionTop()}px`;
       }
 
       if ((this.currentPosition === 'top') || (this.currentPosition === 'bottom')) {
         this.triangle.style.top = null;
-        this.triangle.style.left = this.getTrianglePositionLeft() + 'px';
+        this.triangle.style.left = `${this.getTrianglePositionLeft()}px`;
       }
     },
 
     init() {
       const triggerOffsets = getElementOffsets(this.trigger);
       this.definePopoverOffsetsByPlacement(triggerOffsets);
-
-      // this.popover.style.top = this.popoverOffsets.top + 'px';
-      // this.popover.style.left = this.popoverOffsets.left + 'px';
 
       if ((this.position === 'left') || (this.position === 'right')) {
         this.triangle.style.top = this.getTrianglePositionTop(triggerOffsets) + 'px';

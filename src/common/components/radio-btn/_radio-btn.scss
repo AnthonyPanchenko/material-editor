@@ -1,27 +1,26 @@
-$radio-btn-ctrl-size: 14px;
-$radio-btn-dot-color: #171717;
-$radio-btn-hover-color: #64add1;
-$radio-btn-border-hover-color: #fff;
-$radio-btn-bg-active-color: #1e90ff;
-$radio-btn-border-color: #3c3c3c;
+
+$radio-btn-checked-color: #1e90ff;
+$radio-btn-unchecked-color: #fff;
+$radio-btn-hover-color: #fff;
 
 .radio-btn {
   font-size: 13px;
   align-items: center;
   display: flex;
+  cursor: pointer;
   user-select: none;
 
   .switch-icon {
-    position: relative;
-    display: inline-block;
-    width: $radio-btn-ctrl-size;
-    height: $radio-btn-ctrl-size;
-    border-radius: $radio-btn-ctrl-size;
-    background-color: $radio-btn-dot-color;
-    border-width: $radio-btn-ctrl-size / 5.5;
-    border-style: solid;
-    border-color: $radio-btn-border-color;
-    transition: border-color 200ms linear, border-width 200ms linear;
+    font-size: 13px;
+    font-family: 'icomoon' !important;
+    color: $radio-btn-unchecked-color;
+    transition: border-color 200ms linear;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+
+    &:before {
+      content: "\e932";
+    }
   }
 
   .prefix {
@@ -38,7 +37,11 @@ $radio-btn-border-color: #3c3c3c;
     display: none;
 
     &:checked + .switch-icon {
-      background-color: $radio-btn-bg-active-color;
+      color: $radio-btn-checked-color;
+
+      &:before {
+        content: "\e931";
+      }
     }
   }
 
@@ -51,7 +54,8 @@ $radio-btn-border-color: #3c3c3c;
     color: $radio-btn-hover-color;
 
     .switch-icon {
-      border-color: $radio-btn-border-hover-color;
+      cursor: pointer;
+      color: $radio-btn-hover-color;
     }
   }
 
@@ -68,7 +72,8 @@ $radio-btn-border-color: #3c3c3c;
       color: inherit;
 
       .switch-icon {
-        background-color: inherit;
+        color: inherit;
+        cursor: inherit;
       }
     }
   }

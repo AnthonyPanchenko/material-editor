@@ -22,3 +22,11 @@ $page-fade-out-leave-transition-duration: 300ms;
     transition: opacity $page-fade-out-leave-transition-duration linear;
   }
 }
+
+.main-layout {
+  display: flex;
+  overflow: hidden;
+  position: relative;
+  flex-direction: column;
+  height: 100%;
+}

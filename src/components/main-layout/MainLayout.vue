@@ -5,7 +5,9 @@ export default {
 </script>
 
 <template>
-  <transition name="page-fade">
-    <router-view></router-view>
-  </transition>
+  <div class="main-layout">
+    <transition name="page-fade">
+      <router-view></router-view>
+    </transition>
+  </div>
 </template>

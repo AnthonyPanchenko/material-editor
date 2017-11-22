@@ -1,39 +1,24 @@
-$checkbox-btn-ctrl-size: 14px;
-$checkbox-btn-dot-color: #171717;
-$checkbox-btn-bg-active-color: #1e90ff;
-$checkbox-btn-bg-color: #727272;
-$checkbox-btn-hover-color: #64add1;
-$checkbox-btn-bg-hover-color: #fff;
+$checkbox-btn-active-color: #1e90ff;
+$checkbox-btn-color: #727272;
+$checkbox-btn-hover-color: #fff;
 
 .checkbox-btn {
   font-size: 13px;
   align-items: center;
   display: flex;
+  cursor: pointer;
   user-select: none;
 
   .switch-icon {
-    cursor: pointer;
-    position: relative;
-    display: inline-block;
-    width: ($checkbox-btn-ctrl-size * 2) - 4;
-    height: $checkbox-btn-ctrl-size;
-    border-radius: $checkbox-btn-ctrl-size;
-    background-color: $checkbox-btn-bg-color;
-    transition: background-color 200ms linear;
+    font-size: 26px;
+    color: $checkbox-btn-color;
+    font-family: 'icomoon' !important;
+    transition: border-color 200ms linear;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
 
     &:before {
-      content: "";
-      position: absolute;
-      display: inherit;
-      top: 0;
-      left: 2px;
-      bottom: 0;
-      width: $checkbox-btn-ctrl-size - 4;
-      height: $checkbox-btn-ctrl-size - 4;
-      margin: auto;
-      border-radius: $checkbox-btn-ctrl-size;
-      background-color: $checkbox-btn-dot-color;
-      transition: left 100ms linear;
+      content: "\e948";
     }
   }
 
@@ -51,10 +36,10 @@ $checkbox-btn-bg-hover-color: #fff;
     display: none;
 
     &:checked + .switch-icon {
-      background-color: $checkbox-btn-bg-active-color;
+      color: $checkbox-btn-active-color;
 
       &:before {
-        left: $checkbox-btn-ctrl-size - 2;
+        content: "\e949";
       }
     }
   }
@@ -68,9 +53,8 @@ $checkbox-btn-bg-hover-color: #fff;
     color: $checkbox-btn-hover-color;
 
     .switch-icon {
-      &:before {
-        background-color: $checkbox-btn-bg-hover-color;
-      }
+      cursor: pointer;
+      color: $checkbox-btn-hover-color;
     }
   }
 
@@ -81,10 +65,7 @@ $checkbox-btn-bg-hover-color: #fff;
 
     .switch-icon {
       cursor: inherit;
-
-      &:before {
-        background-color: $checkbox-btn-dot-color;
-      }
+      color: inherit;
     }
   }
 }

@@ -52,7 +52,8 @@ $checkbox-btn-hover-color: #fff;
   &:hover {
     color: $checkbox-btn-hover-color;
 
-    .switch-icon {
+    .switch-icon,
+    input[type="checkbox"]:checked + .switch-icon {
       cursor: pointer;
       color: $checkbox-btn-hover-color;
     }

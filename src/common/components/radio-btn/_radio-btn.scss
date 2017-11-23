@@ -52,7 +52,8 @@ $radio-btn-hover-color: #fff;
   &:hover {
     color: $radio-btn-hover-color;
 
-    .switch-icon {
+    .switch-icon,
+    input[type="radio"]:checked + .switch-icon {
       cursor: pointer;
       color: $radio-btn-hover-color;
     }

@@ -25,13 +25,14 @@ export default {
   },
   data() {
     return {
-      selectedOption: this.selected
+      selectedOptionId: (this.options.length && !this.selected) ? this.options[0].id : this.selected,
     };
   },
   methods: {
-    onSelectChange() {
+    onSelectChange(event) {
       if (!this.disabled) {
-        this.onChange(this.selectedOption, this.name);
+        const optionObj = this.options.find(option => option.id === this.selectedOptionId);
+        this.onChange(optionObj, this.name);
       }
     }
   }
@@ -40,7 +41,7 @@ export default {
 
 <template>
   <label :class="['ctrl-select', { 'disabled': disabled }]">
-    <select v-model="selectedOption" :tabindex="`${disabled ? -1 : 0}`" :name="name" @change="onSelectChange" :disabled="disabled">
+    <select v-model="selectedOptionId" :tabindex="`${disabled ? -1 : 0}`" :name="name" @change="onSelectChange" :disabled="disabled">
       <option v-for="(option, index) in options" :key="option.id" :value="option.id">
         {{ option.title }}
       </option>

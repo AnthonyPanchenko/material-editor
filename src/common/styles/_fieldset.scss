@@ -8,16 +8,21 @@
   .name {
     cursor: default;
     border-bottom: 1px solid #454545;
-    height: 27px;
+    height: 28px;
     align-items: center;
     display: flex;
     flex: 0 0 auto;
     color: #7f7f7f;
     background-color: rgba(194, 199, 215, 0.04);
 
+    label,
+    select {
+      background-color: #2d2d2d;
+    }
+
     .label {
       opacity: 0.7;
-      width: 52px;
+      flex: 0 0 50px;
       padding-left: $controls-gutter;
     }
   }

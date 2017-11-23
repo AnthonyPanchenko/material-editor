@@ -2,10 +2,13 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
+import materialsTypes from '../../common/constants/materials-types';
+
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
+import InputText from '../../common/components/input-text/InputText.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import ImgBox from '../../common/components/img-box/ImgBox.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
@@ -22,6 +25,7 @@ export default {
   name: 'MaterialEditor',
   components: {
     ImgBox,
+    InputText,
     InputFile,
     NumberPicker,
     ColorPicker,
@@ -38,6 +42,8 @@ export default {
   data() {
     return {
       tabNames,
+      materialsTypes: Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] })),
+
       options: [
         { title: 'NONE', id: '' },
         { title: 'One', id: 'aaa' },
@@ -99,8 +105,10 @@ export default {
 
       <section class="controls-content">
         <div v-if="activeTabName === tabNames.OBJECT" class="fieldset">
-          <div class="type"><span class="label">Type:</span> Mesh</div>
-          <div class="name"><span class="label">Name:</span> Plane 18</div>
+          <div class="type">
+            <span class="label">Type:</span> Mesh</div>
+          <div class="name">
+            <span class="label">Name:</span> Plane 18</div>
           <div class="controls scroll-box">
             <div class="row">
               <span class="label">Position</span>
@@ -132,17 +140,24 @@ export default {
         </div>
 
         <div v-if="activeTabName === tabNames.GEOMETRY" class="fieldset">
-            GEOMETRY
-            <vec2-picker />
-            <hr>
-            <color-picker />
-            <hr>
-            <number-picker />
+          GEOMETRY
+          <vec2-picker />
+          <hr>
+          <color-picker />
+          <hr>
+          <number-picker />
         </div>
 
         <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">
-          <div class="type"><span class="label">Type:</span> Mesh Normal Material</div>
-          <div class="name"><span class="label">Name:</span> Material</div>
+          <div class="type">
+            <span class="label">Type:</span>
+            <custom-select :options="materialsTypes" name="selectname" :onChange="onChangeSelect" />
+          </div>
+          <div class="name">
+            <span class="label">Name:</span>
+            <input-text name="material-name" value="MeshBasicMaterial" />
+          </div>
+
           <div class="controls scroll-box">
             <div class="row">
               <span class="label">Specular Map</span>

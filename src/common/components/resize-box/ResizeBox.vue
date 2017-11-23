@@ -42,15 +42,15 @@ export default {
       this.grabState[this.resize] = true;
     },
     processResize(e) {
-      e.preventDefault();
-
       if (this.grabState.row) {
+        e.preventDefault();
         const currentY = this.rootNode.parentNode.clientHeight - e.pageY;
         const heightPercentages = (currentY * 100) / this.rootNode.parentNode.clientHeight;
         this.currentSize = clamp(heightPercentages, 0, 100);
       }
 
       if (this.grabState.column) {
+        e.preventDefault();
         const currentX = this.rootNode.parentNode.clientWidth - e.pageX;
         const widthPercentages = 100 - ((currentX * 100) / this.rootNode.parentNode.clientWidth);
         this.currentSize = clamp(widthPercentages, 0, 100);

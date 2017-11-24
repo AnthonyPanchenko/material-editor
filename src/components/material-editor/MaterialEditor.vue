@@ -159,6 +159,7 @@ export default {
           </div>
 
           <div class="controls scroll-box">
+
             <div class="row">
               <span class="label">Specular Map</span>
               <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
@@ -192,6 +193,7 @@ export default {
               <span class="label">AO Map</span>
               <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
             </div>
+
           </div>
         </div>
       </section>

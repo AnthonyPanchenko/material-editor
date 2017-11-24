@@ -1,5 +1,5 @@
-import materialsTypes from './materials-types';
-import m from './maped-materials-properties';
+import materialsTypes from '../../../common/constants/materials-types';
+import m from '../../../common/constants/materials-properties';
 
 const mapedMaterialsProperties = {
   [materialsTypes.LINE_BASIC_MATERIAL]: [m.COLOR, m.VERTEXCOLORS, m.SIDE, m.flatShading, m.BLENDING, m.OPACITY, m.TRANSPARENT, m.ALPHATEST],

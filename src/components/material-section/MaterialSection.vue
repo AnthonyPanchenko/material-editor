@@ -1,10 +1,8 @@
 <script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
-
+import selects from './utils/selects';
 import materialsTypes from '../../common/constants/materials-types';
 import materialsProperties from '../../common/constants/materials-properties';
-import mapedMaterialsProperties from '../../common/constants/maped-materials-properties';
+import mapedMaterialsProperties from './utils/maped-materials-properties';
 
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
@@ -18,7 +16,7 @@ import CustomSelect from '../../common/components/custom-select/CustomSelect.vue
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
-  name: 'MaterialEditor',
+  name: 'MaterialSection',
   props: {
     materialType: {
       type: String,
@@ -39,45 +37,27 @@ export default {
   },
   data() {
     return {
+      selects,
       materialsTypes,
       m: materialsProperties,
-      mapedMaterialsProperties,
-
-      options: [
-        { title: 'NONE', id: ' },
-        { title: 'One', id: 'aaa' },
-        { title: 'Two', id: 'bbb' },
-        { title: 'Three', id: 'ccc' }
-      ]
+      mapedMaterialsProperties
     };
   },
-  computed: mapState([
-    'widthCtrlBox',
-    'activeTabName',
-    'isVisibleControlsBox',
-    'isVisibleObjectsList'
-  ]),
   methods: {
-    ...mapActions([
-      'onSetActiveTabName',
-      'onSetCtrlBoxWidth',
-      'onToggleObjectsList',
-      'onToggleFullScreenMode'
-    ]),
     isDisplayedSection(property) {
-      return this.mapedMaterialsProperties[this.materialsType].indexOf(property) !== -1;
+      return this.mapedMaterialsProperties[this.materialType].indexOf(property) !== -1;
     },
     onChangeSelect(selectedValue, name) {
-      console.log(selectedValue);
-      console.log(name);
+      console.log(selectedValue, name);
     },
     onChangeFileInput(file) {
       console.log(file);
     },
+    onChangeNumberInput(value, name, min, max, step) {
+      console.log(value, name, min, max, step);
+    },
     onChangeCheckBox(state, value, name) {
-      console.log(state);
-      console.log(value);
-      console.log(name);
+      console.log(state, value, name);
     }
   }
 };
@@ -85,17 +65,6 @@ export default {
 
 <template>
   <div class="controls scroll-box">
-    <!-- ======================= -->
-    <div v-for="prop in mapedMaterialsProperties[materialsType]" :key="prop" class="row">
-      <span class="label">{{ materialPropLabels[prop].label }}</span>
-      <button v-if="settings[prop].color" type="color">color</button>
-      <checkbox-btn v-if="settings[prop].checkbox" :name="m[prop]" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file v-if="settings[prop].file" :name="m[prop]" :onChange="onChangeFileInput" />
-      <input-number v-if="settings[prop].number" :name="m[prop]" :onChange="onChangeNumberInput" />
-    </div>
-
-    <!-- ======================= -->
-
     <div v-if="isDisplayedSection(m.COLOR)" class="row">
       <span class="label">Color</span>
       <button type="color">color</button>
@@ -140,7 +109,7 @@ export default {
 
     <div v-if="isDisplayedSection(m.VERTEXCOLORS)" class="row">
       <span class="label">Vertex Colors</span>
-      <custom-select :options="options" :name="m.VERTEXCOLORS" :onChange="onChangeSelect" />
+      <custom-select :options="selects[m.VERTEXCOLORS]" :name="m.VERTEXCOLORS" :onChange="onChangeSelect" />
     </div>
 
     <div v-if="isDisplayedSection(m.SKINNING)" class="row">
@@ -151,82 +120,106 @@ export default {
     <div v-if="isDisplayedSection(m.MAP)" class="row">
       <span class="label">Map</span>
       <checkbox-btn :name="m.MAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.MAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.MAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.ALPHAMAP)" class="row">
       <span class="label">Alpha Map</span>
       <checkbox-btn :name="m.ALPHAMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.ALPHAMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.ALPHAMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.BUMPMAP)" class="row">
       <span class="label">Bump Map</span>
       <checkbox-btn :name="m.BUMPMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.BUMPMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.BUMPMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
       <input-number :name="m.BUMPMAP" :onChange="onChangeNumberInput" />
     </div>
 
     <div v-if="isDisplayedSection(m.NORMALMAP)" class="row">
       <span class="label">Normal Map</span>
       <checkbox-btn :name="m.NORMALMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.NORMALMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.NORMALMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.DISPLACEMENTMAP)" class="row">
       <span class="label">Displacement Map</span>
       <checkbox-btn :name="m.DISPLACEMENTMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.DISPLACEMENTMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.DISPLACEMENTMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
       <input-number :name="m.DISPLACEMENTMAP" :onChange="onChangeNumberInput" />
     </div>
 
     <div v-if="isDisplayedSection(m.ROUGHNESSMAP)" class="row">
       <span class="label">Roughness Map</span>
       <checkbox-btn :name="m.ROUGHNESSMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.ROUGHNESSMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.ROUGHNESSMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.METALNESSMAP)" class="row">
       <span class="label">Metalness Map</span>
       <checkbox-btn :name="m.METALNESSMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.METALNESSMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.METALNESSMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.SPECULARMAP)" class="row">
       <span class="label">Specular Map</span>
       <checkbox-btn :name="m.SPECULARMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.SPECULARMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.SPECULARMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.ENVMAP)" class="row">
       <span class="label">Env Map</span>
       <checkbox-btn :name="m.ENVMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.ENVMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.ENVMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
       <input-number :name="m.ENVMAP" :onChange="onChangeNumberInput" />
     </div>
 
     <div v-if="isDisplayedSection(m.LIGHTMAP)" class="row">
       <span class="label">Light Map</span>
       <checkbox-btn :name="m.LIGHTMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.LIGHTMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.LIGHTMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.AOMAP)" class="row">
       <span class="label">Ao Map</span>
       <checkbox-btn :name="m.AOMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.AOMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.AOMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
       <input-number :name="m.AOMAP" :onChange="onChangeNumberInput" />
     </div>
 
     <div v-if="isDisplayedSection(m.EMISSIVEMAP)" class="row">
       <span class="label">Emissive Map</span>
       <checkbox-btn :name="m.EMISSIVEMAP" :checked="false" :onChange="onChangeCheckBox" />
-      <input-file :name="m.EMISSIVEMAP" :onChange="onChangeFileInput" />
+      <input-file :name="m.EMISSIVEMAP" :onChange="onChangeFileInput">
+        <img-box />
+      </input-file>
     </div>
 
     <div v-if="isDisplayedSection(m.SIDE)" class="row">
       <span class="label">Side</span>
-      <custom-select :options="options" :name="m.SIDE" :onChange="onChangeSelect" />
+      <custom-select :options="selects[m.SIDE]" :name="m.SIDE" :onChange="onChangeSelect" />
     </div>
 
     <div v-if="isDisplayedSection(m.FLATSHADING)" class="row">
@@ -236,7 +229,7 @@ export default {
 
     <div v-if="isDisplayedSection(m.BLENDING)" class="row">
       <span class="label">Blending</span>
-      <custom-select :options="options" :name="m.BLENDING" :onChange="onChangeSelect" />
+      <custom-select :options="selects[m.BLENDING]" :name="m.BLENDING" :onChange="onChangeSelect" />
     </div>
 
     <div v-if="isDisplayedSection(m.OPACITY)" class="row">

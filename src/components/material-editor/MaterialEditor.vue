@@ -20,10 +20,12 @@ import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import internalUrls from '../../common/constants/internal-urls';
 import tabNames from './constants/tabNames';
+import MaterialSection from '../material-section/MaterialSection.vue';
 
 export default {
   name: 'MaterialEditor',
   components: {
+    MaterialSection,
     ImgBox,
     InputText,
     InputFile,
@@ -42,6 +44,7 @@ export default {
   data() {
     return {
       tabNames,
+      activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL,
       materialsTypes: Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] })),
 
       options: [
@@ -66,6 +69,11 @@ export default {
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
+    onChangeMaterialsTypesSelect(selectedValue, name) {
+      console.log(selectedValue);
+      console.log(name);
+      this.activeMaterialType = selectedValue.id;
+    },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
@@ -151,50 +159,14 @@ export default {
         <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">
           <div class="type">
             <span class="label">Type:</span>
-            <custom-select :options="materialsTypes" name="selectname" :onChange="onChangeSelect" />
+            <custom-select :options="materialsTypes" name="materialsTypes" :onChange="onChangeMaterialsTypesSelect" />
           </div>
           <div class="name">
             <span class="label">Name:</span>
             <input-text name="material-name" value="MeshBasicMaterial" />
           </div>
 
-          <div class="controls scroll-box">
-
-            <div class="row">
-              <span class="label">Specular Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file name="file1" disabled :onChange="onChangeFileInput" />
-            </div>
-
-            <div class="row">
-              <span class="label">Specular Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file name="file1" :onChange="onChangeFileInput" />
-            </div>
-
-            <div class="row">
-              <span class="label">Env Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-number />
-              <input-file name="file1" :onChange="onChangeFileInput">
-                <img-box />
-              </input-file>
-            </div>
-
-            <div class="row">
-              <span class="label">Light Map</span>
-              <checkbox-btn name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <input-file name="file1" :onChange="onChangeFileInput">
-                <img-box url="/img/texture_img.jpg" />
-              </input-file>
-            </div>
-
-            <div class="row">
-              <span class="label">AO Map</span>
-              <custom-select :options="options" name="selectname" :onChange="onChangeSelect" />
-            </div>
-
-          </div>
+          <material-section :materialType="activeMaterialType" />
         </div>
       </section>
 

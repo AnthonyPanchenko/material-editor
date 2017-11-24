@@ -8,6 +8,7 @@ const materialsProperties = {
   CLEARCOAT: 'clearCoat',
   CLEARCOATROUGHNESS: 'clearCoatRoughness',
   VERTEXSHADER: 'vertexShader',
+  FRAGMENTSHADER: 'fragmentShader',
   VERTEXCOLORS: 'vertexColors',
   SKINNING: 'skinning',
   MAP: 'map',

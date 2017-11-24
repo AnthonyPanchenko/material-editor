@@ -29,7 +29,7 @@ export default {
   methods: {
     onChangeCheckBox() {
       if (!this.disabled) {
-        this.onChange(this.checkedState, this.value, this.name);
+        this.onChange(this.checkedState, this.name, this.value);
       }
     },
     onPressEnter() {

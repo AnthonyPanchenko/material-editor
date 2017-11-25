@@ -51,6 +51,7 @@ export const RGBtoXYZ = (r, g, b) => {
   };
 };
 
+// https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
 export const HSLAtoRGBA = (h, s, l, a) => {
   let r = 0;
   let g = 0;

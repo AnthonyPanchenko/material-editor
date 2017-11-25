@@ -2,6 +2,10 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
+import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
@@ -15,6 +19,9 @@ import tabNames from './constants/tabNames';
 export default {
   name: 'ShaderEditor',
   components: {
+    NumberPicker,
+    ColorPicker,
+    Vec2Picker,
     CustomBtn,
     ItemObjList,
     InputFile,
@@ -90,7 +97,13 @@ export default {
         <transition name="slide-obj-list">
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
-        <div class="canvas-box"> canvas </div>
+        <div class="canvas-box">
+          <vec2-picker />
+          <hr>
+          <color-picker />
+          <hr>
+          <number-picker />
+        </div>
       </section>
 
       <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />

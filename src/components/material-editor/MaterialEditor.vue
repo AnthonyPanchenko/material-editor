@@ -2,39 +2,25 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
-import materialsTypes from '../../common/constants/materials-types';
-
-import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
-import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
-import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
-import InputFile from '../../common/components/input-file/InputFile.vue';
-import InputText from '../../common/components/input-text/InputText.vue';
-import InputNumber from '../../common/components/input-number/InputNumber.vue';
-import ImgBox from '../../common/components/img-box/ImgBox.vue';
-import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import DrawingBoard from '../canvas-board/DrawingBoard.vue';
-import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
-import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
-import internalUrls from '../../common/constants/internal-urls';
+
 import tabNames from './constants/tabNames';
+import internalUrls from '../../common/constants/internal-urls';
+
+import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import MaterialSection from '../material-section/MaterialSection.vue';
+import ObjectSection from '../object-section/ObjectSection.vue';
+import GeometrySection from '../geometry-section/GeometrySection.vue';
+import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 
 export default {
   name: 'MaterialEditor',
   components: {
     MaterialSection,
-    ImgBox,
-    InputText,
-    InputFile,
-    NumberPicker,
-    ColorPicker,
-    Vec2Picker,
-    InputNumber,
-    CheckboxBtn,
-    CustomSelect,
+    ObjectSection,
+    GeometrySection,
     CustomBtn,
     ItemObjList,
     DrawingBoard,
@@ -44,15 +30,6 @@ export default {
   data() {
     return {
       tabNames,
-      activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL,
-      materialsTypes: Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] })),
-
-      options: [
-        { title: 'NONE', id: '' },
-        { title: 'One', id: 'aaa' },
-        { title: 'Two', id: 'bbb' },
-        { title: 'Three', id: 'ccc' }
-      ],
       urls: internalUrls
     };
   },
@@ -69,11 +46,6 @@ export default {
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
-    onChangeMaterialsTypesSelect(selectedValue, name) {
-      console.log(selectedValue);
-      console.log(name);
-      this.activeMaterialType = selectedValue.id;
-    },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
@@ -112,62 +84,9 @@ export default {
       </header>
 
       <section class="controls-content">
-        <div v-if="activeTabName === tabNames.OBJECT" class="fieldset">
-          <div class="type">
-            <span class="label">Type:</span> Mesh</div>
-          <div class="name">
-            <span class="label">Name:</span> Plane 18</div>
-          <div class="controls scroll-box">
-            <div class="row">
-              <span class="label">Position</span>
-              <input-number />
-              <input-number />
-              <input-number />
-            </div>
-
-            <div class="row">
-              <span class="label">Rotation</span>
-              <input-number />
-              <input-number />
-              <input-number />
-            </div>
-
-            <div class="row">
-              <span class="label">Scale</span>
-              <input-number />
-              <input-number />
-              <input-number />
-            </div>
-
-            <div class="row">
-              <span class="label">Shadow</span>
-              <checkbox-btn class="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-              <checkbox-btn class="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-            </div>
-          </div>
-        </div>
-
-        <div v-if="activeTabName === tabNames.GEOMETRY" class="fieldset">
-          GEOMETRY
-          <vec2-picker />
-          <hr>
-          <color-picker />
-          <hr>
-          <number-picker />
-        </div>
-
-        <div v-if="activeTabName === tabNames.MATERIAL" class="fieldset">
-          <div class="type">
-            <span class="label">Type:</span>
-            <custom-select :options="materialsTypes" name="materialsTypes" :onChange="onChangeMaterialsTypesSelect" />
-          </div>
-          <div class="name">
-            <span class="label">Name:</span>
-            <input-text name="material-name" value="MeshBasicMaterial" />
-          </div>
-
-          <material-section :materialType="activeMaterialType" />
-        </div>
+        <object-section v-if="activeTabName === tabNames.OBJECT" />
+        <geometry-section  v-if="activeTabName === tabNames.GEOMETRY" />
+        <material-section v-if="activeTabName === tabNames.MATERIAL" />
       </section>
 
       <footer class="controls-footer">

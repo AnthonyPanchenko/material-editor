@@ -53,6 +53,9 @@ export default {
     switchToHslColorMode() {
       this.activeColorMode = this.colorModelTypes.HSL;
     },
+    switchToHsvColorMode() {
+      this.activeColorMode = this.colorModelTypes.HSV;
+    }
   }
 };
 </script>
@@ -76,22 +79,30 @@ export default {
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.RGB" class="color-controls">
-      <input-number prefix="R" :value="255" :min="0" :max="255" :step="1" />
-      <input-number prefix="G" :value="134" :min="0" :max="255" :step="1" />
-      <input-number prefix="B" :value="74" :min="0" :max="255" :step="1" />
+      <input-number prefix="R" :value="77" :min="0" :max="255" :step="1" />
+      <input-number prefix="G" :value="95" :min="0" :max="255" :step="1" />
+      <input-number prefix="B" :value="124" :min="0" :max="255" :step="1" />
       <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHexColorMode" />
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.HEX" class="color-controls">
-      <input-text prefix="HEX" value="#ff0000" />
+      <input-text prefix="HEX" value="#4d5f7c" />
+      <custom-btn iconClass="icon-back-forth" :onClick="switchToHsvColorMode" />
+    </div>
+
+    <div v-if="activeColorMode === colorModelTypes.HSV" class="color-controls">
+      <input-number prefix="H°" :value="217" :min="0" :max="360" :step="1" />
+      <input-number prefix="S%" :value="38" :min="0" :max="100" :step="1" />
+      <input-number prefix="V%" :value="49" :min="0" :max="100" :step="1" />
+      <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHslColorMode" />
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.HSL" class="color-controls">
-      <input-number prefix="H" :value="255" :min="0" :max="360" :step="1" />
+      <input-number prefix="H°" :value="217" :min="0" :max="360" :step="1" />
       <input-number prefix="S%" :value="23" :min="0" :max="100" :step="1" />
-      <input-number prefix="L%" :value="74" :min="0" :max="100" :step="1" />
+      <input-number prefix="L%" :value="40" :min="0" :max="100" :step="1" />
       <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToRgbColorMode" />
     </div>

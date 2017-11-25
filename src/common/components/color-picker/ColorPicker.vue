@@ -52,9 +52,6 @@ export default {
     },
     switchToHslColorMode() {
       this.activeColorMode = this.colorModelTypes.HSL;
-    },
-    switchToHsvColorMode() {
-      this.activeColorMode = this.colorModelTypes.HSV;
     }
   }
 };
@@ -88,14 +85,6 @@ export default {
 
     <div v-if="activeColorMode === colorModelTypes.HEX" class="color-controls">
       <input-text prefix="HEX" value="#4d5f7c" />
-      <custom-btn iconClass="icon-back-forth" :onClick="switchToHsvColorMode" />
-    </div>
-
-    <div v-if="activeColorMode === colorModelTypes.HSV" class="color-controls">
-      <input-number prefix="H°" :value="217" :min="0" :max="360" :step="1" />
-      <input-number prefix="S%" :value="38" :min="0" :max="100" :step="1" />
-      <input-number prefix="V%" :value="49" :min="0" :max="100" :step="1" />
-      <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHslColorMode" />
     </div>
 

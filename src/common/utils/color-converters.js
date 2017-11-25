@@ -116,7 +116,7 @@ export const RGBAtoHEX = (r, g, b, a) => {
   return (a < 1 && a !== 1) ? rgb + pad2(Math.round(parseFloat(a) * 255).toString(16)) : rgb;
 };
 
-const HEXtoRGBA = (hexa) => {
+export const HEXtoRGBA = (hexa) => {
   let hex = hexa;
 
   if (hexa.length === 3) {

@@ -66,7 +66,7 @@ export const HSLAtoRGBA = (h, s, l, a) => {
     b = HUEtoRGB(p, q, h - 1 / 3);
   }
 
-  return [r * 255, g * 255, b * 255];
+  return [r * 255, g * 255, b * 255, a];
 };
 
 export const RGBAtoHSLA = (r, g, b, a) => {
@@ -100,7 +100,7 @@ export const RGBAtoHSLA = (r, g, b, a) => {
     h /= 6;
   }
 
-  return [h, s, l];
+  return [h, s, l, a];
 };
 
 const pad2 = (val) => {
@@ -124,15 +124,15 @@ export const HEXtoRGBA = (hexa) => {
     hex = hexa[0] + hexa[0] + hexa[1] + hexa[1] + hexa[2] + hexa[2];
   }
 
-  const rgb = {
+  const color = {
     r: parseInt(hex[0] + hex[1], 16) / 255,
     g: parseInt(hex[2] + hex[3], 16) / 255,
     b: parseInt(hex[4] + hex[5], 16) / 255
   };
 
   if (hexa.length === 8) {
-    rgb['a'] = parseInt(hex[6] + hex[7], 16) / 255;
+    color['a'] = parseInt(hex[6] + hex[7], 16) / 255;
   }
 
-  return rgb;
+  return color;
 };

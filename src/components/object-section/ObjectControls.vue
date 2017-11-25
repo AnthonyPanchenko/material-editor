@@ -26,23 +26,23 @@ export default {
   <div class="controls scroll-box">
     <div class="row">
       <span class="label">Position</span>
-      <input-number />
-      <input-number />
-      <input-number />
+      <input-number prefix="X:" />
+      <input-number prefix="Y:" />
+      <input-number prefix="Z:" />
     </div>
 
     <div class="row">
       <span class="label">Rotation</span>
-      <input-number />
-      <input-number />
-      <input-number />
+      <input-number prefix="X:" sufix="°" />
+      <input-number prefix="Y:" sufix="°" />
+      <input-number prefix="Z:" sufix="°" />
     </div>
 
     <div class="row">
       <span class="label">Scale</span>
-      <input-number />
-      <input-number />
-      <input-number />
+      <input-number prefix="X:" />
+      <input-number prefix="Y:" />
+      <input-number prefix="Z:" />
     </div>
 
     <div class="row">

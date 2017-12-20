@@ -22,14 +22,27 @@ export const getRotationXMatrix = (theta) => {
   ];
 };
 
-export const getRotationYMatrix = (theta) => {
-  const c = Math.cos(theta);
-  const s = Math.sin(theta);
+export const getRotationYMatrix = (phi) => {
+  const c = Math.cos(phi);
+  const s = Math.sin(phi);
 
   return [
     [c, 0, s],
     [0, 1, 0],
     [-s, 0, c]
+  ];
+};
+
+export const getViewMatrix = (theta, phi) => {
+  const cx = Math.cos(theta);
+  const sx = Math.sin(theta);
+  const cy = Math.cos(phi);
+  const sy = Math.sin(phi);
+
+  return [
+    [cy, 0, sy],
+    [-sx * (-sy), cx, -sx * cy],
+    [-sy * cx, sx, cx * cy]
   ];
 };
 

@@ -1,8 +1,8 @@
-export const getDeterminant = (m) =>
+export const determinantOfMatrix = (m) =>
   m[0][0] * (m[1][1] * m[2][2] - m[2][1] * m[1][2]) - m[0][1] * (m[1][0] * m[2][2] - m[1][2] * m[2][0]) + m[0][2] * (m[1][0] * m[2][1] - m[1][1] * m[2][0]);
 
 export const getInverseMatrix = (m) => {
-  const invdet = 1 / getDeterminant(m);
+  const invdet = 1 / determinantOfMatrix(m);
 
   return [
     [(m[1][1] * m[2][2] - m[2][1] * m[1][2]) * invdet, -(m[0][1] * m[2][2] - m[0][2] * m[2][1]) * invdet, (m[0][1] * m[1][2] - m[0][2] * m[1][1]) * invdet],
@@ -11,7 +11,7 @@ export const getInverseMatrix = (m) => {
   ];
 };
 
-export const rotationX = (theta) => {
+export const getRotationXMatrix = (theta) => {
   const c = Math.cos(theta);
   const s = Math.sin(theta);
 
@@ -22,7 +22,7 @@ export const rotationX = (theta) => {
   ];
 };
 
-export const rotationY = (theta) => {
+export const getRotationYMatrix = (theta) => {
   const c = Math.cos(theta);
   const s = Math.sin(theta);
 
@@ -33,7 +33,7 @@ export const rotationY = (theta) => {
   ];
 };
 
-export const multiplyMatrix = (matrixA, matrixB) => {
+export const multiplyMatrices = (matrixA, matrixB) => {
   const result = [];
 
   for (let i = 0; i < matrixA.length; i++) {
@@ -49,7 +49,7 @@ export const multiplyMatrix = (matrixA, matrixB) => {
   return result;
 };
 
-export const multiplyVector = (matrix, vector) => {
+export const multiplyMatrixByVector = (matrix, vector) => {
   let sum = 0;
   const result = [];
 

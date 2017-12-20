@@ -21,8 +21,8 @@ export default {
       canvasOffsets: null,
       ctx: null,
       isMouseDown: false,
-      width: 0,
-      height: 0,
+      width: 250,
+      height: 40,
       startPosX: 0,
       lastDifferenceX: 0,
       commonDifferenceX: 0,
@@ -118,9 +118,6 @@ export default {
     this.canvasOffsets = getElementOffsets(this.canvas);
     this.ctx = this.canvas.getContext('2d');
 
-    this.width = this.canvas.width;
-    this.height = this.canvas.height;
-
     this.step = this.width / this.verticalLines;
     this.sections = this.verticalLines * 3;
 
@@ -141,5 +138,5 @@ export default {
 </script>
 
 <template>
-  <canvas ref="numberPicker" class="number-picker" width="250" height="40"></canvas>
+  <canvas ref="numberPicker" class="number-picker" :width="width" :height="height"></canvas>
 </template>

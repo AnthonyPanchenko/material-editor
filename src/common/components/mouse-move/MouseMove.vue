@@ -1,7 +1,7 @@
 <script>
-import noop from "../../utils/noop";
-import clamp from "../../utils/clamp";
-import getElementOffsets from "../../utils/getElementOffsets";
+import noop from '../../utils/noop';
+import clamp from '../../utils/clamp';
+import getElementOffsets from '../../utils/getElementOffsets';
 
 export default {
   name: 'MouseMove',
@@ -53,12 +53,12 @@ export default {
   mounted() {
     this.onInit(this.$refs.currentNode);
 
-    document.addEventListener("mousemove", this.onMouseMoveAction);
-    document.addEventListener("mouseup", this.onMouseUpAction);
+    document.addEventListener('mousemove', this.onMouseMoveAction);
+    document.addEventListener('mouseup', this.onMouseUpAction);
   },
   beforeDestroy() {
-    document.removeEventListener("mousemove", this.onMouseMoveAction);
-    document.removeEventListener("mouseup", this.onMouseUpAction);
+    document.removeEventListener('mousemove', this.onMouseMoveAction);
+    document.removeEventListener('mouseup', this.onMouseUpAction);
   },
   render(createElement) {
     return createElement(this.tag, { ref: 'currentNode', on: { mousedown: this.onMouseDownAction } }, this.$slots.default);

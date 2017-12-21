@@ -28,11 +28,8 @@ export default {
       viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       center: [0, 0, 0],
 
-      width: 250,
-      height: 250,
-
-      edgeLength: (this.width / 2) - 40,
-      edgeLengthWithIndent: edgeLength + 10,
+      width: 400,
+      height: 400,
 
       pointVector: [0, 0, 0],
 
@@ -90,12 +87,15 @@ export default {
       this.ctx.textAlign = 'center';
       this.ctx.fillStyle = '#fff';
 
-      this.drawAxis([this.edgeLength, 0, 0], [this.edgeLengthWithIndent, 0, 0], 'X');
-      this.drawAxis([-this.edgeLength, 0, 0], [-this.edgeLengthWithIndent, 0, 0], '-X');
-      this.drawAxis([0, this.edgeLength, 0], [0, this.edgeLengthWithIndent, 0], 'Y');
-      this.drawAxis([0, -this.edgeLength, 0], [0, -this.edgeLengthWithIndent, 0], '-Y');
-      this.drawAxis([0, 0, this.edgeLength], [0, 0, this.edgeLengthWithIndent], 'Z');
-      this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeLengthWithIndent], '-Z');
+      const edgeLength = (this.width / 2) - 40;
+      const edgeLengthWithIndent = edgeLength + 10;
+
+      this.drawAxis([edgeLength, 0, 0], [edgeLengthWithIndent, 0, 0], 'X');
+      this.drawAxis([-edgeLength, 0, 0], [-edgeLengthWithIndent, 0, 0], '-X');
+      this.drawAxis([0, edgeLength, 0], [0, edgeLengthWithIndent, 0], 'Y');
+      this.drawAxis([0, -edgeLength, 0], [0, -edgeLengthWithIndent, 0], '-Y');
+      this.drawAxis([0, 0, edgeLength], [0, 0, edgeLengthWithIndent], 'Z');
+      this.drawAxis([0, 0, -edgeLength], [0, 0, -edgeLengthWithIndent], '-Z');
     },
 
     onMouseDown(event) {
@@ -121,7 +121,7 @@ export default {
           this.pointX = this.currentX - (this.width / 2);
           this.pointY = this.currentY - (this.height / 2);
 
-          const inversMatrix = getInverseMatrix(matrix);
+          const inversMatrix = getInverseMatrix(this.viewMatrix);
           this.pointVector = multiplyMatrixByVector(inversMatrix, [this.pointX, -this.pointY, 0]);
 
           this.drawPoint();
@@ -189,19 +189,19 @@ export default {
     this.drawPoint();
 
     this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
-    this.canvas.addEventListener('mousemove', event => this.onMouseMove(event));
+    document.addEventListener('mousemove', event => this.onMouseMove(event));
     document.addEventListener('mouseup', event => this.onMouseUp(event));
 
-    document.addEventListener('keydown', (e) => this.onKeyDown(e));
-    document.addEventListener('keyup', (e) => this.onKeyUp(e));
+    document.addEventListener('keydown', event => this.onKeyDown(event));
+    document.addEventListener('keyup', event => this.onKeyUp(event));
   },
   beforeDestroy() {
     this.canvas.removeEventListener('mousedown', event => this.onMouseDown(event));
-    this.canvas.removeEventListener('mousemove', event => this.onMouseMove(event));
+    document.removeEventListener('mousemove', event => this.onMouseMove(event));
     document.removeEventListener('mouseup', event => this.onMouseUp(event));
 
-    document.removeEventListener('keydown', (e) => this.onKeyDown(e));
-    document.removeEventListener('keyup', (e) => this.onKeyUp(e));
+    document.removeEventListener('keydown', event => this.onKeyDown(event));
+    document.removeEventListener('keyup', event => this.onKeyUp(event));
   }
 };
 </script>

@@ -5,6 +5,7 @@ const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
 
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -22,6 +23,7 @@ export default {
     NumberPicker,
     ColorPicker,
     Vec2Picker,
+    Vec3Picker,
     CustomBtn,
     ItemObjList,
     InputFile,
@@ -70,7 +72,7 @@ export default {
 
       <section class="controls-content">
         <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
-          tabNames.FRAGMENT_SHADER
+          <vec3-picker />
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
           tabNames.VERTEX_SHADER

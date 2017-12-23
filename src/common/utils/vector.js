@@ -1,5 +1,5 @@
 export const normalizeVector = (vec) => {
-  const sLength = vectorLength(vec);
+  const sLength = vectorLength(vec) || 1;
 
   return vec.map(cord => cord / sLength);
 };

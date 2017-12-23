@@ -44,12 +44,19 @@ export default {
     'isVisibleControlsBox',
     'isVisibleObjectsList'
   ]),
-  methods: mapActions([
-    'onSetCtrlBoxWidth',
-    'onSetActiveTabName',
-    'onToggleObjectsList',
-    'onToggleFullScreenMode'
-  ])
+  methods: {
+    ...mapActions([
+      'onSetCtrlBoxWidth',
+      'onSetActiveTabName',
+      'onToggleObjectsList',
+      'onToggleFullScreenMode'
+    ]),
+
+    onChangeVec2Picker(x, y) {
+      console.log('vec2 x > ', x);
+      console.log('vec2 y > ', y);
+    }
+  }
 };
 </script>
 
@@ -100,7 +107,7 @@ export default {
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box">
-          <vec2-picker />
+          <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" />
           <hr>
           <color-picker />
           <hr>

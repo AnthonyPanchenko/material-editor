@@ -108,7 +108,7 @@ export default {
       this.drawAxes();
       this.axesDesignation();
       this.drawPoint(x, y);
-      this.onChange(x / this.halfSize, y / this.halfSize);
+      this.onChange(x / this.halfSize, y / this.halfSize, this.name);
     },
 
     onMouseDown(event) {

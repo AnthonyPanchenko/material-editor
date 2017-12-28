@@ -52,9 +52,18 @@ export default {
       'onToggleFullScreenMode'
     ]),
 
-    onChangeVec2Picker(x, y) {
+    onChangeVec2Picker(x, y, name) {
       console.log('vec2 x > ', x);
       console.log('vec2 y > ', y);
+      console.log('name > ', name);
+    },
+
+    onChangeNumberPicker(value, name, min, max, step) {
+      console.log('value > ', value);
+      console.log('name > ', name);
+      console.log('min > ', min);
+      console.log('max > ', max);
+      console.log('step > ', step);
     }
   }
 };
@@ -111,7 +120,7 @@ export default {
           <hr>
           <color-picker />
           <hr>
-          <number-picker />
+          <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
         </div>
       </section>
 

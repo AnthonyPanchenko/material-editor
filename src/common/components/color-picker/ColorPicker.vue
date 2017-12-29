@@ -44,6 +44,17 @@ export default {
     onMoveHueScale(x, y, node) {
       this.vTrianglesTopPos = (y / node.clientHeight) * 100;
     },
+    onInputHexInput(value) {
+      console.log(value);
+    },
+    onInputRgbInput(value, channel) {
+      console.log(value);
+      console.log(channel);
+    },
+    onInputHslInput(value, channel) {
+      console.log(value);
+      console.log(channel);
+    },
     switchToRgbColorMode() {
       this.activeColorMode = this.colorModelTypes.RGB;
     },
@@ -76,23 +87,23 @@ export default {
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.RGB" class="color-controls">
-      <input-number prefix="R" :value="77" :min="0" :max="255" :step="1" />
-      <input-number prefix="G" :value="95" :min="0" :max="255" :step="1" />
-      <input-number prefix="B" :value="124" :min="0" :max="255" :step="1" />
-      <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
+      <input-number prefix="R" name="R" :value="77" :min="0" :max="255" :step="1" :onInput="onInputRgbInput" />
+      <input-number prefix="G" name="G" :value="95" :min="0" :max="255" :step="1" :onInput="onInputRgbInput" />
+      <input-number prefix="B" name="B" :value="124" :min="0" :max="255" :step="1" :onInput="onInputRgbInput" />
+      <input-number prefix="A" name="A" :value="1" :min="0" :max="1" :step="0.1" :onInput="onInputRgbInput" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHexColorMode" />
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.HEX" class="color-controls">
-      <input-text prefix="HEX" value="#4d5f7c" />
+      <input-text prefix="HEX" value="#4d5f7c" :onInput="onInputHexInput" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHslColorMode" />
     </div>
 
     <div v-if="activeColorMode === colorModelTypes.HSL" class="color-controls">
-      <input-number prefix="H°" :value="217" :min="0" :max="360" :step="1" />
-      <input-number prefix="S%" :value="23" :min="0" :max="100" :step="1" />
-      <input-number prefix="L%" :value="40" :min="0" :max="100" :step="1" />
-      <input-number prefix="A" :value="1" :min="0" :max="1" :step="0.1" />
+      <input-number prefix="H°" name="H" :value="217" :min="0" :max="360" :step="1" :onInput="onInputHslInput" />
+      <input-number prefix="S%" name="S" :value="23" :min="0" :max="100" :step="1" :onInput="onInputHslInput" />
+      <input-number prefix="L%" name="L" :value="40" :min="0" :max="100" :step="1" :onInput="onInputHslInput" />
+      <input-number prefix="A" name="A" :value="1" :min="0" :max="1" :step="0.1" :onInput="onInputHslInput" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToRgbColorMode" />
     </div>
   </div>

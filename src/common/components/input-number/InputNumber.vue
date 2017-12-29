@@ -15,15 +15,20 @@ export default {
       type: Boolean,
       default: false
     },
-    onChange: {
+    onInput: {
       type: Function,
       default: noop
     }
   },
+  data() {
+    return {
+      newValue: this.value
+    };
+  },
   methods: {
-    onChangeInputNumber(event) {
+    onInputNumber(event) {
       if (!this.disabled) {
-        this.onChange(this.value, this.name, this.min, this.max, this.step);
+        this.onInput(this.newValue, this.name, this.min, this.max, this.step);
       }
     }
   },
@@ -37,9 +42,9 @@ export default {
 </script>
 
 <template>
-  <label :class="['input-number', { 'disabled': disabled }]" :title="value">
+  <label :class="['input-number', { 'disabled': disabled }]" :title="newValue">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input ref="inpNumber" type="number" :name="name" :step="step" :min="min" :max="max" @change="onChangeInputNumber" v-model="value" :disabled="disabled">
+    <input ref="inpNumber" type="number" :name="name" :step="step" :min="min" :max="max" v-on:input="onInputNumber" v-model="newValue" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

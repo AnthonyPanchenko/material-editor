@@ -13,15 +13,20 @@ export default {
       type: Boolean,
       default: false
     },
-    onChange: {
+    onInput: {
       type: Function,
       default: noop
     }
   },
+  data() {
+    return {
+      newValue: this.value
+    };
+  },
   methods: {
-    onChangeInputText(event) {
+    onInputText(event) {
       if (!this.disabled) {
-        this.onChange(this.value, this.name);
+        this.onInput(this.newValue, this.name);
       }
     }
   }
@@ -29,9 +34,9 @@ export default {
 </script>
 
 <template>
-  <label :class="['input-text', { 'disabled': disabled }]" :title="value">
+  <label :class="['input-text', { 'disabled': disabled }]" :title="newValue">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="text" :name="name" @change="onChangeInputText" :placeholder="placeholder" v-model="value" :disabled="disabled">
+    <input type="text" :name="name" v-on:input="onInputText" :placeholder="placeholder" v-model="newValue" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

@@ -134,24 +134,20 @@ export const RGBtoHSV = (r, g, b) => {
 };
 
 export const HSVtoRGB = (h, s, v) => {
-  let r, g, b;
+  const ns = s / 100;
+  const nv = v / 100;
+  const c = nv * ns;
+  const nh = h / 60;
+  const x = c * (1 - Math.abs(nh % 2 - 1));
+  const m = nv - c;
+  const p = parseInt(nh, 10);
+  const rgb = (p === 0 ? [c, x, 0] : p === 1 ? [x, c, 0] : p === 2 ? [0, c, x] : p === 3 ? [0, x, c] : p === 4 ? [x, 0, c] : p === 5 ? [c, 0, x] : []);
 
-  const i = Math.floor(h * 6);
-  const f = h * 6 - i;
-  const p = v * (1 - s);
-  const q = v * (1 - f * s);
-  const t = v * (1 - (1 - f) * s);
-
-  switch (i % 6) {
-    case 0: r = v; g = t; b = p; break;
-    case 1: r = q; g = v; b = p; break;
-    case 2: r = p; g = v; b = t; break;
-    case 3: r = p; g = q; b = v; break;
-    case 4: r = t; g = p; b = v; break;
-    case 5: r = v; g = p; b = q; break;
-  }
-
-  return [r * 255, g * 255, b * 255];
+  return [
+    Math.round(255 * (rgb[0] + m)),
+    Math.round(255 * (rgb[1] + m)),
+    Math.round(255 * (rgb[2] + m))
+  ];
 };
 
 const pad2 = (val) => {

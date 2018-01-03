@@ -1,5 +1,5 @@
 <script>
-import { HSVoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB } from '../../utils/color-converters';
+import { HSVtoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB } from '../../utils/color-converters';
 import colorModelTypes from '../../constants/color-model-types';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
@@ -60,19 +60,23 @@ export default {
       const leftPos = (x / node.clientWidth) * 100;
       const topPos = (y / node.clientHeight) * 100;
 
-      this.HSV.s = 100 - +leftPos.toFixed(0);
+      this.HSV.s = +leftPos.toFixed(0);
       this.HSV.v = 100 - +topPos.toFixed(0);
 
       this.circleLeftPos = leftPos;
       this.circleTopPos = topPos;
 
       this.circleColor = y > node.clientHeight / 2 ? '#fff' : '#000';
+
+      const color = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
+      console.log(color);
     },
 
     onMoveHueScale(x, y, node) {
       const pos = (y / node.clientHeight) * 100;
 
-      this.HSV.h = Math.round(pos * 360 / 100);
+      const hue = Math.round(pos * 360 / 100);
+      this.HSV.h = (hue === 360) ? 0 : hue;
       this.hueScaleTrianglesTopPos = pos;
     },
 
@@ -85,10 +89,11 @@ export default {
     },
 
     onInputHslaValue(value, channel) {
-      this.HSV[channel] = value;
-
       if (channel === 'h') {
+        this.HSV[channel] = (value === 360) ? 0 : value;
         this.hueScaleTrianglesTopPos = Math.round((value / 360) * 100);
+      } else {
+        this.HSV[channel] = value;
       }
     },
 

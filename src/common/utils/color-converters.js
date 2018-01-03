@@ -104,31 +104,33 @@ export const RGBtoHSL = (r, g, b) => {
 };
 
 export const RGBtoHSV = (r, g, b) => {
-  const red = r / 255;
-  const green = g / 255;
-  const blue = b / 255;
+  let h;
+  const max = Math.max(r, g, b);
+  const min = Math.min(r, g, b);
+  const delta = max - min;
 
-  const max = Math.max(red, green, blue);
-  const min = Math.min(red, green, blue);
-
-  let h = max;
-  let s = max;
-  const v = max;
-
-  const d = max - min;
-  s = (max === 0) ? 0 : d / max;
-
-  if (max === min) {
-    h = 0; // achromatic
-  } else {
-    switch (max) {
-      case red: h = (green - blue) / d + (green < blue ? 6 : 0); break;
-      case green: h = (blue - red) / d + 2; break;
-      case blue: h = (red - green) / d + 4; break;
-    }
-
-    h /= 6;
+  // hue
+  if (delta === 0) {
+    h = 0;
+  } else if (r === max) {
+    h = ((g - b) / delta) % 6;
+  } else if (g === max) {
+    h = (b - r) / delta + 2;
+  } else if (b === max) {
+    h = (r - g) / delta + 4;
   }
+
+  h = Math.round(h * 60);
+
+  if (h < 0) {
+    h += 360;
+  }
+
+  // saturation
+  const s = Math.round((max === 0 ? 0 : (delta / max)) * 100);
+
+  // value
+  const v = Math.round(max / 255 * 100);
 
   return [h, s, v];
 };

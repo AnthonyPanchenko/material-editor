@@ -35,15 +35,15 @@ export default {
       hex: '#4d5f7c',
 
       RGB: {
-        r: 77,
-        g: 95,
-        b: 124
+        r: 69,
+        g: 28,
+        b: 28
       },
 
       HSV: {
-        h: 217,
-        s: 23,
-        v: 40
+        h: 217, // 0
+        s: 23, // 59
+        v: 40 // 27
       },
 
       alpha: 1
@@ -125,6 +125,8 @@ export default {
     const position = this.alphaScaleWidth.clientWidth * this.alpha;
     this.hTrianglesLeftPos = position;
     this.hTrianglesBgColor = position > this.alphaScaleWidth.clientWidth / 2 ? '#fff' : '#000';
+
+    console.log(RGBtoHSV(this.RGB.r, this.RGB.g, this.RGB.b));
   }
 };
 </script>

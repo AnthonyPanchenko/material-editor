@@ -18,15 +18,10 @@ export default {
       default: noop
     }
   },
-  data() {
-    return {
-      newValue: this.value
-    };
-  },
   methods: {
     onInputText(event) {
       if (!this.disabled) {
-        this.onInput(this.newValue, this.name);
+        this.onInput(event.target.value, this.name);
       }
     }
   }
@@ -34,9 +29,9 @@ export default {
 </script>
 
 <template>
-  <label :class="['input-text', { 'disabled': disabled }]" :title="newValue">
+  <label :class="['input-text', { 'disabled': disabled }]" :title="value">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="text" :name="name" v-on:input="onInputText" :placeholder="placeholder" v-model="newValue" :disabled="disabled">
+    <input type="text" :name="name" v-on:input="onInputText" :placeholder="placeholder" :value="value" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

@@ -1,5 +1,5 @@
 <script>
-import { HSLAtoRGBA, RGBAtoHSLA, RGBAtoHEX, HEXtoRGBA } from '../../utils/color-converters';
+import { HSVoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB } from '../../utils/color-converters';
 import colorModelTypes from '../../constants/color-model-types';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
@@ -40,10 +40,10 @@ export default {
         b: 124
       },
 
-      HSL: {
+      HSV: {
         h: 217,
         s: 23,
-        l: 40
+        v: 40
       },
 
       alpha: 1
@@ -60,8 +60,8 @@ export default {
       const leftPos = (x / node.clientWidth) * 100;
       const topPos = (y / node.clientHeight) * 100;
 
-      this.HSL.s = +leftPos.toFixed(0);
-      this.HSL.l = +topPos.toFixed(0);
+      this.HSV.s = 100 - +leftPos.toFixed(0);
+      this.HSV.v = 100 - +topPos.toFixed(0);
 
       this.circleLeftPos = leftPos;
       this.circleTopPos = topPos;
@@ -72,7 +72,7 @@ export default {
     onMoveHueScale(x, y, node) {
       const pos = (y / node.clientHeight) * 100;
 
-      this.HSL.h = Math.round(pos * 360 / 100);
+      this.HSV.h = Math.round(pos * 360 / 100);
       this.hueScaleTrianglesTopPos = pos;
     },
 
@@ -85,7 +85,7 @@ export default {
     },
 
     onInputHslaValue(value, channel) {
-      this.HSL[channel] = value;
+      this.HSV[channel] = value;
 
       if (channel === 'h') {
         this.hueScaleTrianglesTopPos = Math.round((value / 360) * 100);
@@ -103,16 +103,18 @@ export default {
     switchToRgbColorMode() {
       this.activeColorMode = this.colorModelTypes.RGB;
     },
+
     switchToHexColorMode() {
       this.activeColorMode = this.colorModelTypes.HEX;
     },
+
     switchToHslColorMode() {
-      this.activeColorMode = this.colorModelTypes.HSL;
+      this.activeColorMode = this.colorModelTypes.HSV;
     }
   },
 
   mounted() {
-    this.hueScaleTrianglesTopPos = Math.round((this.HSL.h / 360) * 100);
+    this.hueScaleTrianglesTopPos = Math.round((this.HSV.h / 360) * 100);
     this.alphaScaleWidth = this.$refs.alphaScaleWidth.$el;
 
     const position = this.alphaScaleWidth.clientWidth * this.alpha;
@@ -152,10 +154,10 @@ export default {
       <custom-btn iconClass="icon-back-forth" :onClick="switchToHslColorMode" />
     </div>
 
-    <div v-if="activeColorMode === colorModelTypes.HSL" class="color-controls">
-      <input-number prefix="H°" name="h" :value="HSL.h" :min="0" :max="360" :step="1" :onInput="onInputHslaValue" />
-      <input-number prefix="S%" name="s" :value="HSL.s" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
-      <input-number prefix="L%" name="l" :value="HSL.l" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
+    <div v-if="activeColorMode === colorModelTypes.HSV" class="color-controls">
+      <input-number prefix="H°" name="h" :value="HSV.h" :min="0" :max="360" :step="1" :onInput="onInputHslaValue" />
+      <input-number prefix="S%" name="s" :value="HSV.s" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
+      <input-number prefix="V%" name="v" :value="HSV.v" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
       <input-number prefix="A" name="alpha" :value="alpha" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
       <custom-btn iconClass="icon-back-forth" :onClick="switchToRgbColorMode" />
     </div>

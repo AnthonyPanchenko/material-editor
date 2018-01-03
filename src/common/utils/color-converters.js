@@ -52,7 +52,7 @@ export const RGBtoXYZ = (r, g, b) => {
 };
 
 // https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
-export const HSLAtoRGBA = (h, s, l, a) => {
+export const HSLtoRGB = (h, s, l) => {
   let r = 0;
   let g = 0;
   let b = 0;
@@ -66,10 +66,10 @@ export const HSLAtoRGBA = (h, s, l, a) => {
     b = HUEtoRGB(p, q, h - 1 / 3);
   }
 
-  return [r * 255, g * 255, b * 255, a];
+  return [r * 255, g * 255, b * 255];
 };
 
-export const RGBAtoHSLA = (r, g, b, a) => {
+export const RGBtoHSL = (r, g, b) => {
   const red = r / 255;
   const green = g / 255;
   const blue = b / 255;
@@ -100,7 +100,58 @@ export const RGBAtoHSLA = (r, g, b, a) => {
     h /= 6;
   }
 
-  return [h, s, l, a];
+  return [h, s, l];
+};
+
+export const RGBtoHSV = (r, g, b) => {
+  const red = r / 255;
+  const green = g / 255;
+  const blue = b / 255;
+
+  const max = Math.max(red, green, blue);
+  const min = Math.min(red, green, blue);
+
+  let h = max;
+  let s = max;
+  const v = max;
+
+  const d = max - min;
+  s = (max === 0) ? 0 : d / max;
+
+  if (max === min) {
+    h = 0; // achromatic
+  } else {
+    switch (max) {
+      case red: h = (green - blue) / d + (green < blue ? 6 : 0); break;
+      case green: h = (blue - red) / d + 2; break;
+      case blue: h = (red - green) / d + 4; break;
+    }
+
+    h /= 6;
+  }
+
+  return [h, s, v];
+};
+
+export const HSVtoRGB = (h, s, v) => {
+  let r, g, b;
+
+  const i = Math.floor(h * 6);
+  const f = h * 6 - i;
+  const p = v * (1 - s);
+  const q = v * (1 - f * s);
+  const t = v * (1 - (1 - f) * s);
+
+  switch (i % 6) {
+    case 0: r = v; g = t; b = p; break;
+    case 1: r = q; g = v; b = p; break;
+    case 2: r = p; g = v; b = t; break;
+    case 3: r = p; g = q; b = v; break;
+    case 4: r = t; g = p; b = v; break;
+    case 5: r = v; g = p; b = q; break;
+  }
+
+  return [r * 255, g * 255, b * 255];
 };
 
 const pad2 = (val) => {

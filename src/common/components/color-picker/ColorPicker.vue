@@ -1,6 +1,5 @@
 <script>
 import { HSVtoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB } from '../../utils/color-converters';
-import colorModelTypes from '../../constants/color-model-types';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
 import InputNumber from '../input-number/InputNumber.vue';
@@ -17,22 +16,22 @@ export default {
   props: {
     color: {
       type: Array,
-      default: () => [255, 255, 255, 255]
+      default: () => [255, 154, 23, 1]
     }
   },
   data() {
     return {
-      alphaScaleWidth: null,
-      activeColorMode: colorModelTypes.RGB,
-      hTrianglesLeftPos: 0,
+      gradientBox: null,
+      alphaScale: null,
+      activeColorMode: 'RGB',
+      alphaScaleTrianglesLeftPos: 0,
       hueScaleTrianglesTopPos: 0,
       circleLeftPos: 0,
       circleTopPos: 0,
-      hTrianglesBgColor: '#000',
+      alphaScaleTrianglesBgColor: '#000',
       circleColor: '#000',
-      colorModelTypes,
 
-      hex: '#4d5f7c',
+      HEX: '4d5f7c',
 
       RGB: {
         r: 69,
@@ -41,9 +40,9 @@ export default {
       },
 
       HSV: {
-        h: 217, // 0
-        s: 23, // 59
-        v: 40 // 27
+        h: 217,
+        s: 23,
+        v: 40
       },
 
       alpha: 1
@@ -51,8 +50,8 @@ export default {
   },
   methods: {
     onMoveAlphaScale(x, y, node) {
-      this.hTrianglesLeftPos = x;
-      this.hTrianglesBgColor = x > node.clientWidth / 2 ? '#fff' : '#000';
+      this.alphaScaleTrianglesLeftPos = x;
+      this.alphaScaleTrianglesBgColor = x > node.clientWidth / 2 ? '#fff' : '#000';
       this.alpha = +(x / node.clientWidth).toFixed(2);
     },
 
@@ -66,10 +65,10 @@ export default {
       this.circleLeftPos = leftPos;
       this.circleTopPos = topPos;
 
-      this.circleColor = y > node.clientHeight / 2 ? '#fff' : '#000';
+      this.circleColor = (y > node.clientHeight / 2) ? '#fff' : '#000';
 
-      const color = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
-      console.log(color);
+      this.RGB = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
+      this.HEX = RGBtoHEX(this.RGB.r, this.RGB.g, this.RGB.b);
     },
 
     onMoveHueScale(x, y, node) {
@@ -78,53 +77,71 @@ export default {
       const hue = Math.round(pos * 360 / 100);
       this.HSV.h = (hue === 360) ? 0 : hue;
       this.hueScaleTrianglesTopPos = pos;
+
+      this.RGB = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
+      this.HEX = RGBtoHEX(this.RGB.r, this.RGB.g, this.RGB.b);
     },
 
     onInputHexInput(value) {
-      this.hex = value;
+      this.HEX = value.substring(1);
+
+      this.RGB = HEXtoRGB(this.HEX);
+      this.HSV = RGBtoHSV(this.RGB.r, this.RGB.g, this.RGB.b);
     },
 
-    onInputRgbaValue(value, channel) {
+    onInputRgbValue(value, channel) {
       this.RGB[channel] = value;
+
+      this.HSV = RGBtoHSV(this.RGB.r, this.RGB.g, this.RGB.b);
+      this.HEX = RGBtoHEX(this.RGB.r, this.RGB.g, this.RGB.b);
     },
 
-    onInputHslaValue(value, channel) {
+    onInputHsvValue(value, channel) {
       if (channel === 'h') {
         this.HSV[channel] = (value === 360) ? 0 : value;
         this.hueScaleTrianglesTopPos = Math.round((value / 360) * 100);
-      } else {
-        this.HSV[channel] = value;
       }
+
+      if (channel === 's') {
+        this.HSV[channel] = value;
+        this.circleLeftPos = value;
+      }
+
+      if (channel === 'v') {
+        this.HSV[channel] = value;
+        this.circleTopPos = 100 - value;
+        this.circleColor = (value < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
+      }
+
+      this.RGB = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
+      this.HEX = RGBtoHEX(this.RGB.r, this.RGB.g, this.RGB.b);
     },
 
     onInputAlphaValue(value) {
       this.alpha = value;
 
-      const position = this.alphaScaleWidth.clientWidth * value;
-      this.hTrianglesLeftPos = position;
-      this.hTrianglesBgColor = position > this.alphaScaleWidth.clientWidth / 2 ? '#fff' : '#000';
+      const position = this.alphaScale.clientWidth * value;
+      this.alphaScaleTrianglesLeftPos = position;
+      this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
     },
 
-    switchToRgbColorMode() {
-      this.activeColorMode = this.colorModelTypes.RGB;
-    },
-
-    switchToHexColorMode() {
-      this.activeColorMode = this.colorModelTypes.HEX;
-    },
-
-    switchToHslColorMode() {
-      this.activeColorMode = this.colorModelTypes.HSV;
+    switchColorMode(event, colorMode) {
+      this.activeColorMode = colorMode;
     }
   },
 
   mounted() {
     this.hueScaleTrianglesTopPos = Math.round((this.HSV.h / 360) * 100);
-    this.alphaScaleWidth = this.$refs.alphaScaleWidth.$el;
+    this.alphaScale = this.$refs.alphaScale.$el;
+    this.gradientBox = this.$refs.gradientBox.$el;
 
-    const position = this.alphaScaleWidth.clientWidth * this.alpha;
-    this.hTrianglesLeftPos = position;
-    this.hTrianglesBgColor = position > this.alphaScaleWidth.clientWidth / 2 ? '#fff' : '#000';
+    const position = this.alphaScale.clientWidth * this.alpha;
+    this.alphaScaleTrianglesLeftPos = position;
+    this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
+
+    this.circleLeftPos = this.HSV.s;
+    this.circleTopPos = 100 - this.HSV.v;
+    this.circleColor = (this.HSV.v < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
 
     console.log(RGBtoHSV(this.RGB.r, this.RGB.g, this.RGB.b));
   }
@@ -133,13 +150,13 @@ export default {
 
 <template>
   <div class="color-picker">
-    <mouse-move ref="alphaScaleWidth" class="alpha-scale" :onMove="onMoveAlphaScale">
+    <mouse-move ref="alphaScale" class="alpha-scale" :onMove="onMoveAlphaScale">
       <span class="bg-gradient"></span>
-      <i class="horizontal-triangles" :style="{ borderTopColor: hTrianglesBgColor, borderBottomColor: hTrianglesBgColor, left: `calc(${hTrianglesLeftPos}px - 5px)` }" />
+      <i class="horizontal-triangles" :style="{ borderTopColor: alphaScaleTrianglesBgColor, borderBottomColor: alphaScaleTrianglesBgColor, left: `calc(${alphaScaleTrianglesLeftPos}px - 5px)` }" />
     </mouse-move>
 
     <div class="container">
-      <mouse-move class="gradient-box" :onMove="onMoveGradientBox">
+      <mouse-move ref="gradientBox" class="gradient-box" :onMove="onMoveGradientBox">
         <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
       </mouse-move>
 
@@ -148,25 +165,25 @@ export default {
       </mouse-move>
     </div>
 
-    <div v-if="activeColorMode === colorModelTypes.RGB" class="color-controls">
-      <input-number prefix="R" name="r" :value="RGB.r" :min="0" :max="255" :step="1" :onInput="onInputRgbaValue" />
-      <input-number prefix="G" name="g" :value="RGB.g" :min="0" :max="255" :step="1" :onInput="onInputRgbaValue" />
-      <input-number prefix="B" name="b" :value="RGB.b" :min="0" :max="255" :step="1" :onInput="onInputRgbaValue" />
+    <div v-if="activeColorMode === 'RGB'" class="color-controls">
+      <input-number prefix="R" name="r" :value="RGB.r" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="G" name="g" :value="RGB.g" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="B" name="b" :value="RGB.b" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
       <input-number prefix="A" name="alpha" :value="alpha" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" :onClick="switchToHexColorMode" />
+      <custom-btn iconClass="icon-back-forth" dataset="HEX" :onClick="switchColorMode" />
     </div>
 
-    <div v-if="activeColorMode === colorModelTypes.HEX" class="color-controls">
-      <input-text prefix="HEX" :value="hex" :onInput="onInputHexInput" />
-      <custom-btn iconClass="icon-back-forth" :onClick="switchToHslColorMode" />
+    <div v-if="activeColorMode === 'HEX'" class="color-controls">
+      <input-text prefix="HEX" :value="`#${HEX}`" :onInput="onInputHexInput" />
+      <custom-btn iconClass="icon-back-forth" dataset="HSV" :onClick="switchColorMode" />
     </div>
 
-    <div v-if="activeColorMode === colorModelTypes.HSV" class="color-controls">
-      <input-number prefix="H°" name="h" :value="HSV.h" :min="0" :max="360" :step="1" :onInput="onInputHslaValue" />
-      <input-number prefix="S%" name="s" :value="HSV.s" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
-      <input-number prefix="V%" name="v" :value="HSV.v" :min="0" :max="100" :step="1" :onInput="onInputHslaValue" />
+    <div v-if="activeColorMode === 'HSV'" class="color-controls">
+      <input-number prefix="H°" name="h" :value="HSV.h" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="S%" name="s" :value="HSV.s" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="V%" name="v" :value="HSV.v" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
       <input-number prefix="A" name="alpha" :value="alpha" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" :onClick="switchToRgbColorMode" />
+      <custom-btn iconClass="icon-back-forth" dataset="RGB" :onClick="switchColorMode" />
     </div>
   </div>
 </template>

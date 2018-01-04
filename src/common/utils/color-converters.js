@@ -57,7 +57,7 @@ export const RGBtoHSV = (r, g, b) => {
     hue = (r - g) / delta + 4;
   }
 
-  hue = Math.round(h * 60);
+  hue = Math.round(hue * 60);
 
   if (hue < 0) {
     hue += 360;
@@ -91,7 +91,7 @@ const pad2 = (val) => {
   return (val < 16 ? '0' : '') + val.toString(16);
 };
 
-export const RGBAtoHEX = (r, g, b, a) => {
+export const RGBtoHEX = (r, g, b, a) => {
   const red = pad2(Math.round(r).toString(16));
   const green = pad2(Math.round(g).toString(16));
   const blue = pad2(Math.round(b).toString(16));
@@ -101,7 +101,7 @@ export const RGBAtoHEX = (r, g, b, a) => {
   return (a < 1 && a !== 1) ? rgb + pad2(Math.round(parseFloat(a) * 255).toString(16)) : rgb;
 };
 
-export const HEXtoRGBA = (hexa) => {
+export const HEXtoRGB = (hexa) => {
   let hex = hexa;
 
   if (hexa.length === 3) {

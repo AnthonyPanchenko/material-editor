@@ -34,9 +34,8 @@ export default {
       this.defineXY(event);
     },
     onMouseMoveAction(event) {
-      event.preventDefault();
-
       if (this.isMouseDown) {
+        event.preventDefault();
         this.defineXY(event);
       }
     },

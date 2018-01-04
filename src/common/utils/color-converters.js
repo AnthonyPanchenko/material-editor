@@ -13,16 +13,6 @@ const RGBMatrix = {
   B: [0.0556434, -0.2040259, 1.0572252]
 };
 
-const HUEtoRGB = (p, q, t) => {
-  if (t < 0) t += 1;
-  if (t > 1) t -= 1;
-  if (t < 1 / 6) return p + (q - p) * 6 * t;
-  if (t < 1 / 2) return q;
-  if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
-
-  return p;
-};
-
 export const XYZtoRGB = (x, y, z) => {
   const N = 1 / 2.4;
   const M = 0.0031308;
@@ -51,88 +41,33 @@ export const RGBtoXYZ = (r, g, b) => {
   };
 };
 
-// https://axonflux.com/handy-rgb-to-hsl-and-rgb-to-hsv-color-model-c
-export const HSLtoRGB = (h, s, l) => {
-  let r = 0;
-  let g = 0;
-  let b = 0;
-
-  if (s !== 0) {
-    const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
-    const p = 2 * l - q;
-
-    r = HUEtoRGB(p, q, h + 1 / 3);
-    g = HUEtoRGB(p, q, h);
-    b = HUEtoRGB(p, q, h - 1 / 3);
-  }
-
-  return [r * 255, g * 255, b * 255];
-};
-
-export const RGBtoHSL = (r, g, b) => {
-  const red = r / 255;
-  const green = g / 255;
-  const blue = b / 255;
-
-  const max = Math.max(red, green, blue);
-  const min = Math.min(red, green, blue);
-  const val = (max + min) / 2;
-
-  let h = val;
-  let s = val;
-  const l = val;
-
-  if (max === min) {
-    h = s = 0; // achromatic
-  } else {
-    const d = max - min;
-    s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
-
-    switch (max) {
-      case red: h = (green - blue) / d + (green < blue ? 6 : 0);
-        break;
-      case green: h = (blue - red) / d + 2;
-        break;
-      case blue: h = (red - green) / d + 4;
-        break;
-    }
-
-    h /= 6;
-  }
-
-  return [h, s, l];
-};
-
 export const RGBtoHSV = (r, g, b) => {
-  let h;
+  let hue;
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
   const delta = max - min;
 
-  // hue
   if (delta === 0) {
-    h = 0;
+    hue = 0;
   } else if (r === max) {
-    h = ((g - b) / delta) % 6;
+    hue = ((g - b) / delta) % 6;
   } else if (g === max) {
-    h = (b - r) / delta + 2;
+    hue = (b - r) / delta + 2;
   } else if (b === max) {
-    h = (r - g) / delta + 4;
+    hue = (r - g) / delta + 4;
   }
 
-  h = Math.round(h * 60);
+  hue = Math.round(h * 60);
 
-  if (h < 0) {
-    h += 360;
+  if (hue < 0) {
+    hue += 360;
   }
 
-  // saturation
-  const s = Math.round((max === 0 ? 0 : (delta / max)) * 100);
-
-  // value
-  const v = Math.round(max / 255 * 100);
-
-  return [h, s, v];
+  return {
+    h: hue,
+    s: Math.round((max === 0 ? 0 : (delta / max)) * 100),
+    v: Math.round(max / 255 * 100)
+  };
 };
 
 export const HSVtoRGB = (h, s, v) => {
@@ -145,11 +80,11 @@ export const HSVtoRGB = (h, s, v) => {
   const p = parseInt(nh, 10);
   const rgb = (p === 0 ? [c, x, 0] : p === 1 ? [x, c, 0] : p === 2 ? [0, c, x] : p === 3 ? [0, x, c] : p === 4 ? [x, 0, c] : p === 5 ? [c, 0, x] : []);
 
-  return [
-    Math.round(255 * (rgb[0] + m)),
-    Math.round(255 * (rgb[1] + m)),
-    Math.round(255 * (rgb[2] + m))
-  ];
+  return {
+    r: Math.round(255 * (rgb[0] + m)),
+    g: Math.round(255 * (rgb[1] + m)),
+    b: Math.round(255 * (rgb[2] + m))
+  };
 };
 
 const pad2 = (val) => {
@@ -174,13 +109,13 @@ export const HEXtoRGBA = (hexa) => {
   }
 
   const color = {
-    r: parseInt(hex[0] + hex[1], 16) / 255,
-    g: parseInt(hex[2] + hex[3], 16) / 255,
-    b: parseInt(hex[4] + hex[5], 16) / 255
+    r: parseInt(hex[0] + hex[1], 16),
+    g: parseInt(hex[2] + hex[3], 16),
+    b: parseInt(hex[4] + hex[5], 16)
   };
 
   if (hexa.length === 8) {
-    color['a'] = parseInt(hex[6] + hex[7], 16) / 255;
+    color['a'] = parseInt(hex[6] + hex[7], 16);
   }
 
   return color;

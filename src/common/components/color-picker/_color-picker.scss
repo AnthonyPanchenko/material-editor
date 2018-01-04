@@ -24,7 +24,6 @@
       left: 0;
       bottom: 0;
       right: 0;
-      background: linear-gradient(to left, #ff0000 0%, transparent 100%);
     }
   }
 
@@ -36,7 +35,6 @@
     .gradient-box {
       overflow: hidden;
       position: relative;
-      background-color: #ff0000;
       margin-right: 3px;
       cursor: crosshair;
       width: 200px;

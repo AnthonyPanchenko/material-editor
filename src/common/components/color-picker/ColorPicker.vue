@@ -1,5 +1,5 @@
 <script>
-import { HSVtoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB } from '../../utils/color-converters';
+import { HSVtoRGB, RGBtoHSV, RGBtoHEX, HEXtoRGB, hueToRGB } from '../../utils/color-converters';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
 import InputNumber from '../input-number/InputNumber.vue';
@@ -30,21 +30,11 @@ export default {
       circleTopPos: 0,
       alphaScaleTrianglesBgColor: '#000',
       circleColor: '#000',
+      gradientBoxColor: { r: 69, g: 28, b: 28 },
 
       HEX: '4d5f7c',
-
-      RGB: {
-        r: 69,
-        g: 28,
-        b: 28
-      },
-
-      HSV: {
-        h: 217,
-        s: 23,
-        v: 40
-      },
-
+      RGB: { r: 69, g: 28, b: 28 },
+      HSV: { h: 217, s: 23, v: 40 },
       alpha: 1
     };
   },
@@ -80,6 +70,10 @@ export default {
 
       this.RGB = HSVtoRGB(this.HSV.h, this.HSV.s, this.HSV.v);
       this.HEX = RGBtoHEX(this.RGB.r, this.RGB.g, this.RGB.b);
+
+      this.gradientBoxColor = hueToRGB(this.HSV.h);
+
+      console.log(this.gradientBoxColor);
     },
 
     onInputHexInput(value) {
@@ -100,6 +94,7 @@ export default {
       if (channel === 'h') {
         this.HSV[channel] = (value === 360) ? 0 : value;
         this.hueScaleTrianglesTopPos = Math.round((value / 360) * 100);
+        this.gradientBoxColor = hueToRGB(this.HSV.h);
       }
 
       if (channel === 's') {
@@ -151,12 +146,12 @@ export default {
 <template>
   <div class="color-picker">
     <mouse-move ref="alphaScale" class="alpha-scale" :onMove="onMoveAlphaScale">
-      <span class="bg-gradient"></span>
+      <span class="bg-gradient" :style="{background: `linear-gradient(to left, #${HEX} 0%, transparent 100%)`}" />
       <i class="horizontal-triangles" :style="{ borderTopColor: alphaScaleTrianglesBgColor, borderBottomColor: alphaScaleTrianglesBgColor, left: `calc(${alphaScaleTrianglesLeftPos}px - 5px)` }" />
     </mouse-move>
 
     <div class="container">
-      <mouse-move ref="gradientBox" class="gradient-box" :onMove="onMoveGradientBox">
+      <mouse-move ref="gradientBox" :styleCss="{backgroundColor: `rgb(${gradientBoxColor.r}, ${gradientBoxColor.g}, ${gradientBoxColor.b})`}" class="gradient-box" :onMove="onMoveGradientBox">
         <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
       </mouse-move>
 

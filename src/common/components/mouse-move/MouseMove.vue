@@ -1,6 +1,7 @@
 <script>
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
+import emptyObject from '../../utils/emptyObject';
 import getElementOffsets from '../../utils/getElementOffsets';
 
 export default {
@@ -13,6 +14,10 @@ export default {
     onInit: {
       type: Function,
       default: noop
+    },
+    styleCss: {
+      type: Object,
+      default: emptyObject
     },
     onMove: {
       type: Function,
@@ -60,7 +65,7 @@ export default {
     document.removeEventListener('mouseup', this.onMouseUpAction);
   },
   render(createElement) {
-    return createElement(this.tag, { ref: 'currentNode', on: { mousedown: this.onMouseDownAction } }, this.$slots.default);
+    return createElement(this.tag, { style: this.styleCss, ref: 'currentNode', on: { mousedown: this.onMouseDownAction } }, this.$slots.default);
   }
 };
 </script>

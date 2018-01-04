@@ -41,6 +41,18 @@ export const RGBtoXYZ = (r, g, b) => {
   };
 };
 
+export const hueToRGB = (hue) => {
+  const h = hue / 60;
+  const mod = Math.floor(h);
+  const i = (h === 6) ? 0 : (h - mod);
+
+  return {
+    r: Math.round([1, 1 - i, 0, 0, i, 1][mod] * 255),
+    g: Math.round([i, 1, 1, 1 - i, 0, 0][mod] * 255),
+    b: Math.round([0, 0, i, 1, 1, 1 - i][mod] * 255)
+  };
+};
+
 export const RGBtoHSV = (r, g, b) => {
   let hue;
   const max = Math.max(r, g, b);
@@ -88,7 +100,7 @@ export const HSVtoRGB = (h, s, v) => {
 };
 
 const pad2 = (val) => {
-  return (val < 16 ? '0' : '') + val.toString(16);
+  return `${val < 16 ? '0' : ''}${val.toString(16)}`;
 };
 
 export const RGBtoHEX = (r, g, b, a) => {
@@ -96,26 +108,25 @@ export const RGBtoHEX = (r, g, b, a) => {
   const green = pad2(Math.round(g).toString(16));
   const blue = pad2(Math.round(b).toString(16));
 
-  const rgb = red + green + blue;
+  return `${red}${green}${blue}`;
 
-  return (a < 1 && a !== 1) ? rgb + pad2(Math.round(parseFloat(a) * 255).toString(16)) : rgb;
+  return (a < 1 && a !== 1) ? `${rgb}${pad2(Math.round(parseFloat(a) * 255).toString(16))}` : rgb;
 };
 
-export const HEXtoRGB = (hexa) => {
-  let hex = hexa;
-
-  if (hexa.length === 3) {
-    hex = hexa[0] + hexa[0] + hexa[1] + hexa[1] + hexa[2] + hexa[2];
+export const HEXtoRGB = (hex) => {
+  let val = hex;
+  if (hex.length === 3) {
+    val = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
   }
 
   const color = {
-    r: parseInt(hex[0] + hex[1], 16),
-    g: parseInt(hex[2] + hex[3], 16),
-    b: parseInt(hex[4] + hex[5], 16)
+    r: parseInt(`${val[0]}${val[1]}`, 16),
+    g: parseInt(`${val[2]}${val[3]}`, 16),
+    b: parseInt(`${val[4]}${val[5]}`, 16)
   };
 
-  if (hexa.length === 8) {
-    color['a'] = parseInt(hex[6] + hex[7], 16);
+  if (hex.length === 8) {
+    color['a'] = parseInt(`${val[6]}${val[7]}`, 16);
   }
 
   return color;

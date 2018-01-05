@@ -90,7 +90,18 @@ export const HSVtoRGB = (h, s, v) => {
   const x = c * (1 - Math.abs(nh % 2 - 1));
   const m = nv - c;
   const p = parseInt(nh, 10);
-  const rgb = (p === 0 ? [c, x, 0] : p === 1 ? [x, c, 0] : p === 2 ? [0, c, x] : p === 3 ? [0, x, c] : p === 4 ? [x, 0, c] : p === 5 ? [c, 0, x] : []);
+
+  let rgb = [];
+
+  switch (p) {
+    case 0: rgb = [c, x, 0]; break;
+    case 1: rgb = [x, c, 0]; break;
+    case 2: rgb = [0, c, x]; break;
+    case 3: rgb = [0, x, c]; break;
+    case 4: rgb = [x, 0, c]; break;
+    case 5: rgb = [c, 0, x]; break;
+    default: rgb;
+  }
 
   return {
     r: Math.round(255 * (rgb[0] + m)),
@@ -99,34 +110,32 @@ export const HSVtoRGB = (h, s, v) => {
   };
 };
 
-const pad2 = (val) => {
-  return `${val < 16 ? '0' : ''}${val.toString(16)}`;
-};
-
 export const RGBtoHEX = (r, g, b, a) => {
-  const red = pad2(Math.round(r).toString(16));
-  const green = pad2(Math.round(g).toString(16));
-  const blue = pad2(Math.round(b).toString(16));
+  const hex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 
-  return `${red}${green}${blue}`;
+  if (a < 1 && a !== 1) {
+    const val = Math.round(a * 255).toString(16);
 
-  return (a < 1 && a !== 1) ? `${rgb}${pad2(Math.round(parseFloat(a) * 255).toString(16))}` : rgb;
+    return hex + (val < 16 ? '0' : '') + val.toString(16);
+  }
+
+  return hex;
 };
 
 export const HEXtoRGB = (hex) => {
   let val = hex;
   if (hex.length === 3) {
-    val = `${hex[0]}${hex[0]}${hex[1]}${hex[1]}${hex[2]}${hex[2]}`;
+    val = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
   }
 
   const color = {
-    r: parseInt(`${val[0]}${val[1]}`, 16),
-    g: parseInt(`${val[2]}${val[3]}`, 16),
-    b: parseInt(`${val[4]}${val[5]}`, 16)
+    r: parseInt(val[0] + val[1], 16),
+    g: parseInt(val[2] + val[3], 16),
+    b: parseInt(val[4] + val[5], 16)
   };
 
   if (hex.length === 8) {
-    color['a'] = parseInt(`${val[6]}${val[7]}`, 16);
+    color['a'] = parseInt(val[6] + val[7], 16);
   }
 
   return color;

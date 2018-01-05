@@ -53,7 +53,7 @@ export const hueToRgb = (hue) => {
   };
 };
 
-export const rgbToHsv = (r, g, b) => {
+export const rgbToHsv = (r, g, b, a) => {
   let hue;
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
@@ -76,13 +76,14 @@ export const rgbToHsv = (r, g, b) => {
   }
 
   return {
+    a,
     h: hue,
     s: Math.round((max === 0 ? 0 : (delta / max)) * 100),
     v: Math.round(max / 255 * 100)
   };
 };
 
-export const hsvToRgb = (h, s, v) => {
+export const hsvToRgb = (h, s, v, a) => {
   const ns = s / 100;
   const nv = v / 100;
   const c = nv * ns;
@@ -104,6 +105,7 @@ export const hsvToRgb = (h, s, v) => {
   }
 
   return {
+    a,
     r: Math.round(255 * (rgb[0] + m)),
     g: Math.round(255 * (rgb[1] + m)),
     b: Math.round(255 * (rgb[2] + m))
@@ -129,13 +131,14 @@ export const hexToRgb = (hex) => {
   }
 
   const color = {
+    a: 1,
     r: parseInt(val[0] + val[1], 16),
     g: parseInt(val[2] + val[3], 16),
     b: parseInt(val[4] + val[5], 16)
   };
 
   if (hex.length === 8) {
-    color['a'] = +(parseInt(val[6] + val[7], 16) / 255).toFixed(2);
+    color.a = +(parseInt(val[6] + val[7], 16) / 255).toFixed(2);
   }
 
   return color;

@@ -15,8 +15,8 @@ export default {
   },
   props: {
     color: {
-      type: Array,
-      default: () => [255, 154, 23, 1]
+      type: Object,
+      default: () => ({ r: 255, g: 154, b: 23, a: 1 })
     }
   },
   data() {
@@ -33,16 +33,20 @@ export default {
       gradientBoxColor: { r: 69, g: 28, b: 28 },
 
       hex: '4d5f7c',
-      rgb: { r: 69, g: 28, b: 28 },
-      hsv: { h: 217, s: 23, v: 40 },
-      alpha: 1
+      rgb: { r: 69, g: 28, b: 28, a: 1 },
+      hsv: { h: 217, s: 23, v: 40, a: 1 }
     };
   },
   methods: {
     onMoveAlphaScale(x, y, node) {
       this.alphaScaleTrianglesLeftPos = x;
       this.alphaScaleTrianglesBgColor = x > node.clientWidth / 2 ? '#fff' : '#000';
-      this.alpha = +(x / node.clientWidth).toFixed(2);
+      const alpha = +(x / node.clientWidth).toFixed(2);
+
+      this.hsv.a = alpha;
+      this.rgb.a = alpha;
+
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, alpha);
     },
 
     onMoveGradientBox(x, y, node) {
@@ -57,8 +61,8 @@ export default {
 
       this.circleColor = (y > node.clientHeight / 2) ? '#fff' : '#000';
 
-      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v);
-      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b);
+      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v, this.hsv.a);
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
     },
 
     onMoveHueScale(x, y, node) {
@@ -68,26 +72,28 @@ export default {
       this.hsv.h = (hue === 360) ? 0 : hue;
       this.hueScaleTrianglesTopPos = pos;
 
-      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v);
-      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b);
+      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v, this.hsv.a);
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
 
       this.gradientBoxColor = hueToRgb(this.hsv.h);
-
-      console.log(this.gradientBoxColor);
     },
 
-    onInputHexInput(value) {
+    onInputHexValue(value) {
       this.hex = value.replace('#', '');
 
       this.rgb = hexToRgb(this.hex);
-      this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b);
+      this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+
+      const position = this.alphaScale.clientWidth * this.rgb.a;
+      this.alphaScaleTrianglesLeftPos = position;
+      this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
     },
 
     onInputRgbValue(value, channel) {
       this.rgb[channel] = value;
 
-      this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b);
-      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b);
+      this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
     },
 
     onInputHsvValue(value, channel) {
@@ -108,12 +114,19 @@ export default {
         this.circleColor = (value < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
       }
 
-      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v);
-      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b);
+      if (channel === 'a') {
+        this.hsv[channel] = value;
+      }
+
+      this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v, this.hsv.a);
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
     },
 
     onInputAlphaValue(value) {
-      this.alpha = value;
+      this.hsv.a = value;
+      this.rgb.a = value;
+
+      this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, value);
 
       const position = this.alphaScale.clientWidth * value;
       this.alphaScaleTrianglesLeftPos = position;
@@ -126,11 +139,15 @@ export default {
   },
 
   mounted() {
+    this.rgb = this.color;
+    this.hsv = rgbToHsv(this.color.r, this.color.g, this.color.b, this.color.a);
+    this.hex = rgbToHex(this.color.r, this.color.g, this.color.b, this.color.a);
+
     this.hueScaleTrianglesTopPos = Math.round((this.hsv.h / 360) * 100);
     this.alphaScale = this.$refs.alphaScale.$el;
     this.gradientBox = this.$refs.gradientBox.$el;
 
-    const position = this.alphaScale.clientWidth * this.alpha;
+    const position = this.alphaScale.clientWidth * this.color.a;
     this.alphaScaleTrianglesLeftPos = position;
     this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
 
@@ -138,7 +155,7 @@ export default {
     this.circleTopPos = 100 - this.hsv.v;
     this.circleColor = (this.hsv.v < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
 
-    console.log(rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b));
+    this.gradientBoxColor = hueToRgb(this.hsv.h);
   }
 };
 </script>
@@ -164,12 +181,12 @@ export default {
       <input-number prefix="R" name="r" :value="rgb.r" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
       <input-number prefix="G" name="g" :value="rgb.g" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
       <input-number prefix="B" name="b" :value="rgb.b" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="A" name="alpha" :value="alpha" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <input-number prefix="A" name="a" :value="rgb.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
       <custom-btn iconClass="icon-back-forth" dataset="HEX" :onClick="switchColorMode" />
     </div>
 
     <div v-if="activeColorMode === 'HEX'" class="color-controls">
-      <input-text prefix="HEX" :value="`#${hex}`" :onInput="onInputHexInput" />
+      <input-text prefix="HEX" :value="`#${hex}`" :onInput="onInputHexValue" />
       <custom-btn iconClass="icon-back-forth" dataset="HSV" :onClick="switchColorMode" />
     </div>
 
@@ -177,7 +194,7 @@ export default {
       <input-number prefix="H°" name="h" :value="hsv.h" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
       <input-number prefix="S%" name="s" :value="hsv.s" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
       <input-number prefix="V%" name="v" :value="hsv.v" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="A" name="alpha" :value="alpha" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <input-number prefix="A" name="a" :value="hsv.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
       <custom-btn iconClass="icon-back-forth" dataset="RGB" :onClick="switchColorMode" />
     </div>
   </div>

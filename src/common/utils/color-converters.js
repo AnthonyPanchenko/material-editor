@@ -140,3 +140,6 @@ export const hexToRgb = (hex) => {
 
   return color;
 };
+
+export const isHex = (hex) =>
+  /(\b[a-fA-F0-9]{3}\b|\b[a-fA-F0-9]{6}\b|\b[a-fA-F0-9]{8}\b)/.test(hex);

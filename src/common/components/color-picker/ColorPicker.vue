@@ -77,7 +77,7 @@ export default {
     },
 
     onInputHexInput(value) {
-      this.hex = value;
+      this.hex = value.replace('#', '');
 
       this.rgb = hexToRgb(this.hex);
       this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b);

@@ -116,7 +116,7 @@ export const RGBtoHEX = (r, g, b, a) => {
   if (a < 1 && a !== 1) {
     const val = Math.round(a * 255).toString(16);
 
-    return hex + (val < 16 ? '0' : '') + val.toString(16);
+    return (val.length === 1) ? hex + '0' + val : hex + val;
   }
 
   return hex;
@@ -135,7 +135,7 @@ export const HEXtoRGB = (hex) => {
   };
 
   if (hex.length === 8) {
-    color['a'] = parseInt(val[6] + val[7], 16);
+    color['a'] = +(parseInt(val[6] + val[7], 16) / 255).toFixed(2);
   }
 
   return color;

@@ -13,7 +13,7 @@ const RGBMatrix = {
   B: [0.0556434, -0.2040259, 1.0572252]
 };
 
-export const XYZtoRGB = (x, y, z) => {
+export const xyzToRgb = (x, y, z) => {
   const N = 1 / 2.4;
   const M = 0.0031308;
 
@@ -28,7 +28,7 @@ export const XYZtoRGB = (x, y, z) => {
   };
 }
 
-export const RGBtoXYZ = (r, g, b) => {
+export const rgbToXyz = (r, g, b) => {
   const N = 0.04045;
   const red = (r > N ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92);
   const green = (g > N ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92);
@@ -41,7 +41,7 @@ export const RGBtoXYZ = (r, g, b) => {
   };
 };
 
-export const hueToRGB = (hue) => {
+export const hueToRgb = (hue) => {
   const h = hue / 60;
   const mod = Math.floor(h);
   const i = (h === 6) ? 0 : (h - mod);
@@ -53,7 +53,7 @@ export const hueToRGB = (hue) => {
   };
 };
 
-export const RGBtoHSV = (r, g, b) => {
+export const rgbToHsv = (r, g, b) => {
   let hue;
   const max = Math.max(r, g, b);
   const min = Math.min(r, g, b);
@@ -82,7 +82,7 @@ export const RGBtoHSV = (r, g, b) => {
   };
 };
 
-export const HSVtoRGB = (h, s, v) => {
+export const hsvToRgb = (h, s, v) => {
   const ns = s / 100;
   const nv = v / 100;
   const c = nv * ns;
@@ -110,7 +110,7 @@ export const HSVtoRGB = (h, s, v) => {
   };
 };
 
-export const RGBtoHEX = (r, g, b, a) => {
+export const rgbToHex = (r, g, b, a) => {
   const hex = ((1 << 24) + (r << 16) + (g << 8) + b).toString(16).slice(1);
 
   if (a < 1 && a !== 1) {
@@ -122,7 +122,7 @@ export const RGBtoHEX = (r, g, b, a) => {
   return hex;
 };
 
-export const HEXtoRGB = (hex) => {
+export const hexToRgb = (hex) => {
   let val = hex;
   if (hex.length === 3) {
     val = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];

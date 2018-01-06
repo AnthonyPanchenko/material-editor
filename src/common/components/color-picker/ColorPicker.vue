@@ -38,15 +38,26 @@ export default {
     };
   },
   methods: {
+    setColorAndPositionOfAlphaScaleTriangles() {
+      const posX = this.alphaScale.clientWidth * this.rgb.a;
+      this.alphaScaleTrianglesLeftPos = posX;
+      this.alphaScaleTrianglesBgColor = (posX > this.alphaScale.clientWidth / 2) ? (255 / 3) > ((this.rgb.r + this.rgb.g + this.rgb.b) / 3) ? '#fff' : '#000' : '#000';
+    },
+
+    setCircleColorAndPosition() {
+      this.circleLeftPos = this.hsv.s;
+      this.circleTopPos = 100 - this.hsv.v;
+      this.circleColor = (this.hsv.v < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
+    },
+
     onMoveAlphaScale(x, y, node) {
-      this.alphaScaleTrianglesLeftPos = x;
-      this.alphaScaleTrianglesBgColor = x > node.clientWidth / 2 ? '#fff' : '#000';
       const alpha = +(x / node.clientWidth).toFixed(2);
 
       this.hsv.a = alpha;
       this.rgb.a = alpha;
 
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, alpha);
+      this.setColorAndPositionOfAlphaScaleTriangles();
     },
 
     onMoveGradientBox(x, y, node) {
@@ -56,13 +67,11 @@ export default {
       this.hsv.s = +leftPos.toFixed(0);
       this.hsv.v = 100 - +topPos.toFixed(0);
 
-      this.circleLeftPos = leftPos;
-      this.circleTopPos = topPos;
-
-      this.circleColor = (y > node.clientHeight / 2) ? '#fff' : '#000';
-
       this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v, this.hsv.a);
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+
+      this.setColorAndPositionOfAlphaScaleTriangles();
+      this.setCircleColorAndPosition();
     },
 
     onMoveHueScale(x, y, node) {
@@ -76,6 +85,7 @@ export default {
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
 
       this.gradientBoxColor = hueToRgb(this.hsv.h);
+      this.setColorAndPositionOfAlphaScaleTriangles();
     },
 
     onInputHexValue(value) {
@@ -84,9 +94,9 @@ export default {
       this.rgb = hexToRgb(this.hex);
       this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
 
-      const position = this.alphaScale.clientWidth * this.rgb.a;
-      this.alphaScaleTrianglesLeftPos = position;
-      this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
+      this.gradientBoxColor = hueToRgb(this.hsv.h);
+      this.setColorAndPositionOfAlphaScaleTriangles();
+      this.setCircleColorAndPosition();
     },
 
     onInputRgbValue(value, channel) {
@@ -94,6 +104,10 @@ export default {
 
       this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+
+      this.gradientBoxColor = hueToRgb(this.hsv.h);
+      this.setColorAndPositionOfAlphaScaleTriangles();
+      this.setCircleColorAndPosition();
     },
 
     onInputHsvValue(value, channel) {
@@ -120,6 +134,9 @@ export default {
 
       this.rgb = hsvToRgb(this.hsv.h, this.hsv.s, this.hsv.v, this.hsv.a);
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+
+      this.setColorAndPositionOfAlphaScaleTriangles();
+      this.setCircleColorAndPosition();
     },
 
     onInputAlphaValue(value) {
@@ -127,10 +144,7 @@ export default {
       this.rgb.a = value;
 
       this.hex = rgbToHex(this.rgb.r, this.rgb.g, this.rgb.b, value);
-
-      const position = this.alphaScale.clientWidth * value;
-      this.alphaScaleTrianglesLeftPos = position;
-      this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
+      this.setColorAndPositionOfAlphaScaleTriangles();
     },
 
     switchColorMode(event, colorMode) {
@@ -147,15 +161,9 @@ export default {
     this.alphaScale = this.$refs.alphaScale.$el;
     this.gradientBox = this.$refs.gradientBox.$el;
 
-    const position = this.alphaScale.clientWidth * this.color.a;
-    this.alphaScaleTrianglesLeftPos = position;
-    this.alphaScaleTrianglesBgColor = position > this.alphaScale.clientWidth / 2 ? '#fff' : '#000';
-
-    this.circleLeftPos = this.hsv.s;
-    this.circleTopPos = 100 - this.hsv.v;
-    this.circleColor = (this.hsv.v < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
-
     this.gradientBoxColor = hueToRgb(this.hsv.h);
+    this.setColorAndPositionOfAlphaScaleTriangles();
+    this.setCircleColorAndPosition();
   }
 };
 </script>

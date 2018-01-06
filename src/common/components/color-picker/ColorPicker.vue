@@ -16,7 +16,7 @@ export default {
   props: {
     color: {
       type: Object,
-      default: () => ({ r: 255, g: 154, b: 23, a: 1 })
+      default: () => ({ r: 70, g: 70, b: 220, a: 1 })
     }
   },
   data() {
@@ -30,11 +30,11 @@ export default {
       circleTopPos: 0,
       alphaScaleTrianglesBgColor: '#000',
       circleColor: '#000',
-      gradientBoxColor: { r: 69, g: 28, b: 28 },
+      gradientBoxColor: { r: 0, g: 0, b: 255 },
 
-      hex: '4d5f7c',
-      rgb: { r: 69, g: 28, b: 28, a: 1 },
-      hsv: { h: 217, s: 23, v: 40, a: 1 }
+      hex: '4646dc',
+      rgb: { r: 70, g: 70, b: 220, a: 1 },
+      hsv: { h: 240, s: 68, v: 86, a: 1 }
     };
   },
   methods: {

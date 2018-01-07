@@ -23,7 +23,8 @@ export default {
   methods: {
     onInputNumber(event) {
       if (!this.disabled) {
-        this.onInput(+event.target.value, this.name, +this.min, +this.max, +this.step);
+        const value = +event.target.value.replace(/[^\d]/g, '');
+        this.onInput(value, this.name, +this.min, +this.max, +this.step);
       }
     }
   },

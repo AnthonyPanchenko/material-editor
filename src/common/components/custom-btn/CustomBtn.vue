@@ -23,7 +23,7 @@ export default {
     link: String,
     iconClass: String,
     title: [String, Number],
-    dataset: [Object, Array, String, Number, Boolean, Function],
+    dataset: null,
     active: {
       type: Boolean,
       default: false

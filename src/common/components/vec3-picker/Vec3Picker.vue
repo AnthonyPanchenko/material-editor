@@ -9,10 +9,13 @@ export default {
   name: 'Vec3Picker',
   props: {
     name: String,
-    vector: [0, 0, 0],
     dimension: {
       type: Number,
       default: 400
+    },
+    vector: {
+      type: Array,
+      default: () => [67, 55, -35]
     },
     onChange: {
       type: Function,
@@ -25,11 +28,14 @@ export default {
       canvasOffsets: null,
       ctx: null,
 
+      isPressedSpace: false,
+
       rotationSpeed: 0.008,
 
       isMouseDown: false,
 
-      viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      viewMatrix: [],
+      inversMatrix: [],
 
       width: this.dimension,
       height: this.dimension,
@@ -37,7 +43,7 @@ export default {
       edgeLength: 0.5 * this.dimension - 40,
       edgeIndent: 0.5 * this.dimension - 30,
 
-      pointVector: [0, 0, 0],
+      pointVector: this.vector,
 
       pointX: 0,
       pointY: 0,
@@ -57,23 +63,6 @@ export default {
       const edgeTextVector = multiplyMatrixByVector(this.viewMatrix, adgesTextVector);
       const egdeVector = multiplyMatrixByVector(this.viewMatrix, adgesVector);
 
-      // const z = this.rotationSpeed * 200 / this.edgeLength;
-      // const sx = egdeVector[0] *  * 100;
-      // const sy = egdeVector[1] * z * 100;
-
-      // const z = this.rotationSpeed * 200 / this.edgeLength;
-      const z = egdeVector[2];
-      const sx = egdeVector[0] * z / (this.rotationSpeed * this.edgeLength);
-      const sy = egdeVector[1] * z / (this.rotationSpeed * this.edgeLength);
-
-      // const sx = egdeVector[0] * 200 / (egdeVector[2] + 200);
-      // const sy = (-1 * egdeVector[1]) * 200 / (egdeVector[2] + 200);
-
-      console.log([egdeVector[0], egdeVector[1]]);
-
-      console.log([sx, sy]);
-      console.log('================================');
-
       this.ctx.fillText(axisName, edgeTextVector[0], -1 * edgeTextVector[1]);
       this.ctx.save();
       this.ctx.strokeStyle = '#000';
@@ -85,6 +74,8 @@ export default {
     },
 
     drawAxes() {
+      this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
+
       this.ctx.textBaseline = 'middle';
       this.ctx.textAlign = 'center';
       this.ctx.fillStyle = '#fff';
@@ -97,19 +88,33 @@ export default {
       this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeIndent], '-Z');
     },
 
-    drawPoint() {
+    drawPoint(x, y) {
       this.ctx.save();
       this.ctx.strokeStyle = '#08c';
       this.ctx.beginPath();
       this.ctx.setLineDash([5, 2.5]);
       this.ctx.moveTo(0, 0);
-      this.ctx.lineTo(this.pointVector[0], -1 * this.pointVector[1]);
+      this.ctx.lineTo(x, -1 * y);
       this.ctx.stroke();
       this.ctx.restore();
 
       this.ctx.beginPath();
-      this.ctx.arc(this.pointVector[0], -1 * this.pointVector[1], 2, 0, 2 * Math.PI, false);
+      this.ctx.arc(x, -1 * y, 2, 0, 2 * Math.PI, false);
       this.ctx.fill();
+    },
+
+    onMovePoint(x, y) {
+      if (!this.isPressedSpace) {
+        this.drawAxes();
+
+        const pointX = x - this.dimension * 0.5;
+        const pointY = -1 * (y - this.dimension * 0.5) || 0;
+
+        this.pointVector = multiplyMatrixByVector(this.inversMatrix, [pointX, pointY, 0]);
+        const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
+
+        this.drawPoint(newPointVec[0], newPointVec[1]);
+      }
     },
 
     onMouseDown(event) {
@@ -118,32 +123,27 @@ export default {
 
       this.startX = event.pageX - this.canvasOffsets.left;
       this.startY = event.pageY - this.canvasOffsets.top;
+
+      this.onMovePoint(this.startX, this.startY);
     },
 
     onMouseMove(event) {
       if (this.isMouseDown) {
-        this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
-
         const x = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
         const y = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
 
+        this.onMovePoint(x, y);
 
-        const ex = x - this.dimension * 0.5;
-        const ey = -1 * (y - this.dimension * 0.5) || 0;
+        if (this.isPressedSpace) {
+          this.thetaX = this.rotationSpeed * (y - this.startY) + this.dx;
+          this.thetaY = this.rotationSpeed * (x - this.startX) + this.dy;
 
+          this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
+          const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
 
-        // this.edgeLength == Z dist
-
-
-        console.clear();
-        console.log(ex);
-        console.log(ey);
-
-        this.thetaX = this.rotationSpeed * (y - this.startY) + this.dx;
-        this.thetaY = this.rotationSpeed * (x - this.startX) + this.dy;
-
-        this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
-        this.drawAxes();
+          this.drawAxes();
+          this.drawPoint(newPointVec[0], newPointVec[1]);
+        }
       }
     },
 
@@ -151,6 +151,19 @@ export default {
       this.isMouseDown = false;
       this.dx = this.thetaX;
       this.dy = this.thetaY;
+    },
+
+    onKeyDown(e) {
+      if (e.keyCode === 32) {
+        this.isPressedSpace = true;
+      }
+    },
+
+    onKeyUp(e) {
+      if (e.keyCode === 32) {
+        this.isPressedSpace = false;
+        this.inversMatrix = getInverseMatrix(this.viewMatrix);
+      }
     }
   },
 
@@ -162,18 +175,28 @@ export default {
     this.ctx.translate(this.width / 2, this.height / 2);
 
     this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
+    const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
+
     this.drawAxes();
-    this.drawPoint();
+    this.drawPoint(newPointVec[0], newPointVec[1]);
+
+    this.inversMatrix = getInverseMatrix(this.viewMatrix);
 
     this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
     document.addEventListener('mousemove', event => this.onMouseMove(event));
     document.addEventListener('mouseup', event => this.onMouseUp(event));
+
+    document.addEventListener('keydown', event => this.onKeyDown(event));
+    document.addEventListener('keyup', event => this.onKeyUp(event));
   },
 
   beforeDestroy() {
     this.canvas.removeEventListener('mousedown', event => this.onMouseDown(event));
     document.removeEventListener('mousemove', event => this.onMouseMove(event));
     document.removeEventListener('mouseup', event => this.onMouseUp(event));
+
+    document.removeEventListener('keydown', event => this.onKeyDown(event));
+    document.removeEventListener('keyup', event => this.onKeyUp(event));
   }
 };
 </script>

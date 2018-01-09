@@ -11,7 +11,7 @@ export default {
     name: String,
     dimension: {
       type: Number,
-      default: 400
+      default: 200
     },
     vector: {
       type: Array,
@@ -30,8 +30,8 @@ export default {
 
       isPressedSpace: false,
 
-      rotationSpeed: 0.008,
-
+      rotationSpeed: 0.01,
+ 
       isMouseDown: false,
 
       viewMatrix: [],
@@ -40,9 +40,9 @@ export default {
       width: this.dimension,
       height: this.dimension,
 
-      edgeLength: 0.5 * this.dimension - 40,
-      edgeIndent: 0.5 * this.dimension - 30,
-
+      edgeLength: 0.5 * this.dimension - 15,
+      edgeIndent: 0.5 * this.dimension - 10,
+ 
       pointVector: this.vector,
 
       pointX: 0,

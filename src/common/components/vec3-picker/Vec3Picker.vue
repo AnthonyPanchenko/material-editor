@@ -30,7 +30,6 @@ export default {
       isMouseDown: false,
 
       viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-      center: [0, 0, 0],
 
       width: this.dimension,
       height: this.dimension,
@@ -40,29 +39,46 @@ export default {
 
       pointVector: [0, 0, 0],
 
-      pointX: 20,
-      pointY: -25,
+      pointX: 0,
+      pointY: 0,
 
       thetaX: 0.512,
       thetaY: -0.464,
 
-      startX: 0,
-      startY: 0,
-
       dx: 0.512,
-      dy: -0.464
+      dy: -0.464,
+
+      startX: 0,
+      startY: 0
     };
   },
   methods: {
     drawAxis(adgesVector, adgesTextVector, axisName) {
-      const adgeTextVector = multiplyMatrixByVector(this.viewMatrix, adgesTextVector);
+      const edgeTextVector = multiplyMatrixByVector(this.viewMatrix, adgesTextVector);
       const egdeVector = multiplyMatrixByVector(this.viewMatrix, adgesVector);
 
-      this.ctx.fillText(axisName, adgeTextVector[0], -1 * adgeTextVector[1]);
+      // const z = this.rotationSpeed * 200 / this.edgeLength;
+      // const sx = egdeVector[0] *  * 100;
+      // const sy = egdeVector[1] * z * 100;
+
+      // const z = this.rotationSpeed * 200 / this.edgeLength;
+      const z = egdeVector[2];
+      const sx = egdeVector[0] * z / (this.rotationSpeed * this.edgeLength);
+      const sy = egdeVector[1] * z / (this.rotationSpeed * this.edgeLength);
+
+      // const sx = egdeVector[0] * 200 / (egdeVector[2] + 200);
+      // const sy = (-1 * egdeVector[1]) * 200 / (egdeVector[2] + 200);
+
+      console.log([egdeVector[0], egdeVector[1]]);
+
+      console.log([sx, sy]);
+      console.log('================================');
+
+      this.ctx.fillText(axisName, edgeTextVector[0], -1 * edgeTextVector[1]);
       this.ctx.save();
       this.ctx.strokeStyle = '#000';
       this.ctx.beginPath();
-      this.ctx.moveTo(this.center[0], -1 * this.center[1]);
+      this.ctx.moveTo(0, 0);
       this.ctx.lineTo(egdeVector[0], -1 * egdeVector[1]);
       this.ctx.stroke();
       this.ctx.restore();
@@ -81,6 +97,21 @@ export default {
       this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeIndent], '-Z');
     },
 
+    drawPoint() {
+      this.ctx.save();
+      this.ctx.strokeStyle = '#08c';
+      this.ctx.beginPath();
+      this.ctx.setLineDash([5, 2.5]);
+      this.ctx.moveTo(0, 0);
+      this.ctx.lineTo(this.pointVector[0], -1 * this.pointVector[1]);
+      this.ctx.stroke();
+      this.ctx.restore();
+
+      this.ctx.beginPath();
+      this.ctx.arc(this.pointVector[0], -1 * this.pointVector[1], 2, 0, 2 * Math.PI, false);
+      this.ctx.fill();
+    },
+
     onMouseDown(event) {
       this.canvasOffsets = getElementOffsets(this.canvas);
       this.isMouseDown = true;
@@ -95,6 +126,18 @@ export default {
 
         const x = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
         const y = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
+
+
+        const ex = x - this.dimension * 0.5;
+        const ey = -1 * (y - this.dimension * 0.5) || 0;
+
+
+        // this.edgeLength == Z dist
+
+
+        console.clear();
+        console.log(ex);
+        console.log(ey);
 
         this.thetaX = this.rotationSpeed * (y - this.startY) + this.dx;
         this.thetaY = this.rotationSpeed * (x - this.startX) + this.dy;
@@ -120,6 +163,7 @@ export default {
 
     this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
     this.drawAxes();
+    this.drawPoint();
 
     this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
     document.addEventListener('mousemove', event => this.onMouseMove(event));

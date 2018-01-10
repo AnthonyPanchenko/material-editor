@@ -31,7 +31,7 @@ export default {
       isPressedSpace: false,
 
       rotationSpeed: 0.01,
- 
+
       isMouseDown: false,
 
       viewMatrix: [],
@@ -42,8 +42,9 @@ export default {
 
       edgeLength: 0.5 * this.dimension - 15,
       edgeIndent: 0.5 * this.dimension - 10,
- 
+
       pointVector: this.vector,
+      tempPointVector: this.vector,
 
       pointX: 0,
       pointY: 0,
@@ -110,8 +111,11 @@ export default {
         const pointX = x - this.dimension * 0.5;
         const pointY = -1 * (y - this.dimension * 0.5) || 0;
 
-        this.pointVector = multiplyMatrixByVector(this.inversMatrix, [pointX, pointY, 0]);
-        const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
+        const pointVector = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
+
+        this.tempPointVector = multiplyMatrixByVector(this.inversMatrix, [pointX, pointY, pointVector[2]]);
+
+        const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.tempPointVector);
 
         this.drawPoint(newPointVec[0], newPointVec[1]);
       }
@@ -151,6 +155,7 @@ export default {
       this.isMouseDown = false;
       this.dx = this.thetaX;
       this.dy = this.thetaY;
+      this.pointVector = this.tempPointVector;
     },
 
     onKeyDown(e) {

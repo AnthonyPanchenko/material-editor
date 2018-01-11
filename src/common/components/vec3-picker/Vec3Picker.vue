@@ -28,11 +28,9 @@ export default {
       canvasOffsets: null,
       ctx: null,
 
-      isPressedSpace: false,
-
       rotationSpeed: 0.01,
-
-      isMouseDown: false,
+      isMouseOverPoint: false,
+      isMouseDownOnCoordsSystem: false,
 
       viewMatrix: [],
       inversMatrix: [],
@@ -43,8 +41,9 @@ export default {
       edgeLength: 0.5 * this.dimension - 15,
       edgeIndent: 0.5 * this.dimension - 10,
 
-      pointVector: this.vector,
-      tempPointVector: this.vector,
+      localVector: this.vector, // relative to the coordinate system (not normalized)
+      tempVector: this.vector, // temporary
+      viewVector: this.vector, //relative to the canvas view (not normalized)
 
       pointX: 0,
       pointY: 0,
@@ -89,86 +88,94 @@ export default {
       this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeIndent], '-Z');
     },
 
-    drawPoint(x, y) {
+    drawPoint() {
       this.ctx.save();
       this.ctx.strokeStyle = '#08c';
       this.ctx.beginPath();
-      this.ctx.setLineDash([5, 2.5]);
+      this.ctx.setLineDash([5.3, 2.7]);
       this.ctx.moveTo(0, 0);
-      this.ctx.lineTo(x, -1 * y);
+      this.ctx.lineTo(this.pointX, -1 * this.pointY);
       this.ctx.stroke();
       this.ctx.restore();
 
       this.ctx.beginPath();
-      this.ctx.arc(x, -1 * y, 2, 0, 2 * Math.PI, false);
+      this.ctx.arc(this.pointX, -1 * this.pointY, 2.3, 0, 2 * Math.PI, false);
       this.ctx.fill();
     },
 
-    onMovePoint(x, y) {
-      if (!this.isPressedSpace) {
-        this.drawAxes();
-
-        const pointX = x - this.dimension * 0.5;
-        const pointY = -1 * (y - this.dimension * 0.5) || 0;
-
-        const pointVector = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
-
-        this.tempPointVector = multiplyMatrixByVector(this.inversMatrix, [pointX, pointY, pointVector[2]]);
-
-        const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.tempPointVector);
-
-        this.drawPoint(newPointVec[0], newPointVec[1]);
+    getLocalCoords(curentX, currentY) {
+      return {
+        x: curentX - this.dimension * 0.5,
+        y: -1 * (currentY - this.dimension * 0.5) || 0,
       }
+    },
+
+    setMouseDownBy(curentX, currentY) {
+      const pointCoords = this.getLocalCoords(curentX, currentY);
+      const num = Math.sqrt((this.pointX - pointCoords.x) ** 2 + (this.pointY - pointCoords.y) ** 2);
+
+      if (num <= 3.5) {
+        this.isMouseOverPoint = true;
+      } else {
+        this.isMouseDownOnCoordsSystem = true;
+      }
+    },
+
+    onMovePoint(curentX, currentY) {
+      this.drawAxes();
+      const pointCoords = this.getLocalCoords(curentX, currentY);
+
+      this.tempVector = multiplyMatrixByVector(this.inversMatrix, [pointCoords.x, pointCoords.y, this.viewVector[2]]);
+      const newViewVector = multiplyMatrixByVector(this.viewMatrix, this.tempVector);
+
+      this.pointX = newViewVector[0];
+      this.pointY = newViewVector[1];
+      this.drawPoint();
+    },
+
+    onRotateCoordinateSystem(curentX, currentY) {
+      this.thetaX = this.rotationSpeed * (currentY - this.startY) + this.dx;
+      this.thetaY = this.rotationSpeed * (curentX - this.startX) + this.dy;
+
+      this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
+      this.viewVector = multiplyMatrixByVector(this.viewMatrix, this.localVector);
+
+      this.pointX = this.viewVector[0];
+      this.pointY = this.viewVector[1];
+
+      this.drawAxes();
+      this.drawPoint();
     },
 
     onMouseDown(event) {
       this.canvasOffsets = getElementOffsets(this.canvas);
-      this.isMouseDown = true;
-
       this.startX = event.pageX - this.canvasOffsets.left;
       this.startY = event.pageY - this.canvasOffsets.top;
-
-      this.onMovePoint(this.startX, this.startY);
+      this.setMouseDownBy(this.startX, this.startY);
     },
 
     onMouseMove(event) {
-      if (this.isMouseDown) {
-        const x = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
-        const y = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
+      if (this.isMouseDownOnCoordsSystem || this.isMouseOverPoint) {
+        const curentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
+        const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
 
-        this.onMovePoint(x, y);
+        if (this.isMouseDownOnCoordsSystem) {
+          this.onRotateCoordinateSystem(curentX, currentY);
+        }
 
-        if (this.isPressedSpace) {
-          this.thetaX = this.rotationSpeed * (y - this.startY) + this.dx;
-          this.thetaY = this.rotationSpeed * (x - this.startX) + this.dy;
-
-          this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
-          const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
-
-          this.drawAxes();
-          this.drawPoint(newPointVec[0], newPointVec[1]);
+        if (this.isMouseOverPoint) {
+          this.onMovePoint(curentX, currentY);
         }
       }
     },
 
     onMouseUp() {
-      this.isMouseDown = false;
+      this.isMouseOverPoint = false;
+      this.isMouseDownOnCoordsSystem = false;
       this.dx = this.thetaX;
       this.dy = this.thetaY;
-      this.pointVector = this.tempPointVector;
-    },
-
-    onKeyDown(e) {
-      if (e.keyCode === 32) {
-        this.isPressedSpace = true;
-      }
-    },
-
-    onKeyUp(e) {
-      if (e.keyCode === 32) {
-        this.isPressedSpace = false;
-        this.inversMatrix = getInverseMatrix(this.viewMatrix);
-      }
+      this.localVector = this.tempVector;
+      this.inversMatrix = getInverseMatrix(this.viewMatrix);
     }
   },
 
@@ -180,28 +187,25 @@ export default {
     this.ctx.translate(this.width / 2, this.height / 2);
 
     this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
-    const newPointVec = multiplyMatrixByVector(this.viewMatrix, this.pointVector);
+    this.viewVector = multiplyMatrixByVector(this.viewMatrix, this.localVector);
+
+    this.pointX = this.viewVector[0];
+    this.pointY = this.viewVector[1];
 
     this.drawAxes();
-    this.drawPoint(newPointVec[0], newPointVec[1]);
+    this.drawPoint();
 
     this.inversMatrix = getInverseMatrix(this.viewMatrix);
 
     this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
     document.addEventListener('mousemove', event => this.onMouseMove(event));
     document.addEventListener('mouseup', event => this.onMouseUp(event));
-
-    document.addEventListener('keydown', event => this.onKeyDown(event));
-    document.addEventListener('keyup', event => this.onKeyUp(event));
   },
 
   beforeDestroy() {
     this.canvas.removeEventListener('mousedown', event => this.onMouseDown(event));
     document.removeEventListener('mousemove', event => this.onMouseMove(event));
     document.removeEventListener('mouseup', event => this.onMouseUp(event));
-
-    document.removeEventListener('keydown', event => this.onKeyDown(event));
-    document.removeEventListener('keyup', event => this.onKeyUp(event));
   }
 };
 </script>

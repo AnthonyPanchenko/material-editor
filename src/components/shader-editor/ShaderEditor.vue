@@ -53,12 +53,22 @@ export default {
     ]),
 
     onChangeVec2Picker(x, y, name) {
+      console.clear();
       console.log('vec2 x > ', x);
       console.log('vec2 y > ', y);
       console.log('name > ', name);
     },
 
+    onChangeVec3Picker(x, y, z, name) {
+      console.clear();
+      console.log('vec2 x > ', x);
+      console.log('vec2 y > ', y);
+      console.log('vec2 z > ', z);
+      console.log('name > ', name);
+    },
+
     onChangeNumberPicker(value, name, min, max, step) {
+      console.clear();
       console.log('value > ', value);
       console.log('name > ', name);
       console.log('min > ', min);
@@ -88,7 +98,7 @@ export default {
 
       <section class="controls-content">
         <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
-          <vec3-picker />
+          <vec3-picker :onChange="onChangeVec3Picker" />
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
           tabNames.VERTEX_SHADER

@@ -2,7 +2,6 @@
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
 import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix } from '../../utils/matrix';
-import { vectorLength, normalizeVector } from '../../utils/vector';
 import getElementOffsets from '../../utils/getElementOffsets';
 
 export default {
@@ -15,7 +14,7 @@ export default {
     },
     vector: {
       type: Array,
-      default: () => [67, 55, -35]
+      default: () => [0.67, 0.55, -0.35]
     },
     onChange: {
       type: Function,
@@ -32,18 +31,20 @@ export default {
       isMouseOverPoint: false,
       isMouseDownOnCoordsSystem: false,
 
-      viewMatrix: [],
-      inversMatrix: [],
+      viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      inversMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
 
       width: this.dimension,
       height: this.dimension,
 
+      limitVal: 0.5 * this.dimension,
+
       edgeLength: 0.5 * this.dimension - 15,
       edgeIndent: 0.5 * this.dimension - 10,
 
-      localVector: this.vector, // relative to the coordinate system (not normalized)
-      tempVector: this.vector, // temporary
-      viewVector: this.vector, //relative to the canvas view (not normalized)
+      localVector: [0, 0, 0], // relative to the coordinate system (not normalized)
+      tempVector: [], // temporary
+      viewVector: [0, 0, 0], //relative to the canvas view (not normalized)
 
       pointX: 0,
       pointY: 0,
@@ -79,6 +80,7 @@ export default {
       this.ctx.textBaseline = 'middle';
       this.ctx.textAlign = 'center';
       this.ctx.fillStyle = '#fff';
+      this.ctx.font = '9px Arial';
 
       this.drawAxis([this.edgeLength, 0, 0], [this.edgeIndent, 0, 0], 'X');
       this.drawAxis([-this.edgeLength, 0, 0], [-this.edgeIndent, 0, 0], '-X');
@@ -123,14 +125,18 @@ export default {
 
     onMovePoint(curentX, currentY) {
       this.drawAxes();
-      const pointCoords = this.getLocalCoords(curentX, currentY);
 
-      this.tempVector = multiplyMatrixByVector(this.inversMatrix, [pointCoords.x, pointCoords.y, this.viewVector[2]]);
+      const pointCoords = this.getLocalCoords(curentX, currentY);
+      const inversViewVector = multiplyMatrixByVector(this.inversMatrix, [pointCoords.x, pointCoords.y, this.viewVector[2]]);
+      this.tempVector = inversViewVector.map(cord => clamp(cord, -this.limitVal, this.limitVal));
       const newViewVector = multiplyMatrixByVector(this.viewMatrix, this.tempVector);
 
       this.pointX = newViewVector[0];
       this.pointY = newViewVector[1];
       this.drawPoint();
+
+      const nVector = this.tempVector.map(v => v / this.limitVal);
+      this.onChange(nVector[0], nVector[1], nVector[2], this.name);
     },
 
     onRotateCoordinateSystem(curentX, currentY) {
@@ -180,6 +186,10 @@ export default {
   },
 
   mounted() {
+    const normalizedVector = this.vector.map(v => v * this.limitVal);
+    this.localVector = normalizedVector;
+    this.tempVector = normalizedVector;
+
     this.canvas = this.$refs.vec3Picker;
     this.canvasOffsets = getElementOffsets(this.canvas);
     this.ctx = this.canvas.getContext('2d');

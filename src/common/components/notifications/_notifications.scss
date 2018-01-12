@@ -3,17 +3,34 @@ $info-color: #3393d4;
 $success-color: #2cc66c;
 $warning-color: #ff9114;
 $danger-color: #e14a3b;
+$notification-transition-duration: 250ms;
 
-.notification-enter-active,
-.notification-leave-active {
-  transition: opacity 0.3s, transform 0.3s;
-  transform-origin: left center;
+.notification-enter-active {
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: right center;
+  transition: opacity $notification-transition-duration linear, transform $notification-transition-duration linear;
 }
 
-.notification-enter-to,
+.notification-enter-to {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: right center;
+  transition: opacity $notification-transition-duration linear, transform $notification-transition-duration linear;
+}
+
+.notification-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: right center;
+  transition: opacity $notification-transition-duration linear, transform $notification-transition-duration linear;
+}
+
 .notification-leave-to {
-  opacity: 0;
-  transform: scale(0.5);
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: right center;
+  transition: opacity $notification-transition-duration linear, transform $notification-transition-duration linear;
 }
 
 .notifications-list {

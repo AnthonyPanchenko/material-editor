@@ -1,32 +1,40 @@
 <script>
 import Notifications from '../../common/components/notifications/Notifications.vue';
 
-const notifications = [
+function s4() {
+  return Math.floor((1 + Math.random()) * 0x10000).toString(16).substring(1);
+};
+
+function guid() {
+  return s4() + s4() + '-' + s4() + '-' + s4() + '-' + s4() + '-' + s4() + s4() + s4();
+};
+
+const getNotifications = () => ([
   {
-    id: 'dsfgoi325',
+    id: guid(),
     status: 'success',
     title: 'This is SUCCESS',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
   },
   {
-    id: 'fhhf4225',
+    id: guid(),
     status: 'warning',
     title: 'This is WARNING',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
   },
   {
-    id: 'dgdg4565',
+    id: guid(),
     status: 'info',
     title: 'This is INFO',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
   },
   {
-    id: 'sfgpogr35',
+    id: guid(),
     status: 'danger',
     title: 'This is DANGER',
     text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
   }
-];
+]);
 
 export default {
   name: 'MainLayout',
@@ -35,13 +43,13 @@ export default {
   },
   data() {
     return {
-      notifications,
+      notifications: getNotifications(),
     };
   },
   methods: {
     increase() {
       setInterval(() => {
-        this.notifications = [this.notifications[Math.floor(Math.random() * this.notifications.length)], ...this.notifications];
+        this.notifications = [getNotifications()[Math.floor(Math.random() * 4)], ...this.notifications];
       }, 3000);
     },
     onRemoveNotification(notificationId) {

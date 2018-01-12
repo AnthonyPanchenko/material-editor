@@ -1,5 +1,34 @@
 $sidebar-width: 250px;
 $sidebar-transition-duration: 70ms;
+$obj-list-transition-duration: 250ms;
+
+.obj-list-enter-active {
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: left center;
+  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+}
+
+.obj-list-enter-to {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: left center;
+  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+}
+
+.obj-list-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: left center;
+  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+}
+
+.obj-list-leave-to {
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: left center;
+  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+}
 
 .sidebar {
   flex-grow: 1;
@@ -29,18 +58,6 @@ $sidebar-transition-duration: 70ms;
       text-align: left;
       flex: 1 1 auto;
     }
-  }
-
-  .obj-list-enter-active,
-  .obj-list-leave-active {
-    transition: opacity 0.3s, transform 0.3s;
-    transform-origin: left center;
-  }
-
-  .obj-list-enter-to,
-  .obj-list-leave-to {
-    opacity: 0;
-    transform: scale(0.5);
   }
 
   &.slide-obj-list-enter-active {

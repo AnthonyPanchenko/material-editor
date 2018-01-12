@@ -11,9 +11,9 @@ export default {
       type: Array,
       default: () => [0, 0]
     },
-    size: {
+    dimension: {
       type: Number,
-      default: 200
+      default: 230
     },
     onChange: {
       type: Function,
@@ -26,7 +26,7 @@ export default {
       canvas: null,
       isMouseDown: false,
       canvasOffsets: null,
-      halfSize: this.size / 2
+      halfSize: 0.5 * this.dimension
     };
   },
   methods: {
@@ -60,7 +60,7 @@ export default {
 
     drawGrid() {
       const sections = 20;
-      const step = this.size / sections;
+      const step = this.dimension / sections;
 
       this.ctx.beginPath();
       this.ctx.strokeStyle = '#000';
@@ -68,9 +68,9 @@ export default {
 
       for (let i = 0; i < sections; i++) {
         this.ctx.moveTo(-this.halfSize + step * i, -this.halfSize);
-        this.ctx.lineTo(-this.halfSize + step * i, this.size);
+        this.ctx.lineTo(-this.halfSize + step * i, this.dimension);
         this.ctx.moveTo(-this.halfSize, -this.halfSize + step * i);
-        this.ctx.lineTo(this.size, -this.halfSize + step * i);
+        this.ctx.lineTo(this.dimension, -this.halfSize + step * i);
       }
 
       this.ctx.stroke();
@@ -96,10 +96,10 @@ export default {
     },
 
     draw(event) {
-      this.ctx.clearRect(-this.halfSize, -this.halfSize, this.size, this.size);
+      this.ctx.clearRect(-this.halfSize, -this.halfSize, this.dimension, this.dimension);
 
-      const currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.size);
-      const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.size);
+      const currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.dimension);
+      const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.dimension);
 
       const x = currentX - this.halfSize;
       const y = -1 * (currentY - this.halfSize) || 0;
@@ -152,5 +152,5 @@ export default {
 </script>
 
 <template>
-  <canvas ref="vec2Picker" class="vec2-picker" :width="size" :height="size"></canvas>
+  <canvas ref="vec2Picker" class="vec2-picker" :width="dimension" :height="dimension"></canvas>
 </template>

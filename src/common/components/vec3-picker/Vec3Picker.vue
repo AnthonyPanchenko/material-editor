@@ -10,7 +10,7 @@ export default {
     name: String,
     dimension: {
       type: Number,
-      default: 200
+      default: 230
     },
     vector: {
       type: Array,

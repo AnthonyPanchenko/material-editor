@@ -6,7 +6,7 @@ import NumberPicker from '../../common/components/number-picker/NumberPicker.vue
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
 import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
-
+import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
@@ -21,6 +21,7 @@ export default {
   name: 'ShaderEditor',
   components: {
     NumberPicker,
+    ModalWindow,
     ColorPicker,
     Vec2Picker,
     Vec3Picker,
@@ -35,6 +36,7 @@ export default {
   data() {
     return {
       tabNames,
+      isOpenModalWindow: false,
       urls: internalUrls
     };
   },
@@ -51,6 +53,10 @@ export default {
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
+
+    toggleModalWindow() {
+      this.isOpenModalWindow = !this.isOpenModalWindow;
+    },
 
     onChangeVec2Picker(x, y, name) {
       console.clear();
@@ -101,7 +107,9 @@ export default {
           <vec3-picker :onChange="onChangeVec3Picker" />
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
-          tabNames.VERTEX_SHADER
+            <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
+            <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
+            <!-- </modal-window> -->
         </div>
       </section>
 

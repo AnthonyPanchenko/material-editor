@@ -1,24 +1,27 @@
 <script>
+import noop from '../../utils/noop';
+
 export default {
   name: 'ModalWindow',
   props: {
-    size: {
-      type: String,
-      default: 'md'
+    onOverlayClose: {
+      type: Boolean,
+      default: false
     },
     isOpen: {
       type: Boolean,
-      default: false
+      default: true
+    },
+    onClose: {
+      type: Function,
+      default: noop
     }
-  },
-  data() {
-    return {
-      isOpenState: isOpen,
-    };
   },
   methods: {
     onCloseModalWindow() {
-      this.isOpenState = false;
+      if (this.onOverlayClose) {
+        this.onClose();
+      }
     }
   }
 };
@@ -26,7 +29,7 @@ export default {
 
 <template>
   <transition name="modal-window-fade">
-    <div v-if="isOpenState" class="modal-window" @click="onCloseModalWindow">
+    <div v-if="isOpen" class="modal-window" @click.self="onCloseModalWindow">
       <div class="container">
         <slot>Content here</slot>
       </div>

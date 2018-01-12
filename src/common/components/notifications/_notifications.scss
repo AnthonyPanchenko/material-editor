@@ -1,0 +1,120 @@
+
+$info-color: #3393d4;
+$success-color: #2cc66c;
+$warning-color: #ff9114;
+$danger-color: #e14a3b;
+
+.notification-enter-active,
+.notification-leave-active {
+  transition: opacity 0.3s, transform 0.3s;
+  transform-origin: left center;
+}
+
+.notification-enter-to,
+.notification-leave-to {
+  opacity: 0;
+  transform: scale(0.5);
+}
+
+.notifications-list {
+  top: 27px;
+  bottom: 27px;
+  right: 0;
+  position: fixed;
+  display: flex;
+  overflow: auto;
+  flex-direction: column;
+  padding-right: 5px;
+  z-index: 15;
+
+  .notification {
+    display: flex;
+    flex: 0 0 auto;
+    width: 310px;
+
+    .icon-box {
+      color: #fff;
+      width: 50px;
+      font-size: 14px;
+      align-items: center;
+      justify-content: center;
+      display: flex;
+    }
+
+    &:hover {
+      .notification-content .icon {
+        visibility: visible;
+      }
+    }
+
+    .notification-content {
+      font-size: 13px;
+      padding: 5px 7px 7px 7px;
+      position: relative;
+      background-color: #fafafa;
+      cursor: default;
+
+      .icon {
+        visibility: hidden;
+        font-size: 11px;
+        position: absolute;
+        right: 5px;
+        top: 5px;
+        color: #bcbcbc;
+      }
+
+      .header {
+        font-weight: 700;
+      }
+
+      .body {
+        color: #7b7b7b;
+        padding-top: 2px;
+      }
+    }
+
+    &.info {
+      .icon-box {
+        background-color: $info-color;
+      }
+
+      .header {
+        color: $info-color;
+      }
+    }
+
+    &.success {
+      .icon-box {
+        background-color: $success-color;
+      }
+
+      .header {
+        color: $success-color;
+      }
+    }
+
+    &.warning {
+      .icon-box {
+        background-color: $warning-color;
+      }
+
+      .header {
+        color: $warning-color;
+      }
+    }
+
+    &.danger {
+      .icon-box {
+        background-color: $danger-color;
+      }
+
+      .header {
+        color: $danger-color;
+      }
+    }
+
+    &:not(:last-child) {
+      margin-bottom: 5px;
+    }
+  }
+}

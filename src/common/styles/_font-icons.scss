@@ -134,10 +134,6 @@
   content: "\e921";
 }
 
-.icon-info:before {
-  content: "\e922";
-}
-
 .icon-list:before {
   content: "\e923";
 }
@@ -170,10 +166,6 @@
   content: "\e92a";
 }
 
-.icon-notification:before {
-  content: "\e92b";
-}
-
 .icon-open-folder:before {
   content: "\e92c";
 }
@@ -188,10 +180,6 @@
 
 .icon-plus:before {
   content: "\e92f";
-}
-
-.icon-question:before {
-  content: "\e930";
 }
 
 .icon-radio-checked:before {
@@ -292,4 +280,56 @@
 
 .icon-switch-on:before {
   content: "\e949";
+}
+
+.icon-danger:before {
+  content: "\e922";
+}
+
+.icon-info:before {
+  content: "\e92b";
+}
+
+.icon-notification:before {
+  content: "\e930";
+}
+
+.icon-question:before {
+  content: "\e94a";
+}
+
+.icon-success:before {
+  content: "\e94b";
+}
+
+.icon-move-up:before {
+  content: "\ea46";
+}
+
+.icon-move-down:before {
+  content: "\ea47";
+}
+
+.icon-sort-alpha-asc:before {
+  content: "\ea48";
+}
+
+.icon-sort-alpha-desc:before {
+  content: "\ea49";
+}
+
+.icon-sort-numeric-asc:before {
+  content: "\ea4a";
+}
+
+.icon-sort-numberic-desc:before {
+  content: "\ea4b";
+}
+
+.icon-sort-amount-asc:before {
+  content: "\ea4c";
+}
+
+.icon-sort-amount-desc:before {
+  content: "\ea4d";
 }

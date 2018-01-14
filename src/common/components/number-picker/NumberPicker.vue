@@ -157,19 +157,17 @@ export default {
     this.drawHorizontalLine();
     this.drawLineScale();
 
-    this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
-    document.addEventListener('mousemove', event => this.onMouseMove(event));
-    document.addEventListener('mouseup', event => this.onMouseUp(event));
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mouseup', this.onMouseUp);
   },
 
   beforeDestroy() {
-    this.canvas.removeEventListener('mousedown', event => this.onMouseDown(event));
-    document.removeEventListener('mousemove', event => this.onMouseMove(event));
-    document.removeEventListener('mouseup', event => this.onMouseUp(event));
+    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('mouseup', this.onMouseUp);
   }
 };
 </script>
 
 <template>
-  <canvas ref="numberPicker" class="number-picker" :width="width" :height="height"></canvas>
+  <canvas ref="numberPicker" class="number-picker" :width="width" :height="height" @mousedown="onMouseDown"></canvas>
 </template>

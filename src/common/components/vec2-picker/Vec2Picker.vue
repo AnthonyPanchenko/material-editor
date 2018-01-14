@@ -139,18 +139,16 @@ export default {
     this.axesDesignation();
     this.drawPoint(this.vector[0] * this.halfSize, this.vector[1] * this.halfSize);
 
-    this.canvas.addEventListener('mousedown', event => this.onMouseDown(event));
-    document.addEventListener('mousemove', event => this.onMouseMove(event));
-    document.addEventListener('mouseup', event => this.onMouseUp(event));
+    document.addEventListener('mousemove', this.onMouseMove);
+    document.addEventListener('mouseup', this.onMouseUp);
   },
   beforeDestroy() {
-    this.canvas.removeEventListener('mousedown', event => this.onMouseDown(event));
-    document.removeEventListener('mousemove', event => this.onMouseMove(event));
-    document.removeEventListener('mouseup', event => this.onMouseUp(event));
+    document.removeEventListener('mousemove', this.onMouseMove);
+    document.removeEventListener('mouseup', this.onMouseUp);
   }
 };
 </script>
 
 <template>
-  <canvas ref="vec2Picker" class="vec2-picker" :width="dimension" :height="dimension"></canvas>
+  <canvas ref="vec2Picker" class="vec2-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
 </template>

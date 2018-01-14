@@ -48,14 +48,14 @@ export default {
     },
 
     axesDesignation() {
-      this.ctx.font = "9px Arial";
+      this.ctx.font = '9px Arial';
       this.ctx.fillStyle = '#fff';
 
-      this.ctx.fillText("X", this.halfSize - 10, -5);
-      this.ctx.fillText("-X", -this.halfSize + 5, 10);
+      this.ctx.fillText('X', this.halfSize - 10, -5);
+      this.ctx.fillText('-X', -this.halfSize + 5, 10);
 
-      this.ctx.fillText("Y", -10, -this.halfSize + 10);
-      this.ctx.fillText("-Y", 5, this.halfSize - 5);
+      this.ctx.fillText('Y', -10, -this.halfSize + 10);
+      this.ctx.fillText('-Y', 5, this.halfSize - 5);
     },
 
     drawGrid() {
@@ -81,7 +81,7 @@ export default {
 
       this.ctx.beginPath();
       this.ctx.fillStyle = '#fff';
-      this.ctx.arc(x, y, 2, 0, 2 * Math.PI, false);
+      this.ctx.arc(x, y, 2.3, 0, 2 * Math.PI, false);
       this.ctx.closePath();
       this.ctx.fill();
 

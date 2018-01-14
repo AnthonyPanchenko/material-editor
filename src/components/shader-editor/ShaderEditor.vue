@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
+import Popover from '../../common/components/popover/Popover.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
@@ -20,6 +21,7 @@ import tabNames from './constants/tabNames';
 export default {
   name: 'ShaderEditor',
   components: {
+    Popover,
     NumberPicker,
     ModalWindow,
     ColorPicker,
@@ -36,6 +38,8 @@ export default {
   data() {
     return {
       tabNames,
+      popoverRef: null,
+      isOpenPopover: false,
       isOpenModalWindow: false,
       urls: internalUrls
     };
@@ -56,6 +60,15 @@ export default {
 
     toggleModalWindow() {
       this.isOpenModalWindow = !this.isOpenModalWindow;
+    },
+
+    closeModalWindow() {
+      this.isOpenPopover = false;
+    },
+
+    togglePopover() {
+      this.popoverRef = this.$refs.popoverRef.$el;
+      this.isOpenPopover = !this.isOpenPopover;
     },
 
     onChangeVec2Picker(x, y, name) {
@@ -88,6 +101,10 @@ export default {
 <template>
   <div class="editor-container">
 
+    <popover :isOpen="isOpenPopover" :trigger="popoverRef" :onClose="closeModalWindow">
+      <vec3-picker :onChange="onChangeVec3Picker" />
+    </popover>
+
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
@@ -107,9 +124,10 @@ export default {
           <vec3-picker :onChange="onChangeVec3Picker" />
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
-            <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
-            <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
-            <!-- </modal-window> -->
+          <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
+          <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
+          <custom-btn title="Open popover" ref="popoverRef" :onClick="togglePopover" />
+          <!-- </modal-window> -->
         </div>
       </section>
 

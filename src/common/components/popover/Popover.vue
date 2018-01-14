@@ -15,8 +15,6 @@ import getElementOffsets from '../../utils/getElementOffsets';
                   bottom-center
 */
 
-const emptyObj = noop;
-
 const orientationsList = {
   top: ['center', 'left', 'right'],
   bottom: ['center', 'left', 'right'],
@@ -40,32 +38,34 @@ export default {
     },
     position: {
       type: String,
-      default: 'bottom'
-    },
-    orientation: {
-      type: String,
-      default: 'left'
+      default: 'top'
     },
     closeByItselfClick: {
       type: Boolean,
       default: false
     },
-    refToTrigger: {
-      type: Object,
-      default: emptyObj
-    }
+    onClose: {
+      type: Function,
+      default: noop
+    },
+    orientation: {
+      type: String,
+      default: 'center'
+    },
+    trigger: null
   },
   data() {
     return {
-      trigger: null,
       popover: null,
       triangle: null,
 
       indent: 3,
 
-      triangleClassName: opositPositions[position],
-      currentOrientation: orientation,
-      currentPosition: position,
+      opositPositions,
+      orientationsList,
+      triangleClassName: opositPositions[this.position],
+      currentOrientation: this.orientation,
+      currentPosition: this.position,
 
       popoverOffsets: {
         left: 0,
@@ -171,6 +171,9 @@ export default {
     },
 
     observe() {
+      this.popover = this.$refs.popover;
+      this.triangle = this.$refs.triangle;
+
       const triggerOffsets = getElementOffsets(this.trigger);
       this.observeBestFitPosition(triggerOffsets);
 
@@ -195,80 +198,49 @@ export default {
 
       if ((this.currentPosition === 'left') || (this.currentPosition === 'right')) {
         this.triangle.style.left = null;
-        this.triangle.style.top = `${this.getTrianglePositionTop()}px`;
+        this.triangle.style.top = `${this.getTrianglePositionTop(triggerOffsets)}px`;
       }
 
       if ((this.currentPosition === 'top') || (this.currentPosition === 'bottom')) {
         this.triangle.style.top = null;
-        this.triangle.style.left = `${this.getTrianglePositionLeft()}px`;
+        this.triangle.style.left = `${this.getTrianglePositionLeft(triggerOffsets)}px`;
       }
     },
 
-    init() {
-      const triggerOffsets = getElementOffsets(this.trigger);
-      this.definePopoverOffsetsByPlacement(triggerOffsets);
-
-      if ((this.position === 'left') || (this.position === 'right')) {
-        this.triangle.style.top = this.getTrianglePositionTop(triggerOffsets) + 'px';
+    onClosePopover(event) {
+      if (this.trigger && this.trigger.contains(event.target)) {
+        return;
       }
 
-      if ((this.position === 'top') || (this.position === 'bottom')) {
-        this.triangle.style.left = this.getTrianglePositionLeft(triggerOffsets) + 'px';
+      if (!this.closeByItselfClick && event) {
+        if (this.popover && !this.popover.contains(event.target)) {
+          this.onClose();
+        }
+      } else {
+        this.onClose();
       }
     }
+  },
 
+  updated() {
+    if (this.isOpen && this.trigger && Object.keys(this.trigger).length) {
+      this.observe();
+    }
+  },
+
+  mounted() {
+    document.addEventListener('mousedown', this.onClosePopover);
+  },
+
+  beforeDestroy() {
+    document.removeEventListener('mouseup', this.onClosePopover);
   }
 };
-
-// window.onload = function () {
-//   let grab = false;
-//   let startOffsets = {};
-
-//   const trigger = document.querySelector('.trigger');
-//   const popover = document.querySelector('.popover');
-//   const triangle = document.querySelector('.triangle');
-
-//   const popoverAutoPosition = new PopoverAutoPosition(trigger, popover, triangle);
-//   popoverAutoPosition.init();
-
-//   const startEventActions = (e) => {
-//     e.preventDefault();
-//     const triggerOffsets = getElementOffsets(trigger);
-//     const mousePos = getClientPositions(e);
-
-//     startOffsets = {
-//       left: mousePos.posX - triggerOffsets.left,
-//       top: mousePos.posY - triggerOffsets.top,
-//     };
-
-//     grab = true;
-//   }
-
-//   const moveEventActions = (e) => {
-//     e.preventDefault();
-//     if (grab) {
-//       const currentMousePos = getClientPositions(e);
-
-//       trigger.style.left = (currentMousePos.posX - startOffsets.left) + 'px';
-//       trigger.style.top = (currentMousePos.posY - startOffsets.top) + 'px';
-
-//       popoverAutoPosition.observe();
-//     }
-//   }
-
-//   const completeEventAction = (e) => {
-//     grab = false;
-//   }
-
-//   trigger.addEventListener('mousedown', startEventActions);
-//   document.addEventListener('mousemove', moveEventActions);
-//   document.addEventListener('mouseup', completeEventAction);
-// }
 </script>
 
 <template>
   <transition name="popover-fade">
-    <div v-show="isOpen" class="popover" ref="popoverBody" :style="{ top: `${popoverOffsets.top}px`, left: `${popoverOffsets.left}px` }">
+    <div v-if="isOpen" class="popover" ref="popover" :style="{ top: `${popoverOffsets.top}px`, left: `${popoverOffsets.left}px` }">
       <span :class="['triangle', triangleClassName]" ref="triangle" />
       <slot>Content here</slot>
     </div>

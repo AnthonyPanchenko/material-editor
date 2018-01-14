@@ -3,6 +3,7 @@ import selects from './utils/selects';
 import materialsProperties from '../../common/constants/materials-properties';
 import mapedMaterialsProperties from './utils/maped-materials-properties';
 
+import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
@@ -26,6 +27,7 @@ export default {
     ImgBox,
     InputText,
     InputFile,
+    OutputColorBtn,
     NumberPicker,
     ColorPicker,
     Vec2Picker,
@@ -65,7 +67,7 @@ export default {
   <div class="controls scroll-box">
     <div v-if="isDisplayedSection(m.COLOR)" class="row">
       <span class="label">Color</span>
-      <button type="color">color</button>
+      <output-color-btn />
     </div>
 
     <div v-if="isDisplayedSection(m.ROUGHNESS)" class="row">
@@ -80,12 +82,12 @@ export default {
 
     <div v-if="isDisplayedSection(m.EMISSIVE)" class="row">
       <span class="label">Emissive</span>
-      <button type="color">color</button>
+      <output-color-btn />
     </div>
 
     <div v-if="isDisplayedSection(m.SPECULAR)" class="row">
       <span class="label">Specular</span>
-      <button type="color">color</button>
+      <output-color-btn />
     </div>
 
     <div v-if="isDisplayedSection(m.SHININESS)" class="row">

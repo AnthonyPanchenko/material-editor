@@ -1,0 +1,24 @@
+.output-color-btn {
+  font-size: 13px;
+  user-select: none;
+  min-height: 27px;
+  min-width: 45px;
+
+  &:focus {
+    outline: none;
+  }
+
+  &:focus,
+  &:hover {
+    opacity: 0.8;
+  }
+
+  &:disabled {
+    cursor: not-allowed;
+    opacity: 0.3;
+
+    &:hover {
+      cursor: not-allowed;
+    }
+  }
+}

@@ -21,11 +21,11 @@ export default {
   },
   methods: {
     ...mapActions(['onRemoveItemObjById', 'onSuccessLoadObjectsList']),
-    onSetVisibleObjById(event) {
-      console.log(event.target.dataset);
+    onSetVisibleObjById(objId) {
+      console.log(objId);
     },
-    onSelectObjById(event) {
-      console.log(event.target.dataset);
+    onSelectObjById(objId) {
+      console.log(objId);
     },
     get3dModelsList() {
       this.$http({
@@ -48,9 +48,9 @@ export default {
 <template>
   <transition-group tag="aside" class="sidebar scroll-box" name="obj-list">
     <div class="item-obj" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
-      <custom-btn iconClass="icon-eye" class="show-hide-obj" :data-id="obj.id" :onClick="onSetVisibleObjById" />
-      <custom-btn :title="obj.title" class="obj-name" :data-id="obj.id" :onClick="onSelectObjById" />
-      <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data-id="obj.id" :onClick="onRemoveItemObjById" />
+      <custom-btn iconClass="icon-eye" class="show-hide-obj" :data="obj.id" :onClick="onSetVisibleObjById" />
+      <custom-btn :title="obj.title" class="obj-name" :data="obj.id" :onClick="onSelectObjById" />
+      <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data="obj.id" :onClick="onRemoveItemObjById" />
     </div>
   </transition-group>
 </template>

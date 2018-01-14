@@ -58,11 +58,11 @@ export default {
       console.log(value);
       console.log(name);
     },
-    onTabClick(event) {
-      if (event.target.dataset.tab === this.activeTabName) {
+    onTabClick(tabName) {
+      if (tabName === this.activeTabName) {
         console.log('create new setting');
       } else {
-        this.onSetActiveTabName(event.target.dataset.tab);
+        this.onSetActiveTabName(tabName);
       }
     }
   }
@@ -76,9 +76,9 @@ export default {
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data-tab="tabNames.OBJECT" :onClick="onTabClick" />
-          <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data-tab="tabNames.GEOMETRY" :onClick="onTabClick" />
-          <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data-tab="tabNames.MATERIAL" :onClick="onTabClick" />
+          <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onTabClick" />
+          <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onTabClick" />
+          <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onTabClick" />
           <custom-btn :link="`/${urls.SHADER_EDITOR}`" accesskey="w" iconClass="icon-shader-editor" class="xs" />
         </div>
       </header>

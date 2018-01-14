@@ -23,7 +23,7 @@ export default {
     link: String,
     iconClass: String,
     title: [String, Number],
-    dataset: null,
+    data: null,
     active: {
       type: Boolean,
       default: false
@@ -32,7 +32,7 @@ export default {
   methods: {
     onButtonClick(event) {
       if (!this.disabled) {
-        this.onClick(event, this.dataset);
+        this.onClick(this.data, event);
       }
     }
   }

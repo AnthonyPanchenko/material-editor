@@ -64,11 +64,11 @@ export default {
       console.log(selectedValue);
       console.log(name);
     },
-    onTabClick(event) {
-      if (event.target.dataset.tab === this.activeTabName) {
+    onTabClick(tabName) {
+      if (tabName === this.activeTabName) {
         console.log('create new setting');
       } else {
-        this.onSetActiveTabName(event.target.dataset.tab);
+        this.onSetActiveTabName(tabName);
       }
     }
   }
@@ -78,9 +78,9 @@ export default {
 <template>
   <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" class="controls-footer shader-editor-footer" :disabled="!isVisibleFooterContent">
     <div class="controls-row">
-      <custom-btn accesskey="a" title="Attributes" :iconClass="defineIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.ATTRIBUTES" :onClick="onTabClick" />
-      <custom-btn accesskey="u" title="Uniforms" :iconClass="defineIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.UNIFORMS" :onClick="onTabClick" />
-      <custom-btn accesskey="t" title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data-tab="tabNames.TEXTURES" :onClick="onTabClick" />
+      <custom-btn accesskey="a" title="Attributes" :iconClass="defineIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data="tabNames.ATTRIBUTES" :onClick="onTabClick" />
+      <custom-btn accesskey="u" title="Uniforms" :iconClass="defineIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data="tabNames.UNIFORMS" :onClick="onTabClick" />
+      <custom-btn accesskey="t" title="Textures" :iconClass="defineIconClass(tabNames.TEXTURES)" :active="isActive(tabNames.TEXTURES)" :disabled="!isVisibleFooterContent" :data="tabNames.TEXTURES" :onClick="onTabClick" />
       <custom-btn accesskey="c" :iconClass="isVisibleFooterContent ? 'icon-collapse-vertical' : 'icon-expand-vertical'" class="xs" :onClick="onToggleFooterContent" />
     </div>
 

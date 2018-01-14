@@ -190,12 +190,12 @@ export default {
       <input-number prefix="G" name="g" :value="rgb.g" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
       <input-number prefix="B" name="b" :value="rgb.b" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
       <input-number prefix="A" name="a" :value="rgb.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" dataset="HEX" :onClick="switchColorMode" />
+      <custom-btn iconClass="icon-back-forth" data="HEX" :onClick="switchColorMode" />
     </div>
 
     <div v-if="activeColorMode === 'HEX'" class="color-controls">
       <input-text prefix="HEX" :value="`#${hex}`" :onInput="onInputHexValue" />
-      <custom-btn iconClass="icon-back-forth" dataset="HSV" :onClick="switchColorMode" />
+      <custom-btn iconClass="icon-back-forth" data="HSV" :onClick="switchColorMode" />
     </div>
 
     <div v-if="activeColorMode === 'HSV'" class="color-controls">
@@ -203,7 +203,7 @@ export default {
       <input-number prefix="S%" name="s" :value="hsv.s" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
       <input-number prefix="V%" name="v" :value="hsv.v" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
       <input-number prefix="A" name="a" :value="hsv.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" dataset="RGB" :onClick="switchColorMode" />
+      <custom-btn iconClass="icon-back-forth" data="RGB" :onClick="switchColorMode" />
     </div>
   </div>
 </template>

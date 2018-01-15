@@ -34,8 +34,8 @@ $notification-transition-duration: 250ms;
 }
 
 .notifications-list {
-  top: 27px;
-  bottom: 27px;
+  top: 28px;
+  max-height: calc(100% - 56px);
   right: 0;
   position: fixed;
   display: flex;

@@ -157,7 +157,7 @@ export default {
           <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
           <hr>
           <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
-          <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
+          <modal-window :isOpen="isOpenModalWindow" сloseByOverlayClick :onClose="toggleModalWindow" />
           <custom-btn title="Open popover" ref="popoverRef" :onClick="togglePopover" />
         </div>
       </section>

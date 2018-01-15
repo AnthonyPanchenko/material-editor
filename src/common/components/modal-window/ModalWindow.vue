@@ -4,7 +4,7 @@ import noop from '../../utils/noop';
 export default {
   name: 'ModalWindow',
   props: {
-    onOverlayClose: {
+    сloseByOverlayClick: {
       type: Boolean,
       default: false
     },
@@ -19,7 +19,7 @@ export default {
   },
   methods: {
     onCloseModalWindow() {
-      if (this.onOverlayClose) {
+      if (this.сloseByOverlayClick) {
         this.onClose();
       }
     }

@@ -10,11 +10,14 @@ import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
 import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
+
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
-import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import ShaderEditorFooter from '../shader-editor-footer/ShaderEditorFooter.vue';
+import CodeEditor from '../code-editor/CodeEditor.vue';
+
 import internalUrls from '../../common/constants/internal-urls';
 import tabNames from './constants/tabNames';
 
@@ -22,6 +25,7 @@ export default {
   name: 'ShaderEditor',
   components: {
     Popover,
+    CodeEditor,
     NumberPicker,
     ModalWindow,
     ColorPicker,
@@ -102,7 +106,7 @@ export default {
   <div class="editor-container">
 
     <popover :isOpen="isOpenPopover" :trigger="popoverRef" :onClose="closeModalWindow">
-      <vec3-picker :onChange="onChangeVec3Picker" />
+      <color-picker />
     </popover>
 
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
@@ -121,10 +125,10 @@ export default {
 
       <section class="controls-content">
         <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
-          FRAGMENT_SHADER
+          <code-editor />
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
-          VERTEX_SHADER
+          <code-editor />
         </div>
       </section>
 

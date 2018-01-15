@@ -121,13 +121,10 @@ export default {
 
       <section class="controls-content">
         <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
-          <vec3-picker :onChange="onChangeVec3Picker" />
+          FRAGMENT_SHADER
         </div>
         <div v-if="activeTabName === tabNames.VERTEX_SHADER">
-          <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
-          <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
-          <custom-btn title="Open popover" ref="popoverRef" :onClick="togglePopover" />
-          <!-- </modal-window> -->
+          VERTEX_SHADER
         </div>
       </section>
 
@@ -153,10 +150,15 @@ export default {
         </transition>
         <div class="canvas-box">
           <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" />
+          <vec3-picker :onChange="onChangeVec3Picker" />
           <hr>
           <color-picker />
           <hr>
           <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
+          <hr>
+          <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
+          <modal-window :isOpen="isOpenModalWindow" onOverlayClose :onClose="toggleModalWindow" />
+          <custom-btn title="Open popover" ref="popoverRef" :onClick="togglePopover" />
         </div>
       </section>
 

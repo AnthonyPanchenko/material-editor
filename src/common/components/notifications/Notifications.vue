@@ -19,7 +19,7 @@ export default {
 </script>
 
 <template>
-  <transition-group tag="ul" class="notifications-list scroll-box" name="notification" v-if="!!list.length">
+  <transition-group tag="ul" class="notifications-list scroll-box" name="notification">
     <li :class="['notification', item.status]" v-for="item in list" :key="item.id" @click="() => onClose(item.id)">
       <div class="icon-box">
         <i :class="`icon-${item.status}`" />

@@ -1,0 +1,31 @@
+.CodeMirror-foldmarker {
+  color: #7595c8;
+  line-height: 0.3;
+  font-size: 13px;
+  cursor: pointer;
+}
+
+.CodeMirror-foldmarker:before {
+  content: '\2022\2022\2022';
+}
+
+.CodeMirror-foldmarker:hover {
+  color: #fff;
+}
+
+.CodeMirror-foldgutter {
+  width: .7em;
+}
+
+.CodeMirror-foldgutter-open,
+.CodeMirror-foldgutter-folded {
+  cursor: pointer;
+}
+
+.CodeMirror-foldgutter-open:after {
+  content: "\25BE";
+}
+
+.CodeMirror-foldgutter-folded:after {
+  content: "\25B8";
+}

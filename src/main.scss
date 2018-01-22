@@ -24,6 +24,12 @@
 @import './common/components/number-picker/_number-picker';
 @import './common/components/output-color-btn/_output-color-btn';
 
+@import './components/code-editor/styles/_codemirror';
+@import './components/code-editor/styles/_dialog';
+@import './components/code-editor/styles/_show-hint';
+@import './components/code-editor/styles/_foldgutter';
+@import './components/code-editor/styles/_lint';
+
 @import './components/main-layout/styles/_main-layout';
 @import './components/item-obj-list/styles/_item-obj-list';
 @import './components/not-found/styles/_not-found';

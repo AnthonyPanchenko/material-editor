@@ -22,6 +22,7 @@
     position: absolute;
     background-color: $grab-color;
     transition: background-color 300ms ease-in-out;
+    z-index: 3;
 
     &:hover {
       background-color: $grab-hover-color;

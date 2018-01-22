@@ -124,12 +124,8 @@ export default {
       </header>
 
       <section class="controls-content">
-        <div v-if="activeTabName === tabNames.FRAGMENT_SHADER">
-          <code-editor />
-        </div>
-        <div v-if="activeTabName === tabNames.VERTEX_SHADER">
-          <code-editor />
-        </div>
+        <code-editor mode="x-shader/x-fragment" v-if="activeTabName === tabNames.FRAGMENT_SHADER" />
+        <code-editor mode="x-shader/x-vertex" v-if="activeTabName === tabNames.VERTEX_SHADER" />
       </section>
 
       <shader-editor-footer />

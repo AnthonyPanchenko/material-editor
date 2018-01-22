@@ -26,6 +26,7 @@ function validator(text, options) {
   // var errors = JSHINT.data().errors, result = [];
 
   var result = [];
+
   var errors = [{
     a: undefined,
     b: undefined,

@@ -3,25 +3,34 @@
   z-index: 10;
   overflow: hidden;
   list-style: none;
-
   margin: 0;
-
   -webkit-box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
   -moz-box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
   box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
-
   background: #262626;
   border: 1px solid #3e3e3e;
   font-size: 90%;
-  font-family: monospace;
-
   max-height: 146px;
   overflow-y: auto;
+
+  &::-webkit-scrollbar {
+    width: 4px;
+  }
+
+  &::-webkit-scrollbar-thumb {
+    background-color: $scrollbar-thumb-bg-color;
+  }
+
+  &::-webkit-scrollbar-track {
+    background-color: $scrollbar-track-bg-color;
+  }
 }
 
 .CodeMirror-hint {
+  font-size: 13px;
+  font-family: monospace;
   margin: 0;
-  padding: 3px 4px;
+  padding: 2px 4px;
   border-bottom: 1px solid #505050;
   white-space: pre;
   color: white;

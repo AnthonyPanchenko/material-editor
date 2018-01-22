@@ -1,4 +1,3 @@
-/* The lint marker gutter */
 .CodeMirror-lint-markers {
   width: 21px;
 }
@@ -36,7 +35,7 @@
 .CodeMirror-lint-marker-warning {
   margin-left: 5px;
   font-family: 'icomoon';
-  font-size: 13px;
+  font-size: 11px;
   cursor: pointer;
   display: inline-block;
   vertical-align: middle;
@@ -66,7 +65,4 @@
 .CodeMirror-lint-message-warning:before {
   color: #ff7f00;
   content: "\e901";
-}
-
-.CodeMirror-lint-marker-multiple {
 }

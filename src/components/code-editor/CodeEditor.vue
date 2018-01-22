@@ -1,5 +1,6 @@
 <script>
 import CodeMirror from 'codemirror';
+import noop from '../../common/utils/noop';
 import 'codemirror/addon/search/search';
 import 'codemirror/addon/search/match-highlighter';
 import 'codemirror/addon/comment/comment';
@@ -25,6 +26,10 @@ export default {
       type: String,
       default: 'uniform vec2 u_resolution;\nuniform vec2 u_mouse;\nuniform float u_time;\n\nvoid main() {\n vec2 st = gl_FragCoord.xy/u_resolution.xy;\n gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n}'
     },
+    onSave: {
+      type: Function,
+      default: noop
+    },
     mode: {
       type: String,
       required: true
@@ -41,6 +46,7 @@ export default {
         styleActiveLine: true,
         matchBrackets: true,
         lintOnChange: true,
+        lineWrapping: true,
         foldGutter: true,
         lineNumbers: true,
         keyMap: 'sublime',

@@ -8,8 +8,8 @@ import CodeMirror from 'codemirror';
 
 var bogus = ['Dangerous comment'];
 
-var warnings = [["Expected '{'",
-  "Statement body should be inside '{ }' braces."]];
+// var warnings = [["Expected '{'",
+//   "Statement body should be inside '{ }' braces."]];
 
 var errors = ['Missing semicolon', 'Extra comma', 'Missing property name',
   'Unmatched ', ' and instead saw', ' is not defined',
@@ -41,6 +41,22 @@ function validator(text, options) {
     reason: 'Expected an assignment or function call and instead saw an expression.',
     severity: 'error',
     start: 1
+  },
+  {
+    a: undefined,
+    b: undefined,
+    c: undefined,
+    character: 1,
+    d: undefined,
+    description: 'Expected an assignment or function call and instead saw an expression.',
+    end: 7,
+    evidence: 'uniform vec2 u_resolution;',
+    id: '(warning)',
+    line: 2,
+    raw: 'Expected an assignment or function call and instead saw an expression.',
+    reason: 'Expected an assignment or function call and instead saw an expression.',
+    severity: 'warning',
+    start: 1
   }];
 
   if (errors) parseErrors(errors, result);
@@ -50,9 +66,7 @@ function validator(text, options) {
 CodeMirror.registerHelper('lint', 'glsl', validator);
 
 function cleanup(error) {
-  // All problems are warnings by default
-  fixWith(error, warnings, 'warning', true);
-  fixWith(error, errors, 'error');
+  fixWith(error, errors, error.severity);
 
   return isBogus(error) ? null : error;
 }
@@ -144,6 +158,8 @@ function parseErrors(errors, output) {
       error.start = error.character;
       error.end = end;
       error = cleanup(error);
+
+      console.log(error);
 
       if (error) {
         output.push({

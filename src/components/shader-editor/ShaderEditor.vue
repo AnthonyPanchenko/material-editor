@@ -45,7 +45,19 @@ export default {
       popoverRef: null,
       isOpenPopover: false,
       isOpenModalWindow: false,
-      urls: internalUrls
+      urls: internalUrls,
+
+      shaders: {
+        [tabNames.FRAGMENT_SHADER]: {
+          mode: 'x-shader/x-fragment',
+          value: 'uniform float u_time;'
+        },
+        [tabNames.VERTEX_SHADER]: {
+          mode: 'x-shader/x-vertex',
+          value: 'uniform vec2 u_resolution;'
+        }
+      }
+
     };
   },
   computed: mapState([
@@ -126,8 +138,8 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor mode="x-shader/x-fragment" v-if="activeTabName === tabNames.FRAGMENT_SHADER" value="uniform float u_time;" />
-        <code-editor mode="x-shader/x-vertex" v-if="activeTabName === tabNames.VERTEX_SHADER" value="uniform vec2 u_resolution;" />
+        <code-editor mode="x-shader/x-fragment" :activeShader="activeTabName" :tabNames="tabNames" :shader="shaders[activeTabName]" v-if="activeTabName === tabNames.FRAGMENT_SHADER" value="uniform float u_time;" />
+        <code-editor mode="x-shader/x-vertex" :activeShader="activeTabName" :tabNames="tabNames" :shader="shaders[activeTabName]" v-if="activeTabName === tabNames.VERTEX_SHADER" value="uniform vec2 u_resolution;" />
       </section>
 
       <shader-editor-footer />

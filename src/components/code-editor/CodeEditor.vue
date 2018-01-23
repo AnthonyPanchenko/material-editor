@@ -1,6 +1,7 @@
 <script>
 import CodeMirror from 'codemirror';
 import noop from '../../common/utils/noop';
+import shadersTypes from '../../common/constants/shaders-types';
 import 'codemirror/addon/search/search';
 import 'codemirror/addon/search/match-highlighter';
 import 'codemirror/addon/comment/comment';
@@ -19,9 +20,27 @@ import 'codemirror/keymap/sublime';
 import './utils/glsl-lint';
 import './utils/glsl-mode';
 
+const editorHistory = {
+  [shadersTypes.FRAGMENT_SHADER]: { done: [], undone: [] },
+  [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] },
+};
+
 export default {
   name: 'CodeEditor',
   props: {
+    tabNames: {
+      type: Object,
+      required: true
+    },
+    activeShader: String,
+    shader: {
+      type: Object,
+      required: true
+    },
+    mode: {
+      type: String,
+      required: true
+    },
     value: {
       type: String,
       default: 'uniform vec2 u_resolution;\nuniform vec2 u_mouse;\nuniform float u_time;\n\nvoid main() {\n vec2 st = gl_FragCoord.xy/u_resolution.xy;\n gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n}'
@@ -29,19 +48,12 @@ export default {
     onSave: {
       type: Function,
       default: noop
-    },
-    mode: {
-      type: String,
-      required: true
     }
   },
   data() {
     return {
       editor: null,
-      editorInstance: null,
       options: {
-        mode: this.mode,
-        value: this.value,
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
         highlightSelectionMatches: true,
@@ -62,28 +74,56 @@ export default {
       }
     }
   },
+
+  watch: {
+    // mode(val) {
+    //   console.log(val);
+    //   this.editor.setOption('mode', val);
+    // },
+    // value(val) {
+    //   console.log(val);
+    //   // console.log(this.editor.getHistory());
+    //   // this.editor.setOption('value', val);
+
+    //   this.editor = CodeMirror(this.$refs.codeEditor, this.options);
+
+    //   this.editor.setValue(val);
+    //   this.editor.setOption('mode', this.mode);
+    // }
+    shader(shdr) {
+      console.log(shdr);
+      // this.editor.setOption('value', val);
+
+      // this.editor = CodeMirror(this.$refs.codeEditor, { ...this.options, mode: shdr.mode, value: shdr.value });
+
+      // this.editor.setValue(this.value);
+      this.editor.setOption('value', shdr.value);
+      this.editor.setOption('mode', shdr.mode);
+      this.editor.setHistory(editorHistory[this.activeShader]);
+      editorHistory[this.activeShader] = this.editor.getHistory();
+    }
+  },
+
   methods: {
     onSaveCode(cm) {
-      console.log(this.options);
       this.onSave(cm.getValue(), this.mode, cm);
     }
   },
+
   updated() {
     console.log(this.codeMirror);
   },
+
   mounted() {
     this.editor = CodeMirror(this.$refs.codeEditor, this.options);
-    this.editorInstance = this.editor;
+    this.editor.setOption('value', this.shader.value);
+    this.editor.setOption('mode', this.shader.mode);
 
-    console.log(this.options);
-
-    this.editorInstance.setValue(this.value);
-    // this.editorInstance.save = this.onSaveCode;
+    editorHistory[this.activeShader] = this.editor.getHistory();
     CodeMirror.commands.save = this.onSaveCode;
   },
+  render(createElement) {
+    return createElement('div', { class: 'code-editor', ref: 'codeEditor' });
+  }
 }
 </script>
-
-<template>
-  <div class="code-editor" ref="codeEditor" />
-</template>

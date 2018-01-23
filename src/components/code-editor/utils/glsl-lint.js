@@ -3,115 +3,15 @@
 
 import CodeMirror from 'codemirror';
 
-'use strict';
-// declare global: JSHINT
+const parseErrors = (errors) => {
+  const output = [];
 
-var bogus = ['Dangerous comment'];
-
-// var warnings = [["Expected '{'",
-//   "Statement body should be inside '{ }' braces."]];
-
-var errors = ['Missing semicolon', 'Extra comma', 'Missing property name',
-  'Unmatched ', ' and instead saw', ' is not defined',
-  'Unclosed string', 'Stopping, unable to continue'];
-
-function validator(text, options) {
-  // if (!window.JSHINT) {
-  //   if (window.console) {
-  //     window.console.error("Error: window.JSHINT not defined, CodeMirror JavaScript linting cannot run.");
-  //   }
-  //   return [];
-  // }
-  // JSHINT(text, options, options.globals);
-  // var errors = JSHINT.data().errors, result = [];
-
-  var result = [];
-
-  var errors = [{
-    a: undefined,
-    b: undefined,
-    c: undefined,
-    character: 1,
-    d: undefined,
-    description: 'Expected an assignment or function call and instead saw an expression.',
-    end: 7,
-    evidence: 'uniform vec2 u_resolution;',
-    id: '(error)',
-    line: 1,
-    raw: 'Expected an assignment or function call and instead saw an expression.',
-    reason: 'Expected an assignment or function call and instead saw an expression.',
-    severity: 'error',
-    start: 1
-  },
-  {
-    a: undefined,
-    b: undefined,
-    c: undefined,
-    character: 1,
-    d: undefined,
-    description: 'Expected an assignment or function call and instead saw an expression.',
-    end: 7,
-    evidence: 'uniform vec2 u_resolution;',
-    id: '(warning)',
-    line: 2,
-    raw: 'Expected an assignment or function call and instead saw an expression.',
-    reason: 'Expected an assignment or function call and instead saw an expression.',
-    severity: 'warning',
-    start: 1
-  }];
-
-  if (errors) parseErrors(errors, result);
-  return result;
-}
-
-CodeMirror.registerHelper('lint', 'glsl', validator);
-
-function cleanup(error) {
-  fixWith(error, errors, error.severity);
-
-  return isBogus(error) ? null : error;
-}
-
-function fixWith(error, fixes, severity, force) {
-  var description, fix, find, replace, found;
-
-  description = error.description;
-
-  for (var i = 0; i < fixes.length; i++) {
-    fix = fixes[i];
-    find = (typeof fix === 'string' ? fix : fix[0]);
-    replace = (typeof fix === 'string' ? null : fix[1]);
-    found = description.indexOf(find) !== -1;
-
-    if (force || found) {
-      error.severity = severity;
-    }
-    if (found && replace) {
-      error.description = replace;
-    }
-  }
-}
-
-function isBogus(error) {
-  var description = error.description;
-  for (var i = 0; i < bogus.length; i++) {
-    if (description.indexOf(bogus[i]) !== -1) {
-      return true;
-    }
-  }
-  return false;
-}
-
-function parseErrors(errors, output) {
-  for (var i = 0; i < errors.length; i++) {
-    var error = errors[i];
+  for (let i = 0; i < errors.length; i++) {
+    const error = errors[i];
     if (error) {
-      var linetabpositions, index;
+      let index;
+      const linetabpositions = [];
 
-      linetabpositions = [];
-
-      // This next block is to fix a problem in jshint. Jshint
-      // replaces
       // all tabs with spaces then performs some checks. The error
       // positions (character/space) are then reported incorrectly,
       // not taking the replacement step into account. Here we look
@@ -119,33 +19,35 @@ function parseErrors(errors, output) {
       // to the correct value.
       if (error.evidence) {
         // Tab positions are computed once per line and cached
-        var tabpositions = linetabpositions[error.line];
+        let tabpositions = linetabpositions[error.line];
         if (!tabpositions) {
-          var evidence = error.evidence;
+          const evidence = error.evidence;
           tabpositions = [];
           // ugggh phantomjs does not like this
           // forEachChar(evidence, function(item, index) {
-          Array.prototype.forEach.call(evidence, function (item,
-            index) {
+          Array.prototype.forEach.call(evidence, (item, index) => {
             if (item === '\t') {
-              // First col is 1 (not 0) to match error
-              // positions
+              // First col is 1 (not 0) to match error positions
               tabpositions.push(index + 1);
             }
           });
+
           linetabpositions[error.line] = tabpositions;
         }
+
         if (tabpositions.length > 0) {
-          var pos = error.character;
-          tabpositions.forEach(function (tabposition) {
-            if (pos > tabposition) pos -= 1;
+          let pos = error.character;
+          tabpositions.forEach(tabposition => {
+            if (pos > tabposition) {
+              pos -= 1;
+            }
           });
           error.character = pos;
         }
       }
 
-      var start = error.character - 1;
-      var end = start + 1;
+      const start = error.character - 1;
+      let end = start + 1;
 
       if (error.evidence) {
         index = error.evidence.substring(start).search(/.\b/);
@@ -154,13 +56,8 @@ function parseErrors(errors, output) {
         }
       }
 
-      // Convert to format expected by validation service
-      error.description = error.reason;// + "(jshint)";
       error.start = error.character;
       error.end = end;
-      error = cleanup(error);
-
-      console.log(error);
 
       if (error) {
         output.push({
@@ -172,4 +69,33 @@ function parseErrors(errors, output) {
       }
     }
   }
+
+  return output;
+};
+
+const validator = (text, options, cm) => {
+  const errors = [{
+    id: 'dfgkjhsegi3o45690236',
+    severity: 'error',
+    description: 'Expected an assignment or function call and instead saw an expression.',
+    evidence: 'uniform vec2 u_resolution;',
+    character: 1,
+    line: 1,
+    start: 1,
+    end: 7
+  },
+  {
+    id: 'ewr3566ti789789erodfgl',
+    severity: 'warning',
+    description: 'Expected an assignment or function call and instead saw an expression.',
+    evidence: 'uniform vec2 u_resolution;',
+    character: 1,
+    line: 2,
+    start: 1,
+    end: 7
+  }];
+
+  return parseErrors(errors);
 }
+
+CodeMirror.registerHelper('lint', 'glsl', validator);

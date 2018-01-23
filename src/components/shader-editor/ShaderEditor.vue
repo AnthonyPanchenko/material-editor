@@ -126,8 +126,8 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor mode="x-shader/x-fragment" v-if="activeTabName === tabNames.FRAGMENT_SHADER" />
-        <code-editor mode="x-shader/x-vertex" v-if="activeTabName === tabNames.VERTEX_SHADER" />
+        <code-editor mode="x-shader/x-fragment" v-if="activeTabName === tabNames.FRAGMENT_SHADER" value="uniform float u_time;" />
+        <code-editor mode="x-shader/x-vertex" v-if="activeTabName === tabNames.VERTEX_SHADER" value="uniform vec2 u_resolution;" />
       </section>
 
       <shader-editor-footer />

@@ -37,8 +37,11 @@ export default {
   },
   data() {
     return {
-      codeEditor: null,
+      editor: null,
+      editorInstance: null,
       options: {
+        mode: this.mode,
+        value: this.value,
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
         highlightSelectionMatches: true,
@@ -50,6 +53,7 @@ export default {
         foldGutter: true,
         lineNumbers: true,
         keyMap: 'sublime',
+        autofocus: true,
         dragDrop: true,
         lint: true,
         tabSize: 2,
@@ -58,15 +62,28 @@ export default {
       }
     }
   },
+  methods: {
+    onSaveCode(cm) {
+      console.log(this.options);
+      this.onSave(cm.getValue(), this.mode, cm);
+    }
+  },
+  updated() {
+    console.log(this.codeMirror);
+  },
   mounted() {
-    this.codeEditor = this.$refs.codeEditor;
+    this.editor = CodeMirror(this.$refs.codeEditor, this.options);
+    this.editorInstance = this.editor;
 
-    this.codemirror = CodeMirror(this.$refs.codeEditor, { ...this.options, value: this.value, mode: this.mode });
-    this.cminstance = this.codemirror.edit
+    console.log(this.options);
+
+    this.editorInstance.setValue(this.value);
+    // this.editorInstance.save = this.onSaveCode;
+    CodeMirror.commands.save = this.onSaveCode;
   },
 }
 </script>
 
 <template>
-  <div class="code-editor" ref="codeEditor"></div>
+  <div class="code-editor" ref="codeEditor" />
 </template>

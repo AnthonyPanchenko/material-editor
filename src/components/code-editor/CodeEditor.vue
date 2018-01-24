@@ -25,25 +25,19 @@ const editorHistory = {
   [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] },
 };
 
+const shadersModes = {
+  [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
+  [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
+};
+
 export default {
   name: 'CodeEditor',
   props: {
-    tabNames: {
-      type: Object,
-      required: true
-    },
     activeShader: String,
-    shader: {
-      type: Object,
-      required: true
-    },
-    mode: {
-      type: String,
-      required: true
-    },
-    value: {
-      type: String,
-      default: 'uniform vec2 u_resolution;\nuniform vec2 u_mouse;\nuniform float u_time;\n\nvoid main() {\n vec2 st = gl_FragCoord.xy/u_resolution.xy;\n gl_FragColor = vec4(0.0, 1.0, 0.0, 1.0);\n}'
+    shader: String,
+    onChange: {
+      type: Function,
+      default: noop
     },
     onSave: {
       type: Function,
@@ -74,52 +68,30 @@ export default {
       }
     }
   },
-
   watch: {
-    // mode(val) {
-    //   console.log(val);
-    //   this.editor.setOption('mode', val);
-    // },
-    // value(val) {
-    //   console.log(val);
-    //   // console.log(this.editor.getHistory());
-    //   // this.editor.setOption('value', val);
-
-    //   this.editor = CodeMirror(this.$refs.codeEditor, this.options);
-
-    //   this.editor.setValue(val);
-    //   this.editor.setOption('mode', this.mode);
-    // }
-    shader(shdr) {
-      console.log(shdr);
-      // this.editor.setOption('value', val);
-
-      // this.editor = CodeMirror(this.$refs.codeEditor, { ...this.options, mode: shdr.mode, value: shdr.value });
-
-      // this.editor.setValue(this.value);
-      this.editor.setOption('value', shdr.value);
-      this.editor.setOption('mode', shdr.mode);
+    shader(value) {
+      this.editor.setOption('value', value);
+      this.editor.setOption('mode', shadersModes[this.activeShader]);
       this.editor.setHistory(editorHistory[this.activeShader]);
-      editorHistory[this.activeShader] = this.editor.getHistory();
     }
   },
-
   methods: {
+    onChangeCode(cm) {
+      this.onChange(cm.getValue(), this.activeShader, cm);
+      editorHistory[this.activeShader] = this.editor.getHistory();
+    },
     onSaveCode(cm) {
-      this.onSave(cm.getValue(), this.mode, cm);
+      this.onSave(cm.getValue(), this.activeShader, cm);
     }
   },
-
-  updated() {
-    console.log(this.codeMirror);
-  },
-
   mounted() {
     this.editor = CodeMirror(this.$refs.codeEditor, this.options);
-    this.editor.setOption('value', this.shader.value);
-    this.editor.setOption('mode', this.shader.mode);
 
-    editorHistory[this.activeShader] = this.editor.getHistory();
+    this.editor.setOption('value', this.shader);
+    this.editor.setOption('mode', shadersModes[this.activeShader]);
+    this.editor.setHistory(editorHistory[this.activeShader]);
+    this.editor.on('change', this.onChangeCode);
+
     CodeMirror.commands.save = this.onSaveCode;
   },
   render(createElement) {

@@ -46,18 +46,10 @@ export default {
       isOpenPopover: false,
       isOpenModalWindow: false,
       urls: internalUrls,
-
       shaders: {
-        [tabNames.FRAGMENT_SHADER]: {
-          mode: 'x-shader/x-fragment',
-          value: 'uniform float u_time;'
-        },
-        [tabNames.VERTEX_SHADER]: {
-          mode: 'x-shader/x-vertex',
-          value: 'uniform vec2 u_resolution;'
-        }
+        [tabNames.FRAGMENT_SHADER]: 'uniform float u_time;',
+        [tabNames.VERTEX_SHADER]: 'uniform vec2 u_resolution;'
       }
-
     };
   },
   computed: mapState([
@@ -85,6 +77,14 @@ export default {
     togglePopover() {
       this.popoverRef = this.$refs.popoverRef.$el;
       this.isOpenPopover = !this.isOpenPopover;
+    },
+
+    onChangeShader(value, type) {
+      console.clear();
+      console.log('value > ', value);
+      console.log('type > ', type);
+
+      this.shaders[type] = value;
     },
 
     onChangeVec2Picker(x, y, name) {
@@ -138,8 +138,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor mode="x-shader/x-fragment" :activeShader="activeTabName" :tabNames="tabNames" :shader="shaders[activeTabName]" v-if="activeTabName === tabNames.FRAGMENT_SHADER" value="uniform float u_time;" />
-        <code-editor mode="x-shader/x-vertex" :activeShader="activeTabName" :tabNames="tabNames" :shader="shaders[activeTabName]" v-if="activeTabName === tabNames.VERTEX_SHADER" value="uniform vec2 u_resolution;" />
+        <code-editor :activeShader="activeTabName" :shader="shaders[activeTabName]" :onChange="onChangeShader" />
       </section>
 
       <shader-editor-footer />

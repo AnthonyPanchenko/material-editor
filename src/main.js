@@ -3,6 +3,7 @@ import { sync } from 'vuex-router-sync';
 import VueResource from 'vue-resource';
 import Router from './router';
 import MainStore from './main-store';
+import CodeEditorHistory from './common/plugins/CodeEditorHistory';
 import MainLayout from './components/main-layout/MainLayout.vue';
 import apiUrlParts from './common/constants/api-url-parts';
 import * as api from './common/constants/api';
@@ -12,6 +13,7 @@ import './main.scss';
 
 sync(MainStore, Router);
 
+Vue.use(CodeEditorHistory);
 Vue.use(VueResource);
 
 // Vue.http.options.crossOrigin = true;

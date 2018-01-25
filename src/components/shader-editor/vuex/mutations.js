@@ -1,6 +1,9 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
+  [mutationTypes.SET_SHADER_VALUE_BY_TYPE](state, payload) {
+    state.shaders[payload.type] = payload.value;
+  },
   [mutationTypes.SET_CTRL_BOX_WIDTH](state, width) {
     state.widthCtrlBox = width;
   },

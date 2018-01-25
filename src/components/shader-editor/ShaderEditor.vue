@@ -45,14 +45,11 @@ export default {
       popoverRef: null,
       isOpenPopover: false,
       isOpenModalWindow: false,
-      urls: internalUrls,
-      shaders: {
-        [tabNames.FRAGMENT_SHADER]: 'uniform float u_time;',
-        [tabNames.VERTEX_SHADER]: 'uniform vec2 u_resolution;'
-      }
+      urls: internalUrls
     };
   },
   computed: mapState([
+    'shaders',
     'widthCtrlBox',
     'activeTabName',
     'isVisibleControlsBox',
@@ -60,6 +57,7 @@ export default {
   ]),
   methods: {
     ...mapActions([
+      'onChangeCodeEditor',
       'onSetCtrlBoxWidth',
       'onSetActiveTabName',
       'onToggleObjectsList',
@@ -79,12 +77,10 @@ export default {
       this.isOpenPopover = !this.isOpenPopover;
     },
 
-    onChangeCodeEditor(value, type) {
+    onSaveShader(payload) {
       console.clear();
-      console.log('value > ', value);
-      console.log('type > ', type);
-
-      this.shaders[type] = value;
+      console.log('value > ', payload.value);
+      console.log('type > ', payload.type);
     },
 
     onChangeVec2Picker(x, y, name) {
@@ -138,7 +134,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor"/>
+        <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
       <shader-editor-footer />

@@ -1,6 +1,9 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const actions = {
+  onChangeCodeEditor(context, payload) {
+    context.commit(mutationTypes.SET_SHADER_VALUE_BY_TYPE, payload);
+  },
   onSetCtrlBoxWidth(context, width) {
     context.commit(mutationTypes.SET_CTRL_BOX_WIDTH, width);
   },

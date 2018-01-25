@@ -1,6 +1,7 @@
 <script>
 import CodeMirror from 'codemirror';
 import noop from '../../common/utils/noop';
+import specialCharPlaceholder from './utils/specialCharPlaceholder';
 import shadersTypes from '../../common/constants/shaders-types';
 import 'codemirror/addon/search/search';
 import 'codemirror/addon/search/match-highlighter';
@@ -20,26 +21,10 @@ import 'codemirror/keymap/sublime';
 import './utils/glsl-lint';
 import './utils/glsl-mode';
 
-const editorHistory = {
-  [shadersTypes.FRAGMENT_SHADER]: { done: [], undone: [] },
-  [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] }
-};
-
-const specialCharPlaceholder = () => {
-  const tag = document.createElement('span');
-  tag.appendChild(document.createTextNode(''));
-
-  return tag;
-};
-
 export default {
   name: 'CodeEditor',
   props: {
     activeShader: String,
-    // history: {
-    //   type: Object,
-    //   required: true
-    // },
     shaders: {
       type: Object,
       required: true
@@ -60,6 +45,8 @@ export default {
         [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
         [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
       },
+      emptyHistory: { done: [], undone: [] },
+      payload: { value: '', type: '' },
       options: {
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
@@ -85,36 +72,39 @@ export default {
   },
   watch: {
     activeShader(nextType, prevType) {
-      this.setEditorHistory(prevType);
+      this.$setCodeEditorHistory(prevType, this.editor.getHistory());
       this.editor.clearHistory();
 
       this.editor.setOption('value', this.shaders[nextType]);
       this.editor.setOption('mode', this.modes[nextType]);
-      this.editor.setHistory(editorHistory[nextType]);
+      this.editor.setHistory(this.$getCodeEditorHistory(nextType) || this.emptyHistory);
     }
   },
   methods: {
-    setEditorHistory(shaderType) {
-      editorHistory[shaderType] = JSON.parse(JSON.stringify(this.editor.getHistory()));
-    },
     onChangeCode(cm) {
-      this.onChange(cm.getValue().replace(/"/g, ''), this.activeShader);
+      this.payload.value = cm.getValue().replace(/"/g, '');
+      this.payload.type = this.activeShader;
+
+      this.onChange(this.payload);
     },
     onSaveCode(cm) {
-      this.onSave(cm.getValue().replace(/"/g, ''), this.activeShader);
+      this.payload.value = cm.getValue().replace(/"/g, '');
+      this.payload.type = this.activeShader;
+
+      this.onSave(this.payload);
     }
   },
   mounted() {
     this.editor = CodeMirror(this.$refs.editor, this.options);
     this.editor.setOption('value', this.shaders[this.activeShader]);
     this.editor.setOption('mode', this.modes[this.activeShader]);
-    this.editor.setHistory(editorHistory[this.activeShader]);
+    this.editor.setHistory(this.$getCodeEditorHistory(this.activeShader) || this.emptyHistory);
     this.editor.on('change', this.onChangeCode);
 
     CodeMirror.commands.save = this.onSaveCode;
   },
   beforeDestroy() {
-    this.setEditorHistory(this.activeShader);
+    this.$setCodeEditorHistory(this.activeShader, this.editor.getHistory());
   },
   render(createElement) {
     return createElement('div', { class: 'code-editor', ref: 'editor' });

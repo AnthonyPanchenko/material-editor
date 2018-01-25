@@ -126,11 +126,7 @@ export default {
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
           <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName">
-            <i class="icon-indicator" aria-hidden="true" />
-          </custom-btn>
           <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName">
-            <i class="icon-indicator" aria-hidden="true" />
-          </custom-btn>
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />
@@ -142,7 +138,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor" />
+        <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor"/>
       </section>
 
       <shader-editor-footer />

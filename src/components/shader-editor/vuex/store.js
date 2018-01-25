@@ -13,7 +13,7 @@ const shaderEditor = {
     isVisibleControlsBox: true,
     isVisibleObjectsList: true,
     activeTabName: shadersTypes.FRAGMENT_SHADER,
-    widthCtrlBox: 70 // 42
+    widthCtrlBox: 42
   },
   actions,
   mutations

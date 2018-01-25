@@ -125,8 +125,8 @@ export default {
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName">
-          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName">
+          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName" />
+          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName" />
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />

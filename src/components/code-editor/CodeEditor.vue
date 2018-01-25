@@ -29,6 +29,10 @@ export default {
   name: 'CodeEditor',
   props: {
     activeShader: String,
+    // history: {
+    //   type: Object,
+    //   required: true
+    // },
     shaders: {
       type: Object,
       required: true
@@ -44,7 +48,6 @@ export default {
   },
   data() {
     return {
-      shadersTypes,
       editor: null,
       modes: {
         [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
@@ -72,16 +75,18 @@ export default {
     }
   },
   watch: {
-    activeShader(type) {
-      this.editor.setOption('value', this.shaders[type]);
-      this.editor.setOption('mode', this.modes[type]);
-      this.editor.setHistory(editorHistory[type]);
+    activeShader(nextType, prevType) {
+      editorHistory[prevType] = this.editor.getHistory();
+      this.editor.clearHistory();
+
+      this.editor.setOption('value', this.shaders[nextType]);
+      this.editor.setOption('mode', this.modes[nextType]);
+      this.editor.setHistory(editorHistory[nextType]);
     }
   },
   methods: {
     onChangeCode(cm) {
       this.onChange(cm.getValue(), this.activeShader, cm);
-      editorHistory[this.activeShader] = this.editor.getHistory();
     },
     onSaveCode(cm) {
       this.onSave(cm.getValue(), this.activeShader, cm);
@@ -97,7 +102,7 @@ export default {
     CodeMirror.commands.save = this.onSaveCode;
   },
   beforeDestroy() {
-    console.log('beforeDestroy');
+    editorHistory[this.activeShader] = this.editor.getHistory();
   },
   render(createElement) {
     return createElement('div', { class: 'code-editor', ref: 'editor' });

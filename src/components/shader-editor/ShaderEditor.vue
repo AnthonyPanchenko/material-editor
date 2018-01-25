@@ -138,7 +138,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor :activeShader="activeTabName" :shader="shaders[activeTabName]" :onChange="onChangeShader" />
+        <code-editor :activeShader="activeTabName" :shaders="shaders" />
       </section>
 
       <shader-editor-footer />

@@ -22,19 +22,17 @@ import './utils/glsl-mode';
 
 const editorHistory = {
   [shadersTypes.FRAGMENT_SHADER]: { done: [], undone: [] },
-  [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] },
-};
-
-const shadersModes = {
-  [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
-  [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
+  [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] }
 };
 
 export default {
   name: 'CodeEditor',
   props: {
     activeShader: String,
-    shader: String,
+    shaders: {
+      type: Object,
+      required: true
+    },
     onChange: {
       type: Function,
       default: noop
@@ -46,7 +44,12 @@ export default {
   },
   data() {
     return {
+      shadersTypes,
       editor: null,
+      modes: {
+        [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
+        [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
+      },
       options: {
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
@@ -69,10 +72,10 @@ export default {
     }
   },
   watch: {
-    shader(value) {
-      this.editor.setOption('value', value);
-      this.editor.setOption('mode', shadersModes[this.activeShader]);
-      this.editor.setHistory(editorHistory[this.activeShader]);
+    activeShader(type) {
+      this.editor.setOption('value', this.shaders[type]);
+      this.editor.setOption('mode', this.modes[type]);
+      this.editor.setHistory(editorHistory[type]);
     }
   },
   methods: {
@@ -85,17 +88,19 @@ export default {
     }
   },
   mounted() {
-    this.editor = CodeMirror(this.$refs.codeEditor, this.options);
-
-    this.editor.setOption('value', this.shader);
-    this.editor.setOption('mode', shadersModes[this.activeShader]);
+    this.editor = CodeMirror(this.$refs.editor, this.options);
+    this.editor.setOption('value', this.shaders[this.activeShader]);
+    this.editor.setOption('mode', this.modes[this.activeShader]);
     this.editor.setHistory(editorHistory[this.activeShader]);
     this.editor.on('change', this.onChangeCode);
 
     CodeMirror.commands.save = this.onSaveCode;
   },
+  beforeDestroy() {
+    console.log('beforeDestroy');
+  },
   render(createElement) {
-    return createElement('div', { class: 'code-editor', ref: 'codeEditor' });
+    return createElement('div', { class: 'code-editor', ref: 'editor' });
   }
 }
 </script>

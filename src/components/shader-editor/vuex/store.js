@@ -1,16 +1,19 @@
 import actions from './actions';
 import mutations from './mutations';
 // import getters from './getters';
-import tabNames from '../constants/tabNames';
+import shadersTypes from '../../../common/constants/shaders-types';
 
 const shaderEditor = {
   namespaced: true,
   state: {
-    shaders: [],
+    shaders: {
+      [shadersTypes.FRAGMENT_SHADER]: '',
+      [shadersTypes.VERTEX_SHADER]: ''
+    },
     isVisibleControlsBox: true,
     isVisibleObjectsList: true,
-    activeTabName: tabNames.FRAGMENT_SHADER,
-    widthCtrlBox: 42
+    activeTabName: shadersTypes.FRAGMENT_SHADER,
+    widthCtrlBox: 70 // 42
   },
   actions,
   mutations

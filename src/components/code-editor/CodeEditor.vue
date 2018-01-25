@@ -25,6 +25,13 @@ const editorHistory = {
   [shadersTypes.VERTEX_SHADER]: { done: [], undone: [] }
 };
 
+const specialCharPlaceholder = () => {
+  const tag = document.createElement('span');
+  tag.appendChild(document.createTextNode(''));
+
+  return tag;
+};
+
 export default {
   name: 'CodeEditor',
   props: {
@@ -57,6 +64,8 @@ export default {
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
         highlightSelectionMatches: true,
+        specialChars: /[\u0022]/,
+        specialCharPlaceholder,
         autoCloseBrackets: true,
         styleActiveLine: true,
         matchBrackets: true,
@@ -76,7 +85,7 @@ export default {
   },
   watch: {
     activeShader(nextType, prevType) {
-      editorHistory[prevType] = this.editor.getHistory();
+      this.setEditorHistory(prevType);
       this.editor.clearHistory();
 
       this.editor.setOption('value', this.shaders[nextType]);
@@ -85,11 +94,14 @@ export default {
     }
   },
   methods: {
+    setEditorHistory(shaderType) {
+      editorHistory[shaderType] = JSON.parse(JSON.stringify(this.editor.getHistory()));
+    },
     onChangeCode(cm) {
-      this.onChange(cm.getValue(), this.activeShader, cm);
+      this.onChange(cm.getValue().replace(/"/g, ''), this.activeShader);
     },
     onSaveCode(cm) {
-      this.onSave(cm.getValue(), this.activeShader, cm);
+      this.onSave(cm.getValue().replace(/"/g, ''), this.activeShader);
     }
   },
   mounted() {
@@ -102,7 +114,7 @@ export default {
     CodeMirror.commands.save = this.onSaveCode;
   },
   beforeDestroy() {
-    editorHistory[this.activeShader] = this.editor.getHistory();
+    this.setEditorHistory(this.activeShader);
   },
   render(createElement) {
     return createElement('div', { class: 'code-editor', ref: 'editor' });

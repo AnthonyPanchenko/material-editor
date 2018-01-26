@@ -45,7 +45,6 @@ export default {
         [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
         [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
       },
-      emptyHistory: { done: [], undone: [] },
       payload: { value: '', type: '' },
       options: {
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
@@ -72,15 +71,37 @@ export default {
   },
   watch: {
     activeShader(nextType, prevType) {
-      this.$setCodeEditorHistory(prevType, this.editor.getHistory());
+      this.$setCursor(prevType, this.editor.getCursor());
+      this.$setHistory(prevType, this.editor.getHistory());
+      this.$setSelections(prevType, this.editor.listSelections());
       this.editor.clearHistory();
 
       this.editor.setOption('value', this.shaders[nextType]);
       this.editor.setOption('mode', this.modes[nextType]);
-      this.editor.setHistory(this.$getCodeEditorHistory(nextType) || this.emptyHistory);
+
+      this.setupEditor(nextType);
     }
   },
   methods: {
+    setupEditor(type) {
+      const history = this.$getHistory(type);
+      const cursor = this.$getCursor(type);
+      const selections = this.$getSelections(type);
+
+      if (history) {
+        this.editor.setHistory(history);
+      }
+
+      this.editor.focus();
+
+      if (cursor) {
+        this.editor.setCursor(cursor.line, cursor.ch);
+      }
+
+      if (selections) {
+        this.editor.setSelections(selections);
+      }
+    },
     onChangeCode(cm) {
       this.payload.value = cm.getValue().replace(/"/g, '');
       this.payload.type = this.activeShader;
@@ -98,13 +119,17 @@ export default {
     this.editor = CodeMirror(this.$refs.editor, this.options);
     this.editor.setOption('value', this.shaders[this.activeShader]);
     this.editor.setOption('mode', this.modes[this.activeShader]);
-    this.editor.setHistory(this.$getCodeEditorHistory(this.activeShader) || this.emptyHistory);
+
+    this.setupEditor(this.activeShader);
+
     this.editor.on('change', this.onChangeCode);
 
     CodeMirror.commands.save = this.onSaveCode;
   },
   beforeDestroy() {
-    this.$setCodeEditorHistory(this.activeShader, this.editor.getHistory());
+    this.$setCursor(this.activeShader, this.editor.getCursor());
+    this.$setHistory(this.activeShader, this.editor.getHistory());
+    this.$setSelections(this.activeShader, this.editor.listSelections());
   },
   render(createElement) {
     return createElement('div', { class: 'code-editor', ref: 'editor' });

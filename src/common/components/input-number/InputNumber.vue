@@ -23,7 +23,7 @@ export default {
   methods: {
     onInputNumber(event) {
       if (!this.disabled) {
-        const value = +event.target.value.replace(/[^\d]/g, '');
+        const value = +event.target.value.replace(/[^.\d]/g, '');
         this.onInput(value, this.name, +this.min, +this.max, +this.step);
       }
     }

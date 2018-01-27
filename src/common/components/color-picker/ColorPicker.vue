@@ -1,5 +1,5 @@
 <script>
-import { hsvToRgb, rgbToHsv, rgbToHex, hexToRgb, hueToRgb } from '../../utils/color-converters';
+import { hsvToRgb, rgbToHsv, rgbToHex, hexToRgb, hueToRgb, isHex } from '../../utils/color-converters';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
 import InputNumber from '../input-number/InputNumber.vue';
@@ -91,12 +91,14 @@ export default {
     onInputHexValue(value) {
       this.hex = value.replace('#', '');
 
-      this.rgb = hexToRgb(this.hex);
-      this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
+      if (isHex(this.hex)) {
+        this.rgb = hexToRgb(this.hex);
+        this.hsv = rgbToHsv(this.rgb.r, this.rgb.g, this.rgb.b, this.rgb.a);
 
-      this.gradientBoxColor = hueToRgb(this.hsv.h);
-      this.setColorAndPositionOfAlphaScaleTriangles();
-      this.setCircleColorAndPosition();
+        this.gradientBoxColor = hueToRgb(this.hsv.h);
+        this.setColorAndPositionOfAlphaScaleTriangles();
+        this.setCircleColorAndPosition();
+      }
     },
 
     onInputRgbValue(value, channel) {

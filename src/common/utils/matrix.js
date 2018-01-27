@@ -11,28 +11,6 @@ export const getInverseMatrix = (m) => {
   ];
 };
 
-export const getRotationXMatrix = (theta) => {
-  const c = Math.cos(theta);
-  const s = Math.sin(theta);
-
-  return [
-    [1, 0, 0],
-    [0, c, -s],
-    [0, s, c]
-  ];
-};
-
-export const getRotationYMatrix = (phi) => {
-  const c = Math.cos(phi);
-  const s = Math.sin(phi);
-
-  return [
-    [c, 0, s],
-    [0, 1, 0],
-    [-s, 0, c]
-  ];
-};
-
 export const getViewMatrix = (theta, phi) => {
   const cx = Math.cos(theta);
   const sx = Math.sin(theta);
@@ -44,22 +22,6 @@ export const getViewMatrix = (theta, phi) => {
     [-sx * (-sy), cx, -sx * cy],
     [-sy * cx, sx, cx * cy]
   ];
-};
-
-export const multiplyMatrices = (matrixA, matrixB) => {
-  const result = [];
-
-  for (let i = 0; i < matrixA.length; i++) {
-    result[i] = [];
-    for (let j = 0; j < matrixA.length; j++) {
-      result[i][j] = 0;
-      for (let k = 0; k < matrixB.length; k++) {
-        result[i][j] += matrixA[i][k] * matrixB[k][j];
-      }
-    }
-  }
-
-  return result;
 };
 
 export const multiplyMatrixByVector = (matrix, vector) => {

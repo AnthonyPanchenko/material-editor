@@ -68,6 +68,12 @@ export default {
       }
     },
 
+    onMouseWheelEvent(event) {
+      if (this.isOpen && this.optionsList && !this.optionsList.contains(event.target)) {
+        this.isOpen = false;
+      }
+    },
+
     setSelectedOption(selectedOptionId) {
       this.selectedOption = this.options.find(option => option.id === selectedOptionId) || { id: '', title: '...' };
     },
@@ -97,10 +103,12 @@ export default {
   mounted() {
     this.triggerSelect = this.$refs.triggerSelect;
     document.addEventListener('mousedown', this.onCloseSelectList);
+    document.addEventListener('mousewheel', this.onMouseWheelEvent);
   },
 
   beforeDestroy() {
     document.removeEventListener('mousedown', this.onCloseSelectList);
+    document.removeEventListener('mousewheel', this.onMouseWheelEvent);
   }
 };
 </script>

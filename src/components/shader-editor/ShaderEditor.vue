@@ -2,7 +2,6 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
-import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -21,7 +20,6 @@ export default {
   name: 'ShaderEditor',
   components: {
     CodeEditor,
-    NumberPicker,
     ModalWindow,
     CustomBtn,
     ItemObjList,
@@ -68,15 +66,6 @@ export default {
       console.clear();
       console.log('value > ', payload.value);
       console.log('type > ', payload.type);
-    },
-
-    onChangeNumberPicker(value, name, min, max, step) {
-      console.clear();
-      console.log('value > ', value);
-      console.log('name > ', name);
-      console.log('min > ', min);
-      console.log('max > ', max);
-      console.log('step > ', step);
     }
   }
 };
@@ -126,9 +115,7 @@ export default {
         <transition name="slide-obj-list">
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
-        <div class="canvas-box">
-          <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
-        </div>
+        <div class="canvas-box"></div>
       </section>
 
       <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />

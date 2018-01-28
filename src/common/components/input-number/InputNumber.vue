@@ -18,9 +18,16 @@ export default {
     onInput: {
       type: Function,
       default: noop
+    },
+    onClick: {
+      type: Function,
+      default: noop
     }
   },
   methods: {
+    onInputClick() {
+      this.onClick();
+    },
     onInputNumber(event) {
       if (!this.disabled) {
         const value = +event.target.value.replace(/[^.\d]/g, '');
@@ -38,7 +45,7 @@ export default {
 </script>
 
 <template>
-  <label :class="['input-number', { 'disabled': disabled }]" :title="value">
+  <label :class="['input-number', { 'disabled': disabled }]" :title="value" @click="onInputClick">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
     <input ref="inpNumber" type="number" :name="name" :step="step" :min="min" :max="max" v-on:input="onInputNumber" :value="value" :disabled="disabled">
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>

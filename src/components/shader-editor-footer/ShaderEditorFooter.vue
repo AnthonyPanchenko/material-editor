@@ -3,6 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
 
 import Popover from '../../common/components/popover/Popover.vue';
+import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
@@ -21,9 +22,11 @@ export default {
   data() {
     return {
       tabNames,
+      numberPickerPopoverRef: null,
       vec2PickerPopoverRef: null,
       vec3PickerPopoverRef: null,
       colorPickerPopoverRef: null,
+      isOpenNumberPickerPopover: false,
       isOpenVec2PickerPopover: false,
       isOpenVec3PickerPopover: false,
       isOpenColorPickerPopover: false,
@@ -38,6 +41,7 @@ export default {
   },
   components: {
     Popover,
+    NumberPicker,
     Vec3Picker,
     Vec2Picker,
     ColorPicker,
@@ -65,6 +69,17 @@ export default {
     },
     isActive(tabName) {
       return this.activeTabName === tabName && this.isVisibleFooterContent;
+    },
+
+    onCloseNumberPickerPopover() {
+      if (this.isOpenNumberPickerPopover) {
+        this.isOpenNumberPickerPopover = false;
+      }
+    },
+
+    onToggleNumberPickerPopover() {
+      this.numberPickerPopoverRef = this.$refs.numberPickerPopoverRef.$el;
+      this.isOpenNumberPickerPopover = !this.isOpenNumberPickerPopover;
     },
 
     onCloseVec2PickerPopover() {
@@ -106,6 +121,15 @@ export default {
       console.log('vec2 y > ', y);
       console.log('vec2 z > ', z);
       console.log('name > ', name);
+    },
+
+    onChangeNumberPicker(value, name, min, max, step) {
+      console.clear();
+      console.log('value > ', value);
+      console.log('name > ', name);
+      console.log('min > ', min);
+      console.log('max > ', max);
+      console.log('step > ', step);
     },
 
     onChangeVec2Picker(x, y, name) {
@@ -220,6 +244,21 @@ export default {
           </popover>
 
           <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerPopoverRef" :onClick="onToggleVec2PickerPopover" />
+          <custom-btn iconClass="icon-pencil" class="secondary xs" />
+          <custom-btn iconClass="icon-trash-bin" class="danger xs" />
+        </div>
+
+        <div class="row">
+          <div class="info">
+            <span class="name">duration</span>
+            <span class="type">float</span>
+          </div>
+          <input-number ref="numberPickerPopoverRef" :onClick="onToggleNumberPickerPopover" />
+
+          <popover :isOpen="isOpenNumberPickerPopover" :trigger="numberPickerPopoverRef" :onClose="onCloseNumberPickerPopover">
+            <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
+          </popover>
+
           <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>

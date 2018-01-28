@@ -51,7 +51,7 @@ export default {
 <template>
   <div class="main-layout">
     <notifications :list="notifications" :onClose="onRemoveNotification" />
-    <transition name="page-fade">
+    <transition name="fade">
       <router-view></router-view>
     </transition>
   </div>

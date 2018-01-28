@@ -1,0 +1,25 @@
+
+$fade-in-enter-transition-duration: 230ms;
+$fade-out-leave-transition-duration: 200ms;
+
+.fade-enter-active {
+  position: fixed;
+  opacity: 0;
+  transition: opacity $fade-in-enter-transition-duration linear;
+
+  &.fade-enter-to {
+    opacity: 1;
+    transition: opacity $fade-in-enter-transition-duration linear;
+  }
+}
+
+.fade-leave-active {
+  position: fixed;
+  opacity: 0.7;
+  transition: opacity $fade-out-leave-transition-duration linear;
+
+  &.fade-leave-to {
+    opacity: 0;
+    transition: opacity $fade-out-leave-transition-duration linear;
+  }
+}

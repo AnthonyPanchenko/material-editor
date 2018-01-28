@@ -1,3 +1,7 @@
+.icon-select-arrows:before {
+  content: "\e918";
+}
+
 .icon-code-error:before {
   content: "\e900";
 }
@@ -306,6 +310,14 @@
   content: "\e94d";
 }
 
+.icon-undo:before {
+  content: "\e967";
+}
+
+.icon-redo:before {
+  content: "\e968";
+}
+
 .icon-move-up:before {
   content: "\ea46";
 }
@@ -336,12 +348,4 @@
 
 .icon-sort-amount-desc:before {
   content: "\ea4d";
-}
-
-.icon-undo:before {
-  content: "\e967";
-}
-
-.icon-redo:before {
-  content: "\e968";
 }

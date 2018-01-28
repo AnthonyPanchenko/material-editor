@@ -7,14 +7,12 @@ import CodeEditorManager from './common/plugins/CodeEditorManager';
 import MainLayout from './components/main-layout/MainLayout.vue';
 import apiUrlParts from './common/constants/api-url-parts';
 import * as api from './common/constants/api';
-import select from './common/directives/select/select';
 import fakeData from './fake-data';
 
 import './main.scss';
 
 sync(MainStore, Router);
 
-Vue.directive('select', select);
 Vue.use(CodeEditorManager);
 Vue.use(VueResource);
 

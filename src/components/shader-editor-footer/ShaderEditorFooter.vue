@@ -53,20 +53,24 @@ export default {
     CustomBtn,
     ResizeBox
   },
+
   computed: mapState([
     'isVisibleFooterContent',
     'activeTabName',
     'footerHeight'
   ]),
+
   methods: {
     ...mapActions([
       'onToggleFooterContent',
       'onSetActiveTabName',
       'onSetFooterHeight'
     ]),
+
     defineIconClass(tabName) {
       return this.activeTabName === tabName && this.isVisibleFooterContent ? 'icon-plus' : '';
     },
+
     isActive(tabName) {
       return this.activeTabName === tabName && this.isVisibleFooterContent;
     },
@@ -144,14 +148,17 @@ export default {
       console.log(value);
       console.log(name);
     },
+
     onChangeRadioBtn(pickedValue, name) {
       console.log(pickedValue);
       console.log(name);
     },
+
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
     },
+
     onTabClick(tabName) {
       if (tabName === this.activeTabName) {
         console.log('create new setting');
@@ -179,10 +186,10 @@ export default {
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.UNIFORMS" class="shader-ctrl-settings">
       <div class="create-new">
         <div class="settings-row">
-          <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
+          <custom-select :options="options" selectedOptionId="vec3" name="selectname" :onChange="onChangeSelect" />
           <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
           <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
-          <input-text name="tex" placeholder="name" v-select="{ options: options, selected: options[2] }" />
+          <input-text name="tex" placeholder="name" />
           <custom-btn iconClass="icon-checkmark" class="success xs" />
           <custom-btn iconClass="icon-close" class="danger xs" />
         </div>

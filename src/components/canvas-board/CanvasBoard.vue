@@ -11,12 +11,14 @@ export default {
       canvasWidth: '1px'
     }
   },
+
   methods: {
     setCanvasSize() {
       // to set value for obj need to use this.$set / this.$add
       this.canvasHeight = this.$refs.canvas.parentNode.clientHeight;
       this.canvasWidth = this.$refs.canvas.parentNode.clientWidth;
     },
+
     animate() {
       this.ctx.clearRect(0, 0, this.canvasWidth, this.canvasHeight);
       for (let i in this.circles) {
@@ -24,6 +26,7 @@ export default {
       }
       requestAnimationFrame(this.animate);
     },
+
     initAnimation() {
       for (let x = 0; x < this.canvasWidth * 0.5; x++) {
         this.circles.push(new Circle(this.canvasWidth, this.canvasHeight));
@@ -31,6 +34,7 @@ export default {
       this.animate();
     }
   },
+
   mounted() {
     this.ctx = this.$refs.canvas.getContext('2d');
 
@@ -39,6 +43,7 @@ export default {
 
     this.initAnimation();
   },
+
   beforeDestroy() {
     window.removeEventListener('resize', this.setCanvasSize);
   }

@@ -28,7 +28,7 @@ export default {
 </script>
 
 <template>
-  <transition name="modal-window-fade">
+  <transition name="fade">
     <div v-if="isOpen" class="modal-window" @click.self="onCloseModalWindow">
       <div class="container">
         <slot>Content here</slot>

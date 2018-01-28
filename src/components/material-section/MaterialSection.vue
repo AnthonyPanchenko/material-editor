@@ -19,8 +19,9 @@ export default {
     };
   },
   methods: {
-    onChangeMaterialsTypesSelect(selectedValue, name) {
-      console.log(selectedValue, name);
+    onChangeMaterialsTypesSelect(selectedOption, name) {
+      console.log(selectedOption, name);
+      this.activeMaterialType = selectedOption.id;
     },
   }
 };

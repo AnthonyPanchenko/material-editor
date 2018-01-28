@@ -2,11 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
-import Popover from '../../common/components/popover/Popover.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
-import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
-import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
-import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
 import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -24,13 +20,9 @@ import tabNames from './constants/tabNames';
 export default {
   name: 'ShaderEditor',
   components: {
-    Popover,
     CodeEditor,
     NumberPicker,
     ModalWindow,
-    ColorPicker,
-    Vec2Picker,
-    Vec3Picker,
     CustomBtn,
     ItemObjList,
     InputFile,
@@ -42,9 +34,7 @@ export default {
   data() {
     return {
       tabNames,
-      popoverRef: null,
-      isOpenPopover: false,
-      isOpenModalWindow: false,
+      isOpenCreateNewFileForm: false,
       urls: internalUrls
     };
   },
@@ -64,38 +54,20 @@ export default {
       'onToggleFullScreenMode'
     ]),
 
-    toggleModalWindow() {
-      this.isOpenModalWindow = !this.isOpenModalWindow;
+    onOpenCreateNewFileForm() {
+      this.isOpenCreateNewFileForm = !this.isOpenCreateNewFileForm;
     },
 
-    closeModalWindow() {
-      this.isOpenPopover = false;
-    },
-
-    togglePopover() {
-      this.popoverRef = this.$refs.popoverRef.$el;
-      this.isOpenPopover = !this.isOpenPopover;
+    onCloseCreateNewFileForm() {
+      if (this.isOpenCreateNewFileForm) {
+        this.isOpenCreateNewFileForm = false;
+      }
     },
 
     onSaveShader(payload) {
       console.clear();
       console.log('value > ', payload.value);
       console.log('type > ', payload.type);
-    },
-
-    onChangeVec2Picker(x, y, name) {
-      console.clear();
-      console.log('vec2 x > ', x);
-      console.log('vec2 y > ', y);
-      console.log('name > ', name);
-    },
-
-    onChangeVec3Picker(x, y, z, name) {
-      console.clear();
-      console.log('vec2 x > ', x);
-      console.log('vec2 y > ', y);
-      console.log('vec2 z > ', z);
-      console.log('name > ', name);
     },
 
     onChangeNumberPicker(value, name, min, max, step) {
@@ -112,10 +84,7 @@ export default {
 
 <template>
   <div class="editor-container">
-
-    <popover :isOpen="isOpenPopover" :trigger="popoverRef" :onClose="closeModalWindow">
-      <color-picker />
-    </popover>
+    <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick />
 
     <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
       <header class="controls-header">
@@ -126,7 +95,7 @@ export default {
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />
-          <custom-btn iconClass="icon-new-file" class="xs" />
+          <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewFileForm" />
           <custom-btn iconClass="icon-open-folder" class="xs" />
           <custom-btn iconClass="icon-gallery" class="xs" />
           <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" class="xs" />
@@ -158,16 +127,7 @@ export default {
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box">
-          <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" />
-          <vec3-picker :onChange="onChangeVec3Picker" />
-          <hr>
-          <color-picker />
-          <hr>
           <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
-          <hr>
-          <custom-btn title="Open Modal Window" :onClick="toggleModalWindow" />
-          <modal-window :isOpen="isOpenModalWindow" сloseByOverlayClick :onClose="toggleModalWindow" />
-          <custom-btn title="Open popover" ref="popoverRef" :onClick="togglePopover" />
         </div>
       </section>
 

@@ -2,6 +2,11 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
 
+import Popover from '../../common/components/popover/Popover.vue';
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import InputText from '../../common/components/input-text/InputText.vue';
@@ -16,6 +21,12 @@ export default {
   data() {
     return {
       tabNames,
+      vec2PickerPopoverRef: null,
+      vec3PickerPopoverRef: null,
+      colorPickerPopoverRef: null,
+      isOpenVec2PickerPopover: false,
+      isOpenVec3PickerPopover: false,
+      isOpenColorPickerPopover: false,
       options: [
         { title: 'int', id: 'int' },
         { title: 'float', id: 'float' },
@@ -26,6 +37,10 @@ export default {
     };
   },
   components: {
+    Popover,
+    Vec3Picker,
+    Vec2Picker,
+    ColorPicker,
     CustomSelect,
     CheckboxBtn,
     InputNumber,
@@ -51,6 +66,55 @@ export default {
     isActive(tabName) {
       return this.activeTabName === tabName && this.isVisibleFooterContent;
     },
+
+    onCloseVec2PickerPopover() {
+      if (this.isOpenVec2PickerPopover) {
+        this.isOpenVec2PickerPopover = false;
+      }
+    },
+
+    onToggleVec2PickerPopover() {
+      this.vec2PickerPopoverRef = this.$refs.vec2PickerPopoverRef.$el;
+      this.isOpenVec2PickerPopover = !this.isOpenVec2PickerPopover;
+    },
+
+    onCloseVec3PickerPopover() {
+      if (this.isOpenVec3PickerPopover) {
+        this.isOpenVec3PickerPopover = false;
+      }
+    },
+
+    onToggleVec3PickerPopover() {
+      this.vec3PickerPopoverRef = this.$refs.vec3PickerPopoverRef.$el;
+      this.isOpenVec3PickerPopover = !this.isOpenVec3PickerPopover;
+    },
+
+    onCloseColorPickerPopover() {
+      if (this.isOpenColorPickerPopover) {
+        this.isOpenColorPickerPopover = false;
+      }
+    },
+
+    onToggleColorPickerPopover() {
+      this.colorPickerPopoverRef = this.$refs.colorPickerPopoverRef.$el;
+      this.isOpenColorPickerPopover = !this.isOpenColorPickerPopover;
+    },
+
+    onChangeVec3Picker(x, y, z, name) {
+      console.clear();
+      console.log('vec2 x > ', x);
+      console.log('vec2 y > ', y);
+      console.log('vec2 z > ', z);
+      console.log('name > ', name);
+    },
+
+    onChangeVec2Picker(x, y, name) {
+      console.clear();
+      console.log('vec2 x > ', x);
+      console.log('vec2 y > ', y);
+      console.log('name > ', name);
+    },
+
     onChangeCheckBox(state, value, name) {
       console.log(state);
       console.log(value);
@@ -85,7 +149,7 @@ export default {
     </div>
 
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.ATTRIBUTES" class="shader-ctrl-settings">
-        tabNames.ATTRIBUTES
+      tabNames.ATTRIBUTES
     </div>
 
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.UNIFORMS" class="shader-ctrl-settings">
@@ -94,7 +158,7 @@ export default {
           <custom-select :options="options" selected="vec3" name="selectname" :onChange="onChangeSelect" />
           <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" />
           <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" />
-          <input-text name="tex" placeholder="name" />
+          <input-text name="tex" placeholder="name" v-select="{ options: options, selected: options[2] }" />
           <custom-btn iconClass="icon-checkmark" class="success xs" />
           <custom-btn iconClass="icon-close" class="danger xs" />
         </div>
@@ -105,6 +169,7 @@ export default {
         </div>
       </div>
       <div class="controls scroll-box">
+
         <div class="row">
           <div class="info">
             <span class="name">paintColor</span>
@@ -113,10 +178,17 @@ export default {
           <input-number prefix="R:" />
           <input-number prefix="G:" />
           <input-number prefix="B:" />
-          <custom-btn iconClass="icon-color-palette" class="xs" />
+
+          <popover :isOpen="isOpenColorPickerPopover" :trigger="colorPickerPopoverRef" :onClose="onCloseColorPickerPopover">
+            <color-picker />
+          </popover>
+
+          <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerPopoverRef" :onClick="onToggleColorPickerPopover" />
+
           <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
+
         <div class="row">
           <div class="info">
             <span class="name">lightPosition</span>
@@ -125,15 +197,38 @@ export default {
           <input-number prefix="X:" />
           <input-number prefix="Y:" />
           <input-number prefix="Z:" />
-          <custom-btn iconClass="icon-xyz" class="xs" />
+
+          <popover :isOpen="isOpenVec3PickerPopover" :trigger="vec3PickerPopoverRef" :onClose="onCloseVec3PickerPopover">
+            <vec3-picker :onChange="onChangeVec3Picker" />
+          </popover>
+
+          <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerPopoverRef" :onClick="onToggleVec3PickerPopover" />
           <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />
         </div>
+
+        <div class="row">
+          <div class="info">
+            <span class="name">position</span>
+            <span class="type">vec2</span>
+          </div>
+          <input-number prefix="X:" />
+          <input-number prefix="Y:" />
+
+          <popover :isOpen="isOpenVec2PickerPopover" :trigger="vec2PickerPopoverRef" :onClose="onCloseVec2PickerPopover">
+            <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" />
+          </popover>
+
+          <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerPopoverRef" :onClick="onToggleVec2PickerPopover" />
+          <custom-btn iconClass="icon-pencil" class="secondary xs" />
+          <custom-btn iconClass="icon-trash-bin" class="danger xs" />
+        </div>
+
       </div>
     </div>
 
     <div v-if="isVisibleFooterContent && activeTabName === tabNames.TEXTURES" class="shader-ctrl-settings">
-        tabNames.TEXTURES
+      tabNames.TEXTURES
     </div>
 
   </resize-box>

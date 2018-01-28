@@ -47,10 +47,7 @@
     }
 
     .controls {
-      direction: rtl;
-
       .row {
-        direction: initial;
         display: flex;
         align-items: center;
         padding: $controls-gutter;

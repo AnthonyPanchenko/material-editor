@@ -242,7 +242,7 @@ export default {
   <transition name="popover-fade">
     <div v-if="isOpen" class="popover" ref="popover" :style="{ top: `${popoverOffsets.top}px`, left: `${popoverOffsets.left}px` }">
       <span :class="['triangle', triangleClassName]" ref="triangle" />
-      <slot>Content here</slot>
+      <slot ref="someElement">Content here</slot>
     </div>
   </transition>
 </template>

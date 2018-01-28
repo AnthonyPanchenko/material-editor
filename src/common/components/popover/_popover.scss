@@ -1,11 +1,11 @@
 
 $popover-fade-in-enter-transition-duration: 150ms;
 $popover-fade-out-leave-transition-duration: 150ms;
-$triangle-color: #616161;
+$triangle-color: #7fabca;
 $triangle-width: 10px;
 
 .popover-fade-enter-active {
-  position: absolute;
+  position: fixed;
   opacity: 0;
   transition: opacity $popover-fade-in-enter-transition-duration linear;
 
@@ -16,7 +16,7 @@ $triangle-width: 10px;
 }
 
 .popover-fade-leave-active {
-  position: absolute;
+  position: fixed;
   opacity: 0.7;
   transition: opacity $popover-fade-out-leave-transition-duration linear;
 
@@ -27,7 +27,9 @@ $triangle-width: 10px;
 }
 
 .popover {
-  position: absolute;
+  background-color: #434343;
+  box-shadow: 0 0 3px 0 $triangle-color;
+  position: fixed;
   z-index: 13;
 
   .triangle {

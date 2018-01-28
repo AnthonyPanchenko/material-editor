@@ -149,7 +149,7 @@ export default {
       this.setColorAndPositionOfAlphaScaleTriangles();
     },
 
-    switchColorMode(event, colorMode) {
+    switchColorMode(colorMode, event) {
       this.activeColorMode = colorMode;
     }
   },

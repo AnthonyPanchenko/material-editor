@@ -1,5 +1,4 @@
 .color-picker {
-  border: 1px solid #616161;
   background-color: #434343;
   width: 230px;
 
@@ -11,8 +10,8 @@
     height: 25px;
     background-color: #595959;
     background-image: linear-gradient(45deg, #757575 25%, transparent 25%, transparent 75%, #757575 75%, #757575), linear-gradient(45deg, #757575 25%, transparent 25%, transparent 75%, #757575 75%, #757575);
-    background-position: 0px 0px, 7px 6px;
-    background-size: 14px 13px;
+    background-position: 0 0, 7px 7px;
+    background-size: 14px 14px;
 
     .bg-gradient {
       position: absolute;
@@ -29,11 +28,12 @@
     margin-bottom: 5px;
     margin-top: 5px;
     display: flex;
+    justify-content: space-between;
 
     .gradient-box {
       overflow: hidden;
       position: relative;
-      margin-right: 3px;
+      margin-right: 5px;
       cursor: crosshair;
       width: 200px;
       height: 200px;

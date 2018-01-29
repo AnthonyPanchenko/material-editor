@@ -90,15 +90,23 @@ export default {
     },
 
     onUpDown(event) {
-      if (!this.disabled) {
-        // up
-        if (!!this.indexOfSelectedOption && event.keyCode === 38) {
-          this.indexOfSelectedOption--;
-        }
-        // down
-        if ((this.indexOfSelectedOption !== this.optionsListLength - 1) && (event.keyCode === 40)) {
-          this.indexOfSelectedOption++;
-        }
+      // up
+      if (!this.disabled && !!this.indexOfSelectedOption && event.keyCode === 38) {
+        this.indexOfSelectedOption--;
+        this.setOptionByUpDownButtons(!this.isOpen);
+      }
+      // down
+      if (!this.disabled && (this.indexOfSelectedOption !== this.optionsListLength - 1) && (event.keyCode === 40)) {
+        this.indexOfSelectedOption++;
+        this.setOptionByUpDownButtons(!this.isOpen);
+      }
+    },
+
+    setOptionByUpDownButtons(isAllowedToSet) {
+      if (isAllowedToSet) {
+        this.initIndexOfSelectedOption = this.indexOfSelectedOption;
+        this.selectedOption = this.options[this.indexOfSelectedOption];
+        this.onChange(this.selectedOption, this.name);
       }
     },
 
@@ -112,9 +120,7 @@ export default {
     onEnterClick(event) {
       if (!this.disabled) {
         if (this.isOpen) {
-          this.initIndexOfSelectedOption = this.indexOfSelectedOption;
-          this.selectedOption = this.options[this.indexOfSelectedOption];
-          this.onChange(this.selectedOption, this.name);
+          this.setOptionByUpDownButtons(this.isOpen);
           this.isOpen = false;
         } else {
           this.indexOfSelectedOption = this.initIndexOfSelectedOption;

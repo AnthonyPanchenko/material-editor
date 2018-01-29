@@ -205,6 +205,9 @@ export default {
         this.triangle.style.top = null;
         this.triangle.style.left = `${this.getTrianglePositionLeft(triggerOffsets)}px`;
       }
+
+      this.popover.style.top =`${this.popoverOffsets.top}px`;
+      this.popover.style.left = `${this.popoverOffsets.left}px`;
     },
 
     onClosePopover(event) {
@@ -240,7 +243,7 @@ export default {
 
 <template>
   <transition name="fade">
-    <div v-if="isOpen" class="popover" ref="popover" :style="{ top: `${popoverOffsets.top}px`, left: `${popoverOffsets.left}px` }">
+    <div v-if="isOpen" class="popover" ref="popover">
       <span :class="['triangle', triangleClassName]" ref="triangle" />
       <slot ref="someElement">Content here</slot>
     </div>

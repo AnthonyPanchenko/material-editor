@@ -40,6 +40,14 @@ export default {
   },
 
   methods: {
+    scrollList(listElement) {
+      if (listElement && listElement.children && listElement.children.length) {
+        const optionHeght = listElement.children[0].offsetHeight;
+        const midElement = (listElement.offsetHeight / optionHeght) / 2;
+        listElement.scrollTop = (this.indexOfSelectedOption - midElement) * optionHeght;
+      }
+    },
+
     getTopOffsetByPlacement(triggerOffsets, placement) {
       if (placement === 'top') {
         return triggerOffsets.top - this.optionsListElement.offsetHeight;
@@ -57,6 +65,8 @@ export default {
     observe() {
       this.optionsListElement = this.$refs.optionsListElement;
       const triggerOffsets = getElementOffsets(this.triggerSelect);
+
+      this.scrollList(this.optionsListElement);
 
       const placement = this.getBestFitPlacement(triggerOffsets);
 

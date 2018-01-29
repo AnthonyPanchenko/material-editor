@@ -33,7 +33,7 @@ export default {
       optionsListLength: this.options.length,
       triggerSelect: null,
       isOpen: false,
-      selectedOption: { id: '', title: '...' },
+      selectedOption: this.options[0] || { id: '', title: '...' },
       optionsListOffsetTop: 0,
       optionsListOffsetLeft: 0,
     };

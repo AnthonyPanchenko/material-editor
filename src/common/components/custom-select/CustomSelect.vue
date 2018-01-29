@@ -34,8 +34,6 @@ export default {
       triggerSelect: null,
       isOpen: false,
       selectedOption: this.options[0] || { id: '', title: '...' },
-      optionsListOffsetTop: 0,
-      optionsListOffsetLeft: 0,
     };
   },
 
@@ -63,6 +61,7 @@ export default {
     },
 
     observe() {
+      this.triggerSelect = this.$refs.triggerSelect;
       this.optionsListElement = this.$refs.optionsListElement;
       const triggerOffsets = getElementOffsets(this.triggerSelect);
 
@@ -70,8 +69,9 @@ export default {
 
       const placement = this.getBestFitPlacement(triggerOffsets);
 
-      this.optionsListOffsetTop = this.getTopOffsetByPlacement(triggerOffsets, placement);
-      this.optionsListOffsetLeft = triggerOffsets.left;
+      this.optionsListElement.style.top = `${this.getTopOffsetByPlacement(triggerOffsets, placement)}px`;
+      this.optionsListElement.style.left = `${triggerOffsets.left}px`;
+      this.optionsListElement.style.width = `${this.triggerSelect.offsetWidth}px`;
     },
 
     setSelectedOption(selectedOptionId) {
@@ -166,7 +166,7 @@ export default {
     <i class="icon-select-arrows" />
 
     <transition name="fade">
-      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement" :style="{ width: `${triggerSelect.clientWidth}px`, top: `${optionsListOffsetTop}px`, left: `${optionsListOffsetLeft}px` }">
+      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement">
         <li v-for="(option, index) in options" :key="option.id" :data-id="option.id" @click="onOptionClick" :class="['option', { 'selected': index === indexOfSelectedOption }]">{{ option.title }}</li>
       </ul>
     </transition>

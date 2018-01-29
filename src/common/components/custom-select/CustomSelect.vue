@@ -27,11 +27,13 @@ export default {
 
   data() {
     return {
-      optionsList: null,
+      optionsListElement: null,
+      initIndexOfSelectedOption: 0,
+      indexOfSelectedOption: 0,
+      optionsListLength: this.options.length,
       triggerSelect: null,
       isOpen: false,
-      selectedOption: {},
-
+      selectedOption: { id: '', title: '...' },
       optionsListOffsetTop: 0,
       optionsListOffsetLeft: 0,
     };
@@ -40,20 +42,20 @@ export default {
   methods: {
     getTopOffsetByPlacement(triggerOffsets, placement) {
       if (placement === 'top') {
-        return triggerOffsets.top - this.optionsList.offsetHeight;
+        return triggerOffsets.top - this.optionsListElement.offsetHeight;
       }
 
       return triggerOffsets.top + this.triggerSelect.offsetHeight; // placement === 'bottom'
     },
 
     getBestFitPlacement(triggerOffsets) {
-      const top = (triggerOffsets.top - this.optionsList.offsetHeight) >= 0;
+      const top = (triggerOffsets.top - this.optionsListElement.offsetHeight) >= 0;
 
       return top ? 'top' : 'bottom';
     },
 
     observe() {
-      this.optionsList = this.$refs.optionsList;
+      this.optionsListElement = this.$refs.optionsListElement;
       const triggerOffsets = getElementOffsets(this.triggerSelect);
 
       const placement = this.getBestFitPlacement(triggerOffsets);
@@ -62,14 +64,14 @@ export default {
       this.optionsListOffsetLeft = triggerOffsets.left;
     },
 
-    onCloseSelectList(event) {
-      if (this.isOpen && this.optionsList && !this.optionsList.contains(event.target)) {
-        this.isOpen = false;
-      }
-    },
-
     setSelectedOption(selectedOptionId) {
-      this.selectedOption = this.options.find(option => option.id === selectedOptionId) || { id: '', title: '...' };
+      for (let i = 0; i < this.options.length; i++) {
+        if (this.options[i].id === selectedOptionId) {
+          this.selectedOption = this.options[i];
+          this.indexOfSelectedOption = i;
+          this.initIndexOfSelectedOption = i;
+        }
+      }
     },
 
     onOptionClick(event) {
@@ -77,8 +79,43 @@ export default {
       this.onChange(this.selectedOption, this.name);
     },
 
-    onSelectClick(event) {
+    onUpDown(event) {
       if (!this.disabled) {
+        // up
+        if (!!this.indexOfSelectedOption && event.keyCode === 38) {
+          this.indexOfSelectedOption--;
+        }
+        // down
+        if ((this.indexOfSelectedOption !== this.optionsListLength - 1) && (event.keyCode === 40)) {
+          this.indexOfSelectedOption++;
+        }
+      }
+    },
+
+    onCloseSelectList(event) {
+      if (this.isOpen && !this.triggerSelect.contains(event.target)) {
+        this.isOpen = false;
+        this.indexOfSelectedOption = this.initIndexOfSelectedOption;
+      }
+    },
+
+    onEnterClick(event) {
+      if (!this.disabled) {
+        if (this.isOpen) {
+          this.initIndexOfSelectedOption = this.indexOfSelectedOption;
+          this.selectedOption = this.options[this.indexOfSelectedOption];
+          this.onChange(this.selectedOption, this.name);
+          this.isOpen = false;
+        } else {
+          this.indexOfSelectedOption = this.initIndexOfSelectedOption;
+          this.isOpen = true;
+        }
+      }
+    },
+
+    onMouseClick(event) {
+      if (!this.disabled) {
+        this.indexOfSelectedOption = this.initIndexOfSelectedOption;
         this.isOpen = !this.isOpen;
       }
     },
@@ -108,13 +145,13 @@ export default {
 </script>
 
 <template>
-  <label :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-select', { 'disabled': disabled }]" @click="onSelectClick" ref="triggerSelect">
+  <label :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-select', { 'disabled': disabled }]" @keydown="onUpDown" @click="onMouseClick" @keyup.enter="onEnterClick" ref="triggerSelect">
     <span class="option-name">{{ selectedOption.title }}</span>
     <i class="icon-select-arrows" />
 
     <transition name="fade">
-      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsList" :style="{ width: `${triggerSelect.clientWidth}px`, top: `${optionsListOffsetTop}px`, left: `${optionsListOffsetLeft}px` }">
-        <li v-for="option in options" :key="option.id" :data-id="option.id" @click="onOptionClick" :class="['option', { 'selected': option.id === selectedOption.id }]">{{ option.title }}</li>
+      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement" :style="{ width: `${triggerSelect.clientWidth}px`, top: `${optionsListOffsetTop}px`, left: `${optionsListOffsetLeft}px` }">
+        <li v-for="(option, index) in options" :key="option.id" :data-id="option.id" @click="onOptionClick" :class="['option', { 'selected': index === indexOfSelectedOption }]">{{ option.title }}</li>
       </ul>
     </transition>
   </label>

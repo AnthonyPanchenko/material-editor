@@ -30,12 +30,34 @@ export default {
       isOpenVec2PickerPopover: false,
       isOpenVec3PickerPopover: false,
       isOpenColorPickerPopover: false,
+
+      matrices: {
+        mat2: [
+          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }],
+          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }]
+        ],
+        mat3: [
+          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }, { id: 'val-02', value: 0 }],
+          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }, { id: 'val-12', value: 0 }],
+          [{ id: 'val-20', value: 0 }, { id: 'val-21', value: 0 }, { id: 'val-22', value: 1 }]
+        ],
+        mat4: [
+          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }, { id: 'val-02', value: 0 }, { id: 'val-03', value: 0 }],
+          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }, { id: 'val-12', value: 0 }, { id: 'val-13', value: 0 }],
+          [{ id: 'val-20', value: 0 }, { id: 'val-21', value: 0 }, { id: 'val-22', value: 1 }, { id: 'val-23', value: 0 }],
+          [{ id: 'val-30', value: 0 }, { id: 'val-31', value: 0 }, { id: 'val-32', value: 0 }, { id: 'val-33', value: 1 }]
+        ]
+      },
+
       options: [
         { title: 'int', id: 'int' },
         { title: 'float', id: 'float' },
         { title: 'vec2', id: 'vec2' },
         { title: 'vec3', id: 'vec3' },
-        { title: 'vec4', id: 'vec4' }
+        { title: 'vec4', id: 'vec4' },
+        { title: 'mat2', id: 'mat2' },
+        { title: 'mat3', id: 'mat3' },
+        { title: 'mat4', id: 'mat4' }
       ]
     };
   },
@@ -265,6 +287,22 @@ export default {
           <popover :isOpen="isOpenNumberPickerPopover" :trigger="numberPickerPopoverRef" :onClose="onCloseNumberPickerPopover">
             <number-picker :value="0.3" :step="0.1" :min="-5" :max="5" :onChange="onChangeNumberPicker" />
           </popover>
+
+          <custom-btn iconClass="icon-pencil" class="secondary xs" />
+          <custom-btn iconClass="icon-trash-bin" class="danger xs" />
+        </div>
+
+        <div class="row">
+          <div class="info">
+            <span class="name">qMatrix3x3</span>
+            <span class="type">mat3</span>
+          </div>
+
+          <div class="matrix">
+            <div v-for="(row, index) in matrices.mat3" :key="index" class="mat-row">
+              <input-number v-for="item in row" :value="item.value" :key="item.id" />
+            </div>
+          </div>
 
           <custom-btn iconClass="icon-pencil" class="secondary xs" />
           <custom-btn iconClass="icon-trash-bin" class="danger xs" />

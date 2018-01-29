@@ -68,6 +68,23 @@
           }
         }
 
+        .matrix {
+          display: flex;
+          flex-direction: column;
+
+          .mat-row {
+            display: flex;
+
+            label:not(:last-child) {
+              margin-right: 2px;
+            }
+
+            &:not(:last-child) {
+              margin-bottom: 2px;
+            }
+          }
+        }
+
         > label,
         > button {
           margin-left: $controls-gutter;

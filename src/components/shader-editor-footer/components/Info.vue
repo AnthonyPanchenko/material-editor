@@ -2,14 +2,8 @@
 export default {
   name: 'Info',
   props: {
-    name: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: ''
-    }
+    name: { type: String, default: '' },
+    type: { type: String, default: '' }
   }
 };
 </script>

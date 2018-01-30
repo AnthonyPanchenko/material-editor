@@ -25,18 +25,9 @@ export default {
   name: 'CodeEditor',
   props: {
     activeShader: String,
-    shaders: {
-      type: Object,
-      required: true
-    },
-    onChange: {
-      type: Function,
-      default: noop
-    },
-    onSave: {
-      type: Function,
-      default: noop
-    }
+    shaders: { type: Object, required: true },
+    onChange: { type: Function, default: noop },
+    onSave: { type: Function, default: noop }
   },
   data() {
     return {

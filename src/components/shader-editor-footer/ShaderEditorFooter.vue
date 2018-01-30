@@ -30,7 +30,7 @@ export default {
       isOpenVec2PickerPopover: false,
       isOpenVec3PickerPopover: false,
       isOpenColorPickerPopover: false,
-
+      color: { r: 70, g: 70, b: 220, a: 1 },
       matrices: {
         mat2: [
           [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }],
@@ -181,6 +181,11 @@ export default {
       console.log(name);
     },
 
+    onChangeColorPicker(color) {
+      this.color = color;
+      console.log(color);
+    },
+
     onTabClick(tabName) {
       if (tabName === this.activeTabName) {
         console.log('create new setting');
@@ -188,7 +193,8 @@ export default {
         this.onSetActiveTabName(tabName);
       }
     }
-  }
+  },
+  mounted() { }
 };
 </script>
 
@@ -234,7 +240,7 @@ export default {
           <input-number prefix="B:" />
 
           <popover :isOpen="isOpenColorPickerPopover" :trigger="colorPickerPopoverRef" :onClose="onCloseColorPickerPopover">
-            <color-picker />
+            <color-picker :rgba="color" :onChange="onChangeColorPicker" />
           </popover>
 
           <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerPopoverRef" :onClick="onToggleColorPickerPopover" />

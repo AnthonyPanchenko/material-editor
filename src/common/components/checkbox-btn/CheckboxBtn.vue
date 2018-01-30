@@ -8,18 +8,9 @@ export default {
     value: [String, Number],
     prefix: [String, Number],
     sufix: [String, Number],
-    onChange: {
-      type: Function,
-      default: noop
-    },
-    checked: {
-      type: Boolean,
-      default: false
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    }
+    onChange: { type: Function, default: noop },
+    checked: { type: Boolean, default: false },
+    disabled: { type: Boolean, default: false }
   },
   data() {
     return {

@@ -8,53 +8,34 @@ export default {
   name: 'Vec3Picker',
   props: {
     name: String,
-    dimension: {
-      type: Number,
-      default: 230
-    },
-    vector: {
-      type: Array,
-      default: () => [0.67, 0.55, -0.35]
-    },
-    onChange: {
-      type: Function,
-      default: noop
-    }
+    dimension: { type: Number, default: 230 },
+    vector: { type: Array, default: () => [0.67, 0.55, -0.35] },
+    onChange: { type: Function, default: noop }
   },
   data() {
     return {
       canvas: null,
       canvasOffsets: null,
       ctx: null,
-
       rotationSpeed: 0.01,
       isMouseOverPoint: false,
       isMouseDownOnCoordsSystem: false,
-
       viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
       inversMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-
       width: this.dimension,
       height: this.dimension,
-
       limitVal: 0.5 * this.dimension,
-
       edgeLength: 0.5 * this.dimension - 15,
       edgeIndent: 0.5 * this.dimension - 10,
-
       localVector: [0, 0, 0], // relative to the coordinate system (not normalized)
       tempVector: [], // temporary
       viewVector: [0, 0, 0], //relative to the canvas view (not normalized)
-
       pointX: 0,
       pointY: 0,
-
       thetaX: 0.512,
       thetaY: -0.464,
-
       dx: 0.512,
       dy: -0.464,
-
       startX: 0,
       startY: 0
     };
@@ -73,7 +54,6 @@ export default {
       this.ctx.stroke();
       this.ctx.restore();
     },
-
     drawAxes() {
       this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
 
@@ -89,7 +69,6 @@ export default {
       this.drawAxis([0, 0, this.edgeLength], [0, 0, this.edgeIndent], 'Z');
       this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeIndent], '-Z');
     },
-
     drawPoint() {
       this.ctx.save();
       this.ctx.strokeStyle = '#08c';
@@ -104,14 +83,12 @@ export default {
       this.ctx.arc(this.pointX, -1 * this.pointY, 2.3, 0, 2 * Math.PI, false);
       this.ctx.fill();
     },
-
     getLocalCoords(curentX, currentY) {
       return {
         x: curentX - this.dimension * 0.5,
         y: -1 * (currentY - this.dimension * 0.5) || 0,
       }
     },
-
     setMouseDownBy(curentX, currentY) {
       const pointCoords = this.getLocalCoords(curentX, currentY);
       const num = Math.sqrt((this.pointX - pointCoords.x) ** 2 + (this.pointY - pointCoords.y) ** 2);
@@ -122,7 +99,6 @@ export default {
         this.isMouseDownOnCoordsSystem = true;
       }
     },
-
     onMovePoint(curentX, currentY) {
       this.drawAxes();
 
@@ -138,7 +114,6 @@ export default {
       const nVector = this.tempVector.map(v => v / this.limitVal);
       this.onChange(nVector[0], nVector[1], nVector[2], this.name);
     },
-
     onRotateCoordinateSystem(curentX, currentY) {
       this.thetaX = this.rotationSpeed * (currentY - this.startY) + this.dx;
       this.thetaY = this.rotationSpeed * (curentX - this.startX) + this.dy;
@@ -152,14 +127,12 @@ export default {
       this.drawAxes();
       this.drawPoint();
     },
-
     onMouseDown(event) {
       this.canvasOffsets = getElementOffsets(this.canvas);
       this.startX = event.pageX - this.canvasOffsets.left;
       this.startY = event.pageY - this.canvasOffsets.top;
       this.setMouseDownBy(this.startX, this.startY);
     },
-
     onMouseMove(event) {
       if (this.isMouseDownOnCoordsSystem || this.isMouseOverPoint) {
         const curentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
@@ -174,7 +147,6 @@ export default {
         }
       }
     },
-
     onMouseUp() {
       this.isMouseOverPoint = false;
       this.isMouseDownOnCoordsSystem = false;
@@ -184,7 +156,6 @@ export default {
       this.inversMatrix = getInverseMatrix(this.viewMatrix);
     }
   },
-
   mounted() {
     const normalizedVector = this.vector.map(v => v * this.limitVal);
     this.localVector = normalizedVector;
@@ -210,7 +181,6 @@ export default {
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   },
-
   beforeDestroy() {
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);

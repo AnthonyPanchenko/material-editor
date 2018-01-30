@@ -32,46 +32,27 @@ const opositPositions = {
 export default {
   name: 'Popover',
   props: {
-    isOpen: {
-      type: Boolean,
-      default: false
-    },
-    position: {
-      type: String,
-      default: 'top'
-    },
-    closeByItselfClick: {
-      type: Boolean,
-      default: false
-    },
-    onClose: {
-      type: Function,
-      default: noop
-    },
-    orientation: {
-      type: String,
-      default: 'center'
-    },
+    isOpen: { type: Boolean, default: false },
+    position: { type: String, default: 'top' },
+    closeByItselfClick: { type: Boolean, default: false },
+    onClose: { type: Function, default: noop },
+    orientation: { type: String, default: 'center' },
     trigger: null
   },
   data() {
     return {
       popover: null,
       triangle: null,
-
       indent: 3,
-
       opositPositions,
       orientationsList,
       triangleClassName: opositPositions[this.position],
       currentOrientation: this.orientation,
       currentPosition: this.position,
-
       popoverOffsets: {
         left: 0,
         top: 0
       },
-
       bestFitPositions: {
         top: false,
         bottom: false,
@@ -86,7 +67,6 @@ export default {
 
       return orientations.indexOf(currentOrientation) !== -1 ? currentOrientation : orientations[0];
     },
-
     getNewPosition(bestFitPositions, position) {
       let definedPosition = position;
       const opositPos = this.opositPositions[position];
@@ -104,7 +84,6 @@ export default {
 
       return definedPosition;
     },
-
     defineHorizontalOrientation(triggerOffsets) {
       if (this.currentOrientation === 'left') {
         this.popoverOffsets.left = clamp((this.trigger.offsetWidth + triggerOffsets.left) - this.popover.offsetWidth, 0, window.innerWidth - this.popover.offsetWidth);
@@ -118,7 +97,6 @@ export default {
         this.popoverOffsets.left = clamp(triggerOffsets.left, 0, window.innerWidth - this.popover.offsetWidth);
       }
     },
-
     defineVerticalOrientation(triggerOffsets) {
       if (this.currentOrientation === 'top') {
         this.popoverOffsets.top = clamp(triggerOffsets.top, 0, window.innerHeight - this.popover.offsetHeight);
@@ -132,7 +110,6 @@ export default {
         this.popoverOffsets.top = clamp((triggerOffsets.top - this.popover.offsetHeight) + this.trigger.offsetHeight, 0, window.innerHeight - this.popover.offsetHeight);
       }
     },
-
     definePopoverOffsetsByPlacement(triggerOffsets) {
       if (this.currentPosition === 'bottom') {
         this.popoverOffsets.top = triggerOffsets.top + this.trigger.offsetHeight + this.triangle.offsetHeight + this.indent;
@@ -154,22 +131,18 @@ export default {
         this.defineVerticalOrientation(triggerOffsets);
       }
     },
-
     getTrianglePositionTop(triggerOffsets) {
       return ((triggerOffsets.top - this.popoverOffsets.top) + (this.trigger.offsetHeight / 2)) - (this.triangle.offsetHeight / 2);
     },
-
     getTrianglePositionLeft(triggerOffsets) {
       return ((triggerOffsets.left - this.popoverOffsets.left) + (this.trigger.offsetWidth / 2)) - (this.triangle.offsetWidth / 2);
     },
-
     observeBestFitPosition(triggerOffsets) {
       this.bestFitPositions.left = (triggerOffsets.left - (this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
       this.bestFitPositions.top = (triggerOffsets.top - (this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
       this.bestFitPositions.right = (window.innerWidth - (triggerOffsets.left + this.trigger.offsetWidth + this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
       this.bestFitPositions.bottom = (window.innerHeight - (triggerOffsets.top + this.trigger.offsetHeight + this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
     },
-
     observe() {
       this.popover = this.$refs.popover;
       this.triangle = this.$refs.triangle;
@@ -206,10 +179,9 @@ export default {
         this.triangle.style.left = `${this.getTrianglePositionLeft(triggerOffsets)}px`;
       }
 
-      this.popover.style.top =`${this.popoverOffsets.top}px`;
+      this.popover.style.top = `${this.popoverOffsets.top}px`;
       this.popover.style.left = `${this.popoverOffsets.left}px`;
     },
-
     onClosePopover(event) {
       if (this.trigger && this.trigger.contains(event.target)) {
         return;
@@ -224,17 +196,14 @@ export default {
       }
     }
   },
-
   updated() {
     if (this.isOpen && this.trigger && Object.keys(this.trigger).length) {
       this.observe();
     }
   },
-
   mounted() {
     document.addEventListener('mousedown', this.onClosePopover);
   },
-
   beforeDestroy() {
     document.removeEventListener('mouseup', this.onClosePopover);
   }

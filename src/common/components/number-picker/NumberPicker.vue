@@ -7,34 +7,13 @@ export default {
   name: 'NumberPicker',
   props: {
     name: String,
-    value: {
-      type: Number,
-      default: 0
-    },
-    min: {
-      type: Number,
-      default: -1
-    },
-    max: {
-      type: Number,
-      default: 1
-    },
-    step: {
-      type: Number,
-      default: 0.1
-    },
-    width: {
-      type: Number,
-      default: 250
-    },
-    height: {
-      type: Number,
-      default: 40
-    },
-    onChange: {
-      type: Function,
-      default: noop
-    }
+    value: { type: Number, default: 0 },
+    min: { type: Number, default: -1 },
+    max: { type: Number, default: 1 },
+    step: { type: Number, default: 0.1 },
+    width: { type: Number, default: 250 },
+    height: { type: Number, default: 40 },
+    onChange: { type: Function, default: noop }
   },
   data() {
     return {
@@ -42,20 +21,15 @@ export default {
       canvas: null,
       canvasOffsets: null,
       isMouseDown: false,
-
       halfHeight: this.height * 0.5,
       halfWidth: this.width * 0.5,
-
       tempValue: this.value,
       newValue: this.value,
-
       startX: 0,
       lastDifferenceX: 0,
       commonDifferenceX: 0,
-
       verticalLines: 40,
       sections: 40 * 3,
-
       color: '#000'
     };
   },
@@ -69,7 +43,6 @@ export default {
       this.ctx.closePath();
       this.ctx.stroke();
     },
-
     drawTriangles() {
       this.ctx.fillStyle = this.color;
 
@@ -87,13 +60,11 @@ export default {
       this.ctx.closePath();
       this.ctx.fill();
     },
-
     countPosX(posX) {
       return (Math.abs(posX - this.halfWidth) > this.halfWidth)
         ? ((posX - this.halfWidth) % this.halfWidth) + this.width
         : posX;
     },
-
     conuntLineHeight(index) {
       return (index % (this.verticalLines / 2) === 0)
         ? this.height * 0.33
@@ -101,7 +72,6 @@ export default {
           ? this.height * 0.25
           : this.height * 0.13;
     },
-
     drawLineScale() {
       const step = this.width / this.verticalLines;
 
@@ -117,13 +87,11 @@ export default {
         this.ctx.stroke();
       }
     },
-
     onMouseDown(event) {
       this.isMouseDown = true;
       this.canvasOffsets = getElementOffsets(this.canvas);
       this.startX = event.pageX - this.canvasOffsets.left;
     },
-
     onMouseMove(event) {
       if (this.isMouseDown) {
         const currentDifferenceX = (event.pageX - this.canvasOffsets.left) - this.startX;
@@ -140,14 +108,12 @@ export default {
         this.onChange(this.newValue, this.name, this.min, this.max, this.step);
       }
     },
-
     onMouseUp() {
       this.isMouseDown = false;
       this.tempValue = this.newValue;
       this.lastDifferenceX = this.commonDifferenceX;
     }
   },
-
   mounted() {
     this.canvas = this.$refs.numberPicker;
     this.canvasOffsets = getElementOffsets(this.canvas);
@@ -160,7 +126,6 @@ export default {
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   },
-
   beforeDestroy() {
     document.removeEventListener('mousemove', this.onMouseMove);
     document.removeEventListener('mouseup', this.onMouseUp);

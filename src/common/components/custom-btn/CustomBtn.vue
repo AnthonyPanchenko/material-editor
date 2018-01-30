@@ -4,30 +4,15 @@ import noop from '../../utils/noop';
 export default {
   name: 'CustomBtn',
   props: {
-    onClick: {
-      type: Function,
-      default: noop
-    },
-    type: {
-      type: String,
-      default: 'default'
-    },
-    size: {
-      type: String,
-      default: ''
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
+    onClick: { type: Function, default: noop },
+    type: { type: String, default: 'default' },
+    size: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
     link: String,
     iconClass: String,
     title: [String, Number],
     data: null,
-    active: {
-      type: Boolean,
-      default: false
-    }
+    active: { type: Boolean, default: false }
   },
   methods: {
     onButtonClick(event) {

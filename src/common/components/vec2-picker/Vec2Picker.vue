@@ -7,18 +7,9 @@ export default {
   name: 'Vec2Picker',
   props: {
     name: String,
-    vector: {
-      type: Array,
-      default: () => [0, 0]
-    },
-    dimension: {
-      type: Number,
-      default: 230
-    },
-    onChange: {
-      type: Function,
-      default: noop
-    }
+    vector: { type: Array, default: () => [0, 0] },
+    dimension: { type: Number, default: 230 },
+    onChange: { type: Function, default: noop }
   },
   data() {
     return {
@@ -46,7 +37,6 @@ export default {
       this.ctx.closePath();
       this.ctx.stroke();
     },
-
     axesDesignation() {
       this.ctx.font = '9px Arial';
       this.ctx.fillStyle = '#fff';
@@ -57,7 +47,6 @@ export default {
       this.ctx.fillText('Y', -10, -this.halfSize + 10);
       this.ctx.fillText('-Y', 5, this.halfSize - 5);
     },
-
     drawGrid() {
       const sections = 20;
       const step = this.dimension / sections;
@@ -75,7 +64,6 @@ export default {
 
       this.ctx.stroke();
     },
-
     drawPoint(x, y) {
       y *= -1;
 
@@ -94,7 +82,6 @@ export default {
       this.ctx.stroke();
       this.ctx.restore();
     },
-
     draw(event) {
       this.ctx.clearRect(-this.halfSize, -this.halfSize, this.dimension, this.dimension);
 
@@ -110,19 +97,16 @@ export default {
       this.drawPoint(x, y);
       this.onChange(x / this.halfSize, y / this.halfSize, this.name);
     },
-
     onMouseDown(event) {
       this.isMouseDown = true;
       this.canvasOffsets = getElementOffsets(this.canvas);
       this.draw(event);
     },
-
     onMouseMove(event) {
       if (this.isMouseDown) {
         this.draw(event);
       }
     },
-
     onMouseUp() {
       this.isMouseDown = false;
     }

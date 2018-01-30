@@ -4,10 +4,7 @@ import noop from '../../utils/noop';
 export default {
   name: 'ImgBox',
   props: {
-    url: {
-      type: String,
-      default: ''
-    }
+    url: { type: String, default: '' }
   },
   data() {
     return {

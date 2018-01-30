@@ -4,18 +4,9 @@ import noop from '../../utils/noop';
 export default {
   name: 'ModalWindow',
   props: {
-    сloseByOverlayClick: {
-      type: Boolean,
-      default: false
-    },
-    isOpen: {
-      type: Boolean,
-      default: true
-    },
-    onClose: {
-      type: Function,
-      default: noop
-    }
+    сloseByOverlayClick: { type: Boolean, default: false },
+    isOpen: { type: Boolean, default: true },
+    onClose: { type: Function, default: noop }
   },
   methods: {
     onCloseModalWindow() {

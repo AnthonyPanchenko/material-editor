@@ -7,24 +7,11 @@ export default {
   name: 'CustomSelect',
   props: {
     name: String,
-    onChange: {
-      type: Function,
-      default: noop
-    },
-    selectedOptionId: {
-      type: String,
-      default: ''
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    options: {
-      type: Array,
-      default: emptyArray
-    }
+    onChange: { type: Function, default: noop },
+    selectedOptionId: { type: String, default: '' },
+    disabled: { type: Boolean, default: false },
+    options: { type: Array, default: emptyArray }
   },
-
   data() {
     return {
       optionsListElement: null,
@@ -36,7 +23,6 @@ export default {
       selectedOption: this.options[0] || { id: '', title: '...' },
     };
   },
-
   methods: {
     scrollList(listElement) {
       if (listElement && listElement.children && listElement.children.length) {
@@ -45,7 +31,6 @@ export default {
         listElement.scrollTop = (this.indexOfSelectedOption - midElement) * optionHeght;
       }
     },
-
     getTopOffsetByPlacement(triggerOffsets, placement) {
       if (placement === 'top') {
         return triggerOffsets.top - this.optionsListElement.offsetHeight;
@@ -53,13 +38,11 @@ export default {
 
       return triggerOffsets.top + this.triggerSelect.offsetHeight; // placement === 'bottom'
     },
-
     getBestFitPlacement(triggerOffsets) {
       const top = (triggerOffsets.top - this.optionsListElement.offsetHeight) >= 0;
 
       return top ? 'top' : 'bottom';
     },
-
     observe() {
       this.triggerSelect = this.$refs.triggerSelect;
       this.optionsListElement = this.$refs.optionsListElement;
@@ -73,7 +56,6 @@ export default {
       this.optionsListElement.style.left = `${triggerOffsets.left}px`;
       this.optionsListElement.style.width = `${this.triggerSelect.offsetWidth}px`;
     },
-
     setSelectedOption(selectedOptionId) {
       for (let i = 0; i < this.options.length; i++) {
         if (this.options[i].id === selectedOptionId) {
@@ -83,12 +65,10 @@ export default {
         }
       }
     },
-
     onOptionClick(event) {
       this.setSelectedOption(event.target.dataset.id)
       this.onChange(this.selectedOption, this.name);
     },
-
     onUpDown(event) {
       // up
       if (!this.disabled && !!this.indexOfSelectedOption && event.keyCode === 38) {
@@ -101,7 +81,6 @@ export default {
         this.setOptionByUpDownButtons(!this.isOpen);
       }
     },
-
     setOptionByUpDownButtons(isAllowedToSet) {
       if (isAllowedToSet) {
         this.initIndexOfSelectedOption = this.indexOfSelectedOption;
@@ -109,14 +88,12 @@ export default {
         this.onChange(this.selectedOption, this.name);
       }
     },
-
     onCloseSelectList(event) {
       if (this.isOpen && !this.triggerSelect.contains(event.target)) {
         this.isOpen = false;
         this.indexOfSelectedOption = this.initIndexOfSelectedOption;
       }
     },
-
     onEnterClick(event) {
       if (!this.disabled) {
         if (this.isOpen) {
@@ -128,7 +105,6 @@ export default {
         }
       }
     },
-
     onMouseClick(event) {
       if (!this.disabled) {
         this.indexOfSelectedOption = this.initIndexOfSelectedOption;
@@ -136,23 +112,19 @@ export default {
       }
     },
   },
-
   updated() {
     if (this.isOpen) {
       this.observe();
     }
   },
-
   beforeMount() {
     this.setSelectedOption(this.selectedOptionId);
   },
-
   mounted() {
     this.triggerSelect = this.$refs.triggerSelect;
     document.addEventListener('mousedown', this.onCloseSelectList);
     document.addEventListener('mousewheel', this.onCloseSelectList);
   },
-
   beforeDestroy() {
     document.removeEventListener('mousedown', this.onCloseSelectList);
     document.removeEventListener('mousewheel', this.onCloseSelectList);

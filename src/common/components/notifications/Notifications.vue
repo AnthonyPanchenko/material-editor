@@ -6,14 +6,8 @@ import statuses from '../../constants/notifications-statuses';
 export default {
   name: 'Notifications',
   props: {
-    list: {
-      type: Array,
-      default: emptyArray
-    },
-    onClose: {
-      type: Function,
-      default: noop
-    },
+    list: { type: Array, default: emptyArray },
+    onClose: { type: Function, default: noop },
   }
 };
 </script>

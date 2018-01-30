@@ -6,22 +6,10 @@ export default {
   props: {
     name: String,
     value: [String, Number],
-    onChange: {
-      type: Function,
-      default: noop
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    multiple: {
-      type: Boolean,
-      default: false
-    },
-    accept: {
-      type: String,
-      default: 'image/*'
-    }
+    onChange: { type: Function, default: noop },
+    disabled: { type: Boolean, default: false },
+    multiple: { type: Boolean, default: false },
+    accept: { type: String, default: 'image/*' }
   },
   data() {
     return {

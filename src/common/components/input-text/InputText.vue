@@ -9,14 +9,8 @@ export default {
     placeholder: [String, Number],
     prefix: [String, Number],
     sufix: [String, Number],
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    onInput: {
-      type: Function,
-      default: noop
-    }
+    disabled: { type: Boolean, default: false },
+    onInput: { type: Function, default: noop }
   },
   methods: {
     onInputText(event) {

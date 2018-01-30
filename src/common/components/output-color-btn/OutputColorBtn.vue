@@ -4,18 +4,9 @@ import noop from '../../utils/noop';
 export default {
   name: 'OutputColorBtn',
   props: {
-    onClick: {
-      type: Function,
-      default: noop
-    },
-    color: {
-      type: Object,
-      default: () => ({ r: 70, g: 70, b: 220, a: 1 })
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
+    onClick: { type: Function, default: noop },
+    color: { type: Object, default: () => ({ r: 70, g: 70, b: 220, a: 1 }) },
+    disabled: { type: Boolean, default: false },
     data: null
   },
   data() {

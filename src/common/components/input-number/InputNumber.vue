@@ -11,18 +11,9 @@ export default {
     step: Number,
     prefix: [String, Number],
     sufix: [String, Number],
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    onInput: {
-      type: Function,
-      default: noop
-    },
-    onClick: {
-      type: Function,
-      default: noop
-    }
+    disabled: { type: Boolean, default: false },
+    onInput: { type: Function, default: noop },
+    onClick: { type: Function, default: noop }
   },
   methods: {
     onInputClick() {

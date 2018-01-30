@@ -5,26 +5,11 @@ import noop from '../../utils/noop';
 export default {
   name: 'ResizeBox',
   props: {
-    tag: {
-      type: String,
-      default: 'div'
-    },
-    onEndOfResize: {
-      type: Function,
-      default: noop
-    },
-    disabled: {
-      type: Boolean,
-      default: false
-    },
-    resize: {
-      type: String,
-      required: true
-    },
-    size: {
-      type: Number,
-      default: 35
-    }
+    tag: { type: String, default: 'div' },
+    onEndOfResize: { type: Function, default: noop },
+    disabled: { type: Boolean, default: false },
+    resize: { type: String, required: true },
+    size: { type: Number, default: 35 }
   },
   data() {
     return {

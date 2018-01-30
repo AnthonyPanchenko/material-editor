@@ -1,26 +1,69 @@
 <script>
 import Info from './Info.vue';
+import noop from '../../../common/utils/noop';
+import Popover from '../../../common/components/popover/Popover.vue';
+import NumberPicker from '../../../common/components/number-picker/NumberPicker.vue';
+import InputNumber from '../../../common/components/input-number/InputNumber.vue';
+import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
   name: 'NumberRow',
   props: {
-    name: {
-      type: String,
-      default: ''
-    },
-    type: {
-      type: String,
-      default: ''
-    }
+    isEditable: { type: Boolean, default: false },
+    onChange: { type: Function, default: noop },
+    onRemove: { type: Function, default: noop },
+    onEdit: { type: Function, default: noop },
+    name: { type: String, default: '' },
+    type: { type: String, default: '' },
+    value: { type: Number, default: 0 }
   },
   components: {
     Info,
+    Popover,
+    NumberPicker,
+    InputNumber,
+    CustomBtn
+  },
+  data() {
+    return {
+      isOpenNumberPicker: false,
+      numberPickerTrigger: null,
+    };
+  },
+  methods: {
+    onClosePopover() {
+      if (this.isOpenNumberPicker) {
+        this.isOpenNumberPicker = false;
+      }
+    },
+    onToggleNumberPickerPopover() {
+      this.numberPickerTrigger = this.$refs.numberPickerTrigger.$el;
+      this.isOpenNumberPicker = !this.isOpenNumberPicker;
+    },
+    onInputNumberValue(value) {
+      this.onChange(value, this.name);
+    },
+    onChangeNumberPicker(vector) {
+      this.onChange(vector, this.name);
+    }
+  },
+  mounted() {
+      this.numberPickerTrigger = this.$refs.numberPickerTrigger.$el;
   }
 };
 </script>
 
 <template>
   <div class="row">
-    <info :name="name" :type="type" />
+    <info :name="name" :type="type" v-if="isEditable" />
+
+    <input-number :name="type" :value="xyzw.w" :min="-1" :max="1" :step="0.01" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+
+    <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
+      <number-picker :value="value" :min="-1" :max="5" :step="0.01" :onChange="onChangeNumberPicker" :name="type" />
+    </popover>
+
+    <custom-btn iconClass="icon-pencil" class="secondary xs" :onClick="onEdit" v-if="isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onRemove" v-if="isEditable" />
   </div>
 </template>

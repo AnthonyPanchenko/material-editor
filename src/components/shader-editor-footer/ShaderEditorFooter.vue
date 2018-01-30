@@ -228,6 +228,7 @@ export default {
             <span class="name">paintColor</span>
             <span class="type">vec3</span>
           </div>
+
           <input-number prefix="R:" />
           <input-number prefix="G:" />
           <input-number prefix="B:" />

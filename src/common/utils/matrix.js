@@ -39,3 +39,21 @@ export const multiplyMatrixByVector = (matrix, vector) => {
 
   return result;
 };
+
+export const matrices = {
+  mat2: [
+    [1, 0],
+    [0, 1]
+  ],
+  mat3: [
+    [1, 0, 0],
+    [0, 1, 0],
+    [0, 0, 1]
+  ],
+  mat4: [
+    [1, 0, 0, 0],
+    [0, 1, 0, 0],
+    [0, 0, 1, 0],
+    [0, 0, 0, 1]
+  ]
+};

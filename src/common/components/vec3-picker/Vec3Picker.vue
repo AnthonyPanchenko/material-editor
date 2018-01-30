@@ -1,7 +1,7 @@
 <script>
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
-import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix } from '../../utils/matrix';
+import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/matrix';
 import getElementOffsets from '../../utils/getElementOffsets';
 
 export default {
@@ -20,8 +20,8 @@ export default {
       rotationSpeed: 0.01,
       isMouseOverPoint: false,
       isMouseDownOnCoordsSystem: false,
-      viewMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
-      inversMatrix: [[1, 0, 0], [0, 1, 0], [0, 0, 1]],
+      viewMatrix: matrices.mat3,
+      inversMatrix: matrices.mat3,
       width: this.dimension,
       height: this.dimension,
       limitVal: 0.5 * this.dimension,

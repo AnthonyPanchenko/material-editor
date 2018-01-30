@@ -8,8 +8,8 @@ export default {
   props: {
     name: String,
     value: { type: Number, default: 0 },
-    min: { type: Number, default: -1 },
-    max: { type: Number, default: 1 },
+    min: { type: Number, default: Infinity },
+    max: { type: Number, default: Infinity },
     step: { type: Number, default: 0.1 },
     width: { type: Number, default: 250 },
     height: { type: Number, default: 40 },

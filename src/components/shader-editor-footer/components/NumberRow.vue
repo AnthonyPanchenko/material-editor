@@ -9,6 +9,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'NumberRow',
   props: {
+    uuid: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
@@ -26,6 +27,7 @@ export default {
   },
   data() {
     return {
+      step: (this.type === 'float') ? 0.01 : 1,
       isOpenNumberPicker: false,
       numberPickerTrigger: null,
     };
@@ -41,14 +43,14 @@ export default {
       this.isOpenNumberPicker = !this.isOpenNumberPicker;
     },
     onInputNumberValue(value) {
-      this.onChange(value, this.name);
+      this.onChange((this.type === 'float') ? value : parseInt(value), this.name);
     },
-    onChangeNumberPicker(vector) {
-      this.onChange(vector, this.name);
+    onChangeNumberPicker(value) {
+      this.onChange(value, this.name);
     }
   },
   mounted() {
-      this.numberPickerTrigger = this.$refs.numberPickerTrigger.$el;
+    this.numberPickerTrigger = this.$refs.numberPickerTrigger.$el;
   }
 };
 </script>
@@ -57,13 +59,13 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="isEditable" />
 
-    <input-number :name="type" :value="xyzw.w" :min="-1" :max="1" :step="0.01" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+    <input-number :name="name" :value="value" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="value" :min="-1" :max="5" :step="0.01" :onChange="onChangeNumberPicker" :name="type" />
+      <number-picker :value="value" :step="step" :onChange="onChangeNumberPicker" :name="name" />
     </popover>
 
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :onClick="onEdit" v-if="isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onRemove" v-if="isEditable" />
+    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="isEditable" />
   </div>
 </template>

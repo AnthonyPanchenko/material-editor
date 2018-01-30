@@ -11,13 +11,17 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'VectorRow',
   props: {
+    uuid: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
     name: { type: String, default: '' },
     type: { type: String, default: '' },
-    vector: { type: Object, default: () => ({ x: 0.25, y: 0.78, z: 0.4, w: 1 }) }
+    vector: { type: Object, default: () => ({ x: 0.25, y: 0.78, z: 0.4, w: 1 }) },
+    min: -1,
+    max: 1,
+    step: 0.01
   },
   components: {
     Info,
@@ -100,10 +104,10 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="isEditable" />
 
-    <input-number prefix="X" name="x" :value="xyzw.x" :min="-1" :max="1" :step="0.01" :onInput="onInputVectorValue" />
-    <input-number prefix="Y" name="y" :value="xyzw.y" :min="-1" :max="1" :step="0.01" :onInput="onInputVectorValue" />
-    <input-number prefix="Z" name="z" :value="xyzw.z" :min="-1" :max="1" :step="0.01" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
-    <input-number prefix="W" name="w" :value="xyzw.w" :min="-1" :max="1" :step="0.01" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+    <input-number prefix="X" name="x" :value="vector.x" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
+    <input-number prefix="Y" name="y" :value="vector.y" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
+    <input-number prefix="Z" name="z" :value="vector.z" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
+    <input-number prefix="W" name="w" :value="vector.w" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover :isOpen="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
       <vec2-picker :vector="vector" :onChange="onChangeVec2Picker" />
@@ -114,12 +118,12 @@ export default {
     </popover>
 
     <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="xyzw.w" :min="-1" :max="5" :step="0.01" :onChange="onChangeNumberPicker" />
+      <number-picker :value="vector.w" :min="min" :max="max" :step="step" :onChange="onChangeNumberPicker" />
     </popover>
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
     <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :onClick="onEdit" v-if="isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onRemove" v-if="isEditable" />
+    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="isEditable" />
   </div>
 </template>

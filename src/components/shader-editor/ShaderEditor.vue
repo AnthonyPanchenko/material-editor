@@ -82,8 +82,8 @@ export default {
     },
     onChangeVec3Picker(vector) {
       this.vector3d = vector;
-      // console.clear();
-      // console.log(vector);
+      console.clear();
+      console.log(vector);
     },
     onChangeColorPicker(color) {
       this.color = color;

@@ -39,11 +39,17 @@ export default {
       startY: 0
     };
   },
-  // watch: {
-  //   vector(value) {
-  //     this.draw(...value);
-  //   }
-  // },
+  watch: {
+    vector(value) {
+      this.drawAxes();
+
+      const newViewVector = multiplyMatrixByVector(this.viewMatrix, value.map(v => v * this.halfSize));
+      this.pointX = newViewVector[0];
+      this.pointY = newViewVector[1];
+
+      this.drawPoint();
+    }
+  },
   methods: {
     getAxes() {
       const edgeLength = this.halfSize - 15;
@@ -97,14 +103,11 @@ export default {
       this.ctx.fill();
     },
     getLocalCoords(curentX, currentY) {
-      return {
-        x: curentX - this.dimension * 0.5,
-        y: -1 * (currentY - this.dimension * 0.5) || 0,
-      }
+      return [curentX - this.dimension * 0.5, -1 * (currentY - this.dimension * 0.5) || 0];
     },
     setMouseDownBy(curentX, currentY) {
       const pointCoords = this.getLocalCoords(curentX, currentY);
-      const num = Math.sqrt((this.pointX - pointCoords.x) ** 2 + (this.pointY - pointCoords.y) ** 2);
+      const num = Math.sqrt((this.pointX - pointCoords[0]) ** 2 + (this.pointY - pointCoords[1]) ** 2);
 
       if (num <= 3.5) {
         this.isMouseOverPoint = true;
@@ -113,19 +116,10 @@ export default {
       }
     },
     onMovePoint(curentX, currentY) {
-      this.drawAxes();
-
-      const pointCoords = this.getLocalCoords(curentX, currentY);
-      const inversViewVector = multiplyMatrixByVector(this.inversMatrix, [pointCoords.x, pointCoords.y, this.viewVector[2]]);
+      const inversViewVector = multiplyMatrixByVector(this.inversMatrix, [...this.getLocalCoords(curentX, currentY), this.viewVector[2]]);
       this.tempVector = inversViewVector.map(cord => clamp(cord, -this.halfSize, this.halfSize));
-      const newViewVector = multiplyMatrixByVector(this.viewMatrix, this.tempVector);
 
-      this.pointX = newViewVector[0];
-      this.pointY = newViewVector[1];
-      this.drawPoint();
-
-      const nVector = this.tempVector.map(v => v / this.halfSize);
-      this.onChange(nVector, this.name);
+      this.onChange(this.tempVector.map(v => v / this.halfSize), this.name);
     },
     onRotateCoordinateSystem(curentX, currentY) {
       this.thetaX = this.rotationSpeed * (currentY - this.startY) + this.dx;
@@ -171,9 +165,9 @@ export default {
   },
   mounted() {
     this.axes = this.getAxes();
-    const normalizedVector = this.vector.map(v => v * this.halfSize);
-    this.localVector = normalizedVector;
-    this.tempVector = normalizedVector;
+    const vector = this.vector.map(v => v * this.halfSize);
+    this.localVector = vector;
+    this.tempVector = vector;
 
     this.canvas = this.$refs.vec3Picker;
     this.canvasOffsets = getElementOffsets(this.canvas);

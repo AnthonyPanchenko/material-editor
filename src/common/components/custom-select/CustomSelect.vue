@@ -97,10 +97,15 @@ export default {
         this.onChange(this.selectedOption, this.name);
       }
     },
-    onCloseSelectList(event) {
-      if (this.isOpen && !this.triggerSelect.contains(event.target)) {
+    onWindowResizeCloseSelectList() {
+      if (this.isOpen) {
         this.isOpen = false;
         this.indexOfSelectedOption = this.initIndexOfSelectedOption;
+      }
+    },
+    onDocumentEventCloseSelectList(event) {
+      if (!this.triggerSelect.contains(event.target)) {
+        this.onWindowResizeCloseSelectList();
       }
     },
     onEnterClick(event) {
@@ -129,12 +134,14 @@ export default {
   },
   mounted() {
     this.triggerSelect = this.$refs.triggerSelect;
-    document.addEventListener('mousedown', this.onCloseSelectList);
-    document.addEventListener('mousewheel', this.onCloseSelectList);
+    window.addEventListener('resize', this.onWindowResizeCloseSelectList);
+    document.addEventListener('mousedown', this.onDocumentEventCloseSelectList);
+    document.addEventListener('mousewheel', this.onDocumentEventCloseSelectList);
   },
   beforeDestroy() {
-    document.removeEventListener('mousedown', this.onCloseSelectList);
-    document.removeEventListener('mousewheel', this.onCloseSelectList);
+    window.removeEventListener('resize', this.onWindowResizeCloseSelectList);
+    document.removeEventListener('mousedown', this.onDocumentEventCloseSelectList);
+    document.removeEventListener('mousewheel', this.onDocumentEventCloseSelectList);
   }
 };
 </script>

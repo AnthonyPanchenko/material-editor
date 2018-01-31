@@ -7,10 +7,6 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
-import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
-import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
-import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
-
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
@@ -29,11 +25,6 @@ export default {
     ItemObjList,
     InputFile,
     CanvasBoard,
-
-    Vec3Picker,
-    Vec2Picker,
-    ColorPicker,
-
     ResizeBox,
     ShaderEditorFooter,
     PresentationFooter
@@ -145,10 +136,6 @@ export default {
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box">
-
-          <vec2-picker :vector="vector2d" :onChange="onChangeVec2Picker" />
-          <vec3-picker :vector="vector3d" :onChange="onChangeVec3Picker" />
-          <color-picker :color="color" :onChange="onChangeColorPicker" />
 
         </div>
       </section>

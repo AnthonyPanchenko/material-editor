@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import { arr } from '../../utils/emptyArray';
 import clamp from '../../utils/clamp';
 import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/matrix';
 import getElementOffsets from '../../utils/getElementOffsets';
@@ -9,7 +10,7 @@ export default {
   props: {
     name: String,
     dimension: { type: Number, default: 230 },
-    vector: { type: Array, default: () => [0.67, 0.55, -0.35] },
+    vector: { type: Array, default: () => [0.67, 0.55, -0.35] }, // XYZ
     onChange: { type: Function, default: noop }
   },
   data() {
@@ -17,18 +18,16 @@ export default {
       canvas: null,
       canvasOffsets: null,
       ctx: null,
+      axes: arr,
       rotationSpeed: 0.01,
       isMouseOverPoint: false,
       isMouseDownOnCoordsSystem: false,
       viewMatrix: matrices.mat3,
       inversMatrix: matrices.mat3,
-      width: this.dimension,
-      height: this.dimension,
-      limitVal: 0.5 * this.dimension,
-      edgeLength: 0.5 * this.dimension - 15,
-      edgeIndent: 0.5 * this.dimension - 10,
+      halfSize: 0.5 * this.dimension,
+      lineDash: [5.3, 2.7],
       localVector: [0, 0, 0], // relative to the coordinate system (not normalized)
-      tempVector: [], // temporary
+      tempVector: arr, // temporary
       viewVector: [0, 0, 0], //relative to the canvas view (not normalized)
       pointX: 0,
       pointY: 0,
@@ -40,11 +39,26 @@ export default {
       startY: 0
     };
   },
+  // watch: {
+  //   vector(value) {
+  //     this.draw(...value);
+  //   }
+  // },
   methods: {
-    drawAxis(adgesVector, adgesTextVector, axisName) {
-      const edgeTextVector = multiplyMatrixByVector(this.viewMatrix, adgesTextVector);
-      const egdeVector = multiplyMatrixByVector(this.viewMatrix, adgesVector);
+    getAxes() {
+      const edgeLength = this.halfSize - 15;
+      const edgeIndent = this.halfSize - 10;
 
+      return [
+        { edge: [edgeLength, 0, 0], textIndent: [edgeIndent, 0, 0], text: 'X' },
+        { edge: [-edgeLength, 0, 0], textIndent: [-edgeIndent, 0, 0], text: '-X' },
+        { edge: [0, edgeLength, 0], textIndent: [0, edgeIndent, 0], text: 'Y' },
+        { edge: [0, -edgeLength, 0], textIndent: [0, -edgeIndent, 0], text: '-Y' },
+        { edge: [0, 0, edgeLength], textIndent: [0, 0, edgeIndent], text: 'Z' },
+        { edge: [0, 0, -edgeLength], textIndent: [0, 0, -edgeIndent], text: '-Z' }
+      ];
+    },
+    drawAxis(egdeVector, edgeTextVector, axisName) {
       this.ctx.fillText(axisName, edgeTextVector[0], -1 * edgeTextVector[1]);
       this.ctx.save();
       this.ctx.strokeStyle = '#000';
@@ -55,25 +69,24 @@ export default {
       this.ctx.restore();
     },
     drawAxes() {
-      this.ctx.clearRect(-this.width / 2, -this.height / 2, this.width, this.height);
+      this.ctx.clearRect(-this.halfSize, -this.halfSize, this.dimension, this.dimension);
 
       this.ctx.textBaseline = 'middle';
       this.ctx.textAlign = 'center';
       this.ctx.fillStyle = '#fff';
       this.ctx.font = '9px Arial';
 
-      this.drawAxis([this.edgeLength, 0, 0], [this.edgeIndent, 0, 0], 'X');
-      this.drawAxis([-this.edgeLength, 0, 0], [-this.edgeIndent, 0, 0], '-X');
-      this.drawAxis([0, this.edgeLength, 0], [0, this.edgeIndent, 0], 'Y');
-      this.drawAxis([0, -this.edgeLength, 0], [0, -this.edgeIndent, 0], '-Y');
-      this.drawAxis([0, 0, this.edgeLength], [0, 0, this.edgeIndent], 'Z');
-      this.drawAxis([0, 0, -this.edgeLength], [0, 0, -this.edgeIndent], '-Z');
+      for (let i = 0; i < this.axes.length; i++) {
+        const edgeTextVector = multiplyMatrixByVector(this.viewMatrix, this.axes[i].textIndent);
+        const egdeVector = multiplyMatrixByVector(this.viewMatrix, this.axes[i].edge);
+        this.drawAxis(egdeVector, edgeTextVector, this.axes[i].text);
+      }
     },
     drawPoint() {
       this.ctx.save();
       this.ctx.strokeStyle = '#08c';
       this.ctx.beginPath();
-      this.ctx.setLineDash([5.3, 2.7]);
+      this.ctx.setLineDash(this.lineDash);
       this.ctx.moveTo(0, 0);
       this.ctx.lineTo(this.pointX, -1 * this.pointY);
       this.ctx.stroke();
@@ -104,15 +117,15 @@ export default {
 
       const pointCoords = this.getLocalCoords(curentX, currentY);
       const inversViewVector = multiplyMatrixByVector(this.inversMatrix, [pointCoords.x, pointCoords.y, this.viewVector[2]]);
-      this.tempVector = inversViewVector.map(cord => clamp(cord, -this.limitVal, this.limitVal));
+      this.tempVector = inversViewVector.map(cord => clamp(cord, -this.halfSize, this.halfSize));
       const newViewVector = multiplyMatrixByVector(this.viewMatrix, this.tempVector);
 
       this.pointX = newViewVector[0];
       this.pointY = newViewVector[1];
       this.drawPoint();
 
-      const nVector = this.tempVector.map(v => v / this.limitVal);
-      this.onChange(nVector[0], nVector[1], nVector[2], this.name);
+      const nVector = this.tempVector.map(v => v / this.halfSize);
+      this.onChange(nVector, this.name);
     },
     onRotateCoordinateSystem(curentX, currentY) {
       this.thetaX = this.rotationSpeed * (currentY - this.startY) + this.dx;
@@ -135,8 +148,8 @@ export default {
     },
     onMouseMove(event) {
       if (this.isMouseDownOnCoordsSystem || this.isMouseOverPoint) {
-        const curentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.width);
-        const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.height);
+        const curentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.dimension);
+        const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.dimension);
 
         if (this.isMouseDownOnCoordsSystem) {
           this.onRotateCoordinateSystem(curentX, currentY);
@@ -157,7 +170,8 @@ export default {
     }
   },
   mounted() {
-    const normalizedVector = this.vector.map(v => v * this.limitVal);
+    this.axes = this.getAxes();
+    const normalizedVector = this.vector.map(v => v * this.halfSize);
     this.localVector = normalizedVector;
     this.tempVector = normalizedVector;
 
@@ -165,7 +179,7 @@ export default {
     this.canvasOffsets = getElementOffsets(this.canvas);
     this.ctx = this.canvas.getContext('2d');
 
-    this.ctx.translate(this.width / 2, this.height / 2);
+    this.ctx.translate(this.halfSize, this.halfSize);
 
     this.viewMatrix = getViewMatrix(this.thetaX, this.thetaY);
     this.viewVector = multiplyMatrixByVector(this.viewMatrix, this.localVector);
@@ -189,5 +203,5 @@ export default {
 </script>
 
 <template>
-  <canvas ref="vec3Picker" class="vec3-picker" :width="width" :height="height" @mousedown="onMouseDown"></canvas>
+  <canvas ref="vec3Picker" class="vec3-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
 </template>

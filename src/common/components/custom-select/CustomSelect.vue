@@ -31,6 +31,13 @@ export default {
         listElement.scrollTop = (this.indexOfSelectedOption - midElement) * optionHeght;
       }
     },
+    getOptionsLisHeight(optionsLisTopOffset) {
+      if ((window.innerHeight - optionsLisTopOffset - this.optionsListElement.offsetHeight) <= 0) {
+        return `${window.innerHeight - optionsLisTopOffset - 5}px`;
+      }
+
+      return 'auto';
+    },
     getTopOffsetByPlacement(triggerOffsets, placement) {
       if (placement === 'top') {
         return triggerOffsets.top - this.optionsListElement.offsetHeight;
@@ -44,17 +51,19 @@ export default {
       return top ? 'top' : 'bottom';
     },
     observe() {
-      this.triggerSelect = this.$refs.triggerSelect;
-      this.optionsListElement = this.$refs.optionsListElement;
-      const triggerOffsets = getElementOffsets(this.triggerSelect);
+      if (this.isOpen) {
+        this.triggerSelect = this.$refs.triggerSelect;
+        this.optionsListElement = this.$refs.optionsListElement;
+        const triggerOffsets = getElementOffsets(this.triggerSelect);
 
-      this.scrollList(this.optionsListElement);
+        this.scrollList(this.optionsListElement);
+        const optionsLisTopOffset = this.getTopOffsetByPlacement(triggerOffsets, this.getBestFitPlacement(triggerOffsets));
 
-      const placement = this.getBestFitPlacement(triggerOffsets);
-
-      this.optionsListElement.style.top = `${this.getTopOffsetByPlacement(triggerOffsets, placement)}px`;
-      this.optionsListElement.style.left = `${triggerOffsets.left}px`;
-      this.optionsListElement.style.width = `${this.triggerSelect.offsetWidth}px`;
+        this.optionsListElement.style.top = `${optionsLisTopOffset}px`;
+        this.optionsListElement.style.left = `${triggerOffsets.left}px`;
+        this.optionsListElement.style.width = `${this.triggerSelect.offsetWidth}px`;
+        this.optionsListElement.style.height = this.getOptionsLisHeight(optionsLisTopOffset);
+      }
     },
     setSelectedOption(selectedOptionId) {
       for (let i = 0; i < this.options.length; i++) {
@@ -113,9 +122,7 @@ export default {
     },
   },
   updated() {
-    if (this.isOpen) {
-      this.observe();
-    }
+    this.observe();
   },
   beforeMount() {
     this.setSelectedOption(this.selectedOptionId);

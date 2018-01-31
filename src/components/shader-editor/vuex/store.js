@@ -10,8 +10,8 @@ const shaderEditor = {
       [shadersTypes.FRAGMENT_SHADER]: 'uniform float u_time;',
       [shadersTypes.VERTEX_SHADER]: 'uniform vec2 u_resolution;'
     },
-    isVisibleControlsBox: true,
-    isVisibleObjectsList: true,
+    isVisibleControlsBox: false,
+    isVisibleObjectsList: false,
     activeTabName: shadersTypes.FRAGMENT_SHADER,
     widthCtrlBox: 42
   },

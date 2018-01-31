@@ -4,9 +4,9 @@ const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
 
 import Popover from '../../common/components/popover/Popover.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
-import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
-import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
-import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+// import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+// import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
+// import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
@@ -64,9 +64,9 @@ export default {
   components: {
     Popover,
     NumberPicker,
-    Vec3Picker,
-    Vec2Picker,
-    ColorPicker,
+    // Vec3Picker,
+    // Vec2Picker,
+    // ColorPicker,
     CustomSelect,
     CheckboxBtn,
     InputNumber,
@@ -240,7 +240,7 @@ export default {
           <input-number prefix="B:" />
 
           <popover :isOpen="isOpenColorPickerPopover" :trigger="colorPickerPopoverRef" :onClose="onCloseColorPickerPopover">
-            <color-picker :rgba="color" :onChange="onChangeColorPicker" />
+            <!-- <color-picker :color="color" :onChange="onChangeColorPicker" /> -->
           </popover>
 
           <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerPopoverRef" :onClick="onToggleColorPickerPopover" />
@@ -259,7 +259,7 @@ export default {
           <input-number prefix="Z:" />
 
           <popover :isOpen="isOpenVec3PickerPopover" :trigger="vec3PickerPopoverRef" :onClose="onCloseVec3PickerPopover">
-            <vec3-picker :onChange="onChangeVec3Picker" />
+            <!-- <vec3-picker :onChange="onChangeVec3Picker" /> -->
           </popover>
 
           <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerPopoverRef" :onClick="onToggleVec3PickerPopover" />
@@ -276,7 +276,7 @@ export default {
           <input-number prefix="Y:" />
 
           <popover :isOpen="isOpenVec2PickerPopover" :trigger="vec2PickerPopoverRef" :onClose="onCloseVec2PickerPopover">
-            <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" />
+            <!-- <vec2-picker :vector="[0.3, -0.5]" :onChange="onChangeVec2Picker" /> -->
           </popover>
 
           <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerPopoverRef" :onClick="onToggleVec2PickerPopover" />

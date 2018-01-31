@@ -3,11 +3,11 @@ export const hueToRgb = (hue) => {
   const mod = Math.floor(h);
   const i = (h === 6) ? 0 : (h - mod);
 
-  return {
-    r: Math.round([1, 1 - i, 0, 0, i, 1][mod] * 255),
-    g: Math.round([i, 1, 1, 1 - i, 0, 0][mod] * 255),
-    b: Math.round([0, 0, i, 1, 1, 1 - i][mod] * 255)
-  };
+  return [
+    Math.round([1, 1 - i, 0, 0, i, 1][mod] * 255),
+    Math.round([i, 1, 1, 1 - i, 0, 0][mod] * 255),
+    Math.round([0, 0, i, 1, 1, 1 - i][mod] * 255)
+  ];
 };
 
 export const rgbToHsv = (r, g, b, a) => {
@@ -32,12 +32,12 @@ export const rgbToHsv = (r, g, b, a) => {
     hue += 360;
   }
 
-  return {
-    a,
-    h: hue,
-    s: Math.round((max === 0 ? 0 : (delta / max)) * 100),
-    v: Math.round(max / 255 * 100)
-  };
+  return [
+    hue,
+    Math.round((max === 0 ? 0 : (delta / max)) * 100),
+    Math.round(max / 255 * 100),
+    a
+  ];
 };
 
 export const hsvToRgb = (h, s, v, a) => {
@@ -61,12 +61,12 @@ export const hsvToRgb = (h, s, v, a) => {
     default: rgb;
   }
 
-  return {
-    a,
-    r: Math.round(255 * (rgb[0] + m)),
-    g: Math.round(255 * (rgb[1] + m)),
-    b: Math.round(255 * (rgb[2] + m))
-  };
+  return [
+    Math.round(255 * (rgb[0] + m)),
+    Math.round(255 * (rgb[1] + m)),
+    Math.round(255 * (rgb[2] + m)),
+    a
+  ];
 };
 
 export const rgbToHex = (r, g, b, a) => {
@@ -87,15 +87,15 @@ export const hexToRgb = (hex) => {
     val = hex[0] + hex[0] + hex[1] + hex[1] + hex[2] + hex[2];
   }
 
-  const color = {
-    a: 1,
-    r: parseInt(val[0] + val[1], 16),
-    g: parseInt(val[2] + val[3], 16),
-    b: parseInt(val[4] + val[5], 16)
-  };
+  const color = [
+    parseInt(val[0] + val[1], 16),
+    parseInt(val[2] + val[3], 16),
+    parseInt(val[4] + val[5], 16),
+    1
+  ];
 
   if (hex.length === 8) {
-    color.a = +(parseInt(val[6] + val[7], 16) / 255).toFixed(2);
+    color[3] = +(parseInt(val[6] + val[7], 16) / 255).toFixed(2);
   }
 
   return color;

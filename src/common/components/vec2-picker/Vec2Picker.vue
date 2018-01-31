@@ -7,7 +7,7 @@ export default {
   name: 'Vec2Picker',
   props: {
     name: String,
-    vector: { type: Array, default: () => [0, 0] },
+    vector: { type: Array, default: () => [0.3, -0.5] }, // XY
     dimension: { type: Number, default: 230 },
     onChange: { type: Function, default: noop }
   },
@@ -17,8 +17,14 @@ export default {
       canvas: null,
       isMouseDown: false,
       canvasOffsets: null,
+      lineDash: [5, 2.5],
       halfSize: 0.5 * this.dimension
     };
+  },
+  watch: {
+    vector(value) {
+      this.draw(...value);
+    }
   },
   methods: {
     drawAxes() {
@@ -76,35 +82,33 @@ export default {
       this.ctx.save();
       this.ctx.strokeStyle = '#08c';
       this.ctx.beginPath();
-      this.ctx.setLineDash([5, 2.5]);
+      this.ctx.setLineDash(this.lineDash);
       this.ctx.moveTo(0, 0);
       this.ctx.lineTo(x, y);
       this.ctx.stroke();
       this.ctx.restore();
     },
-    draw(event) {
+    draw(x, y) {
       this.ctx.clearRect(-this.halfSize, -this.halfSize, this.dimension, this.dimension);
-
-      const currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.dimension);
-      const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.dimension);
-
-      const x = currentX - this.halfSize;
-      const y = -1 * (currentY - this.halfSize) || 0;
-
       this.drawGrid();
       this.drawAxes();
       this.axesDesignation();
-      this.drawPoint(x, y);
-      this.onChange(x / this.halfSize, y / this.halfSize, this.name);
+      this.drawPoint(x * this.halfSize, y * this.halfSize);
+    },
+    getPositions(event) {
+      const currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.dimension);
+      const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.dimension);
+
+      return [(currentX - this.halfSize) / this.halfSize, (-1 * (currentY - this.halfSize) || 0) / this.halfSize];
     },
     onMouseDown(event) {
       this.isMouseDown = true;
       this.canvasOffsets = getElementOffsets(this.canvas);
-      this.draw(event);
+      this.onChange(this.getPositions(event), this.name);
     },
     onMouseMove(event) {
       if (this.isMouseDown) {
-        this.draw(event);
+        this.onChange(this.getPositions(event), this.name);
       }
     },
     onMouseUp() {
@@ -117,11 +121,7 @@ export default {
     this.ctx = this.canvas.getContext('2d');
 
     this.ctx.translate(this.halfSize, this.halfSize);
-
-    this.drawGrid();
-    this.drawAxes();
-    this.axesDesignation();
-    this.drawPoint(this.vector[0] * this.halfSize, this.vector[1] * this.halfSize);
+    this.draw(...this.vector);
 
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);

@@ -7,6 +7,10 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec3Picker from '../../common/components/vec3-picker/Vec3Picker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
@@ -25,12 +29,21 @@ export default {
     ItemObjList,
     InputFile,
     CanvasBoard,
+
+    Vec3Picker,
+    Vec2Picker,
+    ColorPicker,
+
     ResizeBox,
     ShaderEditorFooter,
     PresentationFooter
   },
   data() {
     return {
+      vector2d: [0.5, -0.5],
+      vector3d: [0.7, 0.3, 0.4],
+      color: [234, 34, 45, 1],
+
       tabNames,
       isOpenCreateNewFileForm: false,
       urls: internalUrls
@@ -60,6 +73,22 @@ export default {
       if (this.isOpenCreateNewFileForm) {
         this.isOpenCreateNewFileForm = false;
       }
+    },
+
+    onChangeVec2Picker(vector) {
+      this.vector2d = vector;
+      console.clear();
+      console.log(vector);
+    },
+    onChangeVec3Picker(vector) {
+      this.vector3d = vector;
+      // console.clear();
+      // console.log(vector);
+    },
+    onChangeColorPicker(color) {
+      this.color = color;
+      console.clear();
+      console.log(color);
     },
 
     onSaveShader(payload) {
@@ -115,7 +144,13 @@ export default {
         <transition name="slide-obj-list">
           <item-obj-list v-if="isVisibleObjectsList" />
         </transition>
-        <div class="canvas-box"></div>
+        <div class="canvas-box">
+
+          <vec2-picker :vector="vector2d" :onChange="onChangeVec2Picker" />
+          <vec3-picker :vector="vector3d" :onChange="onChangeVec3Picker" />
+          <color-picker :color="color" :onChange="onChangeColorPicker" />
+
+        </div>
       </section>
 
       <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />

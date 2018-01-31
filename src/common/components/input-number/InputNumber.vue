@@ -4,7 +4,7 @@ import noop from '../../utils/noop';
 export default {
   name: 'InputNumber',
   props: {
-    name: String,
+    name: [String, Number],
     value: Number,
     min: Number,
     max: Number,

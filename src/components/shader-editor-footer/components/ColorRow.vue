@@ -16,7 +16,7 @@ export default {
     onEdit: { type: Function, default: noop },
     name: { type: String, default: '' },
     type: { type: String, default: '' },
-    color: { type: Object, default: () => ({ r: 70, g: 70, b: 220, a: 1 }) }
+    color: { type: Array, default: () => [70, 70, 220, 1] }
   },
   components: {
     Info,
@@ -41,15 +41,12 @@ export default {
       this.colorPickerTrigger = this.$refs.colorPickerTrigger.$el;
       this.isOpen = !this.isOpen;
     },
-    onInputRgbValue(value, channel) {
-      this.onChange({ ...this.color, [channel]: value }, this.name);
+    onInputColorValue(value, channel) {
+      const rgba = [...this.color];
+      rgba[channel] = value;
+
+      this.onChange(rgba, this.name);
     },
-    onInputAlphaValue(value) {
-      this.onChange({ ...this.color, a: value }, this.name);
-    },
-    onChangeColorPicker(color) {
-      this.onChange(color, this.name);
-    }
   },
   mounted() {
     this.colorPickerTrigger = this.$refs.colorPickerTrigger.$el;
@@ -61,13 +58,13 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="isEditable" />
 
-    <input-number prefix="R" name="r" :value="color.r" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-    <input-number prefix="G" name="g" :value="color.g" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-    <input-number prefix="B" name="b" :value="color.b" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-    <input-number prefix="A" name="a" :value="color.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" v-if="type === 'vec4'" />
+    <input-number prefix="R" :name="0" :value="color[0]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="G" :name="1" :value="color[1]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="B" :name="2" :value="color[2]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputColorValue" v-if="type === 'vec4'" />
 
     <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
-      <color-picker :onChange="onChangeColorPicker" :color="color" />
+      <color-picker :name="uuid" :color="color" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerTrigger" :onClick="onToggleColorPickerPopover" />

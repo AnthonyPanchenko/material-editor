@@ -10,14 +10,8 @@ export default {
   name: 'ColorPicker',
   props: {
     name: String,
-    color: {
-      type: Object,
-      default: () => ({ r: 70, g: 70, b: 220, a: 1 })
-    },
-    onChange: {
-      type: Function,
-      default: noop
-    }
+    color: { type: Array, default: () => [70, 70, 220, 1] }, // R.G.B.A
+    onChange: { type: Function, default: noop }
   },
   components: {
     MouseMove,
@@ -36,32 +30,32 @@ export default {
       circleTopPos: 0,
       alphaScaleTrianglesBgColor: '#000',
       circleColor: '#000',
-      gradientBoxColor: { r: 0, g: 0, b: 255 },
-
+      gradientBoxColor: [0, 0, 255], // rgb
       hexa: '4646dc',
-      hsva: { h: 240, s: 68, v: 86, a: 1 }
+      hsva: [240, 68, 86, 1]
     };
   },
   methods: {
     setColorAndPositionOfAlphaScaleTriangles(rgba) {
-      const posX = this.alphaScale.clientWidth * rgba.a;
+      const posX = this.alphaScale.clientWidth * rgba[3];
       this.alphaScaleTrianglesLeftPos = posX;
-      this.alphaScaleTrianglesBgColor = (posX > this.alphaScale.clientWidth / 2) ? (255 / 3) > ((rgba.r + rgba.g + rgba.b) / 3) ? '#fff' : '#000' : '#000';
+      this.alphaScaleTrianglesBgColor = (posX > this.alphaScale.clientWidth / 2) ? (255 / 3) > ((rgba[0] + rgba[1] + rgba[2]) / 3) ? '#fff' : '#000' : '#000';
     },
 
     setCircleColorAndPosition(hsva) {
-      this.circleLeftPos = hsva.s;
-      this.circleTopPos = 100 - hsva.v;
-      this.circleColor = (hsva.v < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
+      this.circleLeftPos = hsva[1];
+      this.circleTopPos = 100 - hsva[2];
+      this.circleColor = (hsva[2] < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
     },
 
     onMoveAlphaScale(x, y, node) {
       const alpha = +(x / node.clientWidth).toFixed(2);
 
-      this.hsva.a = alpha;
-      const rgba = { ...this.color, a: alpha };
+      this.hsva[3] = alpha;
+      const rgba = [...this.color];
+      rgba[3] = alpha;
 
-      this.hexa = rgbToHex(rgba.r, rgba.g, rgba.b, alpha);
+      this.hexa = rgbToHex(...rgba);
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.onChange(rgba, this.name);
     },
@@ -70,11 +64,11 @@ export default {
       const leftPos = (x / node.clientWidth) * 100;
       const topPos = (y / node.clientHeight) * 100;
 
-      this.hsva.s = +leftPos.toFixed(0);
-      this.hsva.v = 100 - +topPos.toFixed(0);
+      this.hsva[1] = +leftPos.toFixed(0);
+      this.hsva[2] = 100 - +topPos.toFixed(0);
 
-      const rgba = hsvToRgb(this.hsva.h, this.hsva.s, this.hsva.v, this.hsva.a);
-      this.hexa = rgbToHex(rgba.r, rgba.g, rgba.b, rgba.a);
+      const rgba = hsvToRgb(...this.hsva);
+      this.hexa = rgbToHex(...rgba);
 
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.setCircleColorAndPosition(this.hsva);
@@ -85,13 +79,13 @@ export default {
       const pos = (y / node.clientHeight) * 100;
 
       const hue = Math.round(pos * 360 / 100);
-      this.hsva.h = (hue === 360) ? 0 : hue;
+      this.hsva[0] = (hue === 360) ? 0 : hue;
       this.hueScaleTrianglesTopPos = pos;
 
-      const rgba = hsvToRgb(this.hsva.h, this.hsva.s, this.hsva.v, this.hsva.a);
-      this.hexa = rgbToHex(this.color.r, this.color.g, this.color.b, this.color.a);
+      const rgba = hsvToRgb(...this.hsva);
+      this.hexa = rgbToHex(...this.color);
 
-      this.gradientBoxColor = hueToRgb(this.hsva.h);
+      this.gradientBoxColor = hueToRgb(this.hsva[0]);
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.onChange(rgba, this.name);
     },
@@ -101,9 +95,9 @@ export default {
 
       if (isHex(this.hexa)) {
         const rgba = hexToRgb(this.hexa);
-        this.hsva = rgbToHsv(rgba.r, rgba.g, rgba.b, rgba.a);
+        this.hsva = rgbToHsv(...rgba);
 
-        this.gradientBoxColor = hueToRgb(this.hsva.h);
+        this.gradientBoxColor = hueToRgb(this.hsva[0]);
         this.setColorAndPositionOfAlphaScaleTriangles(rgba);
         this.setCircleColorAndPosition(this.hsva);
         this.onChange(rgba, this.name);
@@ -111,41 +105,42 @@ export default {
     },
 
     onInputRgbValue(value, channel) {
-      const rgba = { ...this.color, [channel]: value };
+      const rgba = [...this.color];
+      rgba[channel] = value;
 
-      this.hsva = rgbToHsv(rgba.r, rgba.g, rgba.b, rgba.a);
-      this.hexa = rgbToHex(rgba.r, rgba.g, rgba.b, rgba.a);
+      this.hsva = rgbToHsv(...rgba);
+      this.hexa = rgbToHex(...rgba);
 
-      this.gradientBoxColor = hueToRgb(this.hsva.h);
+      this.gradientBoxColor = hueToRgb(this.hsva[0]);
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.setCircleColorAndPosition(this.hsva);
       this.onChange(rgba, this.name);
     },
 
     onInputHsvValue(value, channel) {
-      if (channel === 'h') {
-        this.hsva[channel] = (value === 360) ? 0 : value;
+      if (channel === 0) {
+        this.hsva[0] = (value === 360) ? 0 : value;
         this.hueScaleTrianglesTopPos = Math.round((value / 360) * 100);
-        this.gradientBoxColor = hueToRgb(this.hsva.h);
+        this.gradientBoxColor = hueToRgb(this.hsva[0]);
       }
 
-      if (channel === 's') {
-        this.hsva[channel] = value;
+      if (channel === 1) {
+        this.hsva[1] = value;
         this.circleLeftPos = value;
       }
 
-      if (channel === 'v') {
-        this.hsva[channel] = value;
+      if (channel === 2) {
+        this.hsva[2] = value;
         this.circleTopPos = 100 - value;
         this.circleColor = (value < this.gradientBox.clientHeight / 4) ? '#fff' : '#000';
       }
 
-      if (channel === 'a') {
-        this.hsva[channel] = value;
+      if (channel === 3) {
+        this.hsva[3] = value;
       }
 
-      const rgba = hsvToRgb(this.hsva.h, this.hsva.s, this.hsva.v, this.hsva.a);
-      this.hexa = rgbToHex(rgba.r, rgba.g, rgba.b, rgba.a);
+      const rgba = hsvToRgb(...this.hsva);
+      this.hexa = rgbToHex(...rgba);
 
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.setCircleColorAndPosition(this.hsva);
@@ -153,10 +148,11 @@ export default {
     },
 
     onInputAlphaValue(value) {
-      this.hsva.a = value;
-      const rgba = { ...this.color, a: value };
+      this.hsva[3] = value;
+      const rgba = [...this.color];
+      rgba[3] = value;
 
-      this.hexa = rgbToHex(rgba.r, rgba.g, rgba.b, value);
+      this.hexa = rgbToHex(...rgba);
       this.setColorAndPositionOfAlphaScaleTriangles(rgba);
       this.onChange(rgba, this.name);
     },
@@ -165,16 +161,15 @@ export default {
       this.activeColorMode = colorMode;
     }
   },
-
   mounted() {
-    this.hsva = rgbToHsv(this.color.r, this.color.g, this.color.b, this.color.a);
-    this.hexa = rgbToHex(this.color.r, this.color.g, this.color.b, this.color.a);
+    this.hsva = rgbToHsv(...this.color);
+    this.hexa = rgbToHex(...this.color);
 
-    this.hueScaleTrianglesTopPos = Math.round((this.hsva.h / 360) * 100);
+    this.hueScaleTrianglesTopPos = Math.round((this.hsva[0] / 360) * 100);
     this.alphaScale = this.$refs.alphaScale.$el;
     this.gradientBox = this.$refs.gradientBox.$el;
 
-    this.gradientBoxColor = hueToRgb(this.hsva.h);
+    this.gradientBoxColor = hueToRgb(this.hsva[0]);
     this.setColorAndPositionOfAlphaScaleTriangles(this.color);
     this.setCircleColorAndPosition(this.hsva);
   }
@@ -184,12 +179,12 @@ export default {
 <template>
   <div class="color-picker">
     <mouse-move ref="alphaScale" class="alpha-scale" :onMove="onMoveAlphaScale">
-      <span class="bg-gradient" :style="{ background: `linear-gradient(to left, rgb(${rgba.r}, ${rgba.g}, ${rgba.b}) 0%, transparent 100%)` }" />
+      <span class="bg-gradient" :style="{ background: `linear-gradient(to left, rgb(${color[0]}, ${color[1]}, ${color[2]}) 0%, transparent 100%)` }" />
       <i class="horizontal-triangles" :style="{ borderTopColor: alphaScaleTrianglesBgColor, borderBottomColor: alphaScaleTrianglesBgColor, left: `calc(${alphaScaleTrianglesLeftPos}px - 5px)` }" />
     </mouse-move>
 
     <div class="container">
-      <mouse-move ref="gradientBox" :styleCss="{ backgroundColor: `rgb(${gradientBoxColor.r}, ${gradientBoxColor.g}, ${gradientBoxColor.b})` }" class="gradient-box" :onMove="onMoveGradientBox">
+      <mouse-move ref="gradientBox" :styleCss="{ backgroundColor: `rgb(${gradientBoxColor[0]}, ${gradientBoxColor[1]}, ${gradientBoxColor[2]})` }" class="gradient-box" :onMove="onMoveGradientBox">
         <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
       </mouse-move>
 
@@ -199,10 +194,10 @@ export default {
     </div>
 
     <div v-if="activeColorMode === 'RGB'" class="color-controls">
-      <input-number prefix="R" name="r" :value="rgba.r" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="G" name="g" :value="rgba.g" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="B" name="b" :value="rgba.b" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="A" name="a" :value="rgba.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <input-number prefix="R" :name="0" :value="color[0]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="G" :name="1" :value="color[1]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="B" :name="2" :value="color[2]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
       <custom-btn iconClass="icon-back-forth" data="HEX" :onClick="switchColorMode" />
     </div>
 
@@ -212,10 +207,10 @@ export default {
     </div>
 
     <div v-if="activeColorMode === 'HSV'" class="color-controls">
-      <input-number prefix="H°" name="h" :value="hsva.h" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="S%" name="s" :value="hsva.s" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="V%" name="v" :value="hsva.v" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="A" name="a" :value="hsva.a" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <input-number prefix="H°" :name="0" :value="hsva[0]" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="S%" :name="1" :value="hsva[1]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="V%" :name="2" :value="hsva[2]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="A" :name="3" :value="hsva[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
       <custom-btn iconClass="icon-back-forth" data="RGB" :onClick="switchColorMode" />
     </div>
   </div>

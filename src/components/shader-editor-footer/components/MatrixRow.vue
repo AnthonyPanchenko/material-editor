@@ -24,7 +24,10 @@ export default {
   },
   methods: {
     onInputNumberValue(value, rc) {
-      this.onChange(value, rc[0], rc[2]);
+      const matrix = [...this.matrix];
+      matrix[rc[0]][rc[2]] = value;
+
+      this.onChange(matrix, this.uuid);
     }
   },
 };

@@ -70,18 +70,11 @@ export default {
       this.isOpenNumberPicker = !this.isOpenNumberPicker;
     },
     onInputVectorValue(value, axis) {
-      this.onChange({ ...this.vector, [axis]: value }, this.name);
-    },
+      const vector = [...this.vector];
+      vector[axis] = value;
 
-    onChangeVec2Picker(vector) {
-      this.onChange(vector, this.name);
+      this.onChange(vector, this.uuid);
     },
-    onChangeVec3Picker(vector) {
-      this.onChange(vector, this.name);
-    },
-    onChangeNumberPicker(vector) {
-      this.onChange(vector, this.name);
-    }
   },
   mounted() {
     if (this.type === 'vec4') {
@@ -104,21 +97,21 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="isEditable" />
 
-    <input-number prefix="X" name="x" :value="vector.x" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
-    <input-number prefix="Y" name="y" :value="vector.y" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
-    <input-number prefix="Z" name="z" :value="vector.z" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
-    <input-number prefix="W" name="w" :value="vector.w" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+    <input-number prefix="X" :name="0" :value="vector.x" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
+    <input-number prefix="Y" :name="1" :value="vector.y" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
+    <input-number prefix="Z" :name="2" :value="vector.z" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
+    <input-number prefix="W" :name="3" :value="vector.w" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover :isOpen="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
-      <vec2-picker :vector="vector" :onChange="onChangeVec2Picker" />
+      <vec2-picker :name="uuid" :vector="vector" :onChange="onChange" />
     </popover>
 
     <popover :isOpen="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
-      <vec3-picker :vector="vector" :onChange="onChangeVec3Picker" />
+      <vec3-picker :name="uuid" :vector="vector" :onChange="onChange" />
     </popover>
 
     <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="vector.w" :min="min" :max="max" :step="step" :onChange="onChangeNumberPicker" />
+      <number-picker :name="uuid" :value="vector.w" :min="min" :max="max" :step="step" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />

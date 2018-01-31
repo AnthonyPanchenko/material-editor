@@ -42,7 +42,7 @@ export default {
   watch: {
     vector(value) {
       this.drawAxes();
-
+      console.log(value);
       const newViewVector = multiplyMatrixByVector(this.viewMatrix, value.map(v => v * this.halfSize));
       this.pointX = newViewVector[0];
       this.pointY = newViewVector[1];

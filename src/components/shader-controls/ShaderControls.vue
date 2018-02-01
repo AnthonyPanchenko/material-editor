@@ -1,6 +1,6 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('shaderEditorFooter');
+const { mapState, mapActions } = createNamespacedHelpers('shaderControls');
 
 import Popover from '../../common/components/popover/Popover.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
@@ -15,7 +15,7 @@ import CustomSelect from '../../common/components/custom-select/CustomSelect.vue
 import tabNames from './constants/tabNames';
 
 export default {
-  name: 'ShaderEditorFooter',
+  name: 'ShaderControls',
   data() {
     return {
       tabNames,
@@ -111,7 +111,7 @@ export default {
 </script>
 
 <template>
-  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" class="controls-footer shader-editor-footer" :disabled="!isVisibleFooterContent">
+  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterHeight" :size="footerHeight" class="controls-footer shader-controls" :disabled="!isVisibleFooterContent">
     <div class="controls-row">
       <custom-btn accesskey="a" title="Attributes" :iconClass="getIconClass(tabNames.ATTRIBUTES)" :active="isActive(tabNames.ATTRIBUTES)" :disabled="!isVisibleFooterContent" :data="tabNames.ATTRIBUTES" :onClick="onTabClick" />
       <custom-btn accesskey="u" title="Uniforms" :iconClass="getIconClass(tabNames.UNIFORMS)" :active="isActive(tabNames.UNIFORMS)" :disabled="!isVisibleFooterContent" :data="tabNames.UNIFORMS" :onClick="onTabClick" />

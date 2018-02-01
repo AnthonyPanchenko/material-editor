@@ -9,7 +9,7 @@ export default {
 </script>
 
 <template>
-  <div :class="['img-box', { 'bg-img': url, 'is-uploading': isUploading }]" :style="background ? { backgroundImage: `url(${background})` } : {}">
+  <div :class="['img-box', { 'bg-img': background, 'is-uploading': isUploading }]" :style="background ? { backgroundImage: `url(${background})` } : {}">
     <i v-if="isUploading" class="icon-spinner spin" />
   </div>
 </template>

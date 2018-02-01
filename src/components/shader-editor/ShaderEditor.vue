@@ -10,7 +10,7 @@ import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import ItemObjList from '../item-obj-list/ItemObjList.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
-import ShaderEditorFooter from '../shader-editor-footer/ShaderEditorFooter.vue';
+import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
 
 import internalUrls from '../../common/constants/internal-urls';
@@ -26,7 +26,7 @@ export default {
     InputFile,
     CanvasBoard,
     ResizeBox,
-    ShaderEditorFooter,
+    ShaderControls,
     PresentationFooter
   },
   data() {
@@ -115,7 +115,7 @@ export default {
         <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
-      <shader-editor-footer />
+      <shader-controls />
     </resize-box>
 
     <section class="presentation-section">

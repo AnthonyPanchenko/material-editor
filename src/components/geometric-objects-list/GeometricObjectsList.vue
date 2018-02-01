@@ -1,13 +1,13 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapActions } = createNamespacedHelpers('itemObjects');
+const { mapActions } = createNamespacedHelpers('geometricObjectsList');
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
 import mutationTypes from '../../common/constants/mutation-types';
 import * as api from '../../common/constants/api';
 
 export default {
-  name: 'ItemObjList',
+  name: 'GeometricObjectsList',
   components: {
     CustomBtn,
   },
@@ -47,7 +47,7 @@ export default {
 
 <template>
   <transition-group tag="aside" class="sidebar scroll-box" name="obj-list">
-    <div class="item-obj" v-for="obj in $store.state.itemObjects.list" :key="obj.id">
+    <div class="item-obj" v-for="obj in $store.state.geometricObjectsList.list" :key="obj.id">
       <custom-btn iconClass="icon-eye" class="show-hide-obj" :data="obj.id" :onClick="onSetVisibleObjById" />
       <custom-btn :title="obj.title" class="obj-name" :data="obj.id" :onClick="onSelectObjById" />
       <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data="obj.id" :onClick="onRemoveItemObjById" />

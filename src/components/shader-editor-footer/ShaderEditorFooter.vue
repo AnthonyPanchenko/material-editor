@@ -19,36 +19,6 @@ export default {
   data() {
     return {
       tabNames,
-
-      color: { r: 70, g: 70, b: 220, a: 1 },
-      matrices: {
-        mat2: [
-          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }],
-          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }]
-        ],
-        mat3: [
-          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }, { id: 'val-02', value: 0 }],
-          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }, { id: 'val-12', value: 0 }],
-          [{ id: 'val-20', value: 0 }, { id: 'val-21', value: 0 }, { id: 'val-22', value: 1 }]
-        ],
-        mat4: [
-          [{ id: 'val-00', value: 1 }, { id: 'val-01', value: 0 }, { id: 'val-02', value: 0 }, { id: 'val-03', value: 0 }],
-          [{ id: 'val-10', value: 0 }, { id: 'val-11', value: 1 }, { id: 'val-12', value: 0 }, { id: 'val-13', value: 0 }],
-          [{ id: 'val-20', value: 0 }, { id: 'val-21', value: 0 }, { id: 'val-22', value: 1 }, { id: 'val-23', value: 0 }],
-          [{ id: 'val-30', value: 0 }, { id: 'val-31', value: 0 }, { id: 'val-32', value: 0 }, { id: 'val-33', value: 1 }]
-        ]
-      },
-
-      options: [
-        { title: 'int', id: 'int' },
-        { title: 'float', id: 'float' },
-        { title: 'vec2', id: 'vec2' },
-        { title: 'vec3', id: 'vec3' },
-        { title: 'vec4', id: 'vec4' },
-        { title: 'mat2', id: 'mat2' },
-        { title: 'mat3', id: 'mat3' },
-        { title: 'mat4', id: 'mat4' }
-      ]
     };
   },
   components: {
@@ -125,7 +95,6 @@ export default {
     },
 
     onChangeColorPicker(color) {
-      this.color = color;
       console.log(color);
     },
 

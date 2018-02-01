@@ -5,21 +5,16 @@ export default {
   name: 'InputFile',
   props: {
     name: String,
-    value: [String, Number],
+    value: { type: String, default: '' },
     onChange: { type: Function, default: noop },
     disabled: { type: Boolean, default: false },
     multiple: { type: Boolean, default: false },
     accept: { type: String, default: 'image/*' }
   },
-  data() {
-    return {
-      files: []
-    };
-  },
   methods: {
     onChangeInputFile(event) {
       if (!this.disabled) {
-        this.onChange(this.value, this.name);
+        this.onChange(event.target.files, this.name);
       }
     },
     onPressEnter() {

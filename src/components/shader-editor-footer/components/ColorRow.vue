@@ -14,8 +14,8 @@ export default {
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
-    name: { type: String, default: '' },
-    type: { type: String, default: '' },
+    name: { type: String, default: '_color' },
+    type: { type: String, default: 'vec4' },
     color: { type: Array, default: () => [70, 70, 220, 1] }
   },
   components: {
@@ -56,7 +56,7 @@ export default {
 
 <template>
   <div class="row">
-    <info :name="name" :type="type" v-if="isEditable" />
+    <info :name="name" :type="type" v-if="!isEditable" />
 
     <input-number prefix="R" :name="0" :value="color[0]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
     <input-number prefix="G" :name="1" :value="color[1]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
@@ -68,7 +68,7 @@ export default {
     </popover>
 
     <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerTrigger" :onClick="onToggleColorPickerPopover" />
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="isEditable" />
+    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

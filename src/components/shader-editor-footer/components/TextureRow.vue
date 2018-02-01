@@ -1,8 +1,9 @@
 <script>
 import Info from './Info.vue';
 import noop from '../../../common/utils/noop';
-import { matrices } from '../../../common/utils/matrix';
-import InputNumber from '../../../common/components/input-number/InputNumber.vue';
+
+import ImgBox from '../../../common/components/img-box/ImgBox.vue';
+import InputFile from '../../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
@@ -13,21 +14,19 @@ export default {
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
-    name: { type: String, default: '_matrix3x3' },
-    type: { type: String, default: 'mat3' },
-    matrix: { type: Array, default: matrices.mat3 }
+    name: { type: String, default: '_texture' },
+    type: { type: String, default: 'sampler2D' },
+    background: { type: String, default: '' }
   },
   components: {
     Info,
-    InputNumber,
+    ImgBox,
+    InputFile,
     CustomBtn
   },
   methods: {
-    onInputNumberValue(value, rc) {
-      const matrix = [...this.matrix];
-      matrix[rc[0]][rc[2]] = value;
-
-      this.onChange(matrix, this.uuid);
+    onChangeFileInput(filses) {
+      console.log(filses);
     }
   },
 };
@@ -35,13 +34,10 @@ export default {
 
 <template>
   <div class="row">
+    <img-box :background="background" :isUploading="" />
     <info :name="name" :type="type" v-if="!isEditable" />
 
-    <div class="matrix">
-      <div v-for="(row, i) in matrix" :key="i" class="mat-row">
-        <input-number v-for="(value, j) in row" :name="`${i}-${j}`" :value="value" :step="0.01" :key="`${i}-${j}`" :onInput="onInputNumberValue" />
-      </div>
-    </div>
+    <input-file v-if="isEditable" :onChange="onChangeFileInput" />
 
     <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
     <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />

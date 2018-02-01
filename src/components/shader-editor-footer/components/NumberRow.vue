@@ -14,9 +14,9 @@ export default {
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
-    name: { type: String, default: '' },
-    type: { type: String, default: '' },
-    value: { type: Number, default: 0 }
+    numberValue: { type: Number, default: 0.1 },
+    name: { type: String, default: '_float' },
+    type: { type: String, default: 'float' }
   },
   components: {
     Info,
@@ -44,9 +44,6 @@ export default {
     },
     onInputNumberValue(value) {
       this.onChange((this.type === 'float') ? value : parseInt(value), this.name);
-    },
-    onChangeNumberPicker(value) {
-      this.onChange(value, this.name);
     }
   },
   mounted() {
@@ -57,15 +54,15 @@ export default {
 
 <template>
   <div class="row">
-    <info :name="name" :type="type" v-if="isEditable" />
+    <info :name="name" :type="type" v-if="!isEditable" />
 
-    <input-number :name="name" :value="value" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+    <input-number :value="numberValue" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="value" :step="step" :onChange="onChangeNumberPicker" :name="name" />
+      <number-picker :value="numberValue" :step="step" :onChange="onChange" />
     </popover>
 
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="isEditable" />
+    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

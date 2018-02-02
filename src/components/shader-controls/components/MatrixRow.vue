@@ -23,9 +23,9 @@ export default {
     CustomBtn
   },
   methods: {
-    onInputNumberValue(value, rc) {
+    onInputNumberValue(value, index) {
       const matrix = [...this.matrix];
-      matrix[rc[0]][rc[2]] = value;
+      matrix[index] = value;
 
       this.onChange(matrix, this.uuid);
     }
@@ -37,10 +37,8 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="!isEditable" />
 
-    <div class="matrix">
-      <div v-for="(row, i) in matrix" :key="i" class="mat-row">
-        <input-number v-for="(value, j) in row" :name="`${i}-${j}`" :value="value" :step="0.01" :key="`${i}-${j}`" :onInput="onInputNumberValue" />
-      </div>
+    <div :class="['matrix', type]">
+      <input-number v-for="(value, index) in matrix" :name="index" :value="value" :step="0.01" :key="index" :onInput="onInputNumberValue" />
     </div>
 
     <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />

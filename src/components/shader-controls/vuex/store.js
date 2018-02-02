@@ -1,15 +1,11 @@
 import actions from './actions';
 import mutations from './mutations';
+import state from './state';
 // import getters from './getters';
-import tabNames from '../constants/tabNames';
 
 const shaderEditorFooter = {
   namespaced: true,
-  state: {
-    isVisibleFooterContent: true,
-    activeTabName: tabNames.UNIFORMS,
-    footerHeight: 30
-  },
+  state,
   actions,
   mutations
   // getters

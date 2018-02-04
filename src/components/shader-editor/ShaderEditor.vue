@@ -14,7 +14,7 @@ import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
 
 import internalUrls from '../../common/constants/internal-urls';
-import tabNames from './constants/tabNames';
+import shadersControlsTypes from '../../common/constants/shaders-controls-types';
 
 export default {
   name: 'ShaderEditor',
@@ -31,30 +31,37 @@ export default {
   },
   data() {
     return {
-      vector2d: [0.5, -0.5],
-      vector3d: [0.7, 0.3, 0.4],
-      color: [234, 34, 45, 1],
-
-      tabNames,
+      shadersControlsTypes,
       isOpenCreateNewFileForm: false,
       urls: internalUrls
     };
   },
   computed: mapState([
     'shaders',
-    'widthCtrlBox',
-    'activeTabName',
-    'isVisibleControlsBox',
-    'isVisibleObjectsList'
+    'isVisibleControlsPanel',
+    'isVisibleObjectsList',
+    'isVisibleControlsFooter',
+    'activeControlsType',
+    'activeShaderType',
+    'controlsFooterHeight',
+    'controlsPanelWidth',
+    'newControls'
   ]),
   methods: {
     ...mapActions([
       'onChangeCodeEditor',
-      'onSetCtrlBoxWidth',
-      'onSetActiveTabName',
+      'onSetPanelControlsWidth',
       'onToggleObjectsList',
-      'onToggleFullScreenMode'
+      'onToggleFullScreenMode',
+      'onSetActiveShaderType',
+      'onToggleFooterControls',
+      'onSetActiveControlsType',
+      'onSetFooterControlsHeight'
     ]),
+
+    onSaveShader(payload) {
+      console.log(payload);
+    },
 
     onOpenCreateNewFileForm() {
       this.isOpenCreateNewFileForm = !this.isOpenCreateNewFileForm;
@@ -65,28 +72,6 @@ export default {
         this.isOpenCreateNewFileForm = false;
       }
     },
-
-    onChangeVec2Picker(vector) {
-      this.vector2d = vector;
-      console.clear();
-      console.log(vector);
-    },
-    onChangeVec3Picker(vector) {
-      this.vector3d = vector;
-      console.clear();
-      console.log(vector);
-    },
-    onChangeColorPicker(color) {
-      this.color = color;
-      console.clear();
-      console.log(color);
-    },
-
-    onSaveShader(payload) {
-      console.clear();
-      console.log('value > ', payload.value);
-      console.log('type > ', payload.type);
-    }
   }
 };
 </script>
@@ -95,12 +80,12 @@ export default {
   <div class="editor-container">
     <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick />
 
-    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
+    <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeTabName === tabNames.FRAGMENT_SHADER" :data="tabNames.FRAGMENT_SHADER" :onClick="onSetActiveTabName" />
-          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeTabName === tabNames.VERTEX_SHADER" :data="tabNames.VERTEX_SHADER" :onClick="onSetActiveTabName" />
+          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersControlsTypes.FRAGMENT_SHADER" :data="shadersControlsTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
+          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeShaderType === shadersControlsTypes.VERTEX_SHADER" :data="shadersControlsTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType" />
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />
@@ -112,10 +97,10 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor :activeShader="activeTabName" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
+        <code-editor :activeShader="activeShaderType" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
-      <shader-controls />
+      <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />
     </resize-box>
 
     <section class="presentation-section">
@@ -135,12 +120,10 @@ export default {
         <transition name="slide-obj-list">
           <geometric-objects-list v-if="isVisibleObjectsList" />
         </transition>
-        <div class="canvas-box">
-
-        </div>
+        <div class="canvas-box"></div>
       </section>
 
-      <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />
+      <presentation-footer :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode" />
     </section>
 
   </div>

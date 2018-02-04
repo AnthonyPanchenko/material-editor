@@ -67,7 +67,7 @@ export default {
       this.$setSelections(prevType, this.editor.listSelections());
       this.editor.clearHistory();
 
-      this.editor.setOption('value', this.shaders[nextType]);
+      this.editor.setOption('value', this.shaders[nextType].value);
       this.editor.setOption('mode', this.modes[nextType]);
 
       this.setupEditor(nextType);
@@ -108,7 +108,7 @@ export default {
   },
   mounted() {
     this.editor = CodeMirror(this.$refs.editor, this.options);
-    this.editor.setOption('value', this.shaders[this.activeShader]);
+    this.editor.setOption('value', this.shaders[this.activeShader].value);
     this.editor.setOption('mode', this.modes[this.activeShader]);
 
     this.setupEditor(this.activeShader);

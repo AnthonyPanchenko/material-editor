@@ -1,17 +1,11 @@
 import actions from './actions';
 import mutations from './mutations';
+import state from './state';
 // import getters from './getters';
-import tabNames from '../constants/tabNames';
 
 const materialEditor = {
   namespaced: true,
-  state: {
-    materials: [],
-    isVisibleControlsBox: true,
-    isVisibleObjectsList: true,
-    activeTabName: tabNames.MATERIAL,
-    widthCtrlBox: 21
-  },
+  state,
   actions,
   mutations
   // getters

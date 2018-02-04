@@ -1,18 +1,18 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
-  [mutationTypes.SET_CTRL_BOX_WIDTH](state, width) {
+  [mutationTypes.MATERIAL_EDITOR_SET_PANEL_CONTROLS_WIDTH](state, width) {
     state.widthCtrlBox = width;
   },
-  [mutationTypes.SHOW_HIDE_OBJECTS_LIST](state) {
+  [mutationTypes.MATERIAL_EDITOR_TOGGLE_OBJECTS_LIST](state) {
     state.isVisibleObjectsList = !state.isVisibleObjectsList;
   },
-  [mutationTypes.SET_ACTIVE_TAB_NAME](state, activeTabName) {
+  [mutationTypes.MATERIAL_EDITOR_SET_ACTIVE_MATERIAL_TYPE](state, activeTabName) {
     state.activeTabName = activeTabName;
   },
-  [mutationTypes.TOGGLE_FULLSCREEN_MODE](state) {
-    state.isVisibleObjectsList = !state.isVisibleControlsBox && state.isVisibleObjectsList;
-    state.isVisibleControlsBox = !state.isVisibleControlsBox;
+  [mutationTypes.MATERIAL_EDITOR_TOGGLE_FULLSCREEN_MODE](state) {
+    state.isVisibleObjectsList = !state.isVisibleControlsPanel && state.isVisibleObjectsList;
+    state.isVisibleControlsPanel = !state.isVisibleControlsPanel;
   }
 };
 

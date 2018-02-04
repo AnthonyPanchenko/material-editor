@@ -36,7 +36,7 @@ export default {
   computed: mapState([
     'widthCtrlBox',
     'activeTabName',
-    'isVisibleControlsBox',
+    'isVisibleControlsPanel',
     'isVisibleObjectsList'
   ]),
   methods: {
@@ -72,7 +72,7 @@ export default {
 <template>
   <div class="editor-container">
 
-    <resize-box v-if="isVisibleControlsBox" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
+    <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
@@ -113,7 +113,7 @@ export default {
         </div>
       </section>
 
-      <presentation-footer :isInFullScreenMode="isVisibleControlsBox" :onToggleFullScreenMode="onToggleFullScreenMode" />
+      <presentation-footer :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode" />
     </section>
 
   </div>

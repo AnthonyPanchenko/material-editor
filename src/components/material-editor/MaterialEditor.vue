@@ -10,10 +10,11 @@ import tabNames from './constants/tabNames';
 import internalUrls from '../../common/constants/internal-urls';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
-import MaterialSection from '../material-section/MaterialSection.vue';
-import ObjectSection from '../object-section/ObjectSection.vue';
-import GeometrySection from '../geometry-section/GeometrySection.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
+
+import ObjectSection from './components/ObjectSection.vue';
+import MaterialSection from './components/MaterialSection.vue';
+import GeometrySection from './components/GeometrySection.vue';
 
 export default {
   name: 'MaterialEditor',
@@ -85,7 +86,7 @@ export default {
 
       <section class="controls-content">
         <object-section v-if="activeTabName === tabNames.OBJECT" />
-        <geometry-section  v-if="activeTabName === tabNames.GEOMETRY" />
+        <geometry-section v-if="activeTabName === tabNames.GEOMETRY" />
         <material-section v-if="activeTabName === tabNames.MATERIAL" />
       </section>
 

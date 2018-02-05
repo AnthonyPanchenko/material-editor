@@ -29,7 +29,7 @@ export default {
     },
     get3dModelsList() {
       this.$http({
-        url: api.GET_MATERIAL_EDITOR_3D_MODELS_LIST,
+        url: api.MATERIAL_EDITOR_MESHES,
         method: 'GET',
         // credentials: true,
         before: () => {

@@ -1,6 +1,6 @@
 const shadersTypes = {
-  VERTEX_SHADER: 'VERTEX_SHADER',
-  FRAGMENT_SHADER: 'FRAGMENT_SHADER'
+  VERTEX_SHADER: 'vertexShader',
+  FRAGMENT_SHADER: 'fragmentShader'
 };
 
 export default shadersTypes;

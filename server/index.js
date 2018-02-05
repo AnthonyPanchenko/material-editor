@@ -41,7 +41,7 @@ app.get('/*', (req, res, next) => {
   }
 });
 
-app.get(`${api.API_PATH}${api.MATERIAL_EDITOR_URL_PART}${api.GET_3D_MODELS_LIST_URL_SUFIX}`, (req, res) => {
+app.get(`${api.API_PATH}${api.MATERIAL_EDITOR_URL_PART}${api.MESHES_URL_SUFIX}`, (req, res) => {
   res.json(fakeData.itemObjects);
 });
 

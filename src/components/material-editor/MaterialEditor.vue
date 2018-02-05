@@ -7,7 +7,7 @@ import GeometricObjectsList from '../geometric-objects-list/GeometricObjectsList
 import DrawingBoard from '../canvas-board/DrawingBoard.vue';
 
 import tabNames from './constants/tabNames';
-import internalUrls from '../../common/constants/internal-urls';
+import * as internalUrls from '../../common/constants/internal-urls';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
@@ -31,7 +31,7 @@ export default {
   data() {
     return {
       tabNames,
-      urls: internalUrls
+      internalUrls
     };
   },
   computed: mapState([
@@ -80,7 +80,7 @@ export default {
           <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onTabClick" />
           <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onTabClick" />
           <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onTabClick" />
-          <custom-btn :link="`/${urls.SHADER_EDITOR}`" accesskey="w" iconClass="icon-shader-editor" class="xs" />
+          <custom-btn :link="internalUrls.SHADER_EDITOR" accesskey="w" iconClass="icon-shader-editor" class="xs" />
         </div>
       </header>
 

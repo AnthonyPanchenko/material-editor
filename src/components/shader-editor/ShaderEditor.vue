@@ -13,7 +13,7 @@ import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
 
-import internalUrls from '../../common/constants/internal-urls';
+import * as internalUrls from '../../common/constants/internal-urls';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
 
 export default {
@@ -33,7 +33,7 @@ export default {
     return {
       shadersControlsTypes,
       isOpenCreateNewFileForm: false,
-      urls: internalUrls
+      internalUrls
     };
   },
   computed: mapState([
@@ -92,7 +92,7 @@ export default {
           <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewFileForm" />
           <custom-btn iconClass="icon-open-folder" class="xs" />
           <custom-btn iconClass="icon-gallery" class="xs" />
-          <custom-btn :link="`/${urls.MATERIAL_EDITOR}`" accesskey="w" iconClass="icon-material-editor" class="xs" />
+          <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
         </div>
       </header>
 

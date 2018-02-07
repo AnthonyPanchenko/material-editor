@@ -3,7 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-import GeometricObjectsList from '../geometric-objects-list/GeometricObjectsList.vue';
+import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 import DrawingBoard from '../canvas-board/DrawingBoard.vue';
 
 import tabNames from './constants/tabNames';
@@ -23,7 +23,7 @@ export default {
     ObjectSection,
     GeometrySection,
     CustomBtn,
-    GeometricObjectsList,
+    GeometricObjects,
     DrawingBoard,
     ResizeBox,
     PresentationFooter
@@ -107,7 +107,7 @@ export default {
 
       <section class="presentation-content">
         <transition name="slide-obj-list">
-          <geometric-objects-list v-if="isVisibleObjectsList" />
+          <geometric-objects v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box">
           <drawing-board />

@@ -7,7 +7,7 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
-import GeometricObjectsList from '../geometric-objects-list/GeometricObjectsList.vue';
+import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
@@ -22,7 +22,7 @@ export default {
     CodeEditor,
     ModalWindow,
     CustomBtn,
-    GeometricObjectsList,
+    GeometricObjects,
     InputFile,
     CanvasBoard,
     ResizeBox,
@@ -118,7 +118,7 @@ export default {
 
       <section class="presentation-content">
         <transition name="slide-obj-list">
-          <geometric-objects-list v-if="isVisibleObjectsList" />
+          <geometric-objects v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box"></div>
       </section>

@@ -30,7 +30,7 @@ export default {
       });
     }
   },
-  beforeMount() {
+  updated() {
     this.loadGlslProgramsList();
   }
 }

@@ -1,6 +1,7 @@
 <script>
 import materialsTypes from '../../../common/constants/materials-types';
 import selects from '../utils/selects';
+import noop from '../../../common/utils/noop';
 import materialsProperties from '../../../common/constants/materials-properties';
 import mapedMaterialsProperties from '../utils/maped-materials-properties';
 
@@ -19,10 +20,8 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'MaterialSection',
   props: {
-    materialTypeId: {
-      type: String,
-      default: ''
-    }
+    activeMaterialType: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
+    onSetActiveMaterialType: { type: Function, default: noop }
   },
   components: {
     ImgBox,
@@ -42,17 +41,12 @@ export default {
       selects,
       m: materialsProperties,
       mapedMaterialsProperties,
-      activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL,
       materialsTypesOptions: Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] }))
     };
   },
   methods: {
-    onChangeMaterialsTypesSelect(selectedOption, name) {
-      console.log(selectedOption, name);
-      this.activeMaterialType = selectedOption.id;
-    },
     isDisplayedSection(property) {
-      return this.mapedMaterialsProperties[this.materialTypeId].indexOf(property) !== -1;
+      return this.mapedMaterialsProperties[this.activeMaterialType].indexOf(property) !== -1;
     },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue, name);
@@ -74,7 +68,7 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <custom-select :options="materialsTypesOptions" :onChange="onChangeMaterialsTypesSelect" />
+      <custom-select :options="materialsTypesOptions" :onChange="onSetActiveMaterialType" />
     </div>
     <div class="name">
       <span class="label">Name:</span>

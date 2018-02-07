@@ -11,6 +11,7 @@ import * as internalUrls from '../../common/constants/internal-urls';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
+import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
 
 import ObjectSection from './components/ObjectSection.vue';
 import MaterialSection from './components/MaterialSection.vue';
@@ -24,6 +25,7 @@ export default {
     GeometrySection,
     CustomBtn,
     GeometricObjects,
+    GlslPrograms,
     DrawingBoard,
     ResizeBox,
     PresentationFooter
@@ -35,15 +37,18 @@ export default {
     };
   },
   computed: mapState([
-    'widthCtrlBox',
-    'activeTabName',
+    'activeObjInfoTabName',
+    'controlsPanelWidth',
+    'activeMaterialType',
+    'isOpenGlslProgramsWindow',
     'isVisibleControlsPanel',
     'isVisibleObjectsList'
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveTabName',
-      'onSetCtrlBoxWidth',
+      'onSetActiveObjInfoTabName',
+      'onSetActiveMaterialType',
+      'onSetControlsPanelWidth',
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
@@ -58,13 +63,6 @@ export default {
       console.log(state);
       console.log(value);
       console.log(name);
-    },
-    onTabClick(tabName) {
-      if (tabName === this.activeTabName) {
-        console.log('create new setting');
-      } else {
-        this.onSetActiveTabName(tabName);
-      }
     }
   }
 };
@@ -72,22 +70,23 @@ export default {
 
 <template>
   <div class="editor-container">
+    <glsl-programs v-if="isOpenGlslProgramsWindow" />
 
-    <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetCtrlBoxWidth" :size="widthCtrlBox" class="controls-section">
+    <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn accesskey="o" title="Object" :active="activeTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onTabClick" />
-          <custom-btn accesskey="g" title="Geometry" :active="activeTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onTabClick" />
-          <custom-btn accesskey="m" title="Material" :active="activeTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onTabClick" />
+          <custom-btn accesskey="o" title="Object" :active="activeObjInfoTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onSetActiveObjInfoTabName" />
+          <custom-btn accesskey="g" title="Geometry" :active="activeObjInfoTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onSetActiveObjInfoTabName" />
+          <custom-btn accesskey="m" title="Material" :active="activeObjInfoTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onSetActiveObjInfoTabName" />
           <custom-btn :link="internalUrls.SHADER_EDITOR" accesskey="w" iconClass="icon-shader-editor" class="xs" />
         </div>
       </header>
 
       <section class="controls-content">
-        <object-section v-if="activeTabName === tabNames.OBJECT" />
-        <geometry-section v-if="activeTabName === tabNames.GEOMETRY" />
-        <material-section v-if="activeTabName === tabNames.MATERIAL" />
+        <object-section v-if="activeObjInfoTabName === tabNames.OBJECT" />
+        <geometry-section v-if="activeObjInfoTabName === tabNames.GEOMETRY" />
+        <material-section v-if="activeObjInfoTabName === tabNames.MATERIAL" :onSetActiveMaterialType="onSetActiveMaterialType" :activeMaterialType="activeMaterialType" />
       </section>
 
       <footer class="controls-footer">

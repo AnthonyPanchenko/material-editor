@@ -4,7 +4,8 @@ import shadersTypes from '../../../common/constants/shaders-types';
 const state = {
   isVisibleObjectsList: true,
   isVisibleControlsPanel: true,
-  isVisibleControlsFooter: true,
+  isVisibleControlsFooter: false,
+  isOpenGlslProgramsWindow: false,
   activeControlsType: shadersControlsTypes.UNIFORMS,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
   controlsFooterHeight: 30,

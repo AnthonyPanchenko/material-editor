@@ -1,6 +1,5 @@
 <script>
 import Notifications from '../../common/components/notifications/Notifications.vue';
-import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
 
 const getNotifications = [
   {
@@ -32,7 +31,6 @@ const getNotifications = [
 export default {
   name: 'MainLayout',
   components: {
-    GlslPrograms,
     Notifications,
   },
   data() {
@@ -53,7 +51,6 @@ export default {
 <template>
   <div class="main-layout">
     <notifications :list="notifications" :onClose="onRemoveNotification" />
-    <glsl-programs />
     <transition name="fade">
       <router-view></router-view>
     </transition>

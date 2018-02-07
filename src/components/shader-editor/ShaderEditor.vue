@@ -12,6 +12,7 @@ import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
+import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
 
 import * as internalUrls from '../../common/constants/internal-urls';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
@@ -26,6 +27,7 @@ export default {
     InputFile,
     CanvasBoard,
     ResizeBox,
+    GlslPrograms,
     ShaderControls,
     PresentationFooter
   },
@@ -37,12 +39,13 @@ export default {
     };
   },
   computed: mapState([
-    'shaders',
+    'glslProgram',
     'isVisibleControlsPanel',
     'isVisibleObjectsList',
     'isVisibleControlsFooter',
     'activeControlsType',
     'activeShaderType',
+    'isOpenGlslProgramsWindow',
     'controlsFooterHeight',
     'controlsPanelWidth',
     'newControls'
@@ -78,6 +81,7 @@ export default {
 
 <template>
   <div class="editor-container">
+    <glsl-programs v-if="isOpenGlslProgramsWindow" />
     <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick />
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">
@@ -97,7 +101,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor :activeShader="activeShaderType" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
+        <code-editor v-if="glslProgram" :activeShader="activeShaderType" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
       <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />

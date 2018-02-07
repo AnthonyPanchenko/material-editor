@@ -1,9 +1,14 @@
-const fakeData = {
-  itemObjects: [
+const mockData = {
+  meGeoObjects: [
     { id: 'qwwe1e234', title: 'Plane' },
     { id: 're24w4wer', title: 'Sphere' },
     { id: 'ewr3t4rdg', title: 'Torus' },
     { id: 'dfg536733', title: 'Cylinder' }
+  ],
+
+  seGeoObjects: [
+    { id: 'qwwe1e234', title: 'Robot' },
+    { id: 're24w4wer', title: 'Sphere' }
   ],
 
   glslPrograms: [
@@ -126,4 +131,4 @@ const fakeData = {
   }
 };
 
-module.exports = fakeData;
+module.exports = mockData;

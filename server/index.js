@@ -5,7 +5,7 @@ const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('../app.config');
 const api = require('../src/common/constants/api-url-parts');
-const fakeData = require('../src/fake-data');
+const mockData = require('../src/mock-data');
 
 const app = express();
 const PORT = process.env.PORT || config.serverPort;
@@ -41,8 +41,20 @@ app.get('/*', (req, res, next) => {
   }
 });
 
-app.get(`${api.API_PATH}${api.MATERIAL_EDITOR_URL_PART}${api.MESHES_URL_SUFIX}`, (req, res) => {
-  res.json(fakeData.itemObjects);
+app.get(`${api.API_PATH}${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}`, (req, res) => {
+  res.json(mockData.meGeoObjects);
+});
+
+app.get(`${api.API_PATH}${api.SHADER_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}`, (req, res) => {
+  res.json(mockData.seGeoObjects);
+});
+
+app.get(`${api.API_PATH}${api.GLSL_PROGRAMS_URL_PART}`, (req, res) => {
+  res.json(mockData.glslPrograms);
+});
+
+app.get(`${api.API_PATH}${api.GLSL_PROGRAMS_URL_PART}/:id`, (req, res) => {
+  res.json({ ...mockData.fullGlslProgram, uuid: req.params.id });
 });
 
 if (!module.parent) {

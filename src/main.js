@@ -7,7 +7,7 @@ import CodeEditorManager from './common/plugins/CodeEditorManager';
 import MainLayout from './components/main-layout/MainLayout.vue';
 import apiUrlParts from './common/constants/api-url-parts';
 import * as api from './common/constants/api';
-import fakeData from './fake-data';
+import mockData from './mock-data';
 
 import './main.scss';
 
@@ -34,7 +34,9 @@ Vue.use(VueResource);
 // mock data
 if (process.env.NODE_ENV !== 'production') {
   const data = {
-    [`${apiUrlParts.MATERIAL_EDITOR_URL_PART}${apiUrlParts.GET_3D_MODELS_LIST_URL_SUFIX}`]: fakeData.itemObjects
+    [`${apiUrlParts.MATERIAL_EDITOR_URL_PART}${apiUrlParts.GEOMETRIC_OBJECTS_URL_SUFIX}`]: mockData.meGeoObjects,
+    [`${apiUrlParts.SHADER_EDITOR_URL_PART}${apiUrlParts.GEOMETRIC_OBJECTS_URL_SUFIX}`]: mockData.seGeoObjects,
+    [`${apiUrlParts.GLSL_PROGRAMS_URL_PART}`]: mockData.glslPrograms
   };
 
   Vue.http.interceptors.push((request, next) => {

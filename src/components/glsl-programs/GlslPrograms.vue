@@ -14,7 +14,7 @@ export default {
     this.get3dModelsList();
   },
   methods: {
-    ...mapActions(['onRemoveItemObjById', 'onSuccessLoadObjectsList']),
+    ...mapActions(['onRemoveItemObjById', 'onSuccessLoadObjects']),
     onSetVisibleObjById(objId) {
       console.log(objId);
     },
@@ -23,14 +23,14 @@ export default {
     },
     get3dModelsList() {
       this.$http({
-        url: api.MATERIAL_EDITOR_MESHES,
+        url: api.MATERIAL_EDITOR_GEOMETRIC_OBJECTS,
         method: 'GET',
         // credentials: true,
         before: () => {
           console.log('start to run spinner');
         },
       }).then(res => {
-        this.onSuccessLoadObjectsList(res.body);
+        this.onSuccessLoadObjects(res.body);
       }, res => {
         console.log('error', res);
       });

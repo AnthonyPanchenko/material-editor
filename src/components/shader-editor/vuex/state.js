@@ -4,14 +4,18 @@ import shadersTypes from '../../../common/constants/shaders-types';
 const state = {
   isVisibleObjectsList: true,
   isVisibleControlsPanel: true,
-  isVisibleControlsFooter: false,
+  isVisibleControlsFooter: true,
   isOpenGlslProgramsWindow: false,
   activeControlsType: shadersControlsTypes.UNIFORMS,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
   controlsFooterHeight: 30,
   controlsPanelWidth: 42,
-  glslProgram: null,
-  newControls: {
+  shadersInfo: null,
+  shadersValues: {
+    [shadersTypes.FRAGMENT_SHADER]: '',
+    [shadersTypes.VERTEX_SHADER]: ''
+  },
+  shadersControls: {
     [shadersTypes.FRAGMENT_SHADER]: {
       [shadersControlsTypes.ATTRIBUTES]: null,
       [shadersControlsTypes.UNIFORMS]: null,

@@ -15,7 +15,7 @@ import CodeEditor from '../code-editor/CodeEditor.vue';
 import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
 
 import * as internalUrls from '../../common/constants/internal-urls';
-import shadersControlsTypes from '../../common/constants/shaders-controls-types';
+import shadersTypes from '../../common/constants/shaders-types';
 
 export default {
   name: 'ShaderEditor',
@@ -33,13 +33,15 @@ export default {
   },
   data() {
     return {
-      shadersControlsTypes,
+      shadersTypes,
       isOpenCreateNewFileForm: false,
       internalUrls
     };
   },
   computed: mapState([
-    'glslProgram',
+    'shadersInfo',
+    'shadersValues',
+    'shadersControls',
     'isVisibleControlsPanel',
     'isVisibleObjectsList',
     'isVisibleControlsFooter',
@@ -80,16 +82,30 @@ export default {
 </script>
 
 <template>
-  <div class="editor-container">
+  <div class="editor-container" v-if="!shadersInfo">
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
-    <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick />
+    <button>back to material editor</button>
+    <div class="create-new-shader-form">
+      <h1>create new shader</h1>
+      <input type="text">
+    </div>
+  </div>
+
+  <div class="editor-container" v-else>
+    <glsl-programs v-if="isOpenGlslProgramsWindow" />
+    <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick>
+      <div class="create-new-shader-form">
+        <h1>create new shader</h1>
+        <input type="text">
+      </div>
+    </modal-window>
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">
       <header class="controls-header">
         <div class="controls-row">
           <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersControlsTypes.FRAGMENT_SHADER" :data="shadersControlsTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
-          <custom-btn title="Vertex" iconClass="icon-vertex" :active="activeShaderType === shadersControlsTypes.VERTEX_SHADER" :data="shadersControlsTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType" />
+          <custom-btn v-if="!!shadersValues[shadersTypes.FRAGMENT_SHADER]" title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersTypes.FRAGMENT_SHADER" :data="shadersTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
+          <custom-btn v-if="!!shadersValues[shadersTypes.VERTEX_SHADER]" title="Vertex" iconClass="icon-vertex" :active="activeShaderType === shadersTypes.VERTEX_SHADER" :data="shadersTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType" />
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />
@@ -101,7 +117,7 @@ export default {
       </header>
 
       <section class="controls-content">
-        <code-editor v-if="glslProgram" :activeShader="activeShaderType" :shaders="shaders" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
+        <code-editor :activeShader="activeShaderType" :shaders="shadersValues" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
       <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />
@@ -129,6 +145,5 @@ export default {
 
       <presentation-footer :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode" />
     </section>
-
   </div>
 </template>

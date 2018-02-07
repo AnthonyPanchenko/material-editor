@@ -7,6 +7,8 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
+import CreateNewShaderForm from './components/CreateNewShaderForm.vue';
+
 import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
@@ -29,7 +31,8 @@ export default {
     ResizeBox,
     GlslPrograms,
     ShaderControls,
-    PresentationFooter
+    PresentationFooter,
+    CreateNewShaderForm
   },
   data() {
     return {
@@ -84,20 +87,13 @@ export default {
 <template>
   <div class="editor-container" v-if="!shadersInfo">
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
-    <button>back to material editor</button>
-    <div class="create-new-shader-form">
-      <h1>create new shader</h1>
-      <input type="text">
-    </div>
+    <create-new-shader-form />
   </div>
 
   <div class="editor-container" v-else>
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
     <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick>
-      <div class="create-new-shader-form">
-        <h1>create new shader</h1>
-        <input type="text">
-      </div>
+      <create-new-shader-form />
     </modal-window>
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">

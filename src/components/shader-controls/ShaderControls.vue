@@ -1,15 +1,7 @@
 <script>
 import noop from '../../common/utils/noop';
-import Popover from '../../common/components/popover/Popover.vue';
-import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
-import InputNumber from '../../common/components/input-number/InputNumber.vue';
-import InputText from '../../common/components/input-text/InputText.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-import RadioBtn from '../../common/components/radio-btn/RadioBtn.vue';
-import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
-
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
 
 export default {
@@ -23,13 +15,6 @@ export default {
     activeControlsType: { type: String, default: shadersControlsTypes.UNIFORMS }
   },
   components: {
-    Popover,
-    NumberPicker,
-    CustomSelect,
-    CheckboxBtn,
-    InputNumber,
-    InputText,
-    RadioBtn,
     CustomBtn,
     ResizeBox
   },

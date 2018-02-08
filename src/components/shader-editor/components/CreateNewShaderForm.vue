@@ -43,15 +43,15 @@ export default {
   <div class="create-new-shader-form">
     <div class="header">
       <custom-btn v-if="!isVisibleCloseBtn" iconClass="icon-arrow-left" :onClick="onBack" class="xs back-btn" />
-      <h1 class="title">Create new shader</h1>
-      <custom-btn v-if="isVisibleCloseBtn" iconClass="icon-close" :onClick="onClose" class="danger xs close-btn" />
+      <h4 class="title">Create new shader</h4>
+      <custom-btn v-if="isVisibleCloseBtn" iconClass="icon-close" :onClick="onClose" class="danger xs" />
     </div>
 
     <input-text placeholder="Shader name" :onInput="onInputShaderName" :value="shaderName" />
     <checkbox-btn sufix="Vertex shader" :checked="checkboxState" :onChange="onChangeCheckBox" />
 
     <div class="buttons-row">
-      <custom-btn title="Create" :onClick="onCreateNewShader" class="success create-btn" />
+      <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
       <custom-btn iconClass="icon-gallery" title="Shader library" v-if="!isVisibleCloseBtn" :onClick="onOpenShaderLibrary" class="secondary" />
     </div>
   </div>

@@ -85,7 +85,7 @@ export default {
 </script>
 
 <template>
-  <div class="editor-container" v-if="!shadersInfo">
+  <div class="create-new-shader-container" v-if="!shadersInfo">
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
     <create-new-shader-form />
   </div>

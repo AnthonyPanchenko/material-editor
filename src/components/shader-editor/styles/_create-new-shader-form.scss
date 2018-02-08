@@ -1,0 +1,31 @@
+.create-new-shader-form {
+  min-width: 300px;
+  background-color: rgba(255, 255, 255, 0.05);
+  padding: 10px;
+  box-shadow: 0 0 4px 1px rgba(128, 202, 255, 0.16);
+
+  .header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    .back-btn {
+      background: none;
+      font-size: 17px;
+    }
+
+    .title {
+      font-size: 14px;
+    }
+  }
+
+  .input-text {
+    margin-bottom: 15px;
+  }
+
+  .buttons-row {
+    margin-top: 15px;
+    display: flex;
+  }
+}

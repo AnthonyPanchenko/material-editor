@@ -1,43 +1,43 @@
-$sidebar-width: 250px;
-$sidebar-transition-duration: 70ms;
-$obj-list-transition-duration: 250ms;
+$meshes-list-width: 250px;
+$slide-meshes-list-transition-duration: 70ms;
+$mesh-item-transition-duration: 250ms;
 
-.obj-list-enter-active {
+.mesh-item-enter-active {
   opacity: 0.1;
   transform: scale(0.1);
   transform-origin: left center;
-  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+  transition: opacity $mesh-item-transition-duration linear, transform $mesh-item-transition-duration linear;
 }
 
-.obj-list-enter-to {
+.mesh-item-enter-to {
   opacity: 1;
   transform: scale(1);
   transform-origin: left center;
-  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+  transition: opacity $mesh-item-transition-duration linear, transform $mesh-item-transition-duration linear;
 }
 
-.obj-list-leave-active {
+.mesh-item-leave-active {
   opacity: 1;
   transform: scale(1);
   transform-origin: left center;
-  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+  transition: opacity $mesh-item-transition-duration linear, transform $mesh-item-transition-duration linear;
 }
 
-.obj-list-leave-to {
+.mesh-item-leave-to {
   opacity: 0.1;
   transform: scale(0.1);
   transform-origin: left center;
-  transition: opacity $obj-list-transition-duration linear, transform $obj-list-transition-duration linear;
+  transition: opacity $mesh-item-transition-duration linear, transform $mesh-item-transition-duration linear;
 }
 
-.sidebar {
+.meshes {
   flex-grow: 1;
   flex-shrink: 0;
-  flex-basis: $sidebar-width;
-  background-color: $sidebar-bg;
+  flex-basis: $meshes-list-width;
+  background-color: lighten($body-bg-color, 5%);
   overflow-y: auto;
 
-  .item-obj {
+  .mesh {
     display: flex;
 
     &:not(:first-child) {
@@ -50,35 +50,35 @@ $obj-list-transition-duration: 250ms;
     }
 
     .trash-bin,
-    .show-hide-obj {
+    .show-hide {
       flex: 0 0 30px;
     }
 
-    .obj-name {
+    .name {
       text-align: left;
       flex: 1 1 auto;
     }
   }
 
-  &.slide-obj-list-enter-active {
+  &.slide-meshes-list-enter-active {
     overflow: hidden;
     flex-basis: 0;
-    transition: flex-basis $sidebar-transition-duration linear;
+    transition: flex-basis $slide-meshes-list-transition-duration linear;
 
-    &.slide-obj-list-enter-to {
-      flex-basis: $sidebar-width;
-      transition: flex-basis $sidebar-transition-duration linear;
+    &.slide-meshes-list-enter-to {
+      flex-basis: $meshes-list-width;
+      transition: flex-basis $slide-meshes-list-transition-duration linear;
     }
   }
 
-  &.slide-obj-list-leave-active {
+  &.slide-meshes-list-leave-active {
     overflow: hidden;
-    flex-basis: $sidebar-width;
-    transition: flex-basis $sidebar-transition-duration linear;
+    flex-basis: $meshes-list-width;
+    transition: flex-basis $slide-meshes-list-transition-duration linear;
 
-    &.slide-obj-list-leave-to {
+    &.slide-meshes-list-leave-to {
       flex-basis: 0;
-      transition: flex-basis $sidebar-transition-duration linear;
+      transition: flex-basis $slide-meshes-list-transition-duration linear;
     }
   }
 }

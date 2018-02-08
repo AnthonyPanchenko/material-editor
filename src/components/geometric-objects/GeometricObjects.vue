@@ -17,11 +17,11 @@ export default {
   ]),
   methods: {
     ...mapActions(['onRemoveGeometricObjectById', 'onSuccessLoadGeometricObjects']),
-    onSetVisibleObjById(objId) {
-      console.log(objId);
+    onSetVisibleObjById(meshId) {
+      console.log(meshId);
     },
-    onSelectObjById(objId) {
-      console.log(objId);
+    onSelectObjById(meshId) {
+      console.log(meshId);
     },
     loadGeometricObjectsList() {
       this.$http({
@@ -45,11 +45,11 @@ export default {
 </script>
 
 <template>
-  <transition-group tag="aside" class="sidebar scroll-box" name="obj-list">
-    <div class="item-obj" v-for="obj in list" :key="obj.id">
-      <custom-btn iconClass="icon-eye" class="show-hide-obj" :data="obj.id" :onClick="onSetVisibleObjById" />
-      <custom-btn :title="obj.title" class="obj-name" :data="obj.id" :onClick="onSelectObjById" />
-      <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data="obj.id" :onClick="onRemoveGeometricObjectById" />
-    </div>
+  <transition-group tag="ul" class="meshes scroll-box" name="mesh-item">
+    <li class="mesh" v-for="mesh in list" :key="mesh.id">
+      <custom-btn iconClass="icon-eye" class="show-hide" :data="mesh.id" :onClick="onSetVisibleObjById" />
+      <custom-btn :title="mesh.title" class="name" :data="mesh.id" :onClick="onSelectObjById" />
+      <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data="mesh.id" :onClick="onRemoveGeometricObjectById" />
+    </li>
   </transition-group>
 </template>

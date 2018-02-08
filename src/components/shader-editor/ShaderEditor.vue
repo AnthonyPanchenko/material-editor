@@ -147,7 +147,7 @@ export default {
       </header>
 
       <section class="presentation-content">
-        <transition name="slide-obj-list">
+        <transition name="slide-meshes-list">
           <geometric-objects v-if="isVisibleObjectsList" />
         </transition>
         <div class="canvas-box"></div>

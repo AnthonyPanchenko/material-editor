@@ -87,13 +87,13 @@ export default {
 <template>
   <div class="create-new-shader-container" v-if="!shadersInfo">
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
-    <create-new-shader-form />
+    <create-new-shader-form :onBack="" :onCreate="" :onOpenShadersLibrary="" />
   </div>
 
   <div class="editor-container" v-else>
     <glsl-programs v-if="isOpenGlslProgramsWindow" />
     <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick>
-      <create-new-shader-form />
+      <create-new-shader-form class="is-in-modal-window" :onClose="" :onCreate="" />
     </modal-window>
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">

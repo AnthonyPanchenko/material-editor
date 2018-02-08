@@ -1,14 +1,29 @@
 .create-new-shader-form {
-  min-width: 300px;
-  background-color: rgba(255, 255, 255, 0.05);
-  padding: 10px;
-  box-shadow: 0 0 4px 1px rgba(128, 202, 255, 0.16);
+  display: flex;
+  flex: 1 0 auto;
+
+  @media (max-width: 768px) {
+    flex-direction: column;
+  }
 
   .header {
     display: flex;
-    align-items: center;
+    align-items: baseline;
+    border-right: 1px solid #3a3939;
     justify-content: space-between;
-    margin-bottom: 15px;
+    padding-top: 15px;
+    padding-right: 15px;
+    flex: 0 0 300px;
+    background-color: rgba(255, 255, 255, 0.05);
+
+    @media (max-width: 768px) {
+      padding: 0;
+      height: 40px;
+      flex: 0 0 auto;
+      align-items: stretch;
+      border-right: none;
+      border-bottom: 1px solid #3a3939;
+    }
 
     .back-btn {
       background: none;
@@ -16,16 +31,73 @@
     }
 
     .title {
-      font-size: 14px;
+      display: flex;
+      align-items: center;
+      padding-left: 15px;
+      padding-right: 15px;
     }
   }
 
-  .input-text {
-    margin-bottom: 15px;
+  &:not(.is-in-modal-window) {
+    .header .close-btn {
+      display: none;
+    }
   }
 
-  .buttons-row {
-    margin-top: 15px;
+  .body {
+    flex: 1 0 auto;
     display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    padding: 15px;
+
+    .input-controls-row {
+      display: flex;
+      flex: 1 0 auto;
+      flex-direction: column;
+      justify-content: flex-end;
+
+      .input-text {
+        margin-bottom: 15px;
+        height: 40px;
+
+        input {
+          padding: 10px;
+        }
+      }
+    }
+
+    .buttons-row {
+      display: flex;
+      flex: 1 0 auto;
+      justify-content: space-between;
+      align-items: flex-end;
+
+      button {
+        flex: 0 0 auto;
+        padding: 8px 25px;
+      }
+    }
+  }
+
+  &.is-in-modal-window {
+    flex-direction: column;
+
+    .header {
+      padding: 0;
+      height: 40px;
+      flex: 0 0 auto;
+      align-items: stretch;
+      border-right: none;
+      border-bottom: 1px solid #3a3939;
+
+      .back-btn {
+        display: none;
+      }
+    }
+
+    .buttons-row .shaders-gallery {
+      display: none;
+    }
   }
 }

@@ -7,11 +7,10 @@ import CheckboxBtn from '../../../common/components/checkbox-btn/CheckboxBtn.vue
 export default {
   name: 'CreateNewShaderForm',
   props: {
-    isVisibleCloseBtn: { type: Boolean, default: false },
     onBack: { type: Function, default: noop },
     onClose: { type: Function, default: noop },
     onCreate: { type: Function, default: noop },
-    onOpenShaderLibrary: { type: Function, default: noop },
+    onOpenShadersLibrary: { type: Function, default: noop },
   },
   components: {
     CheckboxBtn,
@@ -42,17 +41,21 @@ export default {
 <template>
   <div class="create-new-shader-form">
     <div class="header">
-      <custom-btn v-if="!isVisibleCloseBtn" iconClass="icon-arrow-left" :onClick="onBack" class="xs back-btn" />
-      <h4 class="title">Create new shader</h4>
-      <custom-btn v-if="isVisibleCloseBtn" iconClass="icon-close" :onClick="onClose" class="danger xs" />
+      <custom-btn iconClass="icon-arrow-left" :onClick="onBack" class="xs back-btn" />
+      <h3 class="title">Create new shader</h3>
+      <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs close-btn" />
     </div>
 
-    <input-text placeholder="Shader name" :onInput="onInputShaderName" :value="shaderName" />
-    <checkbox-btn sufix="Vertex shader" :checked="checkboxState" :onChange="onChangeCheckBox" />
+    <div class="body">
+      <div class="input-controls-row">
+        <input-text placeholder="Shader name" :onInput="onInputShaderName" :value="shaderName" />
+        <checkbox-btn sufix="Vertex shader" :checked="checkboxState" :onChange="onChangeCheckBox" />
+      </div>
 
-    <div class="buttons-row">
-      <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
-      <custom-btn iconClass="icon-gallery" title="Shader library" v-if="!isVisibleCloseBtn" :onClick="onOpenShaderLibrary" class="secondary" />
+      <div class="buttons-row">
+        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersLibrary" class="secondary shaders-gallery" />
+        <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
+      </div>
     </div>
   </div>
 </template>

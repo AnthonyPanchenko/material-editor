@@ -2,7 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const glslPrograms = {
+const shadersGallery = {
   namespaced: true,
   state: {
     list: []
@@ -12,4 +12,4 @@ const glslPrograms = {
   getters
 };
 
-export default glslPrograms;
+export default shadersGallery;

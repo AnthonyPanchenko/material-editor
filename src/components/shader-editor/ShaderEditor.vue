@@ -14,7 +14,7 @@ import CanvasBoard from '../canvas-board/CanvasBoard.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
-import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
+import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
 
 import * as internalUrls from '../../common/constants/internal-urls';
 import shadersTypes from '../../common/constants/shaders-types';
@@ -29,7 +29,7 @@ export default {
     InputFile,
     CanvasBoard,
     ResizeBox,
-    GlslPrograms,
+    ShadersGallery,
     ShaderControls,
     PresentationFooter,
     CreateNewShaderForm
@@ -50,7 +50,7 @@ export default {
     'isVisibleControlsFooter',
     'activeControlsType',
     'activeShaderType',
-    'isOpenGlslProgramsWindow',
+    'isOpenShadersGalleryWindow',
     'controlsFooterHeight',
     'controlsPanelWidth',
     'newControls'
@@ -86,12 +86,12 @@ export default {
 
 <template>
   <div class="create-new-shader-container" v-if="!shadersInfo">
-    <glsl-programs v-if="isOpenGlslProgramsWindow" />
-    <create-new-shader-form :onBack="" :onCreate="" :onOpenShadersLibrary="" />
+    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
+    <create-new-shader-form :onBack="" :onCreate="" :onOpenShadersGallery="" />
   </div>
 
   <div class="editor-container" v-else>
-    <glsl-programs v-if="isOpenGlslProgramsWindow" />
+    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
     <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick>
       <create-new-shader-form class="is-in-modal-window" :onClose="" :onCreate="" />
     </modal-window>

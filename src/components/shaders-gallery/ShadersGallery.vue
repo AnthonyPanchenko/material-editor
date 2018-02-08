@@ -1,10 +1,10 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('glslPrograms');
+const { mapState, mapActions } = createNamespacedHelpers('shadersGallery');
 import * as api from '../../common/constants/api';
 
 export default {
-  name: 'GlslPrograms',
+  name: 'ShadersGallery',
   components: {
   },
   data() {

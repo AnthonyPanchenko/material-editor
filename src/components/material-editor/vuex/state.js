@@ -5,7 +5,7 @@ const state = {
   materials: [],
   isVisibleControlsPanel: true,
   isVisibleObjectsList: true,
-  isOpenGlslProgramsWindow: false,
+  isOpenShadersGalleryWindow: false,
   activeObjInfoTabName: tabNames.MATERIAL,
   widthControlsPanel: 21,
   activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL

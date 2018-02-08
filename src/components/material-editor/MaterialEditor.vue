@@ -11,7 +11,7 @@ import * as internalUrls from '../../common/constants/internal-urls';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
-import GlslPrograms from '../glsl-programs/GlslPrograms.vue';
+import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
 
 import ObjectSection from './components/ObjectSection.vue';
 import MaterialSection from './components/MaterialSection.vue';
@@ -25,7 +25,7 @@ export default {
     GeometrySection,
     CustomBtn,
     GeometricObjects,
-    GlslPrograms,
+    ShadersGallery,
     DrawingBoard,
     ResizeBox,
     PresentationFooter
@@ -40,7 +40,7 @@ export default {
     'activeObjInfoTabName',
     'controlsPanelWidth',
     'activeMaterialType',
-    'isOpenGlslProgramsWindow',
+    'isOpenShadersGalleryWindow',
     'isVisibleControlsPanel',
     'isVisibleObjectsList'
   ]),
@@ -70,7 +70,7 @@ export default {
 
 <template>
   <div class="editor-container">
-    <glsl-programs v-if="isOpenGlslProgramsWindow" />
+    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth" class="controls-section">
       <header class="controls-header">

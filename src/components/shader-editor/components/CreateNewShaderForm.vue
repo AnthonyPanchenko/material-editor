@@ -10,7 +10,7 @@ export default {
     onBack: { type: Function, default: noop },
     onClose: { type: Function, default: noop },
     onCreate: { type: Function, default: noop },
-    onOpenShadersLibrary: { type: Function, default: noop },
+    onOpenShadersGallery: { type: Function, default: noop },
   },
   components: {
     CheckboxBtn,
@@ -53,7 +53,7 @@ export default {
       </div>
 
       <div class="buttons-row">
-        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersLibrary" class="secondary shaders-gallery" />
+        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersGallery" class="secondary shaders-gallery" />
         <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
       </div>
     </div>

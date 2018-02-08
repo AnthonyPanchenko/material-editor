@@ -9,20 +9,20 @@
   .header {
     display: flex;
     align-items: baseline;
-    border-right: 1px solid #3a3939;
+    border-right: 1px solid #454545;
     justify-content: space-between;
     padding-top: 15px;
     padding-right: 15px;
     flex: 0 0 300px;
-    background-color: rgba(255, 255, 255, 0.05);
+    background-color: $controls-row-bg;
 
     @media (max-width: 768px) {
       padding: 0;
-      height: 40px;
-      flex: 0 0 auto;
+      height: $controls-row-height;
+      flex: 0 0 $controls-row-height;
       align-items: stretch;
       border-right: none;
-      border-bottom: 1px solid #3a3939;
+      border-bottom: 1px solid #454545;
     }
 
     .back-btn {
@@ -59,7 +59,7 @@
 
       .input-text {
         margin-bottom: 15px;
-        height: 40px;
+        height: 32px;
 
         input {
           padding: 10px;

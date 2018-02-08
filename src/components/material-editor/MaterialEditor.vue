@@ -33,6 +33,7 @@ export default {
   data() {
     return {
       tabNames,
+      isOpenShadersGalleryWindow: false,
       internalUrls
     };
   },
@@ -40,7 +41,6 @@ export default {
     'activeObjInfoTabName',
     'controlsPanelWidth',
     'activeMaterialType',
-    'isOpenShadersGalleryWindow',
     'isVisibleControlsPanel',
     'isVisibleObjectsList'
   ]),
@@ -52,6 +52,14 @@ export default {
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
+    onOpenShadersGalleryWindow() {
+      this.isOpenShadersGalleryWindow = !this.isOpenShadersGalleryWindow;
+    },
+    onCloseShadersGalleryWindow() {
+      if (this.isOpenShadersGalleryWindow) {
+        this.isOpenShadersGalleryWindow = false;
+      }
+    },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
@@ -70,7 +78,7 @@ export default {
 
 <template>
   <div class="editor-container">
-    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
+    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth" class="controls-section">
       <header class="controls-header">

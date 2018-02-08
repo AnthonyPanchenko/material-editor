@@ -1,0 +1,28 @@
+.shader-gallery {
+  height: 100%;
+  width: 100%;
+  position: fixed;
+  display: flex;
+  z-index: 11;
+  flex-direction: column;
+  box-shadow: 0 3px 9px 1px #232323;
+
+  .header {
+    flex: 0 0 $controls-row-height;
+    height: $controls-row-height;
+    background-color: $controls-row-bg;
+    border-bottom: 1px solid #454545;
+  }
+
+  .body {
+    background-color: $body-bg-color;
+    flex: 1 0 auto;
+  }
+
+  .footer {
+    flex: 0 0 $controls-row-height;
+    height: $controls-row-height;
+    background-color: $controls-row-bg;
+    border-top: 1px solid #454545;
+  }
+}

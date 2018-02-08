@@ -37,7 +37,8 @@ export default {
   data() {
     return {
       shadersTypes,
-      isOpenCreateNewFileForm: false,
+      isOpenShadersGalleryWindow: false,
+      isOpenCreateNewShaderForm: false,
       internalUrls
     };
   },
@@ -50,7 +51,6 @@ export default {
     'isVisibleControlsFooter',
     'activeControlsType',
     'activeShaderType',
-    'isOpenShadersGalleryWindow',
     'controlsFooterHeight',
     'controlsPanelWidth',
     'newControls'
@@ -67,33 +67,47 @@ export default {
       'onSetFooterControlsHeight'
     ]),
 
+    onCreateNewShader(shaderName, isVertexShader) {
+      console.log(shaderName, isVertexShader);
+    },
+
     onSaveShader(payload) {
       console.log(payload);
     },
 
-    onOpenCreateNewFileForm() {
-      this.isOpenCreateNewFileForm = !this.isOpenCreateNewFileForm;
+    onOpenShadersGalleryWindow() {
+      this.isOpenShadersGalleryWindow = !this.isOpenShadersGalleryWindow;
     },
 
-    onCloseCreateNewFileForm() {
-      if (this.isOpenCreateNewFileForm) {
-        this.isOpenCreateNewFileForm = false;
+    onCloseShadersGalleryWindow() {
+      if (this.isOpenShadersGalleryWindow) {
+        this.isOpenShadersGalleryWindow = false;
       }
     },
+
+    onOpenCreateNewShaderForm() {
+      this.isOpenCreateNewShaderForm = !this.isOpenCreateNewShaderForm;
+    },
+
+    onCloseCreateNewShaderForm() {
+      if (this.isOpenCreateNewShaderForm) {
+        this.isOpenCreateNewShaderForm = false;
+      }
+    }
   }
 };
 </script>
 
 <template>
   <div class="create-new-shader-container" v-if="!shadersInfo">
-    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
-    <create-new-shader-form :onBack="" :onCreate="" :onOpenShadersGallery="" />
+    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
+    <create-new-shader-form :onCreate="onCreateNewShader" :onOpenShadersGallery="onOpenShadersGalleryWindow" />
   </div>
 
   <div class="editor-container" v-else>
-    <shaders-gallery v-if="isOpenShadersGalleryWindow" />
-    <modal-window :isOpen="isOpenCreateNewFileForm" :onClose="onCloseCreateNewFileForm" сloseByOverlayClick>
-      <create-new-shader-form class="is-in-modal-window" :onClose="" :onCreate="" />
+    <shaders-gallery v-if="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
+    <modal-window :isOpen="isOpenCreateNewShaderForm">
+      <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" />
     </modal-window>
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">
@@ -105,9 +119,9 @@ export default {
           <custom-btn iconClass="icon-undo" class="xs" />
           <custom-btn iconClass="icon-save" class="xs" />
           <custom-btn iconClass="icon-redo" class="xs" />
-          <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewFileForm" />
+          <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewShaderForm" />
           <custom-btn iconClass="icon-open-folder" class="xs" />
-          <custom-btn iconClass="icon-gallery" class="xs" />
+          <custom-btn iconClass="icon-gallery" class="xs" :onClick="onOpenShadersGalleryWindow" />
           <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
         </div>
       </header>

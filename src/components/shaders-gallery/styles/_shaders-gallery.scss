@@ -12,11 +12,54 @@
     height: $controls-row-height;
     background-color: $controls-row-bg;
     border-bottom: 1px solid #454545;
+    justify-content: space-between;
+    align-items: center;
   }
 
   .body {
     background-color: $body-bg-color;
     flex: 1 0 auto;
+
+    .program-item {
+      height: 150px;
+      width: 200px;
+
+      .bg-image {
+        width: 100%;
+        height: calc(100% - 23px);
+        background-repeat: no-repeat;
+        background-size: cover;
+        background-position: center;
+      }
+
+      .no-bg {
+        width: 100%;
+        height: calc(100% - 23px);
+        text-align: center;
+        font-size: 100px;
+        font-size: 63px;
+        background-color: #383838;
+        text-shadow: 0 1px 1px #615e5e;
+        color: #272727;
+
+        &:before {
+          content: '';
+          display: inline-block;
+          height: 114%;
+          vertical-align: middle;
+        }
+      }
+
+      .name {
+        cursor: default;
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        height: 23px;
+        padding: 3px 5px;
+        font-size: 14px;
+      }
+    }
   }
 
   .footer {

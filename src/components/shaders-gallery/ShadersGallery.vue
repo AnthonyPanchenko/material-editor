@@ -51,7 +51,7 @@ export default {
 <template>
   <transition name="slide">
     <div v-if="isOpen" class="shader-gallery">
-      <div class="header">
+      <div class="header controls-row">
         <h4>Shaders gallery</h4>
         <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
       </div>
@@ -59,7 +59,9 @@ export default {
 
         <figure class="program-item" v-for="program in list" :key="program.uuid" @click="onProgramClick">
           <div v-if="!!program.previewBgUlr" class="bg-image" :style="{ backgroundImage: `url(${program.previewBgUlr})` }" />
-          <i v-else class="icon-image" aria-hidden="true" />
+          <div v-else class="no-bg">
+            <i class="icon-image" aria-hidden="true" />
+          </div>
           <figcaption class="name">{{ program.name }}</figcaption>
         </figure>
 

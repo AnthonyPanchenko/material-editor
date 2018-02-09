@@ -26,6 +26,11 @@ const mockData = {
       uuid: 'b2e0adc5-adb8-4bfc-883a-0e8de8933449',
       name: 'Water shader',
       previewBgUlr: 'https://image.prntscr.com/image/QtNVooDGTb6gwD_ywLlJyA.png'
+    },
+    {
+      uuid: 'sdf342sd-dggre-twtf-cbbdr-werwrwr2554',
+      name: 'Some shader',
+      previewBgUlr: ''
     }
   ],
 

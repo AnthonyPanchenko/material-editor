@@ -6,7 +6,7 @@ const state = {
   isVisibleControlsPanel: true,
   isVisibleObjectsList: true,
   activeObjInfoTabName: tabNames.MATERIAL,
-  widthControlsPanel: 21,
+  controlsPanelWidth: 20,
   activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL
 };
 

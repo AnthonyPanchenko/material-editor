@@ -42,8 +42,8 @@ export default {
 <template>
   <div class="create-new-shader-form">
     <div class="header">
-      <custom-btn iconClass="icon-arrow-left" :link="internalUrls.MATERIAL_EDITOR" accesskey="w" class="xs back-btn" />
-      <h3 class="title">Create new shader</h3>
+      <custom-btn iconClass="icon-arrow-left" :link="internalUrls.MATERIAL_EDITOR" accesskey="w" class="back-btn" />
+      <h5 class="title">Create new shader</h5>
       <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs close-btn" />
     </div>
 
@@ -54,7 +54,7 @@ export default {
       </div>
 
       <div class="buttons-row">
-        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersGallery" class="secondary shaders-gallery" />
+        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersGallery" class="secondary shaders-gallery-btn" />
         <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
       </div>
     </div>

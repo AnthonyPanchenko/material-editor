@@ -11,14 +11,10 @@
     align-items: baseline;
     border-right: 1px solid #454545;
     justify-content: space-between;
-    padding-top: 15px;
-    padding-right: 15px;
     flex: 0 0 300px;
     background-color: $controls-row-bg;
 
     @media (max-width: 768px) {
-      padding: 0;
-      height: $controls-row-height;
       flex: 0 0 $controls-row-height;
       align-items: stretch;
       border-right: none;
@@ -26,6 +22,7 @@
     }
 
     .back-btn {
+      flex: 0 0 25px;
       background: none;
       font-size: 17px;
     }
@@ -33,8 +30,8 @@
     .title {
       display: flex;
       align-items: center;
-      padding-left: 15px;
-      padding-right: 15px;
+      padding-left: 10px;
+      padding-right: 10px;
     }
   }
 
@@ -49,7 +46,7 @@
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    padding: 15px;
+    padding: 10px;
 
     .input-controls-row {
       display: flex;
@@ -58,7 +55,7 @@
       justify-content: flex-end;
 
       .input-text {
-        margin-bottom: 15px;
+        margin-bottom: 10px;
         height: 32px;
 
         input {
@@ -85,8 +82,7 @@
 
     .header {
       padding: 0;
-      height: 40px;
-      flex: 0 0 auto;
+      flex: 0 0 $controls-row-height;
       align-items: stretch;
       border-right: none;
       border-bottom: 1px solid #3a3939;
@@ -96,7 +92,7 @@
       }
     }
 
-    .buttons-row .shaders-gallery {
+    .buttons-row .shaders-gallery-btn {
       display: none;
     }
   }

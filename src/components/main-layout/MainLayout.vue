@@ -1,33 +1,6 @@
 <script>
 import Notifications from '../../common/components/notifications/Notifications.vue';
 
-const getNotifications = [
-  {
-    id: 'wte235tet',
-    status: 'success',
-    title: 'This is SUCCESS',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
-  },
-  {
-    id: 'sf76567sgtet',
-    status: 'warning',
-    title: 'This is WARNING',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
-  },
-  {
-    id: 'df34589g66sujrt',
-    status: 'info',
-    title: 'This is INFO',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
-  },
-  {
-    id: 'qwt67457uirtyi',
-    status: 'danger',
-    title: 'This is DANGER',
-    text: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua!'
-  }
-];
-
 export default {
   name: 'MainLayout',
   components: {
@@ -35,7 +8,7 @@ export default {
   },
   data() {
     return {
-      notifications: getNotifications,
+      notifications: [],
     };
   },
   methods: {

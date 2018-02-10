@@ -17,15 +17,17 @@ export default {
     CustomBtn,
   },
   data() {
-    return {};
+    return {
+      activeShaderUuid: '476fghb-adb8-wyty-883a-dsg'
+    };
   },
   computed: mapState([
     'list'
   ]),
   methods: {
     ...mapActions(['onSuccessLoadGlslPrograms']),
-    onProgramClick() {
-      console.log(111);
+    onShaderClick(event) {
+      console.log(event.target.dataset.id);
     },
     loadGlslProgramsList() {
       this.$http({
@@ -50,20 +52,24 @@ export default {
 
 <template>
   <transition name="slide">
-    <div v-if="isOpen" class="shader-gallery">
+    <div v-if="isOpen" class="shaders-gallery-container">
       <div class="header controls-row">
-        <h4>Shaders gallery</h4>
+        <h5 class="title">Shaders gallery</h5>
         <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
       </div>
       <div class="body">
 
-        <figure class="program-item" v-for="program in list" :key="program.uuid" @click="onProgramClick">
-          <div v-if="!!program.previewBgUlr" class="bg-image" :style="{ backgroundImage: `url(${program.previewBgUlr})` }" />
-          <div v-else class="no-bg">
-            <i class="icon-image" aria-hidden="true" />
-          </div>
-          <figcaption class="name">{{ program.name }}</figcaption>
-        </figure>
+        <ul class="shaders-list scroll-box">
+          <li v-for="shader in list" :key="shader.uuid">
+            <figure :class="['shader-item', { 'active': activeShaderUuid === shader.uuid }]" @click="onShaderClick">
+              <div v-if="!!shader.previewBgUlr" class="bg-image" :style="{ backgroundImage: `url(${shader.previewBgUlr})` }" />
+              <div v-else class="no-bg">
+                <i class="icon-image" aria-hidden="true" />
+              </div>
+              <figcaption class="name">{{ shader.name }}</figcaption>
+            </figure>
+          </li>
+        </ul>
 
       </div>
       <div class="footer">

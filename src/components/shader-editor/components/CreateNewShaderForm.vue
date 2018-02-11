@@ -54,7 +54,7 @@ export default {
       </div>
 
       <div class="buttons-row">
-        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersGallery" class="secondary shaders-gallery-btn" />
+        <custom-btn iconClass="icon-gallery" title="Shaders gallery" :onClick="onOpenShadersGallery" class="primary shaders-gallery-btn" />
         <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
       </div>
     </div>

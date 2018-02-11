@@ -1,0 +1,55 @@
+$shader-name-row-height: 28px;
+
+.shader-item {
+  cursor: pointer;
+  height: 135px;
+  width: 100%;
+  background-color: #383838;
+
+  &.active,
+  &:hover {
+    .name {
+      border-top: 1px solid #a3d9f8;
+      background-color: #5db9e4;
+      color: #000;
+    }
+  }
+
+  .no-bg,
+  .bg-image {
+    width: 100%;
+    height: calc(100% - #{$shader-name-row-height});
+  }
+
+  .bg-image {
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+  }
+
+  .no-bg {
+    text-align: center;
+    font-size: 100px;
+    font-size: 63px;
+    text-shadow: 0 1px 1px #615e5e;
+    color: #272727;
+
+    &:before {
+      content: '';
+      display: inline-block;
+      height: 120%;
+      vertical-align: middle;
+    }
+  }
+
+  .name {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    height: $shader-name-row-height;
+    transition: all 200ms linear;
+    padding: 5px 7px;
+    font-size: 13px;
+    border-top: 1px solid #454545;
+  }
+}

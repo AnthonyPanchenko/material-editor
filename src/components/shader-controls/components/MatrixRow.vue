@@ -41,7 +41,7 @@ export default {
       <input-number v-for="(value, index) in matrix" :name="index" :value="value" :step="0.01" :key="index" :onInput="onInputNumberValue" />
     </div>
 
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
     <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

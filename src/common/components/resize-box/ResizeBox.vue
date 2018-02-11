@@ -9,6 +9,8 @@ export default {
     onEndOfResize: { type: Function, default: noop },
     disabled: { type: Boolean, default: false },
     resize: { type: String, required: true },
+    max: { type: Number, default: 100 },
+    min: { type: Number, default: 0 },
     size: { type: Number, default: 35 }
   },
   data() {
@@ -30,15 +32,15 @@ export default {
       if (this.grabState.row) {
         e.preventDefault();
         const currentY = this.rootNode.parentNode.clientHeight - e.pageY;
-        const heightPercentages = (currentY * 100) / this.rootNode.parentNode.clientHeight;
-        this.currentSize = clamp(heightPercentages, 0, 100);
+        const heightPercentages = (currentY * this.max) / this.rootNode.parentNode.clientHeight;
+        this.currentSize = clamp(heightPercentages, this.min, this.max);
       }
 
       if (this.grabState.column) {
         e.preventDefault();
         const currentX = this.rootNode.parentNode.clientWidth - e.pageX;
-        const widthPercentages = 100 - ((currentX * 100) / this.rootNode.parentNode.clientWidth);
-        this.currentSize = clamp(widthPercentages, 0, 100);
+        const widthPercentages = this.max - ((currentX * this.max) / this.rootNode.parentNode.clientWidth);
+        this.currentSize = clamp(widthPercentages, this.min, this.max);
       }
     },
     completeResize() {

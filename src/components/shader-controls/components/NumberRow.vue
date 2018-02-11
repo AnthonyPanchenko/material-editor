@@ -62,7 +62,7 @@ export default {
       <number-picker :value="numberValue" :step="step" :onChange="onChange" />
     </popover>
 
-    <custom-btn iconClass="icon-pencil" class="secondary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
     <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

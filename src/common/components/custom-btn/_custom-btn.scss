@@ -4,7 +4,7 @@ $ctrl-btn-default-active-bg-color: #555e61;
 $ctrl-btn-default-hover-color: #fafafa;
 $ctrl-btn-default-hover-bg-color: #555e61;
 
-// primary secondary success info warning danger
+// primary primary success info warning danger
 $ctrl-btn-danger-color: #c2c2c2;
 $ctrl-btn-danger-bg-color: #ab4646;
 $ctrl-btn-danger-active-bg-color: #e82d2d;
@@ -17,11 +17,11 @@ $ctrl-btn-success-active-bg-color: #36be23;
 $ctrl-btn-success-hover-color: #fafafa;
 $ctrl-btn-success-hover-bg-color: #36be23;
 
-$ctrl-btn-secondary-color: #c2c2c2;
-$ctrl-btn-secondary-bg-color: #4788a7;
-$ctrl-btn-secondary-active-bg-color: #5db9e4;
-$ctrl-btn-secondary-hover-color: #fafafa;
-$ctrl-btn-secondary-hover-bg-color: #5db9e4;
+$ctrl-btn-primary-color: #c2c2c2;
+$ctrl-btn-primary-bg-color: #4788a7;
+$ctrl-btn-primary-active-bg-color: #5db9e4;
+$ctrl-btn-primary-hover-color: #fafafa;
+$ctrl-btn-primary-hover-bg-color: #5db9e4;
 
 .ctrl-btn {
   text-decoration: none;
@@ -111,19 +111,19 @@ $ctrl-btn-secondary-hover-bg-color: #5db9e4;
     }
   }
 
-  &.secondary {
-    background-color: $ctrl-btn-secondary-bg-color;
-    color: $ctrl-btn-secondary-color;
+  &.primary {
+    background-color: $ctrl-btn-primary-bg-color;
+    color: $ctrl-btn-primary-color;
 
     &.active {
-      background-color: $ctrl-btn-secondary-active-bg-color;
-      color: $ctrl-btn-secondary-hover-color;
+      background-color: $ctrl-btn-primary-active-bg-color;
+      color: $ctrl-btn-primary-hover-color;
     }
 
     &:focus,
     &:hover {
-      background-color: $ctrl-btn-secondary-hover-bg-color;
-      color: $ctrl-btn-secondary-hover-color;
+      background-color: $ctrl-btn-primary-hover-bg-color;
+      color: $ctrl-btn-primary-hover-color;
     }
   }
 }

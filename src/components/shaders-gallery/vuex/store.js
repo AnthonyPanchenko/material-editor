@@ -5,7 +5,8 @@ import mutations from './mutations';
 const shadersGallery = {
   namespaced: true,
   state: {
-    list: []
+    list: [],
+    activeShader: {}
   },
   actions,
   mutations,

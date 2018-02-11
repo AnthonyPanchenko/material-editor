@@ -102,8 +102,8 @@ export default {
       </footer>
     </resize-box>
 
-    <section class="presentation-section">
-      <header class="presentation-header">
+    <section class="preview-section">
+      <header class="preview-header">
         <div class="controls-row">
           <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
           <custom-btn iconClass="icon-move" class="xs" />
@@ -112,7 +112,7 @@ export default {
         </div>
       </header>
 
-      <section class="presentation-content">
+      <section class="preview-content">
         <transition name="slide-meshes-list">
           <geometric-objects v-if="isVisibleObjectsList" />
         </transition>

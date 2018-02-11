@@ -133,8 +133,8 @@ export default {
       <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />
     </resize-box>
 
-    <section class="presentation-section">
-      <header class="presentation-header">
+    <section class="preview-section">
+      <header class="preview-header">
         <div class="controls-row">
           <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
           <custom-btn iconClass="icon-sphere" />
@@ -146,7 +146,7 @@ export default {
         </div>
       </header>
 
-      <section class="presentation-content">
+      <section class="preview-content">
         <transition name="slide-meshes-list">
           <geometric-objects v-if="isVisibleObjectsList" />
         </transition>

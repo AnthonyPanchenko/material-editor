@@ -7,13 +7,13 @@
   display: flex;
 
   .controls-section,
-  .presentation-section {
+  .preview-section {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
 
     .controls-header,
-    .presentation-header {
+    .preview-header {
       flex: 0 0 auto;
       border-bottom: 1px solid $content-border-color;
     }
@@ -25,7 +25,7 @@
     }
 
     .controls-content,
-    .presentation-content {
+    .preview-content {
       flex: 1 1 auto;
       display: flex;
     }
@@ -37,10 +37,10 @@
     padding-right: 3px;
   }
 
-  .presentation-section {
+  .preview-section {
     flex: 1 1 100%;
 
-    .presentation-content {
+    .preview-content {
       display: flex;
       flex-direction: row;
       flex-wrap: nowrap;

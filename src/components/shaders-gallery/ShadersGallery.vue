@@ -81,7 +81,7 @@ export default {
 <template>
   <transition name="slide">
     <div v-if="isOpen" class="shaders-gallery-container">
-      <div class="shaders-container">
+      <section class="shaders-container">
         <div class="header controls-row">
           <h5 class="title">Shaders gallery</h5>
           <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
@@ -107,11 +107,12 @@ export default {
         </div>
 
         <div v-else class="footer controls-row" />
-      </div>
+      </section>
 
       <div class="preview-container">
         <div class="header controls-row">
           <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
+
         </div>
         <div class="body">
 
@@ -120,6 +121,7 @@ export default {
 
         </div>
       </div>
+
     </div>
   </transition>
 </template>

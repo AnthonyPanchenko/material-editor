@@ -6,7 +6,7 @@ const shadersGallery = {
   namespaced: true,
   state: {
     list: [],
-    activeShader: {}
+    activeShader: null
   },
   actions,
   mutations,

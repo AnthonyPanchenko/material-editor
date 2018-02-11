@@ -105,9 +105,9 @@ export default {
   </div>
 
   <div class="editor-container" v-else>
-    <shaders-gallery v-if="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
+    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" isEditable />
     <modal-window :isOpen="isOpenCreateNewShaderForm">
-      <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" />
+      <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" isEditable />
     </modal-window>
 
     <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">

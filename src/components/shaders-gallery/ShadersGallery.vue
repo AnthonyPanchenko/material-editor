@@ -11,10 +11,11 @@ import * as api from '../../common/constants/api';
 export default {
   name: 'ShadersGallery',
   props: {
+    isEditable: { type: Boolean, default: false },
     isOpen: { type: Boolean, default: false },
     onClose: { type: Function, default: noop },
-    onCreate: { type: Function, default: noop },
-    activeShader: { type: Object, default: emptyObject }
+    onApply: { type: Function, default: noop },
+    onEdit: { type: Function, default: noop }
   },
   components: {
     InputText,
@@ -23,18 +24,31 @@ export default {
   },
   data() {
     return {
+      newShaderName: '',
       isVisibleRemoveShaderCtrls: false
     };
   },
   computed: mapState([
-    'list'
+    'list',
+    'activeShader'
   ]),
   methods: {
-    ...mapActions(['onSuccessLoadGlslPrograms']),
+    ...mapActions(['onSuccessLoadGlslPrograms', 'onSetActiveShader']),
     onShaderClick(shader) {
-      console.log(shader);
+      this.onSetActiveShader(shader);
+      this.newShaderName = shader.name;
+      this.isVisibleRemoveShaderCtrls = false;
+    },
+    onRenameShader() {
+      if ((this.newShaderName && (this.activeShader && this.activeShader.name)) !== this.newShaderName.trim()) {
+        console.log(this.newShaderName.trim());
+      }
+    },
+    onChangeShaderName(str) {
+      this.newShaderName = str;
     },
     onRemoveShader() {
+      this.newShaderName = this.activeShader.name;
       this.isVisibleRemoveShaderCtrls = true;
     },
     onCancelRemoveShader() {
@@ -76,19 +90,23 @@ export default {
 
           <ul class="shaders-list scroll-box">
             <li v-for="shader in list" :key="shader.uuid">
-              <shader-item :shader="shader" :isActive="activeShader.uuid === shader.uuid" :onClick="onShaderClick" />
+              <shader-item :shader="shader" :isActive="activeShader && (activeShader.uuid === shader.uuid)" :onClick="onShaderClick" />
             </li>
           </ul>
 
         </div>
-        <div class="footer controls-row">
+
+        <div v-if="activeShader" class="footer controls-row">
           <custom-btn v-if="!isVisibleRemoveShaderCtrls" iconClass="icon-trash-bin" :onClick="onRemoveShader" class="danger xs" />
           <custom-btn v-if="isVisibleRemoveShaderCtrls" iconClass="icon-checkmark" :onClick="onAgreeRemoveShader" class="success xs" />
           <custom-btn v-if="isVisibleRemoveShaderCtrls" iconClass="icon-close" :onClick="onCancelRemoveShader" class="danger xs" />
-
-          <input-text />
-          <custom-btn title="Apply / Edit" class="primary" />
+          <input-text :value="newShaderName" :onInput="onChangeShaderName" />
+          <custom-btn :disabled="!newShaderName" title="Rename" :onClick="onRenameShader" class="success sm" />
+          <custom-btn v-if="isEditable" title="Edit" :onClick="onEdit" class="primary sm" />
+          <custom-btn v-else title="Apply" :onClick="onApply" class="primary sm" />
         </div>
+
+        <div v-else class="footer controls-row" />
       </div>
 
       <div class="preview-container">

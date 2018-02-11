@@ -15,7 +15,8 @@ export default {
   methods: {
     onInputText(event) {
       if (!this.disabled) {
-        this.onInput(event.target.value, this.name);
+        const value = event.target.value.replace(/[^\sA-Za-z0-9-_+\d]/g, '');
+        this.onInput(value, this.name);
       }
     }
   }

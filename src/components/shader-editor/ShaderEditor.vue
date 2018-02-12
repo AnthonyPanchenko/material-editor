@@ -10,11 +10,10 @@ import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CreateNewShaderForm from './components/CreateNewShaderForm.vue';
 
 import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
-import CanvasBoard from '../canvas-board/CanvasBoard.vue';
-import PresentationFooter from '../presentation-footer/PresentationFooter.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
 import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
+import CanvasSection from '../canvas-section/CanvasSection.vue';
 
 import * as internalUrls from '../../common/constants/internal-urls';
 import shadersTypes from '../../common/constants/shaders-types';
@@ -27,11 +26,10 @@ export default {
     CustomBtn,
     GeometricObjects,
     InputFile,
-    CanvasBoard,
     ResizeBox,
+    CanvasSection,
     ShadersGallery,
     ShaderControls,
-    PresentationFooter,
     CreateNewShaderForm
   },
   data() {
@@ -104,56 +102,47 @@ export default {
     <create-new-shader-form :onCreate="onCreateNewShader" :onOpenShadersGallery="onOpenShadersGalleryWindow" />
   </div>
 
-  <div class="editor-container" v-else>
+  <div class="base-layout" v-else>
     <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" isEditable />
     <modal-window :isOpen="isOpenCreateNewShaderForm">
       <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" isEditable />
     </modal-window>
 
-    <resize-box v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth" class="controls-section">
-      <header class="controls-header">
-        <div class="controls-row">
-          <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-          <custom-btn v-if="!!shadersValues[shadersTypes.FRAGMENT_SHADER]" title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersTypes.FRAGMENT_SHADER" :data="shadersTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
-          <custom-btn v-if="!!shadersValues[shadersTypes.VERTEX_SHADER]" title="Vertex" iconClass="icon-vertex" :active="activeShaderType === shadersTypes.VERTEX_SHADER" :data="shadersTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType" />
-          <custom-btn iconClass="icon-undo" class="xs" />
-          <custom-btn iconClass="icon-save" class="xs" />
-          <custom-btn iconClass="icon-redo" class="xs" />
-          <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewShaderForm" />
-          <custom-btn iconClass="icon-open-folder" class="xs" />
-          <custom-btn iconClass="icon-gallery" class="xs" :onClick="onOpenShadersGalleryWindow" />
-          <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
-        </div>
+    <resize-box class="container controls-section" v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth">
+      <header class="header controls-row">
+        <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
+        <custom-btn v-if="!!shadersValues[shadersTypes.FRAGMENT_SHADER]" title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersTypes.FRAGMENT_SHADER" :data="shadersTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
+        <custom-btn v-if="!!shadersValues[shadersTypes.VERTEX_SHADER]" title="Vertex" iconClass="icon-vertex" :active="activeShaderType === shadersTypes.VERTEX_SHADER" :data="shadersTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType" />
+        <custom-btn iconClass="icon-undo" class="xs" />
+        <custom-btn iconClass="icon-save" class="xs" />
+        <custom-btn iconClass="icon-redo" class="xs" />
+        <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewShaderForm" />
+        <custom-btn iconClass="icon-open-folder" class="xs" />
+        <custom-btn iconClass="icon-gallery" class="xs" :onClick="onOpenShadersGalleryWindow" />
+        <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
       </header>
 
-      <section class="controls-content">
+      <section class="body">
         <code-editor :activeShader="activeShaderType" :shaders="shadersValues" :onChange="onChangeCodeEditor" :onSave="onSaveShader" />
       </section>
 
       <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />
     </resize-box>
 
-    <section class="preview-section">
-      <header class="preview-header">
-        <div class="controls-row">
-          <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
-          <custom-btn iconClass="icon-sphere" />
-          <custom-btn iconClass="icon-cube" />
-          <custom-btn iconClass="icon-cylinder" />
-          <custom-btn iconClass="icon-torus" />
-          <custom-btn iconClass="icon-plane" />
-          <input-file name="file1" />
-        </div>
-      </header>
+    <canvas-section :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+      <div slot="header" class="header controls-row">
+        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
+        <custom-btn iconClass="icon-sphere" />
+        <custom-btn iconClass="icon-cube" />
+        <custom-btn iconClass="icon-cylinder" />
+        <custom-btn iconClass="icon-torus" />
+        <custom-btn iconClass="icon-plane" />
+        <input-file name="file1" />
+      </div>
 
-      <section class="preview-content">
-        <transition name="slide-meshes-list">
-          <geometric-objects v-if="isVisibleObjectsList" />
-        </transition>
-        <div class="canvas-box"></div>
-      </section>
-
-      <presentation-footer :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode" />
-    </section>
+      <transition slot="sidebar" name="slide-meshes-list">
+        <geometric-objects v-if="isVisibleObjectsList" />
+      </transition>
+    </canvas-section>
   </div>
 </template>

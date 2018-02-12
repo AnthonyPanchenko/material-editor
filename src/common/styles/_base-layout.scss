@@ -1,0 +1,56 @@
+.base-layout {
+  background-color: $body-bg-color;
+  width: inherit;
+  height: inherit;
+  flex-wrap: nowrap;
+  flex-direction: row;
+  display: flex;
+
+  .container {
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+
+    &.controls-section {
+      flex-grow: 1;
+      flex-shrink: 0;
+    }
+
+    &.canvas-section {
+      flex: 1 1 100%;
+
+      .body {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        .canvas-box {
+          flex: 1 1 100%;
+        }
+      }
+
+      .footer {
+        justify-content: space-between;
+
+        .fps {
+          font-family: monospace;
+        }
+      }
+    }
+
+    .header {
+      flex: 0 0 auto;
+      border-bottom: 1px solid $content-border-color;
+    }
+
+    .body {
+      flex: 1 1 auto;
+      display: flex;
+    }
+
+    .footer {
+      flex: 0 0 auto;
+      border-top: 1px solid $content-border-color;
+    }
+  }
+}

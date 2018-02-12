@@ -3,7 +3,7 @@
 @import './common/styles/_reset';
 @import './common/styles/_common';
 @import './common/styles/_font-icons';
-@import './common/styles/_editor-container';
+@import './common/styles/_base-layout';
 @import './common/styles/_fieldset';
 @import './common/styles/_animations';
 
@@ -25,13 +25,13 @@
 @import './common/components/number-picker/_number-picker';
 @import './common/components/output-color-btn/_output-color-btn';
 
+@import './components/main-layout/styles/_main-layout';
 @import './components/code-editor/styles/_codemirror';
 @import './components/code-editor/styles/_dialog';
 @import './components/code-editor/styles/_show-hint';
 @import './components/code-editor/styles/_foldgutter';
 @import './components/code-editor/styles/_lint';
 
-@import './components/main-layout/styles/_main-layout';
 @import './components/geometric-objects/styles/_geometric-objects';
 @import './components/shader-controls/styles/_shader-controls';
 @import './components/shaders-gallery/styles/_shaders-gallery';

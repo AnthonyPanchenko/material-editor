@@ -1,4 +1,4 @@
-.shaders-gallery-container {
+.shaders-gallery {
   height: 100%;
   width: 100%;
   position: fixed;
@@ -6,37 +6,14 @@
   z-index: 11;
   box-shadow: 0 3px 9px 1px #232323;
 
-  .shaders-container,
-  .preview-container {
-    display: flex;
-    flex-direction: column;
-
-    .header {
-      flex: 0 0 $controls-row-height;
-      background-color: $controls-row-bg;
-      border-bottom: 1px solid #454545;
-      justify-content: space-between;
-      align-items: center;
-    }
-
-    .body {
-      background-color: $body-bg-color;
-      display: flex;
-      flex: 1 1 auto;
-    }
-
-    .footer {
-      flex: 0 0 $controls-row-height;
-      background-color: $controls-row-bg;
-      border-top: 1px solid #454545;
-    }
-  }
-
-  .shaders-container {
+  .controls-section {
     border-right: 1px solid #555;
     flex: 0 0 60%;
 
     .header {
+      justify-content: space-between;
+      align-items: center;
+
       .title {
         padding-left: 10px;
       }
@@ -55,8 +32,7 @@
     }
   }
 
-  .preview-container {
+  .canvas-section {
     border-left: 1px solid #555;
-    flex: 1 0 40%;
   }
 }

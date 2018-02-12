@@ -42,7 +42,7 @@ export default {
 </script>
 
 <template>
-  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterControlsHeight" :size="controlsFooterHeight" class="controls-footer shader-controls" :disabled="!isVisibleControlsFooter">
+  <resize-box tag="footer" resize="row" :onEndOfResize="onSetFooterControlsHeight" :size="controlsFooterHeight" class="footer shader-controls" :disabled="!isVisibleControlsFooter">
     <div class="controls-row">
       <custom-btn accesskey="a" title="Attributes" :iconClass="getIconClass(shadersControlsTypes.ATTRIBUTES)" :active="isActive(shadersControlsTypes.ATTRIBUTES)" :disabled="!isVisibleControlsFooter" :data="shadersControlsTypes.ATTRIBUTES" :onClick="onTabClick" />
       <custom-btn accesskey="u" title="Uniforms" :iconClass="getIconClass(shadersControlsTypes.UNIFORMS)" :active="isActive(shadersControlsTypes.UNIFORMS)" :disabled="!isVisibleControlsFooter" :data="shadersControlsTypes.UNIFORMS" :onClick="onTabClick" />
@@ -70,6 +70,5 @@ export default {
 
       </div>
     </div>
-
   </resize-box>
 </template>

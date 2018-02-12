@@ -6,12 +6,8 @@
     top: -3px;
   }
 
-  .controls-row {
-    .ctrl-btn.active {
-      .icon-plus {
-        font-size: 13px;
-      }
-    }
+  .ctrl-btn.active .icon-plus {
+    font-size: 13px;
   }
 
   .shader-ctrl-settings {

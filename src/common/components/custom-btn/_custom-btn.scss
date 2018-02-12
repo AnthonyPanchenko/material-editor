@@ -127,18 +127,3 @@ $ctrl-btn-primary-hover-bg-color: #5db9e4;
     }
   }
 }
-
-.controls-row {
-  > .ctrl-btn {
-    font-size: 13.5px;
-
-    i[class^="icon-"],
-    i[class*=" icon-"] {
-      font-size: 16px;
-    }
-
-    &:not(:first-child) {
-      border-left: 1px solid $ctrl-border-color;
-    }
-  }
-}

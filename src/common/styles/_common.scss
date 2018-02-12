@@ -40,6 +40,28 @@ i[class*=" icon-"] {
     font-size: 13px;
     padding: 5px;
   }
+
+  .gap,
+  label,
+  .ctrl-btn,
+  .label {
+    &:not(:first-child) {
+      border-left: 1px solid $ctrl-border-color;
+    }
+  }
+
+  > .ctrl-btn {
+    font-size: 13.5px;
+
+    i[class^="icon-"],
+    i[class*=" icon-"] {
+      font-size: 16px;
+    }
+  }
+
+  .gap {
+    flex: 1 0 auto;
+  }
 }
 
 .ctrl-inp {

@@ -104,6 +104,7 @@ export default {
         <custom-btn iconClass="icon-move" class="xs" />
         <custom-btn iconClass="icon-rotate" class="xs" />
         <custom-btn iconClass="icon-scale" class="xs" />
+        <div class="gap" />
         <input-file name="file1" />
       </div>
 

@@ -25,7 +25,7 @@ export default {
 
     <div class="footer controls-row">
       <span class="label fps">FPS 60</span>
-      <custom-btn :iconClass="isFullScreenMode ? 'icon-maximize' : 'icon-minimize'" class="ctrl-btn default xs" accesskey="b" :onClick="onToggleFullScreenMode" />
+      <custom-btn :iconClass="isFullScreenMode ? 'icon-minimize' : 'icon-maximize'" class="ctrl-btn default xs" accesskey="b" :onClick="onToggleFullScreenMode" />
     </div>
   </section>
 </template>

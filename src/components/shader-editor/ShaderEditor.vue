@@ -108,7 +108,7 @@ export default {
       <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" isEditable />
     </modal-window>
 
-    <resize-box class="container controls-section" v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth">
+    <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth">
       <header class="header controls-row">
         <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
         <custom-btn v-if="!!shadersValues[shadersTypes.FRAGMENT_SHADER]" title="Fragment" iconClass="icon-fragment" :active="activeShaderType === shadersTypes.FRAGMENT_SHADER" :data="shadersTypes.FRAGMENT_SHADER" :onClick="onSetActiveShaderType" />
@@ -129,7 +129,7 @@ export default {
       <shader-controls :onSetFooterControlsHeight="onSetFooterControlsHeight" :onSetActiveControlsType="onSetActiveControlsType" :onToggleFooterControls="onToggleFooterControls" :isVisibleControlsFooter="isVisibleControlsFooter" :controlsFooterHeight="controlsFooterHeight" :activeControlsType="activeControlsType" />
     </resize-box>
 
-    <canvas-section :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+    <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
         <custom-btn iconClass="icon-sphere" />
@@ -141,7 +141,7 @@ export default {
       </div>
 
       <transition slot="sidebar" name="slide-meshes-list">
-        <geometric-objects v-if="isVisibleObjectsList" />
+        <geometric-objects v-show="isVisibleObjectsList" />
       </transition>
     </canvas-section>
   </div>

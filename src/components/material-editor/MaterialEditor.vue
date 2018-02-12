@@ -80,7 +80,7 @@ export default {
   <div class="base-layout">
     <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
 
-    <resize-box class="container controls-section" v-if="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
+    <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
       <header class="header controls-row">
         <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
         <custom-btn accesskey="o" title="Object" :active="activeObjInfoTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onSetActiveObjInfoTabName" />
@@ -98,7 +98,7 @@ export default {
       <footer class="footer controls-row" />
     </resize-box>
 
-    <canvas-section :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+    <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
         <custom-btn iconClass="icon-move" class="xs" />
@@ -109,7 +109,7 @@ export default {
       </div>
 
       <transition slot="sidebar" name="slide-meshes-list">
-        <geometric-objects v-if="isVisibleObjectsList" />
+        <geometric-objects v-show="isVisibleObjectsList" />
       </transition>
     </canvas-section>
   </div>

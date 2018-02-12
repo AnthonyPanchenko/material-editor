@@ -27,6 +27,7 @@ export default {
   data() {
     return {
       newShaderName: '',
+      isVisibleShadersList: true,
       isVisibleRemoveShaderCtrls: false
     };
   },
@@ -52,6 +53,9 @@ export default {
     onRemoveShader() {
       this.newShaderName = this.activeShader.name;
       this.isVisibleRemoveShaderCtrls = true;
+    },
+    onToggleFullScreenMode() {
+      this.isVisibleShadersList = !this.isVisibleShadersList;
     },
     onCancelRemoveShader() {
       this.isVisibleRemoveShaderCtrls = false;
@@ -83,7 +87,7 @@ export default {
 <template>
   <transition name="slide">
     <div v-if="isOpen" class="base-layout shaders-gallery">
-      <section class="container controls-section">
+      <section v-show="isVisibleShadersList" class="container controls-section">
         <div class="header controls-row">
           <h5 class="title">Shaders gallery</h5>
           <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
@@ -110,7 +114,7 @@ export default {
         <div v-else class="footer controls-row" />
       </section>
 
-      <canvas-section :isInFullScreenMode="isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+      <canvas-section :isFullScreenMode="!isVisibleShadersList" :onToggleFullScreenMode="onToggleFullScreenMode">
         <div slot="header" class="header controls-row">
           <custom-btn iconClass="icon-sphere" />
           <custom-btn iconClass="icon-cube" />

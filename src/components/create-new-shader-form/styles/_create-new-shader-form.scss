@@ -1,0 +1,27 @@
+.create-new-shader-form {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  background-color: $body-bg-color;
+  box-shadow: 0 0 4px 1px rgba(137, 200, 255, 0.18);
+
+  .header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 30px;
+  }
+
+  .checkbox-btn,
+  .header .title,
+  .input-text input {
+    padding-left: 10px;
+  }
+
+  .checkbox-btn {
+    margin-top: 5px;
+  }
+
+  .footer {
+    margin-top: 30px;
+  }
+}

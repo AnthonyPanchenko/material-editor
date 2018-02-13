@@ -15,8 +15,6 @@ export default {
     onRemoveNotification(notificationId) {
       this.notifications = this.notifications.filter(item => item.id !== notificationId);
     }
-  },
-  mounted() {
   }
 }
 </script>

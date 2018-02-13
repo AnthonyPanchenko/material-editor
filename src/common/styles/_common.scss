@@ -30,6 +30,7 @@ i[class*=" icon-"] {
 
 .controls-row {
   display: flex;
+  align-items: center;
   flex: 1 0 $controls-row-height;
   height: $controls-row-height;
   background-color: $controls-row-bg;

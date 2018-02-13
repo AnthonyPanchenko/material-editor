@@ -7,7 +7,7 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
-import CreateNewShaderForm from './components/CreateNewShaderForm.vue';
+import CreateNewShaderForm from '../create-new-shader-form/CreateNewShaderForm.vue';
 
 import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
@@ -35,7 +35,6 @@ export default {
   data() {
     return {
       shadersTypes,
-      isOpenShadersGalleryWindow: false,
       isOpenCreateNewShaderForm: false,
       internalUrls
     };
@@ -64,48 +63,30 @@ export default {
       'onSetActiveControlsType',
       'onSetFooterControlsHeight'
     ]),
-
-    onCreateNewShader(shaderName, isVertexShader) {
-      console.log(shaderName, isVertexShader);
-    },
-
     onSaveShader(payload) {
       console.log(payload);
     },
-
-    onOpenShadersGalleryWindow() {
-      this.isOpenShadersGalleryWindow = !this.isOpenShadersGalleryWindow;
-    },
-
-    onCloseShadersGalleryWindow() {
-      if (this.isOpenShadersGalleryWindow) {
-        this.isOpenShadersGalleryWindow = false;
-      }
-    },
-
     onOpenCreateNewShaderForm() {
       this.isOpenCreateNewShaderForm = !this.isOpenCreateNewShaderForm;
     },
-
     onCloseCreateNewShaderForm() {
       if (this.isOpenCreateNewShaderForm) {
         this.isOpenCreateNewShaderForm = false;
       }
+    }
+  },
+  beforeMount() {
+    if (!this.shadersInfo) {
+      this.$router.replace(internalUrls.SHADERS_GALLERY);
     }
   }
 };
 </script>
 
 <template>
-  <div class="create-new-shader-container" v-if="!shadersInfo">
-    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
-    <create-new-shader-form :onCreate="onCreateNewShader" :onOpenShadersGallery="onOpenShadersGalleryWindow" />
-  </div>
-
-  <div class="base-layout" v-else>
-    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" isEditable />
+  <div class="base-layout">
     <modal-window :isOpen="isOpenCreateNewShaderForm">
-      <create-new-shader-form class="is-in-modal-window" :onClose="onCloseCreateNewShaderForm" :onCreate="onCreateNewShader" isEditable />
+      <create-new-shader-form :onClose="onCloseCreateNewShaderForm" />
     </modal-window>
 
     <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetPanelControlsWidth" :size="controlsPanelWidth">
@@ -118,7 +99,7 @@ export default {
         <custom-btn iconClass="icon-redo" class="xs" />
         <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewShaderForm" />
         <custom-btn iconClass="icon-open-folder" class="xs" />
-        <custom-btn iconClass="icon-gallery" class="xs" :onClick="onOpenShadersGalleryWindow" />
+        <custom-btn :link="internalUrls.SHADERS_GALLERY" iconClass="icon-gallery" class="xs" />
         <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
       </header>
 

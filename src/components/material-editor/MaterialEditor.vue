@@ -33,7 +33,6 @@ export default {
   data() {
     return {
       tabNames,
-      isOpenShadersGalleryWindow: false,
       internalUrls
     };
   },
@@ -52,14 +51,6 @@ export default {
       'onToggleObjectsList',
       'onToggleFullScreenMode'
     ]),
-    onOpenShadersGalleryWindow() {
-      this.isOpenShadersGalleryWindow = !this.isOpenShadersGalleryWindow;
-    },
-    onCloseShadersGalleryWindow() {
-      if (this.isOpenShadersGalleryWindow) {
-        this.isOpenShadersGalleryWindow = false;
-      }
-    },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
@@ -78,8 +69,6 @@ export default {
 
 <template>
   <div class="base-layout">
-    <shaders-gallery :isOpen="isOpenShadersGalleryWindow" :onClose="onCloseShadersGalleryWindow" />
-
     <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
       <header class="header controls-row">
         <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />

@@ -16,11 +16,6 @@ import * as internalUrls from '../../common/constants/internal-urls';
 
 export default {
   name: 'ShadersGallery',
-  props: {
-    isEditable: { type: Boolean, default: false },
-    onApply: { type: Function, default: noop },
-    onEdit: { type: Function, default: noop }
-  },
   components: {
     InputText,
     ShaderItem,
@@ -31,6 +26,7 @@ export default {
   },
   data() {
     return {
+      isEditable: false,
       newShaderName: '',
       isVisibleShadersList: true,
       isOpenCreateNewShaderForm: false,
@@ -50,6 +46,9 @@ export default {
         this.$router.push(internalUrls.MATERIAL_EDITOR);
       }
     },
+    isDifferenceNames() {
+      return (this.newShaderName && (this.activeShader && this.activeShader.name)) !== this.newShaderName.trim();
+    },
     onOpenCreateNewShaderForm() {
       this.isOpenCreateNewShaderForm = !this.isOpenCreateNewShaderForm;
     },
@@ -64,7 +63,7 @@ export default {
       this.isVisibleRemoveShaderCtrls = false;
     },
     onRenameShader() {
-      if ((this.newShaderName && (this.activeShader && this.activeShader.name)) !== this.newShaderName.trim()) {
+      if (this.isDifferenceNames()) {
         console.log(this.newShaderName.trim());
       }
     },
@@ -82,7 +81,18 @@ export default {
       this.isVisibleRemoveShaderCtrls = false;
     },
     onAgreeRemoveShader() {
-      this.isVisibleRemoveShaderCtrls = false;
+      this.$http({
+        url: `${api.GLSL_PROGRAMS}/${this.activeShader.uuid}`,
+        method: 'DELETE',
+        // credentials: true,
+        before: () => {
+          this.isVisibleRemoveShaderCtrls = false;
+        },
+      }).then(res => {
+        console.log('success', res);
+      }, res => {
+        console.log('error', res);
+      });
     },
     loadGlslProgramsList() {
       this.$http({
@@ -134,7 +144,7 @@ export default {
         <custom-btn v-if="isVisibleRemoveShaderCtrls" iconClass="icon-checkmark" :onClick="onAgreeRemoveShader" class="success xs" />
         <custom-btn v-if="isVisibleRemoveShaderCtrls" iconClass="icon-close" :onClick="onCancelRemoveShader" class="danger xs" />
         <input-text :value="newShaderName" :onInput="onChangeShaderName" />
-        <custom-btn :disabled="!newShaderName" title="Rename" :onClick="onRenameShader" class="success sm" />
+        <custom-btn :disabled="!isDifferenceNames()" title="Rename" :onClick="onRenameShader" class="success sm" />
         <custom-btn v-if="isEditable" title="Edit" :onClick="onEdit" class="primary sm" />
         <custom-btn v-else title="Apply" :onClick="onApply" class="primary sm" />
       </div>

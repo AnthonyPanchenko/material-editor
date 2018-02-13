@@ -4,8 +4,8 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
 const config = require('../app.config');
-const api = require('../src/common/constants/api-url-parts');
-const mockData = require('../src/mock-data');
+const api = require('../common/api');
+const mockData = require('../common/mock-data');
 
 const app = express();
 const PORT = process.env.PORT || config.serverPort;

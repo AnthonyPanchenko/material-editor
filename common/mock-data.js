@@ -28,7 +28,7 @@ const mockData = {
       previewBgUlr: 'https://image.prntscr.com/image/QtNVooDGTb6gwD_ywLlJyA.png'
     },
     {
-      uuid: 'sdf342sd-dggre-twtf-cbbdr-werwrwr2554',
+      uuid: '044ea043-1cfd-4e27-8be8-937bae42655c',
       name: 'Some shader',
       previewBgUlr: ''
     }

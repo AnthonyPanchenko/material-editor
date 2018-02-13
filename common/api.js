@@ -1,4 +1,4 @@
-const apiUrlParts = {
+const api = {
   API_PATH: '/api',
   MATERIAL_EDITOR_URL_PART: '/material-editor',
   SHADER_EDITOR_URL_PART: '/shader-editor',
@@ -6,4 +6,4 @@ const apiUrlParts = {
   GLSL_PROGRAMS_URL_PART: '/glsl-programs'
 };
 
-module.exports = apiUrlParts;
+module.exports = api;

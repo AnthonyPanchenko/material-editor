@@ -1,4 +1,4 @@
-import api from './api-url-parts';
+import api from '../../../common/api';
 
 export const API_SERVER = (process.env.NODE_ENV !== 'production') ? 'http://localhost:3000' : 'https://material-editor.herokuapp.com';
 

@@ -14,6 +14,10 @@
       justify-content: space-between;
       align-items: center;
 
+      .back-btn {
+        padding: 6px 12px 2px 0;
+      }
+
       .title {
         padding-left: 10px;
       }
@@ -30,6 +34,10 @@
           float: left;
         }
       }
+    }
+
+    .footer .input-text input {
+      padding-left: 10px;
     }
   }
 

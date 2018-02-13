@@ -100,6 +100,9 @@ export default {
     }
   },
   beforeMount() {
+    if (this.activeShader) {
+      this.newShaderName = this.activeShader.name;
+    }
     this.loadGlslProgramsList();
   }
 }
@@ -113,7 +116,7 @@ export default {
 
     <section v-show="isVisibleShadersList" class="container controls-section">
       <div class="header controls-row">
-        <custom-btn iconClass="icon-arrow-left" :onClick="browserHistoryGoBack" class="xs" />
+        <custom-btn iconClass="icon-arrow-left" :onClick="browserHistoryGoBack" class="xs back-btn" />
         <h5 class="title">Shaders gallery</h5>
         <custom-btn iconClass="icon-new-file" :onClick="onOpenCreateNewShaderForm" class="xs" />
       </div>

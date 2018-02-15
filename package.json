@@ -22,6 +22,7 @@
     "express": "^4.15.4",
     "express-history-api-fallback": "^2.2.1",
     "lockfile": "^1.0.3",
+    "mongoose": "^5.0.5",
     "normalizr": "^3.2.4",
     "vue": "^2.5.13",
     "vue-html-loader": "^1.2.4",

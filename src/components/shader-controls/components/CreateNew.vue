@@ -1,16 +1,16 @@
 <script>
 import noop from '../../../common/utils/noop';
-import emptyArray from '../../../common/utils/emptyArray';
-import InputText from '../../../common/components/input-text/InputText.vue';
-import RadioBtn from '../../../common/components/radio-btn/RadioBtn.vue';
-import CustomSelect from '../../../common/components/custom-select/CustomSelect.vue';
-import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
-
 import ColorRow from './ColorRow.vue';
 import MatrixRow from './MatrixRow.vue';
 import NumberRow from './NumberRow.vue';
 import VectorRow from './VectorRow.vue';
 import TextureRow from './TextureRow.vue';
+import { matrices } from '../../../common/utils/matrix';
+import emptyArray from '../../../common/utils/emptyArray';
+import InputText from '../../../common/components/input-text/InputText.vue';
+import RadioBtn from '../../../common/components/radio-btn/RadioBtn.vue';
+import CustomSelect from '../../../common/components/custom-select/CustomSelect.vue';
+import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
   name: 'CreateNew',
@@ -31,7 +31,7 @@ export default {
     selectedOptionId: { type: String, default: '' },
     mode: { type: String, default: 'vector' },
     name: { type: String, default: '_vector' },
-    type: { type: String, default: 'vec3' },
+    type: { type: String, default: 'vec3' }
   },
   components: {
     InputText,
@@ -43,12 +43,7 @@ export default {
     MatrixRow,
     NumberRow,
     VectorRow
-  },
-  data() {
-    return {};
-  },
-  methods: {},
-  mounted() { }
+  }
 };
 </script>
 

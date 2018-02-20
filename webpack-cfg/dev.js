@@ -1,38 +1,35 @@
-const { resolve } = require('path');
 const webpack = require('webpack');
 const OpenBrowserPlugin = require('open-browser-webpack-plugin');
-const FriendlyErrorsPlugin = require('friendly-errors-webpack-plugin');
-const baseConfig = require('./base');
-const config = require('../app.config');
+const StyleLintPlugin = require('stylelint-webpack-plugin');
 
-const resultConfig = Object.assign({}, {
+module.exports = (settings) => ({
   devtool: 'inline-source-map',
 
   entry: [
-    `webpack-dev-server/client?http://${config.clientHost}:${config.clientPort}`,
+    `webpack-dev-server/client?http://${settings.host}:${settings.port}`,
     'webpack/hot/only-dev-server',
-    './src/main'
+    `${settings.src}/index`
   ],
 
   plugins: [
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new OpenBrowserPlugin({ url: `http://${config.clientHost}:${config.clientPort}` }),
-    new webpack.DefinePlugin({
-      'process.env.NODE_ENV': `"${process.env.NODE_ENV}"`
-    }),
-    new FriendlyErrorsPlugin()
+    new OpenBrowserPlugin({ url: `http://${settings.host}:${settings.port}` }),
+    new StyleLintPlugin({
+      syntax: 'scss',
+      configFile: '.stylelintrc',
+      context: settings.src,
+      files: '**/*.scss'
+    })
   ],
 
   devServer: {
-    contentBase: resolve(__dirname, config.static),
-    publicPath: config.urlBasePath,
-    hot: true,
+    publicPath: settings.publicPath,
     historyApiFallback: true,
-    host: config.clientHost,
-    port: config.clientPort
+    host: settings.host,
+    port: settings.port,
+    https: false,
+    hot: true
   }
-}, baseConfig);
-
-module.exports = resultConfig;
+});

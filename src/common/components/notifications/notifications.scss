@@ -70,7 +70,7 @@ $notification-transition-duration: 250ms;
       background-color: #fafafa;
       cursor: default;
 
-      .icon {
+      .icon { /* stylelint-disable-line */
         visibility: hidden;
         font-size: 11px;
         position: absolute;

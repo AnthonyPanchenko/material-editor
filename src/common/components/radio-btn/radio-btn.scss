@@ -11,7 +11,7 @@ $radio-btn-hover-color: #fff;
 
   .switch-icon {
     font-size: 14px;
-    font-family: 'icomoon' !important;
+    font-family: 'icomoon' !important; /* stylelint-disable-line */
     color: $radio-btn-unchecked-color;
     transition: border-color 200ms linear;
     -webkit-font-smoothing: antialiased;
@@ -52,8 +52,7 @@ $radio-btn-hover-color: #fff;
   &:hover {
     color: $radio-btn-hover-color;
 
-    .switch-icon,
-    input[type="radio"]:checked + .switch-icon {
+    .switch-icon, input[type="radio"]:checked + .switch-icon { /* stylelint-disable-line */
       cursor: pointer;
       color: $radio-btn-hover-color;
     }
@@ -63,7 +62,7 @@ $radio-btn-hover-color: #fff;
     cursor: not-allowed;
     opacity: 0.3;
 
-    .switch-icon {
+    .switch-icon { /* stylelint-disable-line */
       cursor: inherit;
     }
 
@@ -71,7 +70,7 @@ $radio-btn-hover-color: #fff;
     &:hover {
       color: inherit;
 
-      .switch-icon {
+      .switch-icon { /* stylelint-disable-line */
         color: inherit;
         cursor: inherit;
       }

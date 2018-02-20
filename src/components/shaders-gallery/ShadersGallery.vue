@@ -4,15 +4,14 @@ const { mapState, mapActions } = createNamespacedHelpers('shadersGallery');
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputText from '../../common/components/input-text/InputText.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
-import emptyObject from '../../common/utils/emptyObject';
 import ShaderItem from './components/ShaderItem.vue';
 
 import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import CreateNewShaderForm from '../create-new-shader-form/CreateNewShaderForm.vue';
 
-import noop from '../../common/utils/noop';
 import * as api from '../../common/constants/api';
 import * as internalUrls from '../../common/constants/internal-urls';
+import './styles/shaders-gallery.scss';
 
 export default {
   name: 'ShadersGallery',
@@ -87,7 +86,7 @@ export default {
         // credentials: true,
         before: () => {
           this.isVisibleRemoveShaderCtrls = false;
-        },
+        }
       }).then(res => {
         console.log('success', res);
       }, res => {
@@ -101,7 +100,7 @@ export default {
         // credentials: true,
         before: () => {
           console.log('start to run spinner');
-        },
+        }
       }).then(res => {
         this.onSuccessLoadGlslPrograms(res.body);
       }, res => {

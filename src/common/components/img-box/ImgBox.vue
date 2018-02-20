@@ -1,10 +1,12 @@
 <script>
+import './img-box.scss';
+
 export default {
   name: 'ImgBox',
   props: {
     background: { type: String, default: '' },
     isUploading: { type: Boolean, default: false }
-  },
+  }
 };
 </script>
 

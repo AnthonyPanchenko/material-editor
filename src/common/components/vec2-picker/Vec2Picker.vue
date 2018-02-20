@@ -2,6 +2,7 @@
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
 import getElementOffsets from '../../utils/getElementOffsets';
+import './vec2-picker.scss';
 
 export default {
   name: 'Vec2Picker',

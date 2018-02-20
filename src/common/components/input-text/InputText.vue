@@ -1,8 +1,9 @@
 <script>
-import noop from "../../utils/noop";
+import noop from '../../utils/noop';
+import './input-text.scss';
 
 export default {
-  name: "InputText",
+  name: 'InputText',
   props: {
     name: String,
     value: [String, Number],

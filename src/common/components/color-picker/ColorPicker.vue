@@ -5,6 +5,7 @@ import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';
 import InputNumber from '../input-number/InputNumber.vue';
 import InputText from '../input-text/InputText.vue';
+import './color-picker.scss';
 
 export default {
   name: 'ColorPicker',
@@ -18,7 +19,7 @@ export default {
     MouseMove,
     CustomBtn,
     InputNumber,
-    InputText,
+    InputText
   },
   data() {
     return {

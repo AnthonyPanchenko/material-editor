@@ -4,8 +4,6 @@
   overflow: hidden;
   list-style: none;
   margin: 0;
-  -webkit-box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
-  -moz-box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
   box-shadow: 2px 3px 5px rgba(83, 83, 83, 0.2);
   background: #262626;
   border: 1px solid #3e3e3e;
@@ -33,7 +31,7 @@
   padding: 2px 4px;
   border-bottom: 1px solid #505050;
   white-space: pre;
-  color: white;
+  color: #fff;
   cursor: pointer;
 }
 
@@ -43,5 +41,5 @@
 
 li.CodeMirror-hint-active {
   background: #26a2de;
-  color: white;
+  color: #fff;
 }

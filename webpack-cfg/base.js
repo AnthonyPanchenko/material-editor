@@ -1,52 +1,72 @@
-const config = require('../app.config');
-const { resolve } = require('path');
+const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
-module.exports = {
-  resolve: {
-    extensions: ['.js', '.vue', '.json'],
-    modules: [resolve(__dirname, config.src), 'node_modules'],
-    alias: {
-      vue$: 'vue/dist/vue.common.js'
-    }
-  },
-
-  output: {
-    path: resolve(__dirname, config.build),
-    publicPath: config.urlBasePath,
-    filename: 'app.js'
-  },
-
-  module: {
-    rules: [
-      {
-        test: /\.js$/,
-        include: resolve(__dirname, config.src),
-        use: (process.env.NODE_ENV === 'development') ? ['babel-loader', 'eslint-loader'] : ['babel-loader']
-      },
-      {
-        test: /\.css$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader']
-      },
-      {
-        test: /\.html$/,
-        use: ['vue-html-loader']
-      },
-      {
-        test: /\.vue$/,
-        use: ['vue-loader']
-      },
-      {
-        test: /\.scss$/,
-        use: ['style-loader', 'css-loader', 'postcss-loader', 'sass-loader']
-      },
-      {
-        test: /\.(ico|png|jpg|gif|eot|ttf|svg|woff|woff2)(\?.+)?$/,
-        use: ['file-loader?hash=sha512&digest=hex&name=[hash].[ext]']
-      },
-      {
-        test: /\.(json)(\?.+)?$/,
-        use: ['url-loader?name=[path][name].[ext]?[hash]']
+module.exports = (settings) => {
+  const stylesLoaders = [
+    {
+      loader: 'css-loader',
+      options: { minimize: settings.env === 'production' }
+    },
+    'postcss-loader',
+    'sass-loader',
+    {
+      loader: 'sass-resources-loader',
+      options: {
+        resources: [
+          `${settings.src}/common/styles/variables.scss`,
+          `${settings.src}/common/styles/reset.scss`,
+          `${settings.src}/common/styles/fonts.scss`,
+          `${settings.src}/common/styles/font-icons.scss`,
+          `${settings.src}/common/styles/common.scss`,
+          `${settings.src}/common/styles/animations.scss`,
+          `${settings.src}/common/styles/base-layout.scss`,
+          `${settings.src}/common/styles/fieldset.scss`
+        ]
       }
-    ]
-  }
+    }
+  ];
+
+  return {
+    resolve: {
+      extensions: ['.js', '.vue', '.json'],
+      modules: [settings.src, 'node_modules']
+    },
+
+    output: {
+      path: settings.dist,
+      publicPath: settings.publicPath,
+      filename: 'bundle.js'
+    },
+
+    module: {
+      rules: [
+        {
+          test: /\.js$/,
+          include: settings.src,
+          use: (settings.env === 'development') ? ['babel-loader', 'eslint-loader'] : ['babel-loader']
+        },
+        {
+          test: /\.html$/,
+          use: ['vue-html-loader']
+        },
+        {
+          test: /\.vue$/,
+          use: ['vue-loader']
+        },
+        {
+          test: /\.(css|scss)$/,
+          loader: settings.env === 'production'
+            ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaders })
+            : ['style-loader', ...stylesLoaders]
+        },
+        {
+          test: /\.(png|jpeg|jpg|gif|woff|woff2|eot|ttf|svg|ico|otf)(\?.*$|$)/,
+          use: ['file-loader']
+        },
+        {
+          test: /\.(json)(\?.+)?$/,
+          use: ['url-loader']
+        }
+      ]
+    }
+  };
 };

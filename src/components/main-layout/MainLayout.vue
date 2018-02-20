@@ -1,14 +1,15 @@
 <script>
 import Notifications from '../../common/components/notifications/Notifications.vue';
+import './styles/main-layout.scss';
 
 export default {
   name: 'MainLayout',
   components: {
-    Notifications,
+    Notifications
   },
   data() {
     return {
-      notifications: [],
+      notifications: []
     };
   },
   methods: {

@@ -1,13 +1,13 @@
 <script>
 import noop from '../../utils/noop';
 import emptyArray from '../../utils/emptyArray';
-import statuses from '../../constants/notifications-statuses';
+import './notifications.scss';
 
 export default {
   name: 'Notifications',
   props: {
     list: { type: Array, default: emptyArray },
-    onClose: { type: Function, default: noop },
+    onClose: { type: Function, default: noop }
   }
 };
 </script>

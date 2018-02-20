@@ -3,6 +3,7 @@ import noop from '../../common/utils/noop';
 import InputText from '../../common/components/input-text/InputText.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import './styles/create-new-shader-form.scss';
 
 export default {
   name: 'CreateNewShaderForm',

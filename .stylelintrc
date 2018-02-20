@@ -1,0 +1,64 @@
+{
+  "extends": "stylelint-config-standard",
+  "plugins": [
+    "stylelint-scss"
+  ],
+  "rules": {
+    "indentation": 2,
+    "no-duplicate-selectors": true,
+    "color-hex-case": "lower",
+    "color-named": "never",
+    "font-family-no-missing-generic-family-keyword": null,
+    "selector-combinator-space-after": "always",
+    "selector-attribute-quotes": "always",
+    "declaration-block-trailing-semicolon": "always",
+    "declaration-colon-space-before": "never",
+    "declaration-colon-space-after": "always",
+    "property-no-vendor-prefix": true,
+    "value-no-vendor-prefix": true,
+    "number-leading-zero": "always",
+    "function-url-quotes": "always",
+    "comment-whitespace-inside": "always",
+    "comment-empty-line-before": "always",
+    "at-rule-no-vendor-prefix": true,
+    "selector-pseudo-class-parentheses-space-inside": "never",
+    "selector-no-vendor-prefix": true,
+    "media-feature-range-operator-space-before": "always",
+    "media-feature-range-operator-space-after": "always",
+    "media-feature-parentheses-space-inside": "never",
+    "media-feature-name-no-vendor-prefix": true,
+    "media-feature-colon-space-before": "never",
+    "media-feature-colon-space-after": "always",
+    "scss/at-else-closing-brace-newline-after": "always-last-in-chain",
+    "scss/at-else-empty-line-before": "never",
+    "scss/at-extend-no-missing-placeholder": true,
+    "scss/at-function-parentheses-space-before": "always",
+    "scss/at-mixin-argumentless-call-parentheses": "always",
+    "scss/at-rule-no-unknown": true,
+    "scss/dollar-variable-colon-space-after": "always-single-line",
+    "scss/dollar-variable-colon-space-before": "never",
+    "scss/declaration-nested-properties": "never",
+    "scss/operator-no-unspaced": true,
+    "scss/selector-no-redundant-nesting-selector": true,
+    "selector-pseudo-element-colon-notation": null,
+    "color-hex-length": null,
+    "declaration-block-no-redundant-longhand-properties": null,
+    "at-rule-no-unknown": null,
+    "selector-pseudo-class-no-unknown": [
+      true,
+      {
+        "ignorePseudoClasses": [
+          "global"
+        ]
+      }
+    ],
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "h7"
+        ]
+      }
+    ]
+  }
+}

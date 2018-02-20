@@ -2,6 +2,7 @@
 import noop from '../../utils/noop';
 import getElementOffsets from '../../utils/getElementOffsets';
 import emptyArray from '../../utils/emptyArray';
+import './custom-select.scss';
 
 export default {
   name: 'CustomSelect',
@@ -20,7 +21,7 @@ export default {
       optionsListLength: this.options.length,
       triggerSelect: null,
       isOpen: false,
-      selectedOption: this.options[0] || { id: '', title: '...' },
+      selectedOption: this.options[0] || { id: '', title: '...' }
     };
   },
   methods: {
@@ -124,7 +125,7 @@ export default {
         this.indexOfSelectedOption = this.initIndexOfSelectedOption;
         this.isOpen = !this.isOpen;
       }
-    },
+    }
   },
   updated() {
     this.observe();

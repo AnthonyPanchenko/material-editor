@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './checkbox-btn.scss';
 
 export default {
   name: 'CheckboxBtn',

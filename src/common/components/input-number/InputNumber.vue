@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './input-number.scss';
 
 export default {
   name: 'InputNumber',
@@ -31,7 +32,7 @@ export default {
   },
   beforeDestroy() {
     this.$refs.inpNumber.removeEventListener('mousewheel', noop);
-  },
+  }
 };
 </script>
 

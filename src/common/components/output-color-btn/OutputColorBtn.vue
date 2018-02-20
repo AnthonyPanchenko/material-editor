@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './output-color-btn.scss';
 
 export default {
   name: 'OutputColorBtn',
@@ -11,7 +12,7 @@ export default {
   },
   data() {
     return {
-      iconColor: (255 / 3) > ((this.color.r + this.color.g + this.color.b) / 3) ? '#fff' : '#000',
+      iconColor: (255 / 3) > ((this.color.r + this.color.g + this.color.b) / 3) ? '#fff' : '#000'
     };
   },
   methods: {

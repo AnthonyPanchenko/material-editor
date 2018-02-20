@@ -29,7 +29,7 @@ export default {
 
       this.onChange(matrix, this.uuid);
     }
-  },
+  }
 };
 </script>
 

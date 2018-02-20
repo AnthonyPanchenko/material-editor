@@ -28,7 +28,7 @@ export default {
     onChangeFileInput(filses) {
       console.log(filses);
     }
-  },
+  }
 };
 </script>
 

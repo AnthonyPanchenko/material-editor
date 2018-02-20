@@ -1,6 +1,7 @@
 <script>
 import clamp from '../../utils/clamp';
 import noop from '../../utils/noop';
+import './resize-box.scss';
 
 export default {
   name: 'ResizeBox',
@@ -46,7 +47,7 @@ export default {
     completeResize() {
       this.grabState[this.resize] = false;
       this.onEndOfResize(this.currentSize);
-    },
+    }
   },
   mounted() {
     this.rootNode = this.$refs.rootNode;

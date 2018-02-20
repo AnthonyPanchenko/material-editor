@@ -7,7 +7,7 @@ import getElementOffsets from '../../utils/getElementOffsets';
 export default {
   name: 'MouseMove',
   props: {
-    tag: { type: String, default: 'div', },
+    tag: { type: String, default: 'div' },
     onInit: { type: Function, default: noop },
     styleCss: { type: Object, default: emptyObject },
     onMove: { type: Function, default: noop }

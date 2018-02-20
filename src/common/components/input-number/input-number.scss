@@ -21,13 +21,10 @@ $input-number-hover-bg-color: rgba(121, 136, 185, 0.14);
     padding-left: 5px;
     padding-right: 5px;
     text-overflow: ellipsis;
-    -moz-appearance: none;
-    -webkit-appearance: none;
+    appearance: none;
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {
-      -webkit-appearance: none;
-      -moz-appearance: none;
       appearance: none;
       margin: 0;
     }

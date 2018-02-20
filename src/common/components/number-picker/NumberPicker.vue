@@ -2,6 +2,7 @@
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
 import getElementOffsets from '../../utils/getElementOffsets';
+import './number-picker.scss';
 
 export default {
   name: 'NumberPicker',

@@ -3,6 +3,7 @@ import noop from '../../common/utils/noop';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
+import './styles/shader-controls.scss';
 
 export default {
   name: 'ShaderControls',
@@ -20,7 +21,7 @@ export default {
   },
   data() {
     return {
-      shadersControlsTypes,
+      shadersControlsTypes
     };
   },
   methods: {

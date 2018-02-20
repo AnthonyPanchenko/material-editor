@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './radio-btn.scss';
 
 export default {
   name: 'RadioBtn',

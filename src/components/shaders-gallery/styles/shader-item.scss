@@ -42,7 +42,7 @@ $shader-name-row-height: 28px;
     }
   }
 
-  .name {
+  .name { /* stylelint-disable-line */
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;

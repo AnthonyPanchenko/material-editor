@@ -2,6 +2,7 @@
 import noop from '../../utils/noop';
 import clamp from '../../utils/clamp';
 import getElementOffsets from '../../utils/getElementOffsets';
+import './popover.scss';
 
 /*
                    top-center
@@ -74,7 +75,7 @@ export default {
       if (bestFitPositions[opositPos]) {
         definedPosition = opositPos;
       } else {
-        for (let pos in bestFitPositions) {
+        for (const pos in bestFitPositions) {
           if (bestFitPositions[pos]) {
             definedPosition = pos;
             break;

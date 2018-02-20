@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './input-file.scss';
 
 export default {
   name: 'InputFile',

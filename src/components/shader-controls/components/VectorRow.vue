@@ -40,7 +40,7 @@ export default {
 
       vec2PickerTrigger: null,
       vec3PickerTrigger: null,
-      numberPickerTrigger: null,
+      numberPickerTrigger: null
     };
   },
   methods: {
@@ -74,7 +74,7 @@ export default {
       vector[axis] = value;
 
       this.onChange(vector, this.uuid);
-    },
+    }
   },
   mounted() {
     if (this.type === 'vec4') {

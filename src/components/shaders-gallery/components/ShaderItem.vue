@@ -1,13 +1,14 @@
 <script>
 import emptyObject from '../../../common/utils/emptyObject';
 import noop from '../../../common/utils/noop';
+import '../styles/shader-item.scss';
 
 export default {
   name: 'ShadersItem',
   props: {
     isActive: { type: Boolean, default: false },
     onClick: { type: Function, default: noop },
-    shader: { type: Object, default: emptyObject },
+    shader: { type: Object, default: emptyObject }
   },
   methods: {
     onShaderClick(event) {

@@ -4,6 +4,7 @@ import { arr } from '../../utils/emptyArray';
 import clamp from '../../utils/clamp';
 import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/matrix';
 import getElementOffsets from '../../utils/getElementOffsets';
+import './vec3-picker.scss';
 
 export default {
   name: 'Vec3Picker',
@@ -28,7 +29,7 @@ export default {
       lineDash: [5.3, 2.7],
       localVector: [0, 0, 0], // relative to the coordinate system (not normalized)
       tempVector: arr, // temporary
-      viewVector: [0, 0, 0], //relative to the canvas view (not normalized)
+      viewVector: [0, 0, 0], // relative to the canvas view (not normalized)
       pointX: 0,
       pointY: 0,
       thetaX: 0.512,

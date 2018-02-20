@@ -13,7 +13,7 @@ $checkbox-btn-hover-color: #fff;
     font-size: 28px;
     line-height: 28px;
     color: $checkbox-btn-color;
-    font-family: 'icomoon' !important;
+    font-family: 'icomoon' !important; /* stylelint-disable-line */
     transition: border-color 200ms linear;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -53,8 +53,7 @@ $checkbox-btn-hover-color: #fff;
   &:hover {
     color: $checkbox-btn-hover-color;
 
-    .switch-icon,
-    input[type="checkbox"]:checked + .switch-icon {
+    .switch-icon, input[type="checkbox"]:checked + .switch-icon { /* stylelint-disable-line */
       cursor: pointer;
       color: $checkbox-btn-hover-color;
     }
@@ -65,9 +64,9 @@ $checkbox-btn-hover-color: #fff;
     color: inherit;
     opacity: 0.3;
 
-    .switch-icon {
-      cursor: inherit;
+    .switch-icon { /* stylelint-disable-line */
       color: inherit;
+      cursor: inherit;
     }
   }
 }

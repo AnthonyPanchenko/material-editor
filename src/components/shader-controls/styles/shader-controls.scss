@@ -97,8 +97,7 @@
           }
         }
 
-        > label,
-        > button {
+        > label, > button { /* stylelint-disable-line */
           margin-left: $controls-gutter;
         }
 

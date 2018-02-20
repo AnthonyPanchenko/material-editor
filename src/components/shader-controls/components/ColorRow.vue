@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       isOpen: false,
-      colorPickerTrigger: null,
+      colorPickerTrigger: null
     };
   },
   methods: {
@@ -46,7 +46,7 @@ export default {
       rgba[channel] = value;
 
       this.onChange(rgba, this.name);
-    },
+    }
   },
   mounted() {
     this.colorPickerTrigger = this.$refs.colorPickerTrigger.$el;

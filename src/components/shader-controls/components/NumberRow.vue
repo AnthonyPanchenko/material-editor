@@ -29,7 +29,7 @@ export default {
     return {
       step: (this.type === 'float') ? 0.01 : 1,
       isOpenNumberPicker: false,
-      numberPickerTrigger: null,
+      numberPickerTrigger: null
     };
   },
   methods: {

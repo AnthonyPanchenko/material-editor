@@ -21,6 +21,12 @@ import 'codemirror/keymap/sublime';
 import './utils/glsl-lint';
 import './utils/glsl-mode';
 
+import './styles/codemirror.scss';
+import './styles/dialog.scss';
+import './styles/foldgutter.scss';
+import './styles/lint.scss';
+import './styles/show-hint.scss';
+
 export default {
   name: 'CodeEditor',
   props: {

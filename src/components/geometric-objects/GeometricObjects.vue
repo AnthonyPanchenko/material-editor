@@ -3,6 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('geometricObjects');
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import * as api from '../../common/constants/api';
+import './styles/geometric-objects.scss';
 
 export default {
   name: 'GeometricObjects',
@@ -30,7 +31,7 @@ export default {
         // credentials: true,
         before: () => {
           console.log('start to run spinner');
-        },
+        }
       }).then(res => {
         this.onSuccessLoadGeometricObjects(res.body);
       }, res => {

@@ -18,7 +18,7 @@ body {
 i[class^="icon-"],
 i[class*=" icon-"] {
   pointer-events: none;
-  font-family: 'icomoon' !important;
+  font-family: 'icomoon' !important; /* stylelint-disable-line */
   font-style: normal;
   font-weight: normal;
   font-variant: normal;
@@ -51,7 +51,7 @@ i[class*=" icon-"] {
     }
   }
 
-  > .ctrl-btn {
+  > .ctrl-btn { /* stylelint-disable-line */
     font-size: 13.5px;
 
     i[class^="icon-"],
@@ -60,7 +60,7 @@ i[class*=" icon-"] {
     }
   }
 
-  .gap {
+  .gap { /* stylelint-disable-line */
     flex: 1 0 auto;
   }
 }

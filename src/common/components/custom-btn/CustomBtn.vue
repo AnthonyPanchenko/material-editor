@@ -1,5 +1,6 @@
 <script>
 import noop from '../../utils/noop';
+import './custom-btn.scss';
 
 export default {
   name: 'CustomBtn',

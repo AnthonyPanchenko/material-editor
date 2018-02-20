@@ -10,7 +10,7 @@
     "build": "webpack --env production -p",
     "clean": "rimraf build",
     "lint": "npm run lint:js && npm run lint:scss",
-    "lint:js": "eslint src --ext .vue --fix --color",
+    "lint:js": "eslint src --ext js --ext vue --fix --color",
     "lint:scss": "stylelint \"./src/**/*.scss\" --config .stylelintrc --fix --color"
   },
   "engines": {

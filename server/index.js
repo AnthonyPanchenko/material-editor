@@ -1,17 +1,17 @@
 const path = require('path');
-// const fallback = require('express-history-api-fallback');
+const fallback = require('express-history-api-fallback');
 const express = require('express');
 const bodyParser = require('body-parser');
 const cors = require('cors');
-const config = require('../app.config');
+const config = require('./config');
 const api = require('../common/api');
 const mockData = require('../common/mock-data');
 
 const app = express();
-const PORT = process.env.PORT || config.serverPort;
+const PORT = process.env.PORT || config.port;
 
 // https://github.com/expressjs/cors
-const whitelist = [`http://${config.clientHost}:${config.clientPort}`, 'https://material-editor.herokuapp.com'];
+const whitelist = ['http://localhost:8080', 'https://material-editor.herokuapp.com'];
 
 const corsOptions = {
   origin: false,
@@ -26,16 +26,17 @@ const corsOptionsDelegate = (req, callback) => {
 
 // static files
 app.use(cors(corsOptionsDelegate)); // CORS middleware on express side
-app.use(express.static(path.resolve(__dirname, config.static)));
+app.use(express.static(path.join(__dirname, config.static)));
+app.use(express.static(path.join(__dirname, config.build)));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: true }));
 
-// app.use(fallback(path.resolve(__dirname, `${config.static}/index.html`)));
+app.use(fallback('/index.html'));
 
 app.get('/*', (req, res, next) => {
-  if (req.url.indexOf('/api/') === -1) {
-    res.sendFile(path.resolve(__dirname, `${config.static}/index.html`));
-    // res.render('index', { title: "React-starter" }); // for ejs
+  if (req.url.indexOf(api.API_PATH) === -1) {
+    res.sendFile('/index.html');
+    // res.render('index', { title: "title" }); // for ejs
   } else {
     next();
   }

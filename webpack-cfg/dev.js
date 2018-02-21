@@ -1,5 +1,5 @@
 const webpack = require('webpack');
-const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+// const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = (settings) => ({
@@ -15,7 +15,7 @@ module.exports = (settings) => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new OpenBrowserPlugin({ url: `http://${settings.host}:${settings.port}` }),
+    // new OpenBrowserPlugin({ url: `http://${settings.host}:${settings.port}` }),
     new StyleLintPlugin({
       syntax: 'scss',
       configFile: '.stylelintrc',
@@ -27,6 +27,7 @@ module.exports = (settings) => ({
   devServer: {
     publicPath: settings.publicPath,
     historyApiFallback: true,
+    inline: true,
     host: settings.host,
     port: settings.port,
     https: false,

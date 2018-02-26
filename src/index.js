@@ -6,6 +6,8 @@ import MainStore from './main-store';
 import CodeEditorManager from './common/plugins/CodeEditorManager';
 import MainLayout from './components/main-layout/MainLayout.vue';
 
+import './main.scss';
+
 sync(MainStore, Router);
 
 Vue.use(CodeEditorManager);

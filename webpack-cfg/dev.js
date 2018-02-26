@@ -1,12 +1,12 @@
 const webpack = require('webpack');
-// const OpenBrowserPlugin = require('open-browser-webpack-plugin');
+const OpenBrowserPlugin = require('open-browser-webpack-plugin');
 const StyleLintPlugin = require('stylelint-webpack-plugin');
 
 module.exports = (settings) => ({
   devtool: 'inline-source-map',
 
   entry: [
-    `webpack-dev-server/client?http://${settings.host}:${settings.port}`,
+    `webpack-dev-server/client?${settings.devPath}`,
     'webpack/hot/only-dev-server',
     `${settings.src}/index`
   ],
@@ -15,7 +15,7 @@ module.exports = (settings) => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    // new OpenBrowserPlugin({ url: `http://${settings.host}:${settings.port}` }),
+    new OpenBrowserPlugin({ url: settings.devPath }),
     new StyleLintPlugin({
       syntax: 'scss',
       configFile: '.stylelintrc',
@@ -27,10 +27,9 @@ module.exports = (settings) => ({
   devServer: {
     publicPath: settings.publicPath,
     historyApiFallback: true,
-    inline: true,
     host: settings.host,
     port: settings.port,
-    https: false,
+    https: settings.https,
     hot: true
   }
 });

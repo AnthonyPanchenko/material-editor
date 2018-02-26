@@ -19,10 +19,6 @@ module.exports = (settings) => ({
         unused: false,
         warnings: false
       }
-    }),
-    new webpack.LoaderOptionsPlugin({
-      minimize: true,
-      debug: false
     })
   ]
 });

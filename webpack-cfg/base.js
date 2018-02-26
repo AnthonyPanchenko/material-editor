@@ -1,10 +1,12 @@
+const webpack = require('webpack');
+const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 module.exports = (settings) => {
   const stylesLoaders = [
     {
       loader: 'css-loader',
-      options: { minimize: settings.env === 'production' }
+      options: { minimize: settings.isProd }
     },
     'postcss-loader',
     'sass-loader',
@@ -12,14 +14,7 @@ module.exports = (settings) => {
       loader: 'sass-resources-loader',
       options: {
         resources: [
-          `${settings.src}/common/styles/variables.scss`,
-          `${settings.src}/common/styles/reset.scss`,
-          `${settings.src}/common/styles/fonts.scss`,
-          `${settings.src}/common/styles/font-icons.scss`,
-          `${settings.src}/common/styles/common.scss`,
-          `${settings.src}/common/styles/animations.scss`,
-          `${settings.src}/common/styles/base-layout.scss`,
-          `${settings.src}/common/styles/fieldset.scss`
+          `${settings.src}/common/styles/variables.scss`
         ]
       }
     }
@@ -40,21 +35,17 @@ module.exports = (settings) => {
     module: {
       rules: [
         {
-          test: /\.js$/,
-          include: settings.src,
-          use: (settings.env === 'development') ? ['babel-loader', 'eslint-loader'] : ['babel-loader']
-        },
-        {
-          test: /\.html$/,
-          use: ['vue-html-loader']
-        },
-        {
           test: /\.vue$/,
-          use: ['vue-loader']
+          loader: 'vue-loader',
+          options: {
+            loaders: {
+              js: settings.isProd ? [{ loader: 'babel-loader' }] : [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }]
+            }
+          }
         },
         {
           test: /\.(css|scss)$/,
-          loader: settings.env === 'production'
+          loader: settings.isProd
             ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaders })
             : ['style-loader', ...stylesLoaders]
         },
@@ -67,6 +58,15 @@ module.exports = (settings) => {
           use: ['url-loader']
         }
       ]
-    }
+    },
+
+    plugins: [
+      new webpack.LoaderOptionsPlugin({
+        minimize: settings.isProd,
+        debug: !settings.isProd
+      }),
+      new HtmlWebpackPlugin({ template: `${settings.src}/template.html` }),
+      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(settings.env) }),
+    ]
   };
 };

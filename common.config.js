@@ -5,6 +5,9 @@ const clientPort = 8080;
 const protocol = 'http';
 
 module.exports = {
+  dbName: 'material-editor',
+  dbHost: 'localhost',
+  dbPort: 27017,
   srcFolder: path.join(__dirname, './src'),
   distFolder: path.join(__dirname, './dist'),
   staticFolder: path.join(__dirname, './static'),

@@ -2,11 +2,13 @@ const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 
+const isProd = process.env.NODE_ENV === 'production';
+
 module.exports = (settings) => {
   const stylesLoaders = [
     {
       loader: 'css-loader',
-      options: { minimize: settings.isProd }
+      options: { minimize: isProd }
     },
     'postcss-loader',
     'sass-loader',
@@ -39,13 +41,13 @@ module.exports = (settings) => {
           loader: 'vue-loader',
           options: {
             loaders: {
-              js: settings.isProd ? [{ loader: 'babel-loader' }] : [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }]
+              js: isProd ? [{ loader: 'babel-loader' }] : [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }]
             }
           }
         },
         {
           test: /\.(css|scss)$/,
-          loader: settings.isProd
+          loader: isProd
             ? ExtractTextPlugin.extract({ fallback: 'style-loader', use: stylesLoaders })
             : ['style-loader', ...stylesLoaders]
         },
@@ -61,12 +63,9 @@ module.exports = (settings) => {
     },
 
     plugins: [
-      new webpack.LoaderOptionsPlugin({
-        minimize: settings.isProd,
-        debug: !settings.isProd
-      }),
+      new webpack.LoaderOptionsPlugin({ minimize: isProd, debug: !isProd }),
       new HtmlWebpackPlugin({ template: `${settings.src}/template.html` }),
-      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(settings.env) }),
+      new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) })
     ]
   };
 };

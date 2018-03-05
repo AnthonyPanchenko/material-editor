@@ -1,25 +1,14 @@
 const cors = require('cors');
 const express = require('express');
-const mongoose = require('mongoose');
 const bodyParser = require('body-parser');
 const fallback = require('express-history-api-fallback');
 
-const config = require('../common.config');
+const { serverConfigs } = require('../common.config');
+const DBconnect = require('./DBconnect');
 const apiRoutes = require('./router');
 
 const api = require('../common/api');
-
-mongoose.connect(`mongodb://${config.dbHost}:${config.dbPort}/${config.dbName}`);
-const db = mongoose.connection;
-
-db.once('open', function () {
-  // db.createCollection('noautoid', { autoIndexId: false });
-  console.log('mongodb successfully connected');
-});
-
 const app = express();
-const PORT = process.env.PORT || config.serverPort;
-const origin = (process.env.NODE_ENV === 'development') ? config.devPath : config.prodPath;
 
 const corsOptions = {
   origin: false,
@@ -28,14 +17,14 @@ const corsOptions = {
 };
 
 const corsOptionsDelegate = (req, callback) => {
-  corsOptions.origin = req.header('Origin') === origin;
+  corsOptions.origin = req.header('Origin') === serverConfigs.origin;
   callback(null, corsOptions);
 };
 
 app.use(cors(corsOptionsDelegate)); // CORS middleware on express side
 
-app.use(express.static(config.staticFolder));
-app.use(express.static(config.distFolder));
+app.use(express.static(serverConfigs.static));
+app.use(express.static(serverConfigs.dist));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
@@ -59,4 +48,4 @@ if (process.env.NODE_ENV === 'development') {
   swaggerInit(app);
 }
 
-app.listen(PORT);
+DBconnect(app);

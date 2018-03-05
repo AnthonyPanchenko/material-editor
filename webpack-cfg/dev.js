@@ -6,7 +6,7 @@ module.exports = (settings) => ({
   devtool: 'inline-source-map',
 
   entry: [
-    `webpack-dev-server/client?${settings.devPath}`,
+    `webpack-dev-server/client?${settings.origin}`,
     'webpack/hot/only-dev-server',
     `${settings.src}/index`
   ],
@@ -15,7 +15,7 @@ module.exports = (settings) => ({
     new webpack.HotModuleReplacementPlugin(),
     new webpack.NamedModulesPlugin(),
     new webpack.NoEmitOnErrorsPlugin(),
-    new OpenBrowserPlugin({ url: settings.devPath }),
+    new OpenBrowserPlugin({ url: settings.origin }),
     new StyleLintPlugin({
       syntax: 'scss',
       configFile: '.stylelintrc',

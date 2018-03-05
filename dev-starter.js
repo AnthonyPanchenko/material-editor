@@ -2,7 +2,7 @@ const nodemon = require('nodemon');
 
 nodemon({
   ext: 'js',
-  watch: ['server/']
+  watch: ['server/', 'swagger/']
 }).on('start', () => {
   console.log('==========================\nNODEMON => App has started\n==========================');
 }).on('restart', (files) => {

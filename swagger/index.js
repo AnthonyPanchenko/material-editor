@@ -1,10 +1,8 @@
 
 const swaggerUi = require('swagger-ui-express');
 const jsonRefParser = require('json-schema-ref-parser');
-
-const postWww = require('./post-www');
-const someMethod = require('./some-method');
-const mainConfig = require('./config');
+const pathsCollection = require('./paths-collection');
+const mainConfig = require('./main-config');
 
 const baseApiCtrlr = (app, apiPath) => {
   app.get('/*', (req, res, next) => {
@@ -17,10 +15,7 @@ const baseApiCtrlr = (app, apiPath) => {
 };
 
 const initSwagger = (app, apiPath) => {
-  mainConfig.paths = [
-    someMethod,
-    postWww
-  ].reduce((previousValue, currentValue) =>
+  mainConfig.paths = pathsCollection.reduce((previousValue, currentValue) =>
     Object.assign(previousValue, currentValue), {});
 
   app.get('/*', (req, res, next) => {
@@ -39,15 +34,16 @@ const initSwagger = (app, apiPath) => {
   //   next();
   // });
 
-  jsonRefParser.parse(mainConfig, function (err, swaggerConfig) {
-    if (!err) {
+  jsonRefParser.parse(mainConfig, (err, swaggerConfig) => {
+    if (err) {
+      console.log('Swagger > ERROR to parse config', err);
+    } else {
       app.get('/swagger/config', (req, res) => {
         res.setHeader('Content-Type', 'application/json');
         res.send(swaggerConfig);
       });
 
       app.use('/swagger', swaggerUi.serve, swaggerUi.setup(swaggerConfig));
-      console.log(swaggerConfig);
     }
   });
 };

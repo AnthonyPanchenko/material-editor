@@ -1,10 +1,11 @@
+const collectionNames = require('../constants/collection-names');
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
 const schemaName = new Schema({
   title: String
 }, {
-  collection: 'GeometricObjects'
+  collection: collectionNames.GEOMETRIC_OBJECTS
 });
 
-module.exports = mongoose.model('GeometricObjects', schemaName);
+module.exports = mongoose.model(collectionNames.GEOMETRIC_OBJECTS, schemaName);

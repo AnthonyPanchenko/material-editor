@@ -10,18 +10,18 @@ module.exports = {
         200: {
           description: 'response',
           schema: {
-            properties: {
-              jobID: {
-                required: true,
-                type: 'string',
-                example: '23423456543'
-              },
-              request: {
-                required: true,
-                type: 'schema',
-                example: {
-                  eventId: 'mathmaticial',
-                  numberRequired: 500
+            type: 'array',
+            items: {
+              type: 'object',
+              required: ['_id', 'title'],
+              properties: {
+                _id: {
+                  type: 'string',
+                  example: '5a989a50017fada107a73823'
+                },
+                title: {
+                  type: 'string',
+                  example: 'Sphere'
                 }
               }
             }

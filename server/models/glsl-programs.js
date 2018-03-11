@@ -9,7 +9,7 @@ const controlSchema = new Schema({
   name: String,
   dataType: String
 });
-// usome comment
+
 const glslProgramsSchema = new Schema({
   name: { type: String, default: '' },
   previewBgUlr: String,

@@ -1,7 +1,7 @@
 const GlslPrograms = require('../models/glsl-programs');
 
 exports.get = async (req, res) => {
-  const result = await GlslPrograms.find().exec();
+  const result = await GlslPrograms.find().select('name previewBgUlr').exec();
   return res.status(200).json(result);
 }
 

@@ -17,7 +17,7 @@ const get = {
               type: 'string',
               example: '5a989a50017fada107a73823'
             },
-            bgUlr: {
+            previewBgUlr: {
               type: 'string',
               example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
             },

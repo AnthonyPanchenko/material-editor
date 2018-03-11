@@ -11,8 +11,8 @@ const controlSchema = new Schema({
 });
 
 const glslProgramsSchema = new Schema({
-  name: String,
-  bgUlr: String,
+  name: { type: String, default: '' },
+  previewBgUlr: String,
   shaders: {
     fragmentShader: String,
     vertexShader: String

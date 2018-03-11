@@ -14,6 +14,7 @@ router.delete(`${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}
 
 router.get(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.get);
 router.post(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.create);
+router.put(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.update);
 router.delete(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.remove);
 
 router.post('/upload-some-img', upload.array(), (req, res, next) => {

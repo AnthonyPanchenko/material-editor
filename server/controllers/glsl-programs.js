@@ -15,15 +15,27 @@ exports.remove = (req, res, next) =>
   });
 
 exports.create = async (req, res, next) => {
-  console.log(req.body);
-
   if (!req.body.name) {
     return res.status(422).send({ error: 'GLSL program "name" is not specified' });
   }
 
   const newGlslProgram = await GlslPrograms.create(req.body);
 
-  console.log('==============================');
-  console.log(newGlslProgram);
   return res.status(201).json(newGlslProgram);
 };
+
+exports.update = (req, res, next) =>
+  GlslPrograms.findById(req.params.id, (err, objModel) => {
+    if (err) {
+      console.log(err);
+    }
+
+    objModel.set({ name: req.body.name });
+    objModel.save((err, updatedModel) => {
+      if (err) {
+        console.log(err);
+      }
+
+      res.status(200).json(updatedModel);
+    });
+  });

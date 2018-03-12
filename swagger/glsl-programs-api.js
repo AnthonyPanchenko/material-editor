@@ -1,33 +1,26 @@
 const api = require('../common/api');
 
 const controlSchema = {
-  uuid: Schema.Types.ObjectId,
-  value: Schema.Types.Mixed,
-  mode: String,
-  name: String,
-  dataType: String
-};
-
-const controlSchema = {
   type: 'array',
   items: {
     type: 'object',
-    properties: {
-      _id: {
-        type: 'string',
-        example: '5a989a50017fada107a73823'
-      },
-      previewBgUlr: {
-        type: 'string',
-        example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
-      },
-      name: {
-        type: 'string',
-        example: 'Lava shader'
-      }
-    }
+    required: ['uuid', 'value', 'mode', 'name', 'dataType'],
+    uuid: {
+      type: 'string',
+      example: '5a989a50017fada107a73823'
+    },
+    value: {
+      oneOf: [
+        { type: 'string', example: '/image/9bbPdQw.png' },
+        { type: 'number', example: 0.23 },
+        { type: 'array', example: [0.23, -0.5] }
+      ]
+    },
+    mode: { type: 'string', example: 'vector' },
+    name: { type: 'string', example: 'positionVector' },
+    dataType: { type: 'string', example: 'vec2' }
   }
-}
+};
 
 const getFullModel = {
   tags: ['GLSL programs'],
@@ -65,17 +58,17 @@ const getFullModel = {
               fragmentShader: {
                 type: 'object',
                 example: {
-                  attributes: [{ ref: controlSchema }],
-                  uniforms: [{ ref: controlSchema }],
-                  textures: [{ ref: controlSchema }]
+                  attributes: controlSchema,
+                  uniforms: controlSchema,
+                  textures: controlSchema
                 }
               },
               vertexShader: {
                 type: 'object',
                 example: {
-                  attributes: [{ ref: controlSchema }],
-                  uniforms: [{ ref: controlSchema }],
-                  textures: [{ ref: controlSchema }]
+                  attributes: controlSchema,
+                  uniforms: controlSchema,
+                  textures: controlSchema
                 }
               }
             }

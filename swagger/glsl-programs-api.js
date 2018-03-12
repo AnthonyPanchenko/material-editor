@@ -22,10 +22,25 @@ const controlSchema = {
   }
 };
 
-const getFullModel = {
+const getFullOrPartOfGLSLProgramById = {
   tags: ['GLSL programs'],
   description: 'Returns GLSL programs list',
   produces: ['application/json'],
+  parameters: [
+    {
+      in: 'path',
+      name: 'id',
+      description: 'GLSL program ID',
+      required: true,
+      type: 'string'
+    },
+    {
+      in: 'query',
+      name: 'fieldName',
+      description: 'fieldName should be equal either "shaders" or "controls"',
+      type: 'string'
+    }
+  ],
   responses: {
     200: {
       description: 'Response',
@@ -48,14 +63,14 @@ const getFullModel = {
           shaders: {
             type: 'object',
             example: {
-              fragmentShader: { type: 'string', example: 'shader code' },
-              vertexShader: { type: 'string', example: 'shader code' }
+              fragment: { type: 'string', example: 'shader code' },
+              vertex: { type: 'string', example: 'shader code' }
             }
           },
           controls: {
             type: 'object',
             example: {
-              fragmentShader: {
+              fragment: {
                 type: 'object',
                 example: {
                   attributes: controlSchema,
@@ -63,7 +78,7 @@ const getFullModel = {
                   textures: controlSchema
                 }
               },
-              vertexShader: {
+              vertex: {
                 type: 'object',
                 example: {
                   attributes: controlSchema,
@@ -229,7 +244,7 @@ module.exports = {
     post
   },
   [`${api.GLSL_PROGRAMS_URL_PART}/{id}`]: {
-    get: getFullModel,
+    get: getFullOrPartOfGLSLProgramById,
     put,
     delete: remove
   }

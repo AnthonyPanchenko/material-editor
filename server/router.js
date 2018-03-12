@@ -12,11 +12,15 @@ const api = require('../common/api');
 router.get(`${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}`, GeometricObjects.get);
 router.delete(`${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}/:id`, GeometricObjects.remove);
 
-router.get(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.getFullModel);
-router.get(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.get);
-router.post(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.create);
-router.put(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.update);
-router.delete(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.remove);
+router.get(`${api.GLSL_PROGRAMS_URL_PART}/:id?fieldName`, GlslPrograms.getFullOrPartOfGLSLProgramById);
+
+router.route(api.GLSL_PROGRAMS_URL_PART)
+  .get(GlslPrograms.getAllGLSLProgramsShortModels)
+  .post(GlslPrograms.createGLSLProgram);
+
+router.route(`${api.GLSL_PROGRAMS_URL_PART}/:id`)
+  .put(GlslPrograms.updateGLSLProgramById)
+  .delete(GlslPrograms.removeGLSLProgramById);
 
 router.post('/upload-some-img', upload.array(), (req, res, next) => {
   console.log(req.body);

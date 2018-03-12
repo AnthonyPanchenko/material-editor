@@ -14,16 +14,16 @@ const glslProgramsSchema = new Schema({
   name: { type: String, default: '' },
   previewBgUlr: String,
   shaders: {
-    fragmentShader: String,
-    vertexShader: String
+    fragment: String,
+    vertex: String
   },
   controls: {
-    fragmentShader: {
+    fragment: {
       attributes: [{ ref: controlSchema }],
       uniforms: [{ ref: controlSchema }],
       textures: [{ ref: controlSchema }]
     },
-    vertexShader: {
+    vertex: {
       attributes: [{ ref: controlSchema }],
       uniforms: [{ ref: controlSchema }],
       textures: [{ ref: controlSchema }]

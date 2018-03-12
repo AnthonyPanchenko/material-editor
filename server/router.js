@@ -12,6 +12,7 @@ const api = require('../common/api');
 router.get(`${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}`, GeometricObjects.get);
 router.delete(`${api.MATERIAL_EDITOR_URL_PART}${api.GEOMETRIC_OBJECTS_URL_SUFIX}/:id`, GeometricObjects.remove);
 
+router.get(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.getFullModel);
 router.get(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.get);
 router.post(api.GLSL_PROGRAMS_URL_PART, GlslPrograms.create);
 router.put(`${api.GLSL_PROGRAMS_URL_PART}/:id`, GlslPrograms.update);

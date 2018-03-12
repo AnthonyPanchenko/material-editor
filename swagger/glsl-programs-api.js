@@ -1,5 +1,91 @@
 const api = require('../common/api');
 
+const controlSchema = {
+  uuid: Schema.Types.ObjectId,
+  value: Schema.Types.Mixed,
+  mode: String,
+  name: String,
+  dataType: String
+};
+
+const controlSchema = {
+  type: 'array',
+  items: {
+    type: 'object',
+    properties: {
+      _id: {
+        type: 'string',
+        example: '5a989a50017fada107a73823'
+      },
+      previewBgUlr: {
+        type: 'string',
+        example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
+      },
+      name: {
+        type: 'string',
+        example: 'Lava shader'
+      }
+    }
+  }
+}
+
+const getFullModel = {
+  tags: ['GLSL programs'],
+  description: 'Returns GLSL programs list',
+  produces: ['application/json'],
+  responses: {
+    200: {
+      description: 'Response',
+      schema: {
+        type: 'object',
+        required: ['_id', 'name', 'shaders', 'controls'],
+        properties: {
+          _id: {
+            type: 'string',
+            example: '5a989a50017fada107a73823'
+          },
+          previewBgUlr: {
+            type: 'string',
+            example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
+          },
+          name: {
+            type: 'string',
+            example: 'Lava shader'
+          },
+          shaders: {
+            type: 'object',
+            example: {
+              fragmentShader: { type: 'string', example: 'shader code' },
+              vertexShader: { type: 'string', example: 'shader code' }
+            }
+          },
+          controls: {
+            type: 'object',
+            example: {
+              fragmentShader: {
+                type: 'object',
+                example: {
+                  attributes: [{ ref: controlSchema }],
+                  uniforms: [{ ref: controlSchema }],
+                  textures: [{ ref: controlSchema }]
+                }
+              },
+              vertexShader: {
+                type: 'object',
+                example: {
+                  attributes: [{ ref: controlSchema }],
+                  uniforms: [{ ref: controlSchema }],
+                  textures: [{ ref: controlSchema }]
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+};
+
 const get = {
   tags: ['GLSL programs'],
   description: 'Returns GLSL programs list',
@@ -150,6 +236,7 @@ module.exports = {
     post
   },
   [`${api.GLSL_PROGRAMS_URL_PART}/{id}`]: {
+    get: getFullModel,
     put,
     delete: remove
   }

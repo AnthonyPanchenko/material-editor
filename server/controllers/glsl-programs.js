@@ -1,13 +1,18 @@
 const GlslPrograms = require('../models/glsl-programs');
 
+exports.getFullModel = async (req, res) => {
+  const result = await GlslPrograms.findById(req.params.id).exec();
+  return res.status(200).json(result);
+}
+
 exports.get = async (req, res) => {
   const result = await GlslPrograms.find().select('name previewBgUlr').exec();
   return res.status(200).json(result);
 }
 
 exports.remove = (req, res, next) =>
-  GlslPrograms.remove({ _id: req.params.id }, (error) => {
-    if (error) {
+  GlslPrograms.remove({ _id: req.params.id }, (err) => {
+    if (err) {
       return res.status(422).send({ error: 'Cannot remove glsl program by id' });
     }
 

@@ -1,3 +1,4 @@
+const withoutProps = require('./utils/withoutProps');
 const api = require('../common/api');
 
 const controlSchema = {
@@ -89,7 +90,9 @@ const getFullOrPartOfGLSLProgramById = {
   responses: {
     200: {
       description: 'Response',
-      schema: fullModelSchema
+      schema: {
+        oneOf: [fullModelSchema, fullModelSchema.shaders, fullModelSchema.controls]
+      }
     }
   }
 };
@@ -139,13 +142,12 @@ const post = {
       name: 'name',
       description: '',
       required: true,
-      schema: fullModelSchema
+      schema: withoutProps(fullModelSchema, ['_id', 'required'])
     }
   ],
   responses: {
     201: {
       description: 'Created',
-      required: ['_id', 'name', 'shaders', 'controls'],
       schema: fullModelSchema
     }
   }

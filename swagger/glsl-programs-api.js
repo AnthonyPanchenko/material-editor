@@ -172,13 +172,12 @@ const put = {
       name: 'name',
       description: 'Updated GLSL program name',
       required: true,
-      schema: fullModelSchema
+      schema: withoutProps(fullModelSchema, ['_id', 'required'])
     }
   ],
   responses: {
     200: {
       description: 'Updated',
-      required: ['_id', 'name', 'shaders', 'controls'],
       schema: fullModelSchema
     }
   }

@@ -9,7 +9,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'MatrixRow',
   props: {
-    uuid: { type: String, required: true },
+    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
@@ -39,7 +39,7 @@ export default {
 
     <input-file v-if="isEditable" :onChange="onChangeFileInput" />
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

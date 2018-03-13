@@ -4,23 +4,30 @@ const controlSchema = {
   type: 'array',
   items: {
     type: 'object',
-    required: ['uuid', 'value', 'mode', 'name', 'dataType'],
+    required: ['_id', 'value', 'mode', 'name', 'dataType'],
     properties: {
-      uuid: {
+      _id: {
         type: 'string',
-        example: '5a989a50017fada107a73823'
+        example: '76df9a5ss17f34a107873hj3'
       },
       value: {
-        oneOf: [
-          { type: 'string', example: '/image/9bbPdQw.png' },
-          { type: 'number', example: 0.23 },
-          { type: 'array', example: [0.23, -0.5] }
-        ]
+        oneOf: [{ type: 'string' }, { type: 'number' }, { type: 'array' }],
+        example: [0.23, -0.5]
       },
       mode: { type: 'string', example: 'vector' },
       name: { type: 'string', example: 'positionVector' },
       dataType: { type: 'string', example: 'vec2' }
     }
+  }
+};
+
+const controlsfv = {
+  type: 'object',
+  required: ['attributes', 'uniforms', 'textures'],
+  properties: {
+    attributes: controlSchema,
+    uniforms: controlSchema,
+    textures: controlSchema
   }
 };
 
@@ -42,73 +49,18 @@ const fullModelSchema = {
     },
     shaders: {
       type: 'object',
+      required: ['fragmentShader', 'vertexShader'],
       properties: {
-        fragment: { type: 'string', example: 'shader code' },
-        vertex: { type: 'string', example: 'shader code' }
+        fragmentShader: { type: 'string', example: 'shader code' },
+        vertexShader: { type: 'string', example: 'shader code' }
       }
     },
     controls: {
       type: 'object',
+      required: ['fragmentShader', 'vertexShader'],
       properties: {
-        fragment: {
-          type: 'object',
-          properties: {
-            attributes: controlSchema,
-            uniforms: controlSchema,
-            textures: controlSchema
-          }
-        },
-        vertex: {
-          type: 'object',
-          properties: {
-            attributes: controlSchema,
-            uniforms: controlSchema,
-            textures: controlSchema
-          }
-        }
-      }
-    }
-  }
-};
-
-const fullModelSchemaWId = {
-  type: 'object',
-  required: ['_id', 'name', 'shaders', 'controls'],
-  properties: {
-    previewBgUlr: {
-      type: 'string',
-      example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
-    },
-    name: {
-      type: 'string',
-      example: 'Lava shader'
-    },
-    shaders: {
-      type: 'object',
-      properties: {
-        fragment: { type: 'string', example: 'shader code' },
-        vertex: { type: 'string', example: 'shader code' }
-      }
-    },
-    controls: {
-      type: 'object',
-      properties: {
-        fragment: {
-          type: 'object',
-          properties: {
-            attributes: controlSchema,
-            uniforms: controlSchema,
-            textures: controlSchema
-          }
-        },
-        vertex: {
-          type: 'object',
-          properties: {
-            attributes: controlSchema,
-            uniforms: controlSchema,
-            textures: controlSchema
-          }
-        }
+        fragmentShader: controlsfv,
+        vertexShader: controlsfv
       }
     }
   }
@@ -180,10 +132,11 @@ const post = {
   summary: 'Create GLSL program',
   description: 'Create GLSL program',
   produces: ['application/json'],
+  consumes: ['application/json'],
   parameters: [
     {
       in: 'body',
-      name: 'body',
+      name: 'name',
       description: '',
       required: true,
       schema: fullModelSchema
@@ -203,6 +156,7 @@ const put = {
   summary: 'Update GLSL program',
   description: 'Update GLSL program',
   produces: ['application/json'],
+  consumes: ['application/json'],
   parameters: [
     {
       in: 'path',

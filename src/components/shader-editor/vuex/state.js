@@ -10,11 +10,11 @@ const state = {
   controlsFooterHeight: 30,
   controlsPanelWidth: 42,
   shadersInfo: null,
-  shadersValues: {
+  shaders: {
     [shadersTypes.FRAGMENT_SHADER]: '',
     [shadersTypes.VERTEX_SHADER]: ''
   },
-  shadersControls: {
+  controls: {
     [shadersTypes.FRAGMENT_SHADER]: {
       [shadersControlsTypes.ATTRIBUTES]: null,
       [shadersControlsTypes.UNIFORMS]: null,

@@ -11,7 +11,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'VectorRow',
   props: {
-    uuid: { type: String, required: true },
+    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
@@ -73,7 +73,7 @@ export default {
       const vector = [...this.vector];
       vector[axis] = value;
 
-      this.onChange(vector, this.uuid);
+      this.onChange(vector, this._id);
     }
   },
   mounted() {
@@ -103,20 +103,20 @@ export default {
     <input-number prefix="W" :name="3" :value="vector[3]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover :isOpen="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
-      <vec2-picker :name="uuid" :vector="vector" :onChange="onChange" />
+      <vec2-picker :name="_id" :vector="vector" :onChange="onChange" />
     </popover>
 
     <popover :isOpen="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
-      <vec3-picker :name="uuid" :vector="vector" :onChange="onChange" />
+      <vec3-picker :name="_id" :vector="vector" :onChange="onChange" />
     </popover>
 
     <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :name="uuid" :value="vector[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
+      <number-picker :name="_id" :value="vector[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
     <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

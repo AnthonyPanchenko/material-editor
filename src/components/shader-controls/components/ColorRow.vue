@@ -9,7 +9,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'ColorRow',
   props: {
-    uuid: { type: String, required: true },
+    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
@@ -64,11 +64,11 @@ export default {
     <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputColorValue" v-if="type === 'vec4'" />
 
     <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
-      <color-picker :name="uuid" :color="color" :onChange="onChange" />
+      <color-picker :name="_id" :color="color" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerTrigger" :onClick="onToggleColorPickerPopover" />
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="uuid" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="uuid" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

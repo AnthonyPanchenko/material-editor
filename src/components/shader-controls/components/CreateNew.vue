@@ -15,7 +15,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'CreateNew',
   props: {
-    uuid: { type: String, required: true },
+    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
@@ -56,8 +56,8 @@ export default {
       <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
 
       <input-text name="tex" placeholder="name" :onInput="" :value="name" />
-      <custom-btn iconClass="icon-checkmark" class="success xs" :data="uuid" :onClick="onCreateNew" />
-      <custom-btn iconClass="icon-close" class="danger xs" :data="uuid" :onClick="onCancelCreate" />
+      <custom-btn iconClass="icon-checkmark" class="success xs" :data="_id" :onClick="onCreateNew" />
+      <custom-btn iconClass="icon-close" class="danger xs" :data="_id" :onClick="onCancelCreate" />
     </div>
 
     <texture-row v-if="type === 'sampler2D'" isEditable />

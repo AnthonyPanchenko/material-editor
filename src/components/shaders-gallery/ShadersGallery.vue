@@ -81,7 +81,7 @@ export default {
     },
     onAgreeRemoveShader() {
       this.$http({
-        url: `${api.GLSL_PROGRAMS}/${this.activeShader.uuid}`,
+        url: `${api.GLSL_PROGRAMS}/${this.activeShader._id}`,
         method: 'DELETE',
         // credentials: true,
         before: () => {
@@ -132,8 +132,8 @@ export default {
 
       <div class="body">
         <ul class="shaders-list scroll-box">
-          <li v-for="shader in list" :key="shader.uuid">
-            <shader-item :shader="shader" :isActive="activeShader && (activeShader.uuid === shader.uuid)" :onClick="onShaderClick" />
+          <li v-for="shader in list" :key="shader._id">
+            <shader-item :shader="shader" :isActive="activeShader && (activeShader._id === shader._id)" :onClick="onShaderClick" />
           </li>
         </ul>
       </div>

@@ -1,47 +1,45 @@
 const collectionNames = require('../constants/collection-names');
 const mongoose = require('mongoose');
+const validators = require('../utils/validators');
 const Schema = mongoose.Schema;
 
 const controlSchema = new Schema({
-  uuid: Schema.Types.ObjectId,
-  value: Schema.Types.Mixed,
+  value: {
+    type: Schema.Types.Mixed,
+    validate: {
+      validator: validators.valueValidator,
+      message: '{VALUE} is not a valid!'
+    }
+  },
   mode: { type: String, default: '' },
   name: { type: String, default: '' },
   dataType: { type: String, default: '' }
 });
 
-// mongoose.model('Control', controlSchema);
 // http://jasonjl.me/blog/2014/10/23/adding-validation-for-embedded-objects-in-mongoose/
+
 const glslProgramsSchema = new Schema({
   name: { type: String, default: '' },
   previewBgUlr: String,
   shaders: {
-    fragment: { type: String, default: '' },
-    vertex: { type: String, default: '' }
+    fragmentShader: { type: String, default: '' },
+    vertexShader: { type: String, default: '' }
   },
   controls: {
-    fragment: {
-      attributes: [
-        {
-          uuid: Schema.ObjectId,
-          value: Schema.Types.Mixed,
-          mode: { type: String, default: '' },
-          name: { type: String, default: '' },
-          dataType: { type: String, default: '' }
-        }
-      ],
+    fragmentShader: {
+      attributes: [controlSchema],
       uniforms: [controlSchema],
       textures: [controlSchema]
     },
-    vertex: {
+    vertexShader: {
       attributes: [controlSchema],
       uniforms: [controlSchema],
       textures: [controlSchema]
     }
   }
 }, {
-    versionKey: false,
-    collection: collectionNames.GLSL_PROGRAMS
-  });
+  versionKey: false,
+  collection: collectionNames.GLSL_PROGRAMS
+});
 
 module.exports = mongoose.model(collectionNames.GLSL_PROGRAMS, glslProgramsSchema);

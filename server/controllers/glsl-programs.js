@@ -3,13 +3,12 @@ const GlslPrograms = require('../models/glsl-programs');
 exports.getFullOrPartOfGLSLProgramById = async (req, res) => {
   let result = null;
 
-  if (req.query.fieldName === 'shaders' || req.query.fieldName === 'controls') {
+  if (req.query.fieldName) {
     result = await GlslPrograms.findById(req.params.id).select(req.query.fieldName).exec();
+  } else {
+    result = await GlslPrograms.findById(req.params.id).exec();
   }
 
-  result = await GlslPrograms.findById(req.params.id).exec();
-
-  console.log(result);
   return res.status(200).json(result);
 }
 

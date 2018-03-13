@@ -8,6 +8,8 @@ exports.getFullOrPartOfGLSLProgramById = async (req, res) => {
   }
 
   result = await GlslPrograms.findById(req.params.id).exec();
+
+  console.log(result);
   return res.status(200).json(result);
 }
 
@@ -41,7 +43,7 @@ exports.updateGLSLProgramById = (req, res, next) =>
       console.log(err);
     }
 
-    objModel.set({ name: req.body.name });
+    objModel.set(req.body);
     objModel.save((err, updatedModel) => {
       if (err) {
         console.log(err);

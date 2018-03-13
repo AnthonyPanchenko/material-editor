@@ -5,26 +5,119 @@ const controlSchema = {
   items: {
     type: 'object',
     required: ['uuid', 'value', 'mode', 'name', 'dataType'],
-    uuid: {
+    properties: {
+      uuid: {
+        type: 'string',
+        example: '5a989a50017fada107a73823'
+      },
+      value: {
+        oneOf: [
+          { type: 'string', example: '/image/9bbPdQw.png' },
+          { type: 'number', example: 0.23 },
+          { type: 'array', example: [0.23, -0.5] }
+        ]
+      },
+      mode: { type: 'string', example: 'vector' },
+      name: { type: 'string', example: 'positionVector' },
+      dataType: { type: 'string', example: 'vec2' }
+    }
+  }
+};
+
+const fullModelSchema = {
+  type: 'object',
+  required: ['_id', 'name', 'shaders', 'controls'],
+  properties: {
+    _id: {
       type: 'string',
       example: '5a989a50017fada107a73823'
     },
-    value: {
-      oneOf: [
-        { type: 'string', example: '/image/9bbPdQw.png' },
-        { type: 'number', example: 0.23 },
-        { type: 'array', example: [0.23, -0.5] }
-      ]
+    previewBgUlr: {
+      type: 'string',
+      example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
     },
-    mode: { type: 'string', example: 'vector' },
-    name: { type: 'string', example: 'positionVector' },
-    dataType: { type: 'string', example: 'vec2' }
+    name: {
+      type: 'string',
+      example: 'Lava shader'
+    },
+    shaders: {
+      type: 'object',
+      properties: {
+        fragment: { type: 'string', example: 'shader code' },
+        vertex: { type: 'string', example: 'shader code' }
+      }
+    },
+    controls: {
+      type: 'object',
+      properties: {
+        fragment: {
+          type: 'object',
+          properties: {
+            attributes: controlSchema,
+            uniforms: controlSchema,
+            textures: controlSchema
+          }
+        },
+        vertex: {
+          type: 'object',
+          properties: {
+            attributes: controlSchema,
+            uniforms: controlSchema,
+            textures: controlSchema
+          }
+        }
+      }
+    }
+  }
+};
+
+const fullModelSchemaWId = {
+  type: 'object',
+  required: ['_id', 'name', 'shaders', 'controls'],
+  properties: {
+    previewBgUlr: {
+      type: 'string',
+      example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
+    },
+    name: {
+      type: 'string',
+      example: 'Lava shader'
+    },
+    shaders: {
+      type: 'object',
+      properties: {
+        fragment: { type: 'string', example: 'shader code' },
+        vertex: { type: 'string', example: 'shader code' }
+      }
+    },
+    controls: {
+      type: 'object',
+      properties: {
+        fragment: {
+          type: 'object',
+          properties: {
+            attributes: controlSchema,
+            uniforms: controlSchema,
+            textures: controlSchema
+          }
+        },
+        vertex: {
+          type: 'object',
+          properties: {
+            attributes: controlSchema,
+            uniforms: controlSchema,
+            textures: controlSchema
+          }
+        }
+      }
+    }
   }
 };
 
 const getFullOrPartOfGLSLProgramById = {
   tags: ['GLSL programs'],
-  description: 'Returns GLSL programs list',
+  summary: 'Get one/part GLSL program by ID',
+  description: 'Get one or part GLSL program by ID',
   produces: ['application/json'],
   parameters: [
     {
@@ -44,59 +137,15 @@ const getFullOrPartOfGLSLProgramById = {
   responses: {
     200: {
       description: 'Response',
-      schema: {
-        type: 'object',
-        required: ['_id', 'name', 'shaders', 'controls'],
-        properties: {
-          _id: {
-            type: 'string',
-            example: '5a989a50017fada107a73823'
-          },
-          previewBgUlr: {
-            type: 'string',
-            example: 'http://localhost:3000/image/Om6gkrqOR2K7cSvsGDO.jpg'
-          },
-          name: {
-            type: 'string',
-            example: 'Lava shader'
-          },
-          shaders: {
-            type: 'object',
-            example: {
-              fragment: { type: 'string', example: 'shader code' },
-              vertex: { type: 'string', example: 'shader code' }
-            }
-          },
-          controls: {
-            type: 'object',
-            example: {
-              fragment: {
-                type: 'object',
-                example: {
-                  attributes: controlSchema,
-                  uniforms: controlSchema,
-                  textures: controlSchema
-                }
-              },
-              vertex: {
-                type: 'object',
-                example: {
-                  attributes: controlSchema,
-                  uniforms: controlSchema,
-                  textures: controlSchema
-                }
-              }
-            }
-          }
-        }
-      }
+      schema: fullModelSchema
     }
   }
 };
 
 const get = {
   tags: ['GLSL programs'],
-  description: 'Returns GLSL programs list',
+  summary: 'Get all GLSL programs',
+  description: 'Get all GLSL programs',
   produces: ['application/json'],
   responses: {
     200: {
@@ -128,7 +177,7 @@ const get = {
 
 const post = {
   tags: ['GLSL programs'],
-  summary: '',
+  summary: 'Create GLSL program',
   description: 'Create GLSL program',
   produces: ['application/json'],
   parameters: [
@@ -137,42 +186,22 @@ const post = {
       name: 'body',
       description: '',
       required: true,
-      schema: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-            example: 'Glsl program'
-          }
-        }
-      }
+      schema: fullModelSchema
     }
   ],
   responses: {
     201: {
       description: 'Created',
-      required: ['_id', 'name'],
-      schema: {
-        type: 'object',
-        properties: {
-          _id: {
-            type: 'string',
-            example: '5a989a50017fada107a73823'
-          },
-          name: {
-            type: 'string',
-            example: 'Glsl program'
-          }
-        }
-      }
+      required: ['_id', 'name', 'shaders', 'controls'],
+      schema: fullModelSchema
     }
   }
 };
 
 const put = {
   tags: ['GLSL programs'],
-  summary: '',
-  description: '',
+  summary: 'Update GLSL program',
+  description: 'Update GLSL program',
   produces: ['application/json'],
   parameters: [
     {
@@ -187,28 +216,22 @@ const put = {
       name: 'name',
       description: 'Updated GLSL program name',
       required: true,
-      schema: {
-        type: 'object',
-        properties: {
-          name: {
-            type: 'string',
-            example: 'New GLSL name'
-          }
-        }
-      }
+      schema: fullModelSchema
     }
   ],
   responses: {
     200: {
-      description: 'Updated'
+      description: 'Updated',
+      required: ['_id', 'name', 'shaders', 'controls'],
+      schema: fullModelSchema
     }
   }
 };
 
 const remove = {
   tags: ['GLSL programs'],
-  summary: '',
-  description: '',
+  summary: 'Remove GLSL program',
+  description: 'Remove GLSL program',
   produces: ['application/json'],
   parameters: [
     {

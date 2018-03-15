@@ -12,7 +12,7 @@ import CreateNewShaderForm from '../create-new-shader-form/CreateNewShaderForm.v
 import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
-import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
+import Gallery from '../gallery/Gallery.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 
 import * as internalUrls from '../../common/constants/internal-urls';
@@ -28,7 +28,7 @@ export default {
     InputFile,
     ResizeBox,
     CanvasSection,
-    ShadersGallery,
+    Gallery,
     ShaderControls,
     CreateNewShaderForm
   },

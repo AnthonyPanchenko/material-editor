@@ -1,7 +1,7 @@
 <script>
-import emptyArray from '../../../common/utils/emptyArray';
-import emptyObject from '../../../common/utils/emptyObject';
-import noop from '../../../common/utils/noop';
+import emptyArray from '../../common/utils/emptyArray';
+import emptyObject from '../../common/utils/emptyObject';
+import noop from '../../common/utils/noop';
 
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputText from '../../common/components/input-text/InputText.vue';
@@ -10,7 +10,7 @@ import GalleryItem from './components/GalleryItem.vue';
 
 import * as api from '../../common/constants/api';
 import * as internalUrls from '../../common/constants/internal-urls';
-import './styles/shaders-gallery.scss';
+import './styles/gallery.scss';
 
 export default {
   name: 'Gallery',

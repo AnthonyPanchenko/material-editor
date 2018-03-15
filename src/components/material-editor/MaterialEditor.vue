@@ -6,11 +6,10 @@ import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 
-import tabNames from './constants/tabNames';
 import * as internalUrls from '../../common/constants/internal-urls';
 
-import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
-import MaterialSection from './components/MaterialSection.vue';
+import Gallery from '../gallery/Gallery.vue';
+import MaterialSection from '../material-section/MaterialSection.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 
 export default {
@@ -20,12 +19,11 @@ export default {
     InputFile,
     CustomBtn,
     CanvasSection,
-    ShadersGallery,
+    Gallery,
     ResizeBox
   },
   data() {
     return {
-      tabNames,
       internalUrls
     };
   },

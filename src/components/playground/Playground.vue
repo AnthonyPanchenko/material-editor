@@ -9,11 +9,11 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import tabNames from './constants/tabNames';
 import * as internalUrls from '../../common/constants/internal-urls';
 
-import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
+import Gallery from '../gallery/Gallery.vue';
 import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
 
 import ObjectSection from './components/ObjectSection.vue';
-import MaterialSection from './components/MaterialSection.vue';
+import MaterialSection from '../material-section/MaterialSection.vue';
 import GeometrySection from './components/GeometrySection.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 
@@ -27,7 +27,7 @@ export default {
     CustomBtn,
     CanvasSection,
     GeometricObjects,
-    ShadersGallery,
+    Gallery,
     ResizeBox
   },
   data() {

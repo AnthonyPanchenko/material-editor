@@ -24,6 +24,12 @@ const actions = {
   },
   onSetFooterControlsHeight(context, height) {
     context.commit(mutationTypes.SHADER_EDITOR_SET_FOOTER_CONTROLS_HEIGHT, height);
+  },
+  onSuccessLoadGlslPrograms(context, list) {
+    context.commit(mutationTypes.SHADER_EDITOR_LOAD_GLSL_PROGRAMS_SUCCESS, list);
+  },
+  onSelectGlslProgram(context, payload) {
+    context.commit(mutationTypes.SHADER_EDITOR_SET_SELECTED_GLSL_PROGRAM, payload);
   }
 };
 

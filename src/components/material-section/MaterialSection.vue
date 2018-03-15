@@ -1,21 +1,21 @@
 <script>
-import materialsTypes from '../../../common/constants/materials-types';
-import selects from '../utils/selects';
-import noop from '../../../common/utils/noop';
-import materialsProperties from '../../../common/constants/materials-properties';
-import mapedMaterialsProperties from '../utils/maped-materials-properties';
+import materialsTypes from '../../common/constants/materials-types';
+import selects from './utils/selects';
+import noop from '../../common/utils/noop';
+import materialsProperties from '../../common/constants/materials-properties';
+import mapedMaterialsProperties from './utils/maped-materials-properties';
 
-import OutputColorBtn from '../../../common/components/output-color-btn/OutputColorBtn.vue';
-import NumberPicker from '../../../common/components/number-picker/NumberPicker.vue';
-import ColorPicker from '../../../common/components/color-picker/ColorPicker.vue';
-import Vec2Picker from '../../../common/components/vec2-picker/Vec2Picker.vue';
-import InputFile from '../../../common/components/input-file/InputFile.vue';
-import InputText from '../../../common/components/input-text/InputText.vue';
-import InputNumber from '../../../common/components/input-number/InputNumber.vue';
-import ImgBox from '../../../common/components/img-box/ImgBox.vue';
-import CheckboxBtn from '../../../common/components/checkbox-btn/CheckboxBtn.vue';
-import CustomSelect from '../../../common/components/custom-select/CustomSelect.vue';
-import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
+import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
+import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+import InputFile from '../../common/components/input-file/InputFile.vue';
+import InputText from '../../common/components/input-text/InputText.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import ImgBox from '../../common/components/img-box/ImgBox.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
   name: 'MaterialSection',

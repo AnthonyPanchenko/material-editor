@@ -2,6 +2,9 @@ import shadersControlsTypes from '../../../common/constants/shaders-controls-typ
 import shadersTypes from '../../../common/constants/shaders-types';
 
 const state = {
+  glslProgramsList: [],
+  selectedGlslprogram: null,
+
   isVisibleObjectsList: true,
   isVisibleControlsPanel: true,
   isVisibleControlsFooter: true,

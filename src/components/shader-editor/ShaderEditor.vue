@@ -74,11 +74,6 @@ export default {
         this.isOpenCreateNewShaderForm = false;
       }
     }
-  },
-  beforeMount() {
-    if (!this.shadersInfo) {
-      this.$router.replace(internalUrls.SHADERS_GALLERY);
-    }
   }
 };
 </script>

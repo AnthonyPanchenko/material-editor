@@ -25,6 +25,12 @@ const mutations = {
   },
   [mutationTypes.SHADER_EDITOR_SET_FOOTER_CONTROLS_HEIGHT](state, height) {
     state.footerHeight = height;
+  },
+  [mutationTypes.SHADER_EDITOR_LOAD_GLSL_PROGRAMS_SUCCESS](state, list) {
+    state.glslProgramsList = list;
+  },
+  [mutationTypes.SHADER_EDITOR_SET_SELECTED_GLSL_PROGRAM](state, payload) {
+    state.selectedGlslprogram = payload;
   }
 };
 

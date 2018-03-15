@@ -30,7 +30,7 @@ export default {
   computed: mapState([
     'controlsPanelWidth',
     'activeMaterialType',
-    'isVisibleControlsPanel',
+    'isVisibleControlsPanel'
   ]),
   methods: {
     ...mapActions([

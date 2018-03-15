@@ -8,8 +8,6 @@ import InputText from '../../common/components/input-text/InputText.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 import GalleryItem from './components/GalleryItem.vue';
 
-import * as api from '../../common/constants/api';
-import * as internalUrls from '../../common/constants/internal-urls';
 import './styles/gallery.scss';
 
 export default {

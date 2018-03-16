@@ -7,7 +7,7 @@ import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 
-import CreateNewShaderForm from '../create-new-shader-form/CreateNewShaderForm.vue';
+import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
 import ShaderControls from '../shader-controls/ShaderControls.vue';
 import CodeEditor from '../code-editor/CodeEditor.vue';
@@ -28,12 +28,12 @@ export default {
     CanvasSection,
     Gallery,
     ShaderControls,
-    CreateNewShaderForm
+    CreateNewMaterial
   },
   data() {
     return {
       shadersTypes,
-      isOpenCreateNewShaderForm: false,
+      isOpenCreateNewMaterial: false,
       internalUrls
     };
   },
@@ -61,12 +61,12 @@ export default {
     onSaveShader(payload) {
       console.log(payload);
     },
-    onOpenCreateNewShaderForm() {
-      this.isOpenCreateNewShaderForm = !this.isOpenCreateNewShaderForm;
+    onOpenCreateNewMaterial() {
+      this.isOpenCreateNewMaterial = !this.isOpenCreateNewMaterial;
     },
-    onCloseCreateNewShaderForm() {
-      if (this.isOpenCreateNewShaderForm) {
-        this.isOpenCreateNewShaderForm = false;
+    onCloseCreateNewMaterial() {
+      if (this.isOpenCreateNewMaterial) {
+        this.isOpenCreateNewMaterial = false;
       }
     }
   }
@@ -75,8 +75,8 @@ export default {
 
 <template>
   <div class="base-layout">
-    <modal-window :isOpen="isOpenCreateNewShaderForm">
-      <create-new-shader-form :onClose="onCloseCreateNewShaderForm" />
+    <modal-window :isOpen="isOpenCreateNewMaterial">
+      <create-new-material :onClose="onCloseCreateNewMaterial" />
     </modal-window>
 
     <resize-box
@@ -102,7 +102,7 @@ export default {
         <custom-btn iconClass="icon-undo" class="xs" />
         <custom-btn iconClass="icon-save" class="xs" />
         <custom-btn iconClass="icon-redo" class="xs" />
-        <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewShaderForm" />
+        <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewMaterial" />
         <custom-btn iconClass="icon-open-folder" class="xs" />
         <custom-btn :link="internalUrls.MATERIAL_EDITOR" accesskey="w" iconClass="icon-material-editor" class="xs" />
       </header>

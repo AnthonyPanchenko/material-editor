@@ -69,19 +69,60 @@ export default {
 
 <template>
   <div class="base-layout">
-    <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
+    <resize-box
+      class="container controls-section"
+      v-show="isVisibleControlsPanel"
+      tag="section" resize="column"
+      :onEndOfResize="onSetControlsPanelWidth"
+      :size="controlsPanelWidth"
+    >
       <header class="header controls-row">
-        <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-        <custom-btn accesskey="o" title="Object" :active="activeObjInfoTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn accesskey="g" title="Geometry" :active="activeObjInfoTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn accesskey="m" title="Material" :active="activeObjInfoTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn :link="internalUrls.SHADER_EDITOR" accesskey="w" iconClass="icon-shader-editor" class="xs" />
+        <custom-btn
+          accesskey="s"
+          iconClass="icon-settings"
+          class="xs"
+        />
+        <custom-btn
+          accesskey="o"
+          title="Object"
+          :active="activeObjInfoTabName === tabNames.OBJECT"
+          :data="tabNames.OBJECT"
+          :onClick="onSetActiveObjInfoTabName"
+        />
+        <custom-btn
+          accesskey="g"
+          title="Geometry"
+          :active="activeObjInfoTabName === tabNames.GEOMETRY"
+          :data="tabNames.GEOMETRY"
+          :onClick="onSetActiveObjInfoTabName"
+        />
+        <custom-btn
+          accesskey="m"
+          title="Material"
+          :active="activeObjInfoTabName === tabNames.MATERIAL"
+          :data="tabNames.MATERIAL"
+          :onClick="onSetActiveObjInfoTabName"
+        />
+        <custom-btn
+          class="xs"
+          accesskey="w"
+          iconClass="icon-shader-editor"
+          :link="internalUrls.SHADER_EDITOR"
+        />
       </header>
 
       <section class="body">
-        <object-section v-if="activeObjInfoTabName === tabNames.OBJECT" />
-        <geometry-section v-if="activeObjInfoTabName === tabNames.GEOMETRY" />
-        <material-section v-if="activeObjInfoTabName === tabNames.MATERIAL" :onSetActiveMaterialType="onSetActiveMaterialType" :activeMaterialType="activeMaterialType" />
+        <object-section
+          v-if="activeObjInfoTabName === tabNames.OBJECT"
+        />
+        <geometry-section
+          v-if="activeObjInfoTabName === tabNames.GEOMETRY"
+        />
+        <material-section
+          v-if="activeObjInfoTabName === tabNames.MATERIAL"
+          :onSetActiveMaterialType="onSetActiveMaterialType"
+          :activeMaterialType="activeMaterialType"
+        />
       </section>
 
       <footer class="footer controls-row" />

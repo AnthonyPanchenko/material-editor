@@ -2,7 +2,7 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const geometricObjects = {
+const meshesList = {
   namespaced: true,
   state: {
     list: []
@@ -12,4 +12,4 @@ const geometricObjects = {
   getters
 };
 
-export default geometricObjects;
+export default meshesList;

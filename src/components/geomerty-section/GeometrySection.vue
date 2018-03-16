@@ -1,5 +1,5 @@
 <script>
-import InputNumber from '../../../common/components/input-number/InputNumber.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
 
 export default {
   name: 'GeometrySection',

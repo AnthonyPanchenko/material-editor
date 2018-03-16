@@ -1,6 +1,6 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('geometricObjects');
+const { mapState, mapActions } = createNamespacedHelpers('meshesList');
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import * as api from '../../common/constants/api';
 import './styles/geometric-objects.scss';

@@ -10,11 +10,11 @@ import tabNames from './constants/tabNames';
 import * as internalUrls from '../../common/constants/internal-urls';
 
 import Gallery from '../gallery/Gallery.vue';
-import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
+import MeshesList from '../meshes-list/MeshesList.vue';
 
-import ObjectSection from './components/ObjectSection.vue';
+import ObjectSection from '../object-section/ObjectSection.vue';
 import MaterialSection from '../material-section/MaterialSection.vue';
-import GeometrySection from './components/GeometrySection.vue';
+import GeometrySection from '../geometry-section/GeometrySection.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 
 export default {
@@ -26,7 +26,7 @@ export default {
     InputFile,
     CustomBtn,
     CanvasSection,
-    GeometricObjects,
+    MeshesList,
     Gallery,
     ResizeBox
   },
@@ -98,7 +98,7 @@ export default {
       </div>
 
       <transition slot="sidebar" name="slide-meshes-list">
-        <geometric-objects v-show="isVisibleObjectsList" />
+        <meshes-list v-show="isVisibleObjectsList" />
       </transition>
     </canvas-section>
   </div>

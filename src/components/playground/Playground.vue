@@ -11,7 +11,7 @@ import * as internalUrls from '../../common/constants/internal-urls';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
-import ShaderEditor from '../shadere-ditor/ShaderEditor.vue';
+import ShaderEditor from '../shader-editor/ShaderEditor.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
 

@@ -1,6 +1,6 @@
-$shader-name-row-height: 28px;
+$item-name-row-height: 28px;
 
-.shader-item {
+.gallery-item {
   cursor: pointer;
   height: 135px;
   width: 100%;
@@ -18,7 +18,7 @@ $shader-name-row-height: 28px;
   .no-bg,
   .bg-image {
     width: 100%;
-    height: calc(100% - #{$shader-name-row-height});
+    height: calc(100% - #{$item-name-row-height});
   }
 
   .bg-image {
@@ -46,7 +46,7 @@ $shader-name-row-height: 28px;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    height: $shader-name-row-height;
+    height: $item-name-row-height;
     transition: all 200ms linear;
     padding: 5px 7px;
     font-size: 13px;

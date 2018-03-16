@@ -2,15 +2,14 @@ import actions from './actions';
 import getters from './getters';
 import mutations from './mutations';
 
-const shadersGallery = {
+const meshesList = {
   namespaced: true,
   state: {
-    list: [],
-    activeShader: null
+    list: []
   },
   actions,
   mutations,
   getters
 };
 
-export default shadersGallery;
+export default meshesList;

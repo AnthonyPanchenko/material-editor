@@ -3,10 +3,10 @@ import noop from '../../common/utils/noop';
 import InputText from '../../common/components/input-text/InputText.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-import './styles/create-new-shader-form.scss';
+import './styles/create-new-material.scss';
 
 export default {
-  name: 'CreateNewShaderForm',
+  name: 'CreateNewMaterial',
   props: {
     onClose: { type: Function, default: noop }
   },
@@ -17,36 +17,36 @@ export default {
   },
   data() {
     return {
-      shaderName: '',
+      materialName: '',
       checkboxState: true
     }
   },
   methods: {
-    onCreateNewShader() {
-      console.log(this.shaderName, this.checkboxState);
+    onCreateNewMaterial() {
+      console.log(this.materialName, this.checkboxState);
     },
     onChangeCheckBox(state) {
       this.checkboxState = state;
     },
-    onInputShaderName(text) {
-      this.shaderName = text;
+    onInputName(text) {
+      this.materialName = text;
     }
   }
 }
 </script>
 
 <template>
-  <div class="create-new-shader-form">
+  <div class="create-new-material">
     <div class="header controls-row">
-      <h5 class="title">Create new shader</h5>
+      <h5 class="title">Create new material</h5>
       <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs close-btn" />
     </div>
 
-    <input-text placeholder="Shader name" :onInput="onInputShaderName" :value="shaderName" />
+    <input-text placeholder="Material name" :onInput="onInputName" :value="materialName" />
     <checkbox-btn sufix="Vertex shader" :checked="checkboxState" :onChange="onChangeCheckBox" />
 
     <div class="footer controls-row">
-      <custom-btn title="Create" :onClick="onCreateNewShader" class="success" />
+      <custom-btn title="Create" :onClick="onCreateNewMaterial" class="success" />
     </div>
   </div>
 </template>

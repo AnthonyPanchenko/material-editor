@@ -2,8 +2,8 @@ import shadersControlsTypes from '../../../common/constants/shaders-controls-typ
 import shadersTypes from '../../../common/constants/shaders-types';
 
 const state = {
-  isVisibleObjectsList: true,
-  isVisibleControlsPanel: true,
+  glslProgramsList: [],
+  selectedGlslprogram: null,
   isVisibleControlsFooter: true,
   activeControlsType: shadersControlsTypes.UNIFORMS,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,

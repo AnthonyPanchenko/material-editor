@@ -1,12 +1,11 @@
 import materialsTypes from '../../../common/constants/materials-types';
-import tabNames from '../constants/tabNames';
+import sections from '../../../common/constants/material-editor-sections';
 
 const state = {
-  materials: [],
-  isVisibleControlsPanel: true,
-  isVisibleObjectsList: true,
-  activeObjInfoTabName: tabNames.MATERIAL,
-  controlsPanelWidth: 20,
+  materialsList: [],
+  selectedMaterial: null,
+  activeSectionName: sections.MATERIAL,
+  controlsPanelWidth: 30,
   activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL
 };
 

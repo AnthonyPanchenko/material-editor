@@ -1,6 +1,6 @@
 <script>
-import InputNumber from '../../../common/components/input-number/InputNumber.vue';
-import CheckboxBtn from '../../../common/components/checkbox-btn/CheckboxBtn.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 
 export default {
   name: 'ObjectSection',

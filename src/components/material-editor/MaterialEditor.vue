@@ -2,54 +2,40 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
+import sections from '../../common/constants/material-editor-sections';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 
-import tabNames from './constants/tabNames';
-import * as internalUrls from '../../common/constants/internal-urls';
-
-import ShadersGallery from '../shaders-gallery/ShadersGallery.vue';
-import GeometricObjects from '../geometric-objects/GeometricObjects.vue';
-
-import ObjectSection from './components/ObjectSection.vue';
-import MaterialSection from './components/MaterialSection.vue';
-import GeometrySection from './components/GeometrySection.vue';
-import CanvasSection from '../canvas-section/CanvasSection.vue';
+import MaterialSection from '../material-section/MaterialSection.vue';
+import GeometrySection from '../geometry-section/GeometrySection.vue';
+import ObjectSection from '../object-section/ObjectSection.vue';
 
 export default {
   name: 'MaterialEditor',
   components: {
     MaterialSection,
-    ObjectSection,
     GeometrySection,
+    ObjectSection,
     InputFile,
     CustomBtn,
-    CanvasSection,
-    GeometricObjects,
-    ShadersGallery,
     ResizeBox
   },
   data() {
     return {
-      tabNames,
-      internalUrls
+      sections
     };
   },
   computed: mapState([
-    'activeObjInfoTabName',
+    'activeSectionName',
     'controlsPanelWidth',
-    'activeMaterialType',
-    'isVisibleControlsPanel',
-    'isVisibleObjectsList'
+    'activeMaterialTypeId',
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveObjInfoTabName',
-      'onSetActiveMaterialType',
+      'onSetActiveSectionName',
+      'onSetActiveMaterialTypeId',
       'onSetControlsPanelWidth',
-      'onToggleObjectsList',
-      'onToggleFullScreenMode'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -68,38 +54,56 @@ export default {
 </script>
 
 <template>
-  <div class="base-layout">
-    <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
-      <header class="header controls-row">
-        <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-        <custom-btn accesskey="o" title="Object" :active="activeObjInfoTabName === tabNames.OBJECT" :data="tabNames.OBJECT" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn accesskey="g" title="Geometry" :active="activeObjInfoTabName === tabNames.GEOMETRY" :data="tabNames.GEOMETRY" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn accesskey="m" title="Material" :active="activeObjInfoTabName === tabNames.MATERIAL" :data="tabNames.MATERIAL" :onClick="onSetActiveObjInfoTabName" />
-        <custom-btn :link="internalUrls.SHADER_EDITOR" accesskey="w" iconClass="icon-shader-editor" class="xs" />
-      </header>
+  <resize-box
+    tag="section"
+    resize="column"
+    class="container controls-section"
+    :size="controlsPanelWidth"
+    :onEndOfResize="onSetControlsPanelWidth"
+  >
+    <header class="header controls-row">
+      <custom-btn
+        accesskey="s"
+        iconClass="icon-settings"
+        class="xs"
+      />
+      <custom-btn
+        accesskey="o"
+        title="Object"
+        :active="activeSectionName === sections.OBJECT"
+        :data="sections.OBJECT"
+        :onClick="onSetActiveSectionName"
+      />
+      <custom-btn
+        accesskey="g"
+        title="Geometry"
+        :active="activeSectionName === sections.GEOMETRY"
+        :data="sections.GEOMETRY"
+        :onClick="onSetActiveSectionName"
+      />
+      <custom-btn
+        accesskey="m"
+        title="Material"
+        :active="activeSectionName === sections.MATERIAL"
+        :data="sections.MATERIAL"
+        :onClick="onSetActiveSectionName"
+      />
+    </header>
 
-      <section class="body">
-        <object-section v-if="activeObjInfoTabName === tabNames.OBJECT" />
-        <geometry-section v-if="activeObjInfoTabName === tabNames.GEOMETRY" />
-        <material-section v-if="activeObjInfoTabName === tabNames.MATERIAL" :onSetActiveMaterialType="onSetActiveMaterialType" :activeMaterialType="activeMaterialType" />
-      </section>
+    <section class="body">
+      <object-section
+        v-if="activeSectionName === sections.OBJECT"
+      />
+      <geometry-section
+        v-if="activeSectionName === sections.GEOMETRY"
+      />
+      <material-section
+        v-if="activeSectionName === sections.MATERIAL"
+        :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
+        :activeMaterialTypeId="activeMaterialTypeId"
+      />
+    </section>
 
-      <footer class="footer controls-row" />
-    </resize-box>
-
-    <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
-      <div slot="header" class="header controls-row">
-        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
-        <custom-btn iconClass="icon-move" class="xs" />
-        <custom-btn iconClass="icon-rotate" class="xs" />
-        <custom-btn iconClass="icon-scale" class="xs" />
-        <div class="gap" />
-        <input-file name="file1" />
-      </div>
-
-      <transition slot="sidebar" name="slide-meshes-list">
-        <geometric-objects v-show="isVisibleObjectsList" />
-      </transition>
-    </canvas-section>
-  </div>
+    <footer class="footer controls-row" />
+  </resize-box>
 </template>

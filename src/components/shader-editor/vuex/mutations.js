@@ -1,28 +1,28 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
-  [mutationTypes.SHADER_EDITOR_SET_SHADER_VALUE_BY_TYPE](state, payload) {
+  [mutationTypes.SET_SHADER_VALUE_BY_TYPE](state, payload) {
     state.shaders[payload.type].value = payload.value;
   },
-  [mutationTypes.SHADER_EDITOR_SET_PANEL_CONTROLS_WIDTH](state, width) {
+  [mutationTypes.SET_PANEL_CONTROLS_WIDTH_OF_SHADER_EDITOR](state, width) {
     state.controlsPanelWidth = width;
   },
-  [mutationTypes.SHADER_EDITOR_SET_ACTIVE_SHADER_TYPE](state, shaderType) {
+  [mutationTypes.SET_ACTIVE_SHADER_TYPE](state, shaderType) {
     state.activeShaderType = shaderType;
   },
-  [mutationTypes.SHADER_EDITOR_TOGGLE_FOOTER_CONTROLS](state) {
+  [mutationTypes.TOGGLE_FOOTER_CONTROLS](state) {
     state.isVisibleControlsFooter = !state.isVisibleControlsFooter;
   },
-  [mutationTypes.SHADER_EDITOR_SET_ACTIVE_CONTROLS_TYPE](state, cotrolsType) {
+  [mutationTypes.SET_ACTIVE_CONTROLS_TYPE](state, cotrolsType) {
     state.activeControlsType = cotrolsType;
   },
-  [mutationTypes.SHADER_EDITOR_SET_FOOTER_CONTROLS_HEIGHT](state, height) {
+  [mutationTypes.SET_FOOTER_CONTROLS_HEIGHT](state, height) {
     state.footerHeight = height;
   },
-  [mutationTypes.SHADER_EDITOR_LOAD_GLSL_PROGRAMS_SUCCESS](state, list) {
+  [mutationTypes.LOAD_GLSL_PROGRAMS_SUCCESS](state, list) {
     state.glslProgramsList = list;
   },
-  [mutationTypes.SHADER_EDITOR_SET_SELECTED_GLSL_PROGRAM](state, payload) {
+  [mutationTypes.SET_SELECTED_GLSL_PROGRAM](state, payload) {
     state.selectedGlslprogram = payload;
   }
 };

@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
 
+import sections from '../../common/constants/material-editor-sections';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
@@ -21,15 +22,19 @@ export default {
     ResizeBox
   },
   data() {
-    return {};
+    return {
+      sections
+    };
   },
   computed: mapState([
+    'activeSectionName',
     'controlsPanelWidth',
-    'activeMaterialType',
+    'activeMaterialTypeId',
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveMaterialType',
+      'onSetActiveSectionName',
+      'onSetActiveMaterialTypeId',
       'onSetControlsPanelWidth',
     ]),
     onChangeSelect(selectedValue, name) {
@@ -65,37 +70,37 @@ export default {
       <custom-btn
         accesskey="o"
         title="Object"
-        :active="activeObjInfoTabName === tabNames.OBJECT"
-        :data="tabNames.OBJECT"
-        :onClick="onSetActiveObjInfoTabName"
+        :active="activeSectionName === sections.OBJECT"
+        :data="sections.OBJECT"
+        :onClick="onSetActiveSectionName"
       />
       <custom-btn
         accesskey="g"
         title="Geometry"
-        :active="activeObjInfoTabName === tabNames.GEOMETRY"
-        :data="tabNames.GEOMETRY"
-        :onClick="onSetActiveObjInfoTabName"
+        :active="activeSectionName === sections.GEOMETRY"
+        :data="sections.GEOMETRY"
+        :onClick="onSetActiveSectionName"
       />
       <custom-btn
         accesskey="m"
         title="Material"
-        :active="activeObjInfoTabName === tabNames.MATERIAL"
-        :data="tabNames.MATERIAL"
-        :onClick="onSetActiveObjInfoTabName"
+        :active="activeSectionName === sections.MATERIAL"
+        :data="sections.MATERIAL"
+        :onClick="onSetActiveSectionName"
       />
     </header>
 
     <section class="body">
       <object-section
-        v-if="activeObjInfoTabName === tabNames.OBJECT"
+        v-if="activeSectionName === sections.OBJECT"
       />
       <geometry-section
-        v-if="activeObjInfoTabName === tabNames.GEOMETRY"
+        v-if="activeSectionName === sections.GEOMETRY"
       />
       <material-section
-        v-if="activeObjInfoTabName === tabNames.MATERIAL"
+        v-if="activeSectionName === sections.MATERIAL"
         :onSetActiveMaterialType="onSetActiveMaterialType"
-        :activeMaterialType="activeMaterialType"
+        :activeMaterialTypeId="activeMaterialTypeId"
       />
     </section>
 

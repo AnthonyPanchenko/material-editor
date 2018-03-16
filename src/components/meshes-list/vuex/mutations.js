@@ -1,11 +1,8 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
-  [mutationTypes.REMOVE_GEOMETRIC_OBJECT_BY_ID](state, objId) {
-    state.list = state.list.filter(item => item.id !== objId);
-  },
-  [mutationTypes.LOAD_GEOMETRIC_OBJECTS_SUCCESS](state, list) {
-    state.list = list;
+  [mutationTypes.REMOVE_MESH_BY_ID](state, id) {
+    state.list = state.list.filter(item => item.id !== id);
   }
 };
 

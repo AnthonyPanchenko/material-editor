@@ -1,7 +1,7 @@
-const tabNames = {
+const sections = {
   OBJECT: 'OBJECT',
   GEOMETRY: 'GEOMETRY',
   MATERIAL: 'MATERIAL'
 };
 
-export default tabNames;
+export default sections;

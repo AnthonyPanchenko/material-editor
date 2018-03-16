@@ -1,26 +1,27 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
+const { mapState, mapActions } = createNamespacedHelpers('playground');
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
-
-import tabNames from './constants/tabNames';
-import * as internalUrls from '../../common/constants/internal-urls';
+import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
+import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
 export default {
   name: 'Playground',
   components: {
+    CreateNewMaterial,
     MaterialEditor,
     CanvasSection,
     ShaderEditor,
+    ModalWindow,
     MeshesList,
     InputFile,
     CustomBtn,
@@ -28,24 +29,23 @@ export default {
     ResizeBox
   },
   data() {
-    return {
-      tabNames,
-      internalUrls
-    };
+    return {};
   },
   computed: mapState([
     'activeObjInfoTabName',
     'controlsPanelWidth',
+    'isOpenCreateNewMaterialForm',
     'activeMaterialType',
     'isVisibleControlsPanel',
-    'isVisibleObjectsList'
+    'isVisibleMeshesList'
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveObjInfoTabName',
+      'onSetActiveSectionName',
       'onSetActiveMaterialType',
       'onSetControlsPanelWidth',
-      'onToggleObjectsList',
+      'onToggleCreateNewMaterialForm',
+      'onToggleMeshesList',
       'onToggleFullScreenMode'
     ]),
     onChangeSelect(selectedValue, name) {
@@ -59,23 +59,23 @@ export default {
       console.log(state);
       console.log(value);
       console.log(name);
-    }
+    },
   }
 };
 </script>
 
 <template>
   <div class="base-layout">
-    <modal-window :isOpen="isOpenCreateNewMaterial">
-      <create-new-material :onClose="onCloseCreateNewMaterial" />
+    <modal-window :isOpen="isOpenCreateNewMaterialForm">
+      <create-new-material :onClose="onToggleCreateNewMaterialForm" />
     </modal-window>
 
-    <material-editor v-if="true" />
-    <shader-editor v-if="!true" />
+    <material-editor v-if="true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
+    <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
     <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
-        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleObjectsList" />
+        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
         <custom-btn iconClass="icon-move" class="xs" />
         <custom-btn iconClass="icon-rotate" class="xs" />
         <custom-btn iconClass="icon-scale" class="xs" />
@@ -89,7 +89,7 @@ export default {
       </div>
 
       <transition slot="sidebar" name="slide-meshes-list">
-        <meshes-list v-show="isVisibleObjectsList" />
+        <meshes-list v-show="isVisibleMeshesList" />
       </transition>
     </canvas-section>
   </div>

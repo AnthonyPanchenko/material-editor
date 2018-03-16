@@ -5,8 +5,8 @@ const state = {
   glslProgramsList: [],
   selectedGlslprogram: null,
 
-  isVisibleObjectsList: true,
   isVisibleControlsPanel: true,
+
   isVisibleControlsFooter: true,
   activeControlsType: shadersControlsTypes.UNIFORMS,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,

@@ -11,22 +11,19 @@ import * as internalUrls from '../../common/constants/internal-urls';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
-
-import ObjectSection from '../object-section/ObjectSection.vue';
-import MaterialSection from '../material-section/MaterialSection.vue';
-import GeometrySection from '../geometry-section/GeometrySection.vue';
+import ShaderEditor from '../shadere-ditor/ShaderEditor.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
+import MaterialEditor from '../material-editor/MaterialEditor.vue';
 
 export default {
-  name: 'MaterialEditor',
+  name: 'Playground',
   components: {
-    MaterialSection,
-    ObjectSection,
-    GeometrySection,
+    MaterialEditor,
+    CanvasSection,
+    ShaderEditor,
+    MeshesList,
     InputFile,
     CustomBtn,
-    CanvasSection,
-    MeshesList,
     Gallery,
     ResizeBox
   },
@@ -69,64 +66,12 @@ export default {
 
 <template>
   <div class="base-layout">
-    <resize-box
-      class="container controls-section"
-      v-show="isVisibleControlsPanel"
-      tag="section" resize="column"
-      :onEndOfResize="onSetControlsPanelWidth"
-      :size="controlsPanelWidth"
-    >
-      <header class="header controls-row">
-        <custom-btn
-          accesskey="s"
-          iconClass="icon-settings"
-          class="xs"
-        />
-        <custom-btn
-          accesskey="o"
-          title="Object"
-          :active="activeObjInfoTabName === tabNames.OBJECT"
-          :data="tabNames.OBJECT"
-          :onClick="onSetActiveObjInfoTabName"
-        />
-        <custom-btn
-          accesskey="g"
-          title="Geometry"
-          :active="activeObjInfoTabName === tabNames.GEOMETRY"
-          :data="tabNames.GEOMETRY"
-          :onClick="onSetActiveObjInfoTabName"
-        />
-        <custom-btn
-          accesskey="m"
-          title="Material"
-          :active="activeObjInfoTabName === tabNames.MATERIAL"
-          :data="tabNames.MATERIAL"
-          :onClick="onSetActiveObjInfoTabName"
-        />
-        <custom-btn
-          class="xs"
-          accesskey="w"
-          iconClass="icon-shader-editor"
-          :link="internalUrls.SHADER_EDITOR"
-        />
-      </header>
+    <modal-window :isOpen="isOpenCreateNewMaterial">
+      <create-new-material :onClose="onCloseCreateNewMaterial" />
+    </modal-window>
 
-      <section class="body">
-        <object-section
-          v-if="activeObjInfoTabName === tabNames.OBJECT"
-        />
-        <geometry-section
-          v-if="activeObjInfoTabName === tabNames.GEOMETRY"
-        />
-        <material-section
-          v-if="activeObjInfoTabName === tabNames.MATERIAL"
-          :onSetActiveMaterialType="onSetActiveMaterialType"
-          :activeMaterialType="activeMaterialType"
-        />
-      </section>
-
-      <footer class="footer controls-row" />
-    </resize-box>
+    <material-editor v-if="true" />
+    <shader-editor v-if="!true" />
 
     <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
@@ -135,6 +80,11 @@ export default {
         <custom-btn iconClass="icon-rotate" class="xs" />
         <custom-btn iconClass="icon-scale" class="xs" />
         <div class="gap" />
+        <custom-btn iconClass="icon-sphere" />
+        <custom-btn iconClass="icon-cube" />
+        <custom-btn iconClass="icon-cylinder" />
+        <custom-btn iconClass="icon-torus" />
+        <custom-btn iconClass="icon-plane" />
         <input-file name="file1" />
       </div>
 

@@ -23,24 +23,7 @@ export default {
     },
     onSelectObjById(meshId) {
       console.log(meshId);
-    },
-    loadGeometricObjectsList() {
-      this.$http({
-        url: api.MATERIAL_EDITOR_GEOMETRIC_OBJECTS,
-        method: 'GET',
-        // credentials: true,
-        before: () => {
-          console.log('start to run spinner');
-        }
-      }).then(res => {
-        this.onSuccessLoadGeometricObjects(res.body);
-      }, res => {
-        console.log('error', res);
-      });
     }
-  },
-  beforeMount() {
-    this.loadGeometricObjectsList();
   }
 }
 </script>

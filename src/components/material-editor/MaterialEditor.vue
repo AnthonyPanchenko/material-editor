@@ -6,37 +6,31 @@ import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 
-import * as internalUrls from '../../common/constants/internal-urls';
-
-import Gallery from '../gallery/Gallery.vue';
 import MaterialSection from '../material-section/MaterialSection.vue';
-import CanvasSection from '../canvas-section/CanvasSection.vue';
+import GeometrySection from '../geometry-section/GeometrySection.vue';
+import ObjectSection from '../object-section/ObjectSection.vue';
 
 export default {
   name: 'MaterialEditor',
   components: {
     MaterialSection,
+    GeometrySection,
+    ObjectSection,
     InputFile,
     CustomBtn,
-    CanvasSection,
-    Gallery,
     ResizeBox
   },
   data() {
-    return {
-      internalUrls
-    };
+    return {};
   },
   computed: mapState([
     'controlsPanelWidth',
     'activeMaterialType',
-    'isVisibleControlsPanel'
   ]),
   methods: {
     ...mapActions([
       'onSetActiveMaterialType',
       'onSetControlsPanelWidth',
-      'onToggleFullScreenMode'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -55,28 +49,56 @@ export default {
 </script>
 
 <template>
-  <div class="base-layout">
-    <resize-box class="container controls-section" v-show="isVisibleControlsPanel" tag="section" resize="column" :onEndOfResize="onSetControlsPanelWidth" :size="controlsPanelWidth">
-      <header class="header controls-row">
-        <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-        <custom-btn :link="internalUrls.SHADER_EDITOR" accesskey="w" iconClass="icon-shader-editor" class="xs" />
-      </header>
+  <resize-box
+    tag="section"
+    resize="column"
+    class="container controls-section"
+    :size="controlsPanelWidth"
+    :onEndOfResize="onSetControlsPanelWidth"
+  >
+    <header class="header controls-row">
+      <custom-btn
+        accesskey="s"
+        iconClass="icon-settings"
+        class="xs"
+      />
+      <custom-btn
+        accesskey="o"
+        title="Object"
+        :active="activeObjInfoTabName === tabNames.OBJECT"
+        :data="tabNames.OBJECT"
+        :onClick="onSetActiveObjInfoTabName"
+      />
+      <custom-btn
+        accesskey="g"
+        title="Geometry"
+        :active="activeObjInfoTabName === tabNames.GEOMETRY"
+        :data="tabNames.GEOMETRY"
+        :onClick="onSetActiveObjInfoTabName"
+      />
+      <custom-btn
+        accesskey="m"
+        title="Material"
+        :active="activeObjInfoTabName === tabNames.MATERIAL"
+        :data="tabNames.MATERIAL"
+        :onClick="onSetActiveObjInfoTabName"
+      />
+    </header>
 
-      <section class="body">
-        <material-section :onSetActiveMaterialType="onSetActiveMaterialType" :activeMaterialType="activeMaterialType" />
-      </section>
+    <section class="body">
+      <object-section
+        v-if="activeObjInfoTabName === tabNames.OBJECT"
+      />
+      <geometry-section
+        v-if="activeObjInfoTabName === tabNames.GEOMETRY"
+      />
+      <material-section
+        v-if="activeObjInfoTabName === tabNames.MATERIAL"
+        :onSetActiveMaterialType="onSetActiveMaterialType"
+        :activeMaterialType="activeMaterialType"
+      />
+    </section>
 
-      <footer class="footer controls-row" />
-    </resize-box>
-
-    <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
-      <div slot="header" class="header controls-row">
-        <custom-btn iconClass="icon-sphere" />
-        <custom-btn iconClass="icon-cube" />
-        <custom-btn iconClass="icon-cylinder" />
-        <custom-btn iconClass="icon-torus" />
-        <custom-btn iconClass="icon-plane" />
-      </div>
-    </canvas-section>
-  </div>
+    <footer class="footer controls-row" />
+  </resize-box>
 </template>

@@ -32,18 +32,12 @@ export default {
     return {};
   },
   computed: mapState([
-    'activeObjInfoTabName',
-    'controlsPanelWidth',
     'isOpenCreateNewMaterialForm',
-    'activeMaterialType',
     'isVisibleControlsPanel',
     'isVisibleMeshesList'
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveSectionName',
-      'onSetActiveMaterialType',
-      'onSetControlsPanelWidth',
       'onToggleCreateNewMaterialForm',
       'onToggleMeshesList',
       'onToggleFullScreenMode'
@@ -79,7 +73,6 @@ export default {
         <custom-btn iconClass="icon-move" class="xs" />
         <custom-btn iconClass="icon-rotate" class="xs" />
         <custom-btn iconClass="icon-scale" class="xs" />
-        <div class="gap" />
         <custom-btn iconClass="icon-sphere" />
         <custom-btn iconClass="icon-cube" />
         <custom-btn iconClass="icon-cylinder" />

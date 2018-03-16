@@ -99,7 +99,7 @@ export default {
       />
       <material-section
         v-if="activeSectionName === sections.MATERIAL"
-        :onSetActiveMaterialType="onSetActiveMaterialType"
+        :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
         :activeMaterialTypeId="activeMaterialTypeId"
       />
     </section>

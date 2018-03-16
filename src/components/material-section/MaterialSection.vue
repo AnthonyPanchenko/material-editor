@@ -21,7 +21,7 @@ export default {
   name: 'MaterialSection',
   props: {
     activeMaterialType: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
-    onSetActiveMaterialType: { type: Function, default: noop }
+    onSetActiveMaterialTypeId: { type: Function, default: noop }
   },
   components: {
     ImgBox,
@@ -68,7 +68,7 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <custom-select :options="materialsTypesOptions" :onChange="onSetActiveMaterialType" />
+      <custom-select :options="materialsTypesOptions" :onChange="onSetActiveMaterialTypeId" />
     </div>
     <div class="name">
       <span class="label">Name:</span>

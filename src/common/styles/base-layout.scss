@@ -25,6 +25,7 @@
         flex-wrap: nowrap;
 
         .canvas-box {
+          overflow: hidden;
           flex: 1 1 100%;
         }
       }

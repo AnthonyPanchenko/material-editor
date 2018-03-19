@@ -37,6 +37,13 @@ module.exports = (settings) => {
     module: {
       rules: [
         {
+          test: require.resolve('three/examples/js/controls/OrbitControls'),
+          use: [
+            'imports-loader?THREE=three',
+            'exports-loader?THREE.OrbitControls'
+          ]
+        },
+        {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {

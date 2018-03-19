@@ -64,7 +64,7 @@ export default {
       <create-new-material :onClose="onToggleCreateNewMaterialForm" />
     </modal-window>
 
-    <material-editor v-if="true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
+    <material-editor v-show="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
     <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
     <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">

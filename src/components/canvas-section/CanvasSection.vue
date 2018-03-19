@@ -1,5 +1,6 @@
 <script>
 import noop from '../../common/utils/noop';
+import debounce from './utils/resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
@@ -34,9 +35,9 @@ export default {
     init(canvasContainer, canvasContainer.clientWidth, canvasContainer.clientHeight);
     animate();
 
-    const canvasContainerObserveResizing = new ResizeObserver(entries => {
+    const canvasContainerObserveResizing = new ResizeObserver(debounce(50, entries => {
       onResize(entries[0].contentRect.width, entries[0].contentRect.height);
-    });
+    }));
 
     canvasContainerObserveResizing.observe(canvasContainer);
   }

@@ -1,6 +1,8 @@
 <script>
+import * as THREE from 'three';
 import noop from '../../common/utils/noop';
 import debounce from './utils/resize-observer-debounce';
+import emptyObject from '../../common/utils/emptyObject';
 import ResizeObserver from 'resize-observer-polyfill';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
@@ -10,15 +12,25 @@ export default {
   name: 'CanvasSection',
   props: {
     onToggleFullScreenMode: { type: Function, default: noop },
-    isFullScreenMode: { type: Boolean, default: false }
+    isFullScreenMode: { type: Boolean, default: false },
+    geometryToScene: { type: Object, default: emptyObject }
   },
   components: {
     CustomBtn
   },
   data() {
-    return {}
+    return {
+      scene: new THREE.Scene(),
+      gridHelper: new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888),
+      animationId: ''
+    }
   },
   methods: {
+    onResize(width, height) {
+      this.camera.aspect = width / height;
+      this.camera.updateProjectionMatrix();
+      this.renderer.setSize(width, height);
+    },
     onCanvasMouseUp() {
       console.log('onCanvasMouseUp');
     },
@@ -32,11 +44,17 @@ export default {
   mounted() {
     const canvasContainer = this.$refs.canvasContainer;
 
-    init(canvasContainer, canvasContainer.clientWidth, canvasContainer.clientHeight);
-    animate();
+    this.camera = createCamera(canvasContainer.clientWidth, canvasContainer.clientHeight);
+    this.renderer = createRenderer(canvasContainer.clientWidth, canvasContainer.clientHeight);
+    this.controls = createControls(this.camera, this.renderer);
+
+    this.scene.add(this.gridHelper);
+    this.controls.update();
+
+    this.renderer.render(this.scene, this.camera);
 
     const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
-      onResize(entries[0].contentRect.width, entries[0].contentRect.height);
+      this.onResize(entries[0].contentRect.width, entries[0].contentRect.height);
     }));
 
     canvasContainerObserveResizing.observe(canvasContainer);

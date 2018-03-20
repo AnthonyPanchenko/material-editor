@@ -35,7 +35,7 @@ export default {
     init(canvasContainer, canvasContainer.clientWidth, canvasContainer.clientHeight);
     animate();
 
-    const canvasContainerObserveResizing = new ResizeObserver(debounce(50, entries => {
+    const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
       onResize(entries[0].contentRect.width, entries[0].contentRect.height);
     }));
 

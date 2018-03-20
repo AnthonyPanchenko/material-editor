@@ -4,6 +4,9 @@ const actions = {
   onToggleFullScreenMode(context) {
     context.commit(mutationTypes.TOGGLE_FULLSCREEN_MODE);
   },
+  addGeometryToScene(context, geometry) {
+    context.commit(mutationTypes.ADD_GEOMETRY_TO_SCENE, geometry);
+  },
   onToggleMeshesList(context) {
     context.commit(mutationTypes.TOGGLE_MESHES_LIST);
   },

@@ -2,6 +2,8 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
+import * as THREE from 'three';
+
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
@@ -34,14 +36,42 @@ export default {
   computed: mapState([
     'isOpenCreateNewMaterialForm',
     'isVisibleControlsPanel',
-    'isVisibleMeshesList'
+    'isVisibleMeshesList',
+    'geometryToScene'
   ]),
   methods: {
     ...mapActions([
       'onToggleCreateNewMaterialForm',
       'onToggleMeshesList',
-      'onToggleFullScreenMode'
+      'onToggleFullScreenMode',
+      'addGeometryToScene'
     ]),
+
+    onCreateSphere() {
+      const sphereGeometry = new THREE.SphereGeometry(4, 20, 20);
+      this.addGeometryToScene(sphereGeometry);
+    },
+
+    onCreateCube() {
+      const cubeGeometry = new THREE.BoxGeometry(4, 4, 4);
+      this.addGeometryToScene(cubeGeometry);
+    },
+
+    onCreateCylinder() {
+      const cylinderGeometry = new THREE.CylinderGeometry(2, 2, 20);
+      this.addGeometryToScene(cylinderGeometry);
+    },
+
+    onCreateTorus() {
+      const torusGeometry = new THREE.TorusGeometry(10, 3, 16, 100);
+      this.addGeometryToScene(torusGeometry);
+    },
+
+    onCreatePlane() {
+      const planeGeometry = new THREE.PlaneGeometry(200, 200, 40, 40);
+      this.addGeometryToScene(planeGeometry);
+    },
+
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);
@@ -53,7 +83,7 @@ export default {
       console.log(state);
       console.log(value);
       console.log(name);
-    },
+    }
   }
 };
 </script>
@@ -67,17 +97,17 @@ export default {
     <material-editor v-show="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
     <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
-    <canvas-section :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+    <canvas-section :geometryToScene="geometryToScene" :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
         <custom-btn iconClass="icon-move" class="xs" />
         <custom-btn iconClass="icon-rotate" class="xs" />
         <custom-btn iconClass="icon-scale" class="xs" />
-        <custom-btn iconClass="icon-sphere" />
-        <custom-btn iconClass="icon-cube" />
-        <custom-btn iconClass="icon-cylinder" />
-        <custom-btn iconClass="icon-torus" />
-        <custom-btn iconClass="icon-plane" />
+        <custom-btn iconClass="icon-sphere" :onClick="onCreateSphere" />
+        <custom-btn iconClass="icon-cube" :onClick="onCreateCube" />
+        <custom-btn iconClass="icon-cylinder" :onClick="onCreateCylinder" />
+        <custom-btn iconClass="icon-torus" :onClick="onCreateTorus" />
+        <custom-btn iconClass="icon-plane" :onClick="onCreatePlane" />
         <input-file name="file1" />
       </div>
 

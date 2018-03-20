@@ -1,4 +1,5 @@
 const state = {
+  geometryToScene: null,
   isVisibleControlsPanel: true,
   isVisibleMeshesList: true,
   isOpenCreateNewMaterialForm: false

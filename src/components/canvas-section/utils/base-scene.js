@@ -30,6 +30,17 @@ export const createControls = (camera, renderer) => {
   return controls;
 };
 
+export const runAnimation = (controls, renderer, scene, camera, animateWith) => {
+  function animate() {
+    requestAnimationFrame(animate);
+    animateWith();
+    controls.update();
+    renderer.render(scene, camera);
+  };
+
+  animate();
+};
+
 // class BaseScene {
 //   constructor(canvasContainer, canvasWidth, canvasHeight) {
 //     this.camera = createCamera(canvasWidth, canvasHeight);

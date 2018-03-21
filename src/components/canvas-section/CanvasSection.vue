@@ -6,7 +6,7 @@ import emptyObject from '../../common/utils/emptyObject';
 import ResizeObserver from 'resize-observer-polyfill';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 
-import { init, animate, onResize } from './utils/base-scene';
+import { createCamera, createRenderer, createControls, runAnimation } from './utils/base-scene';
 
 export default {
   name: 'CanvasSection',
@@ -21,15 +21,14 @@ export default {
   data() {
     return {
       scene: new THREE.Scene(),
-      gridHelper: new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888),
-      animationId: ''
+      gridHelper: new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888)
     }
   },
   methods: {
-    onResize(width, height) {
-      this.camera.aspect = width / height;
-      this.camera.updateProjectionMatrix();
-      this.renderer.setSize(width, height);
+    onResize(width, height, camera, renderer) {
+      camera.aspect = width / height;
+      camera.updateProjectionMatrix();
+      renderer.setSize(width, height);
     },
     onCanvasMouseUp() {
       console.log('onCanvasMouseUp');
@@ -53,11 +52,15 @@ export default {
 
     this.renderer.render(this.scene, this.camera);
 
+    canvasContainer.appendChild(this.renderer.domElement);
+
     const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
-      this.onResize(entries[0].contentRect.width, entries[0].contentRect.height);
+      this.onResize(entries[0].contentRect.width, entries[0].contentRect.height, this.camera, this.renderer);
     }));
 
     canvasContainerObserveResizing.observe(canvasContainer);
+
+    runAnimation(this.controls, this.renderer, this.scene, this.camera, noop);
   }
 }
 </script>

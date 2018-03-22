@@ -5,7 +5,7 @@ import debounce from './utils/resize-observer-debounce';
 import emptyObject from '../../common/utils/emptyObject';
 import ResizeObserver from 'resize-observer-polyfill';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-
+import geometryTypes from '../../common/constants/basic-geometry-types';
 import { createCamera, createRenderer, createControls, runAnimation } from './utils/base-scene';
 
 export default {
@@ -20,8 +20,23 @@ export default {
   },
   data() {
     return {
+      geometryTypes,
       scene: new THREE.Scene(),
       gridHelper: new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888)
+    }
+  },
+  watch: {
+    geometryToScene(geometryType) {
+      const geometry = this.getBasicGeometryByType(geometryType);
+
+      if (geometry) {
+        const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
+        this.scene.add(mesh);
+        mesh.add(new THREE.LineSegments(
+          new THREE.EdgesGeometry(mesh.geometry),
+          new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 })
+        ));
+      }
     }
   },
   methods: {
@@ -29,6 +44,22 @@ export default {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+    },
+    getBasicGeometryByType(type) {
+      switch (type) {
+        case this.geometryTypes.SPHERE:
+          return new THREE.SphereGeometry(3.5, 15, 15);
+        case this.geometryTypes.CUBE:
+          return new THREE.BoxGeometry(5, 5, 5);
+        case this.geometryTypes.CYLINDER:
+          return new THREE.CylinderGeometry(2, 2, 15, 20);
+        case this.geometryTypes.TORUS:
+          return new THREE.TorusGeometry(5, 1.5, 16, 35);
+        case this.geometryTypes.PLANE:
+          return new THREE.PlaneGeometry(12, 12);
+        default:
+          return null;
+      }
     },
     onCanvasMouseUp() {
       console.log('onCanvasMouseUp');

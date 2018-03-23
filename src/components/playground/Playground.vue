@@ -12,7 +12,7 @@ import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
-import CanvasSection from '../canvas-section/CanvasSection.vue';
+import CanvasScene from '../canvas-section/CanvasScene.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
 import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
@@ -21,7 +21,7 @@ export default {
   components: {
     CreateNewMaterial,
     MaterialEditor,
-    CanvasSection,
+    CanvasScene,
     ShaderEditor,
     ModalWindow,
     MeshesList,
@@ -70,10 +70,10 @@ export default {
       <create-new-material :onClose="onToggleCreateNewMaterialForm" />
     </modal-window>
 
-    <material-editor v-show="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
+    <material-editor v-if="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
     <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
-    <canvas-section :geometryToScene="geometryToScene" :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+    <canvas-scene :geometryToScene="geometryToScene" :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
         <custom-btn iconClass="icon-move" class="xs" />
@@ -90,6 +90,6 @@ export default {
       <transition slot="sidebar" name="slide-meshes-list">
         <meshes-list v-show="isVisibleMeshesList" />
       </transition>
-    </canvas-section>
+    </canvas-scene>
   </div>
 </template>

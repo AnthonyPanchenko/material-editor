@@ -44,6 +44,13 @@ module.exports = (settings) => {
           ]
         },
         {
+          test: require.resolve('three/examples/js/controls/TransformControls'),
+          use: [
+            'imports-loader?THREE=three',
+            'exports-loader?THREE.TransformControls'
+          ]
+        },
+        {
           test: /\.vue$/,
           loader: 'vue-loader',
           options: {

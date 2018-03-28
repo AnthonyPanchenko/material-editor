@@ -5,8 +5,11 @@ const mutations = {
     state.isVisibleMeshesList = !state.isVisibleControlsPanel && state.isVisibleMeshesList;
     state.isVisibleControlsPanel = !state.isVisibleControlsPanel;
   },
-  [mutationTypes.ADD_GEOMETRY_TO_SCENE](state, geometry) {
-    state.geometryToScene = geometry;
+  [mutationTypes.SET_TRANSFORMATION_MODE](state, transformationMode) {
+    state.transformationMode = transformationMode;
+  },
+  [mutationTypes.ADD_GEOMETRY_TO_SCENE](state, geometryType) {
+    state.geometryToScene = geometryType;
   },
   [mutationTypes.TOGGLE_MESHES_LIST](state) {
     state.isVisibleMeshesList = !state.isVisibleMeshesList;

@@ -4,7 +4,7 @@
   "description": "vue",
   "main": "./server/index.js",
   "scripts": {
-    "start": "npm run dev:server",
+    "start": "npm run dev:client",
     "dev:client": "cross-env NODE_ENV=development webpack-dev-server --color",
     "dev:server": "cross-env NODE_ENV=development node ./dev-starter.js",
     "server": "node ./server/index.js",

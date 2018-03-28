@@ -3,6 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
 import geometryTypes from '../../common/constants/basic-geometry-types';
+import transformationsModes from '../../common/constants/transformations-modes';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -32,6 +33,7 @@ export default {
   },
   data() {
     return {
+      transformationsModes,
       geometryTypes
     };
   },
@@ -39,6 +41,7 @@ export default {
     'isOpenCreateNewMaterialForm',
     'isVisibleControlsPanel',
     'isVisibleMeshesList',
+    'transformationMode',
     'geometryToScene'
   ]),
   methods: {
@@ -46,7 +49,8 @@ export default {
       'onToggleCreateNewMaterialForm',
       'onToggleMeshesList',
       'onToggleFullScreenMode',
-      'addGeometryToScene'
+      'onSetTransformationMode',
+      'onAddGeometryToScene'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -73,17 +77,22 @@ export default {
     <material-editor v-if="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
     <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
-    <canvas-scene :geometryToScene="geometryToScene" :isFullScreenMode="!isVisibleControlsPanel" :onToggleFullScreenMode="onToggleFullScreenMode">
+    <canvas-scene
+      :geometryToScene="geometryToScene"
+      :transformationMode="transformationMode"
+      :isFullScreenMode="!isVisibleControlsPanel"
+      :onToggleFullScreenMode="onToggleFullScreenMode"
+    >
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
-        <custom-btn iconClass="icon-move" class="xs" />
-        <custom-btn iconClass="icon-rotate" class="xs" />
-        <custom-btn iconClass="icon-scale" class="xs" />
-        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-cube" :data="geometryTypes.CUBE" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-move" class="xs" accesskey="w" :data="transformationsModes.TRANSLATE" :onClick="onSetTransformationMode" />
+        <custom-btn iconClass="icon-rotate" class="xs" accesskey="e" :data="transformationsModes.ROTATE" :onClick="onSetTransformationMode" />
+        <custom-btn iconClass="icon-scale" class="xs" accesskey="r" :data="transformationsModes.SCALE" :onClick="onSetTransformationMode" />
+        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="onAddGeometryToScene" />
+        <custom-btn iconClass="icon-cube" :data="geometryTypes.CUBE" :onClick="onAddGeometryToScene" />
+        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="onAddGeometryToScene" />
+        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="onAddGeometryToScene" />
+        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="onAddGeometryToScene" />
         <input-file name="file1" />
       </div>
 

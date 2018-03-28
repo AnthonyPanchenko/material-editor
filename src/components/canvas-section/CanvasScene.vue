@@ -1,8 +1,9 @@
 <script>
 import * as THREE from 'three';
+import 'three/examples/js/controls/TransformControls';
+
 import noop from '../../common/utils/noop';
 import debounce from './utils/resize-observer-debounce';
-import emptyObject from '../../common/utils/emptyObject';
 import ResizeObserver from 'resize-observer-polyfill';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import geometryTypes from '../../common/constants/basic-geometry-types';
@@ -13,7 +14,8 @@ export default {
   props: {
     onToggleFullScreenMode: { type: Function, default: noop },
     isFullScreenMode: { type: Boolean, default: false },
-    geometryToScene: { type: Object, default: emptyObject }
+    transformationMode: { type: String, default: '' },
+    geometryToScene: { type: String, default: '' }
   },
   components: {
     CustomBtn
@@ -21,22 +23,38 @@ export default {
   data() {
     return {
       geometryTypes,
+      sceneObjects: [],
+      transformControls: null,
+      intersectedObject: null,
       scene: new THREE.Scene(),
+      mouse: new THREE.Vector2(),
       raycaster: new THREE.Raycaster(),
       gridHelper: new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888)
     }
   },
   watch: {
-    geometryToScene(geometryType) {
-      const geometry = this.getBasicGeometryByType(geometryType);
+    transformationMode(mode) {
+      if (this.transformControls) {
+        this.transformControls.setMode(mode);
+      }
+    },
+    geometryToScene(type) {
+      const geometry = this.getBasicGeometryByType(type);
 
       if (geometry) {
         const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
-        this.scene.add(mesh);
         mesh.add(new THREE.LineSegments(
           new THREE.EdgesGeometry(mesh.geometry),
           new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 })
         ));
+
+        this.scene.add(mesh);
+        this.sceneObjects.push(mesh);
+
+        if (this.transformControls) {
+          this.transformControls.attach(mesh);
+          this.scene.add(this.transformControls);
+        }
       }
     }
   },
@@ -45,6 +63,19 @@ export default {
       camera.aspect = width / height;
       camera.updateProjectionMatrix();
       renderer.setSize(width, height);
+    },
+    defineIntersections(camera) {
+      this.raycaster.setFromCamera(this.mouse, camera);
+      const intersects = this.raycaster.intersectObjects(this.sceneObjects);
+
+      if (intersects.length) {
+        if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
+          this.intersectedObject = intersects[0].object;
+          this.intersectedObject.children[0].material.color.set(0x4893ff);
+        }
+      } else if (this.intersectedObject) {
+        this.intersectedObject.children[0].material.color.set(0xffffff);
+      }
     },
     getBasicGeometryByType(type) {
       switch (type) {
@@ -70,12 +101,8 @@ export default {
     },
     onCanvasMouseMove(event) {
       event.preventDefault();
-      const x = (event.offsetX / event.target.clientWidth) * 2 - 1;
-      const y = -(event.offsetY / event.target.clientHeight) * 2 + 1;
-
-      console.clear();
-      console.log('x = ', x);
-      console.log('y = ', y);
+      this.mouse.x = (event.offsetX / event.target.clientWidth) * 2 - 1;
+      this.mouse.y = -(event.offsetY / event.target.clientHeight) * 2 + 1;
     }
   },
   mounted() {
@@ -98,11 +125,19 @@ export default {
 
     canvasContainerObserveResizing.observe(canvasContainer);
 
-    runAnimation(this.controls, this.renderer, this.scene, this.camera, noop);
+    const renderAsDependency = () => {
+      this.defineIntersections(this.camera);
+    };
+
+    runAnimation(this.controls, this.renderer, this.scene, this.camera, renderAsDependency);
     this.renderer.domElement.addEventListener('mousemove', this.onCanvasMouseMove);
+
+    this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement);
+    this.transformControls.addEventListener('change', this.renderer);
   },
   beforeDestroy() {
     this.renderer.domElement.removeEventListener('mousemove', this.onCanvasMouseMove);
+    this.transformControls.removeEventListener('change', this.renderer);
   }
 }
 </script>

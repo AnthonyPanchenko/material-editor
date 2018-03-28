@@ -24,6 +24,8 @@ export default {
     return {
       geometryTypes,
       sceneObjects: [],
+      camera: null,
+      renderer: null,
       transformControls: null,
       intersectedObject: null,
       scene: new THREE.Scene(),
@@ -65,17 +67,17 @@ export default {
       renderer.setSize(width, height);
     },
     defineIntersections(camera) {
-      this.raycaster.setFromCamera(this.mouse, camera);
-      const intersects = this.raycaster.intersectObjects(this.sceneObjects);
+      // this.raycaster.setFromCamera(this.mouse, camera);
+      // const intersects = this.raycaster.intersectObjects(this.sceneObjects);
 
-      if (intersects.length) {
-        if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
-          this.intersectedObject = intersects[0].object;
-          this.intersectedObject.children[0].material.color.set(0x4893ff);
-        }
-      } else if (this.intersectedObject) {
-        this.intersectedObject.children[0].material.color.set(0xffffff);
-      }
+      // if (intersects.length) {
+      //   if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
+      //     this.intersectedObject = intersects[0].object;
+      //     this.intersectedObject.children[0].material.color.set(0x4893ff);
+      //   }
+      // } else if (this.intersectedObject) {
+      //   this.intersectedObject.children[0].material.color.set(0xffffff);
+      // }
     },
     getBasicGeometryByType(type) {
       switch (type) {
@@ -93,6 +95,13 @@ export default {
           return null;
       }
     },
+
+    renderScene() {
+      if (this.renderer && this.scene && this.camera) {
+        this.renderer.render(this.scene, this.camera);
+      }
+    },
+
     onCanvasMouseUp() {
       console.log('onCanvasMouseUp');
     },
@@ -115,8 +124,6 @@ export default {
     this.scene.add(this.gridHelper);
     this.controls.update();
 
-    this.renderer.render(this.scene, this.camera);
-
     canvasContainer.appendChild(this.renderer.domElement);
 
     const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
@@ -133,11 +140,13 @@ export default {
     this.renderer.domElement.addEventListener('mousemove', this.onCanvasMouseMove);
 
     this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement);
-    this.transformControls.addEventListener('change', this.renderer);
+    this.transformControls.addEventListener('change', this.renderScene);
+
+    this.renderer.render(this.scene, this.camera);
   },
   beforeDestroy() {
     this.renderer.domElement.removeEventListener('mousemove', this.onCanvasMouseMove);
-    this.transformControls.removeEventListener('change', this.renderer);
+    this.transformControls.removeEventListener('change', this.renderScene);
   }
 }
 </script>

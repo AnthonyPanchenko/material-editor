@@ -67,17 +67,17 @@ export default {
       renderer.setSize(width, height);
     },
     defineIntersections(camera) {
-      // this.raycaster.setFromCamera(this.mouse, camera);
-      // const intersects = this.raycaster.intersectObjects(this.sceneObjects);
+      this.raycaster.setFromCamera(this.mouse, camera);
+      const intersects = this.raycaster.intersectObjects(this.sceneObjects);
 
-      // if (intersects.length) {
-      //   if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
-      //     this.intersectedObject = intersects[0].object;
-      //     this.intersectedObject.children[0].material.color.set(0x4893ff);
-      //   }
-      // } else if (this.intersectedObject) {
-      //   this.intersectedObject.children[0].material.color.set(0xffffff);
-      // }
+      if (intersects.length) {
+        if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
+          this.intersectedObject = intersects[0].object;
+          this.intersectedObject.children[0].material.color.set(0x4893ff);
+        }
+      } else if (this.intersectedObject) {
+        this.intersectedObject.children[0].material.color.set(0xffffff);
+      }
     },
     getBasicGeometryByType(type) {
       switch (type) {

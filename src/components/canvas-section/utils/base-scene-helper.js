@@ -1,7 +1,26 @@
 import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
 
+import geometryTypes from '../../../common/constants/basic-geometry-types';
+
 // window.THREE = THREE;
+
+export const getBasicGeometryByType = (type) => {
+  switch (type) {
+    case geometryTypes.SPHERE:
+      return new THREE.SphereGeometry(3.5, 15, 15);
+    case geometryTypes.CUBE:
+      return new THREE.BoxGeometry(5, 5, 5);
+    case geometryTypes.CYLINDER:
+      return new THREE.CylinderGeometry(2, 2, 15, 20);
+    case geometryTypes.TORUS:
+      return new THREE.TorusGeometry(5, 1.5, 16, 35);
+    case geometryTypes.PLANE:
+      return new THREE.PlaneGeometry(12, 12);
+    default:
+      return {};
+  }
+};
 
 export const createRenderer = (canvasWidth, canvasHeight) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });

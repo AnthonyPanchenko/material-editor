@@ -22,6 +22,7 @@ $input-number-hover-bg-color: rgba(121, 136, 185, 0.14);
     padding-right: 5px;
     text-overflow: ellipsis;
     appearance: none;
+    -moz-appearance: textfield; /* stylelint-disable-line */
 
     &::-webkit-outer-spin-button,
     &::-webkit-inner-spin-button {

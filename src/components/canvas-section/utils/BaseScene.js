@@ -1,26 +1,31 @@
 import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
+import 'three/examples/js/controls/TransformControls';
+
+import debounce from './utils/resize-observer-debounce';
+import ResizeObserver from 'resize-observer-polyfill';
+import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
 class BaseScene {
-  constructor() {
+  constructor(canvasWidth, canvasHeight) {
     this.sceneObjects = [];
-    this.camera = null;
-    this.renderer = null;
-    this.transformControls = null;
     this.intersectedObject = null;
+
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
+
     this.scene = new THREE.Scene();
     this.mouse = new THREE.Vector2();
     this.raycaster = new THREE.Raycaster();
     this.gridHelper = new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888);
+
+    this.camera = createCamera(canvasWidth, canvasHeight);
+    this.renderer = createRenderer(canvasWidth, canvasHeight);
+    this.controls = createControls(this.camera, this.renderer);
+    this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement); // .setMode(mode);
   }
 
-  transformationMode(mode) {
-    this.transformControls.setMode(mode);
-  }
-
-  geometryToScene(type) {
-    const geometry = getBasicGeometryByType(type);
-
+  addGeometry(geometry) {
     const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
     mesh.add(new THREE.LineSegments(
       new THREE.EdgesGeometry(mesh.geometry),
@@ -30,10 +35,18 @@ class BaseScene {
     this.scene.add(mesh);
     this.sceneObjects.push(mesh);
 
-    if (this.transformControls) {
-      this.transformControls.attach(mesh);
-      this.scene.add(this.transformControls);
-    }
+    this.transformControls.attach(mesh);
+    this.scene.add(this.transformControls);
+  }
+
+  onCanvasMouseMove(event) {
+    event.preventDefault();
+    this.mouse.x = (event.offsetX / event.target.clientWidth) * 2 - 1;
+    this.mouse.y = -(event.offsetY / event.target.clientHeight) * 2 + 1;
+  }
+
+  renderIntersections() {
+    this.defineIntersections(this.camera);
   }
 
   defineIntersections(camera) {
@@ -58,6 +71,39 @@ class BaseScene {
     this.camera.aspect = canvasWidth / canvasHeight;
     this.camera.updateProjectionMatrix();
     this.renderer.setSize(canvasWidth, canvasHeight);
+
+    this.canvasWidth = canvasWidth;
+    this.canvasHeight = canvasHeight;
+  }
+
+  animate() {
+    requestAnimationFrame(this.animate);
+    this.renderIntersections();
+    this.controls.update();
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  init(canvasContainer) {
+    canvasContainer.appendChild(this.renderer.domElement);
+
+    const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
+      this.onResize(entries[0].contentRect.width, entries[0].contentRect.height);
+    }));
+
+    canvasContainerObserveResizing.observe(canvasContainer);
+
+    this.scene.add(this.gridHelper);
+    this.controls.update();
+
+    this.animate();
+    this.renderer.domElement.addEventListener('mousemove', this.onCanvasMouseMove);
+    this.transformControls.addEventListener('change', this.renderScene);
+    this.renderer.render(this.scene, this.camera);
+  }
+
+  removeEventListeners() {
+    this.renderer.domElement.removeEventListener('mousemove', this.onCanvasMouseMove);
+    this.transformControls.removeEventListener('change', this.renderScene);
   }
 }
 

@@ -18,7 +18,7 @@ export const getBasicGeometryByType = (type) => {
     case geometryTypes.PLANE:
       return new THREE.PlaneGeometry(12, 12);
     default:
-      return {};
+      return null;
   }
 };
 
@@ -47,15 +47,4 @@ export const createControls = (camera, renderer) => {
   controls.enableZoom = true;
 
   return controls;
-};
-
-export const runAnimation = (controls, renderer, scene, camera, animateWith) => {
-  function animate() {
-    requestAnimationFrame(animate);
-    animateWith();
-    controls.update();
-    renderer.render(scene, camera);
-  };
-
-  animate();
 };

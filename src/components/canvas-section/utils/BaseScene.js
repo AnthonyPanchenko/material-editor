@@ -67,13 +67,12 @@ class BaseScene {
     this.renderer.render(this.scene, this.camera);
   }
 
-  onResize(canvasWidth, canvasHeight) {
-    this.camera.aspect = canvasWidth / canvasHeight;
+  onResize(entries) {
+    this.canvasWidth = entries[0].contentRect.width;
+    this.canvasHeight = entries[0].contentRect.height;
+    this.camera.aspect = this.canvasWidth / this.canvasHeight;
     this.camera.updateProjectionMatrix();
-    this.renderer.setSize(canvasWidth, canvasHeight);
-
-    this.canvasWidth = canvasWidth;
-    this.canvasHeight = canvasHeight;
+    this.renderer.setSize(this.canvasWidth, this.canvasHeight);
   }
 
   animate() {
@@ -86,10 +85,7 @@ class BaseScene {
   init(canvasContainer) {
     canvasContainer.appendChild(this.renderer.domElement);
 
-    const canvasContainerObserveResizing = new ResizeObserver(debounce(30, entries => {
-      this.onResize(entries[0].contentRect.width, entries[0].contentRect.height);
-    }));
-
+    const canvasContainerObserveResizing = new ResizeObserver(debounce(30, this.onResize.bind(this)));
     canvasContainerObserveResizing.observe(canvasContainer);
 
     this.scene.add(this.gridHelper);

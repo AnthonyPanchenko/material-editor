@@ -22,7 +22,7 @@ class BaseScene {
     this.camera = createCamera(canvasWidth, canvasHeight);
     this.renderer = createRenderer(canvasWidth, canvasHeight);
     this.controls = createControls(this.camera, this.renderer);
-    this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement); // .setMode(mode);
+    this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement);
   }
 
   addGeometry(geometry) {

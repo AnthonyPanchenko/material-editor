@@ -22,10 +22,15 @@ export default {
   },
   watch: {
     transformationMode(mode) {
-
+      if (mode && this.scene) {
+        this.scene.transformControls.setMode(mode);
+      }
     },
     geometryToScene(type) {
       const geometry = getBasicGeometryByType(type);
+      if (geometry && this.scene) {
+        this.scene.addGeometry(geometry);
+      }
     }
   },
   methods: {

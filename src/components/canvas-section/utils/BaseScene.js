@@ -2,7 +2,7 @@ import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
 import 'three/examples/js/controls/TransformControls';
 
-import debounce from './utils/resize-observer-debounce';
+import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
@@ -77,7 +77,7 @@ class BaseScene {
   }
 
   animate() {
-    requestAnimationFrame(this.animate);
+    requestAnimationFrame(this.animate.bind(this));
     this.renderIntersections();
     this.controls.update();
     this.renderer.render(this.scene, this.camera);
@@ -95,9 +95,9 @@ class BaseScene {
     this.scene.add(this.gridHelper);
     this.controls.update();
 
-    this.animate();
-    this.renderer.domElement.addEventListener('mousemove', this.onCanvasMouseMove);
-    this.transformControls.addEventListener('change', this.renderScene);
+    this.animate.apply(this);
+    this.renderer.domElement.addEventListener('mousemove', this.onCanvasMouseMove.bind(this));
+    this.transformControls.addEventListener('change', this.renderScene.bind(this));
     this.renderer.render(this.scene, this.camera);
   }
 

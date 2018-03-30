@@ -5,7 +5,7 @@ import BaseScene from './utils/BaseScene';
 import { getBasicGeometryByType } from './utils/base-scene-helper';
 
 export default {
-  name: 'CanvasScene',
+  name: 'CanvasSection',
   props: {
     onToggleFullScreenMode: { type: Function, default: noop },
     isFullScreenMode: { type: Boolean, default: false },

@@ -13,7 +13,7 @@ import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
-import CanvasScene from '../canvas-section/CanvasScene.vue';
+import CanvasSection from '../canvas-section/CanvasSection.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
 import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
@@ -22,7 +22,7 @@ export default {
   components: {
     CreateNewMaterial,
     MaterialEditor,
-    CanvasScene,
+    CanvasSection,
     ShaderEditor,
     ModalWindow,
     MeshesList,
@@ -77,7 +77,7 @@ export default {
     <material-editor v-if="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
     <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
 
-    <canvas-scene
+    <canvas-section
       :geometryToScene="geometryToScene"
       :transformationMode="transformationMode"
       :isFullScreenMode="!isVisibleControlsPanel"
@@ -99,6 +99,6 @@ export default {
       <transition slot="sidebar" name="slide-meshes-list">
         <meshes-list v-show="isVisibleMeshesList" />
       </transition>
-    </canvas-scene>
+    </canvas-section>
   </div>
 </template>

@@ -1,5 +1,6 @@
 import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
+import 'three/examples/js/controls/TransformControls';
 
 import geometryTypes from '../../../common/constants/basic-geometry-types';
 
@@ -42,9 +43,13 @@ export const createCamera = (canvasWidth, canvasHeight) => {
 };
 
 export const createControls = (camera, renderer) => {
-  const controls = new THREE.OrbitControls(camera, renderer.domElement);
-  // controls.maxPolarAngle = 0.9 * Math.PI / 2;
-  controls.enableZoom = true;
+  const transformControls = new THREE.TransformControls(camera, renderer.domElement);
+  const orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
+  // orbitControls.maxPolarAngle = 0.9 * Math.PI / 2;
+  orbitControls.enableZoom = true;
 
-  return controls;
+  return {
+    transformControls,
+    orbitControls
+  };
 };

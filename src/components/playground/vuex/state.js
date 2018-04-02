@@ -5,7 +5,10 @@ const state = {
   geometryToScene: null,
   isVisibleControlsPanel: true,
   isVisibleMeshesList: true,
-  isOpenCreateNewMaterialForm: false
+  isOpenCreateNewMaterialForm: false,
+  geometries: [],
+  materials: [],
+  objects: []
 };
 
 export default state;

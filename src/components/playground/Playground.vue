@@ -85,9 +85,32 @@ export default {
     >
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
-        <custom-btn iconClass="icon-move" class="xs" accesskey="w" :data="transformationsModes.TRANSLATE" :onClick="onSetTransformationMode" />
-        <custom-btn iconClass="icon-rotate" class="xs" accesskey="e" :data="transformationsModes.ROTATE" :onClick="onSetTransformationMode" />
-        <custom-btn iconClass="icon-scale" class="xs" accesskey="r" :data="transformationsModes.SCALE" :onClick="onSetTransformationMode" />
+
+        <custom-btn
+          class="xs"
+          accesskey="w"
+          iconClass="icon-move"
+          :active="transformationMode === transformationsModes.TRANSLATE"
+          :data="transformationsModes.TRANSLATE"
+          :onClick="onSetTransformationMode"
+        />
+        <custom-btn
+          class="xs"
+          accesskey="e"
+          iconClass="icon-rotate"
+          :active="transformationMode === transformationsModes.ROTATE"
+          :data="transformationsModes.ROTATE"
+          :onClick="onSetTransformationMode"
+        />
+        <custom-btn
+          class="xs"
+          accesskey="r"
+          iconClass="icon-scale"
+          :active="transformationMode === transformationsModes.SCALE"
+          :data="transformationsModes.SCALE"
+          :onClick="onSetTransformationMode"
+        />
+
         <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="onAddGeometryToScene" />
         <custom-btn iconClass="icon-cube" :data="geometryTypes.CUBE" :onClick="onAddGeometryToScene" />
         <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="onAddGeometryToScene" />

@@ -1,14 +1,13 @@
 import * as THREE from 'three';
-import 'three/examples/js/controls/TransformControls';
 
 import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
 class BaseScene {
-  constructor(canvasWidth, canvasHeight) {
-    this.sceneObjects = [];
-    this.selectedObject = null;
+  constructor(canvasWidth, canvasHeight, selectMesh, deselectMesh) {
+    this.sceneMeshes = [];
+    this.selectedMesh = null;
 
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
@@ -17,15 +16,17 @@ class BaseScene {
     this.raycaster = new THREE.Raycaster();
     this.gridHelper = new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888);
 
+    this.selectMeshCallback = selectMesh;
+    this.deselectMeshCallback = deselectMesh;
+
     this.camera = createCamera(canvasWidth, canvasHeight);
     this.renderer = createRenderer(canvasWidth, canvasHeight);
     this.controls = createControls(this.camera, this.renderer);
-    this.transformControls = new THREE.TransformControls(this.camera, this.renderer.domElement);
   }
 
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
-    return this.raycaster.intersectObjects(this.sceneObjects);
+    return this.raycaster.intersectObjects(this.sceneMeshes);
   }
 
   getClickPositions(event) {
@@ -35,22 +36,22 @@ class BaseScene {
   }
 
   selectMesh(mesh) {
-    console.log(mesh);
+    this.selectedMesh = mesh;
+    this.controls.transformControls.attach(mesh);
+    if (typeof this.selectMeshCallback === 'function') {
+      this.selectMeshCallback(mesh.object.toJSON());
+    }
   }
 
   deselectMesh() {
-    console.log('deselectMesh');
+    this.controls.transformControls.detach(this.selectedMesh);
+    this.selectedMesh = null;
+    if (typeof this.deselectMeshCallback === 'function') {
+      this.deselectMeshCallback();
+    }
   }
 
-  addMaterial() {
-    console.log('addMaterial');
-  }
-
-  removeMaterial() {
-    console.log('removeMaterial');
-  }
-
-  addGeometry(geometry) {
+  addMesh(geometry) {
     const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
     mesh.add(new THREE.LineSegments(
       new THREE.EdgesGeometry(mesh.geometry),
@@ -58,54 +59,31 @@ class BaseScene {
     ));
 
     this.scene.add(mesh);
-    this.sceneObjects.push(mesh);
+    this.sceneMeshes.push(mesh);
 
-    this.transformControls.attach(mesh);
-    this.scene.add(this.transformControls);
+    return mesh;
   }
 
-  removeGeometry(geometry) {
-    console.log('removeGeometry');
+  removeMesh(uuid) {
+    if (this.selectedMesh && this.selectedMesh.object.uuid === uuid) {
+      this.controls.transformControls.detach(this.selectedMesh);
+      this.scene.remove(this.selectedMesh);
+      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.object.uuid !== uuid);
+      this.selectedMesh = null;
+    }
   }
 
   onCanvasClick(event) {
     const intersectsArr = this.getIntersects(this.getClickPositions(event));
 
     if (intersectsArr.length) {
-      // if (this.selectedObject intersectsArr[0].object) {
-      this.selectMesh(intersectsArr[0]);
-      // }
-    } else if (this.selectedObject) {
-      this.selectedObject = null;
+      if (this.selectedMesh && (this.selectedMesh.object.uuid !== intersectsArr[0].object.uuid)) {
+        this.selectMesh(intersectsArr[0]);
+      }
+    } else if (this.selectedMesh) {
+      this.deselectMesh();
     }
   }
-
-  // onCanvasMove(event) {
-  //   event.preventDefault();
-  //   this.mouse.x = (event.offsetX / event.target.clientWidth) * 2 - 1;
-  //   this.mouse.y = -(event.offsetY / event.target.clientHeight) * 2 + 1;
-
-  //   console.clear();
-  //   console.log(this.mouse);
-  // }
-
-  // renderIntersections() {
-  //   this.defineIntersections();
-  // }
-
-  // defineIntersections() {
-  //   this.raycaster.setFromCamera(this.mouse, this.camera);
-  //   const intersects = this.raycaster.intersectObjects(this.sceneObjects);
-
-  //   if (intersects.length) {
-  //     if (intersects[0].object.children[0] && intersects[0].object.children[0].material) {
-  //       this.intersectedObject = intersects[0].object;
-  //       this.intersectedObject.children[0].material.color.set(0x4893ff);
-  //     }
-  //   } else if (this.intersectedObject) {
-  //     this.intersectedObject.children[0].material.color.set(0xffffff);
-  //   }
-  // }
 
   renderScene() {
     this.renderer.render(this.scene, this.camera);
@@ -121,8 +99,8 @@ class BaseScene {
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));
-    // this.renderIntersections();
-    this.controls.update();
+    this.controls.orbitControls.update();
+    this.controls.transformControls.update();
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -133,19 +111,18 @@ class BaseScene {
     canvasContainerObserveResizing.observe(canvasContainer);
 
     this.scene.add(this.gridHelper);
-    this.controls.update();
+    this.controls.orbitControls.update();
+    this.controls.transformControls.update();
 
     this.animate.apply(this);
     this.renderer.domElement.addEventListener('click', this.onCanvasClick.bind(this));
-    // this.renderer.domElement.addEventListener('mousemove', this.onCanvasMove.bind(this));
-    this.transformControls.addEventListener('change', this.renderScene.bind(this));
+    this.controls.transformControls.addEventListener('change', this.renderScene.bind(this));
     this.renderer.render(this.scene, this.camera);
   }
 
   removeEventListeners() {
     this.renderer.domElement.removeEventListener('click', this.onCanvasClick);
-    // this.renderer.domElement.removeEventListener('mousemove', this.onCanvasMove);
-    this.transformControls.removeEventListener('change', this.renderScene);
+    this.controls.transformControls.removeEventListener('change', this.renderScene);
   }
 }
 

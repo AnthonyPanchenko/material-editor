@@ -6,7 +6,7 @@ const mutations = {
     state.isVisibleControlsPanel = !state.isVisibleControlsPanel;
   },
   [mutationTypes.SET_TRANSFORMATION_MODE](state, transformationMode) {
-    state.transformationMode = transformationMode;
+    state.transformationMode = (state.transformationMode !== transformationMode) ? transformationMode : '';
   },
   [mutationTypes.ADD_GEOMETRY_TO_SCENE](state, geometryType) {
     state.geometryToScene = geometryType;

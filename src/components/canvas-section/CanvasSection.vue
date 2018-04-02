@@ -17,36 +17,43 @@ export default {
   },
   data() {
     return {
-      scene: null
+      scene: {}
     }
   },
   watch: {
     transformationMode(mode) {
-      if (mode && this.scene) {
-        this.scene.transformControls.setMode(mode);
-      }
+      this.scene.controls.transformControls.setMode(mode);
     },
     geometryToScene(type) {
       const geometry = getBasicGeometryByType(type);
-      if (geometry && this.scene) {
-        this.scene.addGeometry(geometry);
-      }
+      this.scene.addMesh(geometry);
     }
   },
   methods: {
-    onCanvasMouseUp() {
-      console.log('onCanvasMouseUp');
+    selectMeshInSceneCallback(obj) {
+      console.log(obj);
     },
-    onCanvasMouseDown() {
-      console.log('onCanvasMouseDown');
+    deselectMeshInSceneCallback() {
+      console.log('deselectMesh');
     },
-    onCanvasMouseMove() {
-      console.log('onCanvasMouseMove');
+    addCustomMeshToScene() {
+      const geometry = null;
+      const json = this.scene.addMesh(geometry);
+    },
+    removeMesh(uuid) {
+      this.scene.removeMesh(uuid);
     }
   },
   mounted() {
     const canvasContainer = this.$refs.canvasContainer;
-    this.scene = new BaseScene(canvasContainer.clientWidth, canvasContainer.clientHeight);
+
+    this.scene = new BaseScene(
+      canvasContainer.clientWidth,
+      canvasContainer.clientHeight,
+      this.selectMeshInSceneCallback,
+      this.deselectMeshInSceneCallback
+    );
+
     this.scene.init(canvasContainer);
   },
   beforeDestroy() {

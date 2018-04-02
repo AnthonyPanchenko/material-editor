@@ -37,8 +37,8 @@ export default {
       console.log('deselectMesh');
     },
     addCustomMeshToScene() {
-      const geometry = null;
-      const json = this.scene.addMesh(geometry);
+      // const geometry = null;
+      // const json = this.scene.addMesh(geometry);
     },
     removeMesh(uuid) {
       this.scene.removeMesh(uuid);

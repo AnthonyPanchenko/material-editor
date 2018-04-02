@@ -37,14 +37,14 @@ class BaseScene {
 
   selectMesh(mesh) {
     this.selectedMesh = mesh;
-    this.controls.transformControls.attach(mesh);
+    this.controls.transformControls.attach(mesh.object);
     if (typeof this.selectMeshCallback === 'function') {
       this.selectMeshCallback(mesh.object.toJSON());
     }
   }
 
   deselectMesh() {
-    this.controls.transformControls.detach(this.selectedMesh);
+    this.controls.transformControls.detach(this.selectedMesh.object);
     this.selectedMesh = null;
     if (typeof this.deselectMeshCallback === 'function') {
       this.deselectMeshCallback();
@@ -64,12 +64,30 @@ class BaseScene {
     return mesh;
   }
 
-  removeMesh(uuid) {
-    if (this.selectedMesh && this.selectedMesh.object.uuid === uuid) {
-      this.controls.transformControls.detach(this.selectedMesh);
-      this.scene.remove(this.selectedMesh);
-      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.object.uuid !== uuid);
+  removeSelectedMesh() {
+    if (this.selectedMesh) {
+      this.controls.transformControls.detach(this.selectedMesh.object);
+      this.scene.remove(this.selectedMesh.object);
+      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.uuid !== this.selectedMesh.object.uuid);
       this.selectedMesh = null;
+    }
+  }
+
+  removeMeshByUuuid(uuid) {
+    if (uuid) {
+      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.object.uuid !== uuid);
+
+      if (this.selectedMesh && this.selectedMesh.object.uuid === uuid) {
+        this.controls.transformControls.detach(this.selectedMesh.object);
+        this.scene.remove(this.selectedMesh);
+        this.selectedMesh = null;
+      }
+    }
+  }
+
+  onKeydown(event) {
+    if (event.keyCode === 46) {
+      this.removeSelectedMesh();
     }
   }
 
@@ -77,7 +95,7 @@ class BaseScene {
     const intersectsArr = this.getIntersects(this.getClickPositions(event));
 
     if (intersectsArr.length) {
-      if (this.selectedMesh && (this.selectedMesh.object.uuid !== intersectsArr[0].object.uuid)) {
+      if (!this.selectedMesh || this.selectedMesh.object.uuid !== intersectsArr[0].object.uuid) {
         this.selectMesh(intersectsArr[0]);
       }
     } else if (this.selectedMesh) {
@@ -111,16 +129,16 @@ class BaseScene {
     canvasContainerObserveResizing.observe(canvasContainer);
 
     this.scene.add(this.gridHelper);
-    this.controls.orbitControls.update();
-    this.controls.transformControls.update();
+    this.scene.add(this.controls.transformControls);
 
     this.animate.apply(this);
+    document.addEventListener('keydown', this.onKeydown.bind(this));
     this.renderer.domElement.addEventListener('click', this.onCanvasClick.bind(this));
     this.controls.transformControls.addEventListener('change', this.renderScene.bind(this));
-    this.renderer.render(this.scene, this.camera);
   }
 
   removeEventListeners() {
+    document.removeEventListener('keydown', this.onKeydown);
     this.renderer.domElement.removeEventListener('click', this.onCanvasClick);
     this.controls.transformControls.removeEventListener('change', this.renderScene);
   }

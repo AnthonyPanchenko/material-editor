@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
+import editorsNames from '../../common/constants/editors-names';
 import geometryTypes from '../../common/constants/basic-geometry-types';
 import transformationsModes from '../../common/constants/transformations-modes';
 
@@ -33,24 +34,27 @@ export default {
   },
   data() {
     return {
-      transformationsModes,
-      geometryTypes
+      editorsNames,
+      geometryTypes,
+      transformationsModes
     };
   },
   computed: mapState([
-    'isOpenCreateNewMaterialForm',
-    'isVisibleControlsPanel',
-    'isVisibleMeshesList',
+    'geometryToScene',
     'transformationMode',
-    'geometryToScene'
+    'currentEditableMesh',
+    'isVisibleMeshesList',
+    'currentVisibleEditor',
+    'isVisibleControlsPanel',
+    'isOpenCreateNewMaterialForm'
   ]),
   methods: {
     ...mapActions([
-      'onToggleCreateNewMaterialForm',
       'onToggleMeshesList',
+      'onAddGeometryToScene',
       'onToggleFullScreenMode',
       'onSetTransformationMode',
-      'onAddGeometryToScene'
+      'onToggleCreateNewMaterialForm'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -74,8 +78,17 @@ export default {
       <create-new-material :onClose="onToggleCreateNewMaterialForm" />
     </modal-window>
 
-    <material-editor v-if="isVisibleControlsPanel" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
-    <shader-editor v-if="!true" :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm" />
+    <material-editor
+      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
+      :currentEditableMesh="currentEditableMesh"
+      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
+    />
+
+    <shader-editor
+      v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
+      :currentEditableMesh="currentEditableMesh"
+      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
+    />
 
     <canvas-section
       :geometryToScene="geometryToScene"

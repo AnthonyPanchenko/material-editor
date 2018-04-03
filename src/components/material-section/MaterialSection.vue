@@ -1,7 +1,8 @@
 <script>
-import materialsTypes from '../../common/constants/materials-types';
+import materialsTypes, { selectOptions } from '../../common/constants/materials-types';
 import selects from './utils/selects';
 import noop from '../../common/utils/noop';
+import emptyObject from '../../common/utils/emptyObject';
 import materialsProperties from '../../common/constants/materials-properties';
 import mapedMaterialsProperties from './utils/maped-materials-properties';
 
@@ -21,7 +22,15 @@ export default {
   name: 'MaterialSection',
   props: {
     activeMaterialType: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
-    onSetActiveMaterialTypeId: { type: Function, default: noop }
+    onSetActiveMaterialTypeId: { type: Function, default: noop },
+    onOpenShadersEditor: { type: Function, default: noop },
+    onCreateNewProgram: { type: Function, default: noop },
+    onAttachShaders: { type: Function, default: noop },
+    onChangeSelect: { type: Function, default: noop },
+    onChangeFileInput: { type: Function, default: noop },
+    onChangeCheckBox: { type: Function, default: noop },
+    onChangeNumberInput: { type: Function, default: noop },
+    material: { type: Object, default: emptyObject }
   },
   components: {
     ImgBox,
@@ -41,7 +50,7 @@ export default {
       selects,
       m: materialsProperties,
       mapedMaterialsProperties,
-      materialsTypesOptions: Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] }))
+      selectOptions
     };
   },
   methods: {
@@ -68,7 +77,7 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <custom-select :options="materialsTypesOptions" :onChange="onSetActiveMaterialTypeId" />
+      <custom-select :options="selectOptions" :onChange="onSetActiveMaterialTypeId" />
     </div>
     <div class="name">
       <span class="label">Name:</span>
@@ -116,7 +125,12 @@ export default {
         <input-number :name="m.CLEARCOATROUGHNESS" :onChange="onChangeNumberInput" />
       </div>
 
-      <!-- VERTEXSHADER FRAGMENTSHADER -->
+      <div v-if="isDisplayedSection(m.SHADERS)" class="row">
+        <span class="label">Shaders</span>
+        <custom-btn title="Attach" iconClass="icon-plus" :onClick="onAttachShaders" class="success" />
+        <custom-btn title="Create" iconClass="icon-new-file" :onClick="onCreateNewProgram" class="success" />
+        <custom-btn title="Edit" iconClass="icon-edit" :onClick="onOpenShadersEditor" class="primary" />
+      </div>
 
       <div v-if="isDisplayedSection(m.VERTEXCOLORS)" class="row">
         <span class="label">Vertex Colors</span>

@@ -1,4 +1,4 @@
-import editorsNames from '../../common/constants/editors-names';
+import editorsNames from '../../../common/constants/editors-names';
 import transformationsModes from '../../../common/constants/transformations-modes';
 
 const state = {

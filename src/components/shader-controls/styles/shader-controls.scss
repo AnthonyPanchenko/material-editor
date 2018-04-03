@@ -97,10 +97,6 @@
           }
         }
 
-        > label, > button { /* stylelint-disable-line */
-          margin-left: $controls-gutter;
-        }
-
         &:nth-child(even) {
           background-color: rgba(194, 199, 215, 0.04);
         }

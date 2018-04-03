@@ -37,6 +37,9 @@ export default {
       'onSetActiveMaterialTypeId',
       'onSetControlsPanelWidth',
     ]),
+    onChangeNumberInput(value, name, min, max, step) {
+      console.log(value, name, min, max, step);
+    },
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
       console.log(name);

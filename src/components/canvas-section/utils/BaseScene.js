@@ -104,6 +104,8 @@ class BaseScene {
   }
 
   renderScene() {
+    this.controls.orbitControls.update();
+    this.controls.transformControls.update();
     this.renderer.render(this.scene, this.camera);
   }
 
@@ -117,9 +119,7 @@ class BaseScene {
 
   animate() {
     requestAnimationFrame(this.animate.bind(this));
-    this.controls.orbitControls.update();
-    this.controls.transformControls.update();
-    this.renderer.render(this.scene, this.camera);
+    this.renderScene();
   }
 
   init(canvasContainer) {
@@ -134,13 +134,11 @@ class BaseScene {
     this.animate.apply(this);
     document.addEventListener('keydown', this.onKeydown.bind(this));
     this.renderer.domElement.addEventListener('click', this.onCanvasClick.bind(this));
-    this.controls.transformControls.addEventListener('change', this.renderScene.bind(this));
   }
 
   removeEventListeners() {
     document.removeEventListener('keydown', this.onKeydown);
     this.renderer.domElement.removeEventListener('click', this.onCanvasClick);
-    this.controls.transformControls.removeEventListener('change', this.renderScene);
   }
 }
 

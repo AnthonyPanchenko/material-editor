@@ -26,12 +26,12 @@ export default {
 
     <div class="controls scroll-box">
       <div class="row">
-        <span class="label">Height</span>
+        <label class="label">Height</label>
         <input-number />
       </div>
 
       <div class="row">
-        <span class="label">Width</span>
+        <label class="label">Width</label>
         <input-number />
       </div>
     </div>

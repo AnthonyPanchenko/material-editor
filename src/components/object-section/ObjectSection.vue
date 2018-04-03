@@ -31,28 +31,28 @@ export default {
 
     <div class="controls scroll-box">
       <div class="row">
-        <span class="label">Position</span>
+        <label class="label">Position</label>
         <input-number prefix="X:" />
         <input-number prefix="Y:" />
         <input-number prefix="Z:" />
       </div>
 
       <div class="row">
-        <span class="label">Rotation</span>
+        <label class="label">Rotation</label>
         <input-number prefix="X:" sufix="°" />
         <input-number prefix="Y:" sufix="°" />
         <input-number prefix="Z:" sufix="°" />
       </div>
 
       <div class="row">
-        <span class="label">Scale</span>
+        <label class="label">Scale</label>
         <input-number prefix="X:" />
         <input-number prefix="Y:" />
         <input-number prefix="Z:" />
       </div>
 
       <div class="row">
-        <span class="label">Shadow</span>
+        <label class="label">Shadow</label>
         <checkbox-btn class="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
         <checkbox-btn class="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
       </div>

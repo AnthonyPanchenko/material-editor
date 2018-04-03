@@ -11,7 +11,9 @@ export default {
     CustomBtn
   },
   data() {
-    return {};
+    return {
+      isVisibleCtrls: false
+    };
   },
   computed: mapState([
     'list'
@@ -23,6 +25,12 @@ export default {
     },
     onSelectObjById(meshId) {
       console.log(meshId);
+    },
+    onRemoveMesh() {
+      this.isVisibleCtrls = true;
+    },
+    onCancelRemoveMesh() {
+      this.isVisibleCtrls = false;
     }
   }
 }
@@ -33,7 +41,9 @@ export default {
     <li class="mesh" v-for="mesh in list" :key="mesh.id">
       <custom-btn iconClass="icon-eye" class="show-hide" :data="mesh.id" :onClick="onSetVisibleMeshById" />
       <custom-btn :title="mesh.title" class="name" :data="mesh.id" :onClick="onSelectObjById" />
-      <custom-btn iconClass="icon-trash-bin" class="trash-bin danger" :data="mesh.id" :onClick="onRemoveMeshById" />
+      <custom-btn v-if="!isVisibleCtrls" iconClass="icon-trash-bin" :onClick="onRemoveMesh" class="danger xs" />
+      <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onCancelRemoveMesh" class="danger xs" />
+      <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :data="mesh.id" :onClick="onRemoveMeshById" class="success xs" />
     </li>
   </transition-group>
 </template>

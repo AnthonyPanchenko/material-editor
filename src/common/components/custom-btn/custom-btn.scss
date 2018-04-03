@@ -43,13 +43,12 @@ $ctrl-btn-primary-hover-bg-color: #5db9e4;
     color: $ctrl-btn-default-hover-color;
   }
 
-  &:focus {
-    outline: none;
-  }
-
-  &:focus,
   &:hover {
     background-color: $ctrl-btn-default-hover-bg-color;
+  }
+
+  &:focus {
+    outline: none;
     color: $ctrl-btn-default-hover-color;
   }
 
@@ -88,9 +87,11 @@ $ctrl-btn-primary-hover-bg-color: #5db9e4;
       color: $ctrl-btn-danger-hover-color;
     }
 
-    &:focus,
     &:hover {
       background-color: $ctrl-btn-danger-hover-bg-color;
+    }
+
+    &:focus {
       color: $ctrl-btn-danger-hover-color;
     }
   }
@@ -104,9 +105,11 @@ $ctrl-btn-primary-hover-bg-color: #5db9e4;
       color: $ctrl-btn-success-hover-color;
     }
 
-    &:focus,
     &:hover {
       background-color: $ctrl-btn-success-hover-bg-color;
+    }
+
+    &:focus {
       color: $ctrl-btn-success-hover-color;
     }
   }
@@ -120,9 +123,11 @@ $ctrl-btn-primary-hover-bg-color: #5db9e4;
       color: $ctrl-btn-primary-hover-color;
     }
 
-    &:focus,
     &:hover {
       background-color: $ctrl-btn-primary-hover-bg-color;
+    }
+
+    &:focus {
       color: $ctrl-btn-primary-hover-color;
     }
   }

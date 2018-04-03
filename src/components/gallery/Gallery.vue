@@ -82,8 +82,8 @@ export default {
 
       <div v-if="selectedItem" class="footer controls-row">
         <custom-btn v-if="!isVisibleCtrls" iconClass="icon-trash-bin" :onClick="onRemoveItem" class="danger xs" />
-        <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onRemove" class="success xs" />
         <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onCancelRemoveItem" class="danger xs" />
+        <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onRemove" class="success xs" />
         <input-text :value="newItemName" :onInput="onChangeItemName" />
         <custom-btn :disabled="!isDifferenceNames()" title="Rename" :onClick="onRenameItem" class="success sm" />
         <custom-btn title="Edit" :onClick="onEdit" class="primary sm" />

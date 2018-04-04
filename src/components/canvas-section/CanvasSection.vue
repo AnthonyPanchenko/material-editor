@@ -10,7 +10,7 @@ export default {
     onToggleFullScreenMode: { type: Function, default: noop },
     isFullScreenMode: { type: Boolean, default: false },
     transformationMode: { type: String, default: '' },
-    geometryToScene: { type: String, default: '' }
+    objectToScene: { type: String, default: '' }
   },
   components: {
     CustomBtn
@@ -24,7 +24,7 @@ export default {
     transformationMode(mode) {
       this.scene.controls.transformControls.setMode(mode);
     },
-    geometryToScene(type) {
+    objectToScene(type) {
       const geometry = getBasicGeometryByType(type);
       this.scene.addMesh(geometry);
     }

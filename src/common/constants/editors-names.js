@@ -1,7 +1,8 @@
 const editorsNames = {
-  PARTICLE_EDITOR: 'particleEditor',
-  MATERIAL_EDITOR: 'materialEditor',
-  SHADER_EDITOR: 'shaderEditor'
+  LIGHTING_EDITOR: 'lightingEditor',
+  PARTICLES_EDITOR: 'particlesEditor',
+  MATERIALS_EDITOR: 'materialsEditor',
+  SHADERS_EDITOR: 'shadersEditor'
 };
 
 export default editorsNames;

@@ -2,8 +2,8 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
+import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
-import geometryTypes from '../../common/constants/basic-geometry-types';
 import transformationsModes from '../../common/constants/transformations-modes';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
@@ -15,6 +15,8 @@ import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
 import CanvasSection from '../canvas-section/CanvasSection.vue';
+import LightingEditor from '../lighting-editor/LightingEditor.vue';
+import ParticlesEditor from '../particles-editor/ParticlesEditor.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
 import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
@@ -22,7 +24,9 @@ export default {
   name: 'Playground',
   components: {
     CreateNewMaterial,
+    ParticlesEditor,
     MaterialEditor,
+    LightingEditor,
     CanvasSection,
     ShaderEditor,
     ModalWindow,
@@ -35,23 +39,23 @@ export default {
   data() {
     return {
       editorsNames,
-      geometryTypes,
+      objectTypes,
       transformationsModes
     };
   },
   computed: mapState([
-    'geometryToScene',
+    'objectToScene',
     'transformationMode',
-    'currentEditableMesh',
     'isVisibleMeshesList',
     'currentVisibleEditor',
+    'currentEditableObject',
     'isVisibleControlsPanel',
     'isOpenCreateNewMaterialForm'
   ]),
   methods: {
     ...mapActions([
       'onToggleMeshesList',
-      'onAddGeometryToScene',
+      'onAddObjectToScene',
       'onToggleFullScreenMode',
       'onSetTransformationMode',
       'onToggleCreateNewMaterialForm'
@@ -79,19 +83,31 @@ export default {
     </modal-window>
 
     <material-editor
-      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
-      :currentEditableMesh="currentEditableMesh"
+      v-if="currentVisibleEditor === editorsNames.MATERIALS_EDITOR"
+      :currentEditableObject="currentEditableObject"
       :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <shader-editor
-      v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
-      :currentEditableMesh="currentEditableMesh"
+      v-if="currentVisibleEditor === editorsNames.SHADERS_EDITOR"
+      :currentEditableObject="currentEditableObject"
+      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
+    />
+
+    <lighting-editor
+      v-if="currentVisibleEditor === editorsNames.LIGHTING_EDITOR"
+      :currentEditableObject="currentEditableObject"
+      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
+    />
+
+    <particles-editor
+      v-if="currentVisibleEditor === editorsNames.PARTICLES_EDITOR"
+      :currentEditableObject="currentEditableObject"
       :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <canvas-section
-      :geometryToScene="geometryToScene"
+      :objectToScene="objectToScene"
       :transformationMode="transformationMode"
       :isFullScreenMode="!isVisibleControlsPanel"
       :onToggleFullScreenMode="onToggleFullScreenMode"
@@ -124,11 +140,13 @@ export default {
           :onClick="onSetTransformationMode"
         />
 
-        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="onAddGeometryToScene" />
-        <custom-btn iconClass="icon-cube" :data="geometryTypes.CUBE" :onClick="onAddGeometryToScene" />
-        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="onAddGeometryToScene" />
-        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="onAddGeometryToScene" />
-        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="onAddGeometryToScene" />
+        <custom-btn iconClass="icon-arrow-left" :data="objectTypes.PARTICLES_EMITTER" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-bulb-on" :data="objectTypes.LIGHT" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-sphere" :data="objectTypes.SPHERE" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-cube" :data="objectTypes.CUBE" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-cylinder" :data="objectTypes.CYLINDER" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-torus" :data="objectTypes.TORUS" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-plane" :data="objectTypes.PLANE" :onClick="onAddObjectToScene" />
         <input-file name="file1" />
       </div>
 

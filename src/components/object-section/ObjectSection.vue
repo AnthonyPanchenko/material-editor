@@ -27,7 +27,8 @@ export default {
     <div class="type">
       <span class="label">Type:</span> BoxBufferGeometry</div>
     <div class="name">
-      <span class="label">Name:</span> Box</div>
+      <span class="label">Name:</span> Box
+    </div>
 
     <div class="controls scroll-box">
       <div class="row">

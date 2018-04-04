@@ -2,22 +2,25 @@ import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
 import 'three/examples/js/controls/TransformControls';
 
-import geometryTypes from '../../../common/constants/basic-geometry-types';
+import objectTypes from '../../../common/constants/object-types';
 
 // window.THREE = THREE;
 
 export const getBasicGeometryByType = (type) => {
   switch (type) {
-    case geometryTypes.SPHERE:
+    case objectTypes.SPHERE:
       return new THREE.SphereGeometry(3.5, 15, 15);
-    case geometryTypes.CUBE:
+    case objectTypes.CUBE:
       return new THREE.BoxGeometry(5, 5, 5);
-    case geometryTypes.CYLINDER:
+    case objectTypes.CYLINDER:
       return new THREE.CylinderGeometry(2, 2, 15, 20);
-    case geometryTypes.TORUS:
+    case objectTypes.TORUS:
       return new THREE.TorusGeometry(5, 1.5, 16, 35);
-    case geometryTypes.PLANE:
+    case objectTypes.PLANE:
       return new THREE.PlaneGeometry(12, 12);
+    case objectTypes.LIGHT:
+    case objectTypes.PARTICLES_EMITTER:
+      return new THREE.TorusGeometry(5, 1.5, 16, 35);
     default:
       return null;
   }

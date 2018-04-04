@@ -7,8 +7,8 @@ const actions = {
   onSetTransformationMode(context, transformationMode) {
     context.commit(mutationTypes.SET_TRANSFORMATION_MODE, transformationMode);
   },
-  onAddGeometryToScene(context, geometryType) {
-    context.commit(mutationTypes.ADD_GEOMETRY_TO_SCENE, geometryType);
+  onAddObjectToScene(context, type) {
+    context.commit(mutationTypes.ADD_OBJECT_TO_SCENE, type);
   },
   onToggleMeshesList(context) {
     context.commit(mutationTypes.TOGGLE_MESHES_LIST);

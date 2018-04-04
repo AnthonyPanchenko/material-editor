@@ -123,6 +123,7 @@ export default {
           :data="transformationsModes.TRANSLATE"
           :onClick="onSetTransformationMode"
         />
+
         <custom-btn
           class="xs"
           accesskey="e"
@@ -131,6 +132,7 @@ export default {
           :data="transformationsModes.ROTATE"
           :onClick="onSetTransformationMode"
         />
+
         <custom-btn
           class="xs"
           accesskey="r"
@@ -140,7 +142,7 @@ export default {
           :onClick="onSetTransformationMode"
         />
 
-        <custom-btn iconClass="icon-arrow-left" :data="objectTypes.PARTICLES_EMITTER" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-emitter" :data="objectTypes.PARTICLES_EMITTER" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-bulb-on" :data="objectTypes.LIGHT" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-sphere" :data="objectTypes.SPHERE" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-cube" :data="objectTypes.CUBE" :onClick="onAddObjectToScene" />

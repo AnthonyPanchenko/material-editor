@@ -11,6 +11,7 @@ export default {
     onChange: { type: Function, default: noop },
     selectedOptionId: { type: String, default: '' },
     disabled: { type: Boolean, default: false },
+    readonly: { type: Boolean, default: false },
     options: { type: Array, default: emptyArray }
   },
   data() {
@@ -81,12 +82,12 @@ export default {
     },
     onUpDown(event) {
       // up
-      if (!this.disabled && !!this.indexOfSelectedOption && event.keyCode === 38) {
+      if (!this.readonly && !this.disabled && !!this.indexOfSelectedOption && event.keyCode === 38) {
         this.indexOfSelectedOption--;
         this.setOptionByUpDownButtons(!this.isOpen);
       }
       // down
-      if (!this.disabled && (this.indexOfSelectedOption !== this.optionsListLength - 1) && (event.keyCode === 40)) {
+      if (!this.readonly && !this.disabled && (this.indexOfSelectedOption !== this.optionsListLength - 1) && (event.keyCode === 40)) {
         this.indexOfSelectedOption++;
         this.setOptionByUpDownButtons(!this.isOpen);
       }
@@ -110,7 +111,7 @@ export default {
       }
     },
     onEnterClick(event) {
-      if (!this.disabled) {
+      if (!this.readonly && !this.disabled) {
         if (this.isOpen) {
           this.setOptionByUpDownButtons(this.isOpen);
           this.isOpen = false;
@@ -121,7 +122,7 @@ export default {
       }
     },
     onMouseClick(event) {
-      if (!this.disabled) {
+      if (!this.readonly && !this.disabled) {
         this.indexOfSelectedOption = this.initIndexOfSelectedOption;
         this.isOpen = !this.isOpen;
       }
@@ -148,13 +149,28 @@ export default {
 </script>
 
 <template>
-  <label :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-select', { 'disabled': disabled }]" @keydown="onUpDown" @click="onMouseClick" @keyup.enter="onEnterClick" ref="triggerSelect">
+  <label
+    :tabindex="`${disabled || readonly ? -1 : 0}`"
+    :class="['ctrl-select', { 'disabled': disabled, 'readonly': readonly }]"
+    @keydown="onUpDown"
+    @click="onMouseClick"
+    @keyup.enter="onEnterClick"
+    ref="triggerSelect"
+  >
     <span class="option-name">{{ selectedOption.title }}</span>
     <i class="icon-select-arrows" />
 
     <transition name="fade">
       <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement">
-        <li v-for="(option, index) in options" :key="option.id" :data-id="option.id" @click="onOptionClick" :class="['option', { 'selected': index === indexOfSelectedOption }]">{{ option.title }}</li>
+        <li
+          v-for="(option, index) in options"
+          :key="option.id"
+          :data-id="option.id"
+          @click="onOptionClick"
+          :class="['option', { 'selected': index === indexOfSelectedOption }]"
+        >
+          {{ option.title }}
+        </li>
       </ul>
     </transition>
   </label>

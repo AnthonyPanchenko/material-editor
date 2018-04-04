@@ -72,4 +72,17 @@ $select-bg-hover-color: rgba(121, 136, 185, 0.14);
   .icon-select-arrows {
     color: #9e9e9e;
   }
+
+  &.readonly {
+    cursor: default;
+
+    &:focus {
+      outline: none;
+      color: $select-color;
+    }
+
+    .icon-select-arrows {
+      display: none;
+    }
+  }
 }

@@ -7,7 +7,7 @@ export default {
   name: 'ItemNameRow',
   props: {
     name: { type: String, default: '' },
-    onRename: { type: Function, default: noop }
+    onApply: { type: Function, default: noop }
   },
   components: {
     InputText,
@@ -22,18 +22,19 @@ export default {
   methods: {
     onApplyNewName() {
       if (this.name !== this.newName.trim()) {
-        console.log(this.newName.trim());
-        this.onRename(this.newName.trim());
+        this.onApply(this.newName.trim());
       }
+
+      this.isVisibleCtrls = false;
     },
-    onStartEditName() {
+    onEnableInput() {
       this.isVisibleCtrls = true;
       this.$refs.input.$el.focus();
     },
     onChangeName(str) {
       this.newName = str;
     },
-    onCancelRename() {
+    onDisableInput() {
       this.newName = this.name;
       this.isVisibleCtrls = false;
     }
@@ -45,8 +46,8 @@ export default {
   <div class="name">
     <label class="label">Name:</label>
     <input-text ref="input" :readonly="!isVisibleCtrls" :value="newName" :onInput="onChangeName" />
-    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onStartEditName" class="primary xs" />
+    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onEnableInput" class="primary xs" />
     <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onApplyNewName" class="success xs" />
-    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onCancelRename" class="danger xs" />
+    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onDisableInput" class="danger xs" />
   </div>
 </template>

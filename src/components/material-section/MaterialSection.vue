@@ -6,6 +6,7 @@ import emptyObject from '../../common/utils/emptyObject';
 import mProps from '../../common/constants/materials-properties';
 import mapedMaterialsProps from './utils/maped-materials-properties';
 
+import ItemTypeRow from '../item-type-row/ItemTypeRow.vue';
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
@@ -33,6 +34,7 @@ export default {
     material: { type: Object, default: emptyObject }
   },
   components: {
+    ItemTypeRow,
     ItemNameRow,
     ImgBox,
     InputFile,
@@ -63,11 +65,7 @@ export default {
 
 <template>
   <div class="fieldset">
-    <div class="type">
-      <label class="label">Type:</label>
-      <custom-select :options="selectOptions" :onChange="onSetActiveMaterialTypeId" />
-    </div>
-
+    <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
     <item-name-row name="MeshBasicMaterial" />
 
     <div class="controls scroll-box">

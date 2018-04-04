@@ -7,7 +7,7 @@ const state = {
   isVisibleControlsPanel: true,
   isOpenCreateNewMaterialForm: false,
   transformationMode: transformationsModes.TRANSLATE,
-  currentVisibleEditor: editorsNames.MATERIALS_EDITOR,
+  currentVisibleEditor: editorsNames.MATERIAL_EDITOR,
   currentEditableObject: {
     _id: 'asdfsdfsdfsfsdf',
     geometries: [],

@@ -83,13 +83,13 @@ export default {
     </modal-window>
 
     <material-editor
-      v-if="currentVisibleEditor === editorsNames.MATERIALS_EDITOR"
+      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
       :currentEditableObject="currentEditableObject"
       :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <shader-editor
-      v-if="currentVisibleEditor === editorsNames.SHADERS_EDITOR"
+      v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
       :currentEditableObject="currentEditableObject"
       :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />

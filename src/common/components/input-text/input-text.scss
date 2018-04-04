@@ -32,7 +32,10 @@ $input-text-hover-bg-color: rgba(121, 136, 185, 0.14);
 
     &:disabled {
       cursor: not-allowed;
+    }
 
+    &:read-only,
+    &:disabled {
       &:hover,
       &:focus {
         background-color: inherit;

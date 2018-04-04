@@ -1,10 +1,12 @@
 <script>
+import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 
 export default {
   name: 'ObjectSection',
   components: {
+    ItemNameRow,
     InputNumber,
     CheckboxBtn
   },
@@ -25,10 +27,11 @@ export default {
 <template>
   <div class="fieldset">
     <div class="type">
-      <span class="label">Type:</span> BoxBufferGeometry</div>
-    <div class="name">
-      <span class="label">Name:</span> Box
+      <span class="label">Type:</span>
+      BoxBufferGeometry
     </div>
+
+    <item-name-row name="Box" />
 
     <div class="controls scroll-box">
       <div class="row">

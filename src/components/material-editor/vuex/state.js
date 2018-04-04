@@ -6,7 +6,7 @@ const state = {
   selectedMaterial: null,
   activeSectionName: sections.MATERIAL,
   controlsPanelWidth: 30,
-  activeMaterialType: materialsTypes.MESH_BASIC_MATERIAL
+  activeMaterialTypeId: materialsTypes.MESH_BASIC_MATERIAL
 };
 
 export default state;

@@ -29,13 +29,13 @@ export default {
   computed: mapState([
     'activeSectionName',
     'controlsPanelWidth',
-    'activeMaterialTypeId',
+    'activeMaterialTypeId'
   ]),
   methods: {
     ...mapActions([
       'onSetActiveSectionName',
       'onSetActiveMaterialTypeId',
-      'onSetControlsPanelWidth',
+      'onSetControlsPanelWidth'
     ]),
     onChangeNumberInput(value, name, min, max, step) {
       console.log(value, name, min, max, step);

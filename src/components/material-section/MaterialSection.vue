@@ -6,12 +6,12 @@ import emptyObject from '../../common/utils/emptyObject';
 import mProps from '../../common/constants/materials-properties';
 import mapedMaterialsProps from './utils/maped-materials-properties';
 
+import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
 import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
 import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
 import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
-import InputText from '../../common/components/input-text/InputText.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import ImgBox from '../../common/components/img-box/ImgBox.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
@@ -21,7 +21,7 @@ import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'MaterialSection',
   props: {
-    activeMaterialType: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
+    activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
     onSetActiveMaterialTypeId: { type: Function, default: noop },
     onOpenShadersEditor: { type: Function, default: noop },
     onCreateNewProgram: { type: Function, default: noop },
@@ -33,8 +33,8 @@ export default {
     material: { type: Object, default: emptyObject }
   },
   components: {
+    ItemNameRow,
     ImgBox,
-    InputText,
     InputFile,
     OutputColorBtn,
     NumberPicker,
@@ -55,7 +55,7 @@ export default {
   },
   methods: {
     isDisplayedSection(property) {
-      return this.mapedMaterialsProps[this.activeMaterialType].indexOf(property) !== -1;
+      return this.mapedMaterialsProps[this.activeMaterialTypeId].indexOf(property) !== -1;
     }
   }
 };
@@ -67,10 +67,8 @@ export default {
       <label class="label">Type:</label>
       <custom-select :options="selectOptions" :onChange="onSetActiveMaterialTypeId" />
     </div>
-    <div class="name">
-      <label class="label">Name:</label>
-      <input-text value="MeshBasicMaterial" />
-    </div>
+
+    <item-name-row name="MeshBasicMaterial" />
 
     <div class="controls scroll-box">
       <div v-if="isDisplayedSection(mProps.COLOR)" class="row">

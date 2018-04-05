@@ -69,23 +69,16 @@ export default {
   methods: {
   },
   mounted() {
-    // Define a materials schema
     const materialsSchema = new schema.Entity('materials', {}, { idAttribute: 'uuid' });
-    const materialsListSchema = new schema.Array(materialsSchema);
+    const materialsListSchema = new schema.Array(materialsSchema); // [materialsSchema]
 
-    // // Define your comments schema
-    // const comment = new schema.Entity('comments', {
-    //   commenter: materials
-    // });
+    const responseSchema = new schema.Object({ materials: new schema.Array(materialsSchema) }); // {materials: [materialsSchema]}
 
-    // // Define your article
-    // const article = new schema.Entity('articles', {
-    //   author: user,
-    //   comments: [comment]
-    // });
+    const normalizedScene = normalize(this.scene, responseSchema);
+    console.log(normalizedScene);
 
-    const normalizedData = normalize(this.scene.materials, materialsListSchema);
-    console.log(normalizedData);
+    const normalizedMaterials = normalize(this.scene.materials, materialsListSchema);
+    console.log(normalizedMaterials);
   }
 };
 </script>

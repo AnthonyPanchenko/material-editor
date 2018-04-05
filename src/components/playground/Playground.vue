@@ -85,7 +85,7 @@ export default {
     <material-editor
       v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
       :currentEditableObject="currentEditableObject"
-      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
+      :onOpenGallery="onOpenGallery"
     />
 
     <shader-editor

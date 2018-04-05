@@ -20,6 +20,7 @@ $select-bg-hover-color: rgba(121, 136, 185, 0.14);
   align-items: center;
 
   .option-name {
+    cursor: inherit;
     white-space: nowrap;
     max-width: 300px;
     overflow: hidden;

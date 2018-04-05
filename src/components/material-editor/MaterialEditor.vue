@@ -1,7 +1,7 @@
 <script>
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('materialEditor');
-
+import noop from '../../common/utils/noop';
 import sections from '../../common/constants/material-editor-sections';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -13,6 +13,9 @@ import ObjectSection from '../object-section/ObjectSection.vue';
 
 export default {
   name: 'MaterialEditor',
+  props: {
+    onOpenGallery: { type: Function, default: noop }
+  },
   components: {
     MaterialSection,
     GeometrySection,
@@ -65,11 +68,8 @@ export default {
     :onEndOfResize="onSetControlsPanelWidth"
   >
     <header class="header controls-row">
-      <custom-btn
-        accesskey="s"
-        iconClass="icon-settings"
-        class="xs"
-      />
+      <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
+
       <custom-btn
         accesskey="o"
         title="Object"
@@ -91,6 +91,8 @@ export default {
         :data="sections.MATERIAL"
         :onClick="onSetActiveSectionName"
       />
+
+      <custom-btn iconClass="icon-gallery" :onClick="onOpenGallery" class="xs" />
     </header>
 
     <section class="body">

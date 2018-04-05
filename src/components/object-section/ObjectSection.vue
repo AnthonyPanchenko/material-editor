@@ -1,10 +1,15 @@
 <script>
+import emptyObject from '../../common/utils/emptyObject';
+
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 
 export default {
   name: 'ObjectSection',
+  props: {
+    object: { type: Object, default: emptyObject }
+  },
   components: {
     ItemNameRow,
     InputNumber,

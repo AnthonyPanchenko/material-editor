@@ -1,9 +1,14 @@
 <script>
+import emptyObject from '../../common/utils/emptyObject';
+
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 
 export default {
   name: 'GeometrySection',
+  props: {
+    geometry: { type: Object, default: emptyObject }
+  },
   components: {
     ItemNameRow,
     InputNumber

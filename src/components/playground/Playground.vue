@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
+import { obj } from '../../common/utils/emptyObject';
 import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
@@ -44,11 +45,12 @@ export default {
     };
   },
   computed: mapState([
+    'scene',
     'objectToScene',
+    'currentEditableIds',
     'transformationMode',
     'isVisibleMeshesList',
     'currentVisibleEditor',
-    'currentEditableObject',
     'isVisibleControlsPanel',
     'isOpenCreateNewMaterialForm'
   ]),
@@ -83,30 +85,27 @@ export default {
     </modal-window>
 
     <material-editor
-      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
-      :currentEditableObject="currentEditableObject"
+      :object="scene.objects[currentEditableIds.objectId] || obj"
+      :material="scene.materials[currentEditableIds.materialId] || obj"
+      :geometry="scene.geometries[currentEditableIds.geometryId] || obj"
       :onOpenGallery="onOpenGallery"
+      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
     />
 
     <shader-editor
       v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
-      :currentEditableObject="currentEditableObject"
-      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <lighting-editor
       v-if="currentVisibleEditor === editorsNames.LIGHTING_EDITOR"
-      :currentEditableObject="currentEditableObject"
-      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <particles-editor
       v-if="currentVisibleEditor === editorsNames.PARTICLES_EDITOR"
-      :currentEditableObject="currentEditableObject"
-      :onToggleCreateNewMaterialForm="onToggleCreateNewMaterialForm"
     />
 
     <canvas-section
+      :scene="scene"
       :objectToScene="objectToScene"
       :transformationMode="transformationMode"
       :isFullScreenMode="!isVisibleControlsPanel"

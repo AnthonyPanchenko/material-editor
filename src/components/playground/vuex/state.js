@@ -8,11 +8,15 @@ const state = {
   isOpenCreateNewMaterialForm: false,
   transformationMode: transformationsModes.TRANSLATE,
   currentVisibleEditor: editorsNames.MATERIAL_EDITOR,
-  currentEditableObject: {
-    _id: 'asdfsdfsdfsfsdf',
-    geometries: [],
-    materials: [],
-    objects: []
+  currentEditableIds: {
+    objectId: '',
+    geometryId: '',
+    materialId: ''
+  },
+  scene: {
+    geometries: {},
+    materials: {},
+    objects: {}
   }
 };
 

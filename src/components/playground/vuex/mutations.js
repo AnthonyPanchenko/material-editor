@@ -16,6 +16,13 @@ const mutations = {
   },
   [mutationTypes.TOGGLE_CREATE_NEW_MATERIAL_FORM](state) {
     state.isOpenCreateNewMaterialForm = !state.isOpenCreateNewMaterialForm;
+  },
+  [mutationTypes.SET_EDITABLE_OBJECT_IDS](state, obj) {
+    state.currentEditableIds = {
+      objectId: obj && obj.uuid || '',
+      geometryId: obj && obj.geometry || '',
+      materialId: obj && obj.material || ''
+    };
   }
 };
 

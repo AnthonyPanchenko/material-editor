@@ -1,10 +1,6 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
-  [mutationTypes.TOGGLE_FULLSCREEN_MODE](state) {
-    state.isVisibleMeshesList = !state.isVisibleControlsPanel && state.isVisibleMeshesList;
-    state.isVisibleControlsPanel = !state.isVisibleControlsPanel;
-  },
   [mutationTypes.SET_TRANSFORMATION_MODE](state, transformationMode) {
     state.transformationMode = transformationMode;
   },

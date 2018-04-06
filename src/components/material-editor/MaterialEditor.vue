@@ -17,9 +17,9 @@ import ObjectSection from '../object-section/ObjectSection.vue';
 export default {
   name: 'MaterialEditor',
   props: {
-    object: { type: Object, default: emptyObject },
-    material: { type: Object, default: emptyObject },
-    geometry: { type: Object, default: emptyObject },
+    currentObject: { type: Object, default: emptyObject },
+    currentMaterial: { type: Object, default: emptyObject },
+    currentGeometry: { type: Object, default: emptyObject },
     onToggleOpenGallery: { type: Function, default: noop }
   },
   components: {
@@ -101,15 +101,15 @@ export default {
 
     <section class="body">
       <object-section
-        :object="object"
+        :object="currentObject"
         v-if="activeSectionName === sections.OBJECT"
       />
       <geometry-section
-        :geometry="geometry"
+        :geometry="currentGeometry"
         v-if="activeSectionName === sections.GEOMETRY"
       />
       <material-section
-        :material="material"
+        :material="currentMaterial"
         :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
         :activeMaterialTypeId="activeMaterialTypeId"
         v-if="activeSectionName === sections.MATERIAL"

@@ -67,6 +67,17 @@ export default {
     };
   },
   methods: {
+    normalize(data, idKey) {
+      const ids = [];
+      const entities = {};
+
+      for (let i = 0; i < data.length; i++) {
+        ids.push(data[i][idKey]);
+        entities[data[i][idKey]] = data[i];
+      }
+
+      return { ids, entities };
+    }
   },
   mounted() {
     const materialsSchema = new schema.Entity('materials', {}, { idAttribute: 'uuid' });

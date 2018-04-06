@@ -40,20 +40,20 @@ export default {
     };
   },
   computed: mapState([
-    'scene',
+    'objects',
+    'materials',
+    'geometries',
     'objectToScene',
     'currentEditableIds',
     'transformationMode',
     'isVisibleMeshesList',
     'currentVisibleEditor',
-    'isVisibleControlsPanel',
     'isOpenGallery'
   ]),
   methods: {
     ...mapActions([
       'onToggleMeshesList',
       'onAddObjectToScene',
-      'onToggleFullScreenMode',
       'onSetTransformationMode',
       'onToggleOpenGallery'
     ]),
@@ -81,9 +81,9 @@ export default {
 
     <material-editor
       :onToggleOpenGallery="onToggleOpenGallery"
-      :object="scene.objects[currentEditableIds.objectId] || {}"
-      :material="scene.materials[currentEditableIds.materialId] || {}"
-      :geometry="scene.geometries[currentEditableIds.geometryId] || {}"
+      :currentObject="objects[currentEditableIds.objectId] || {}"
+      :currentMaterial="materials[currentEditableIds.materialId] || {}"
+      :currentGeometry="geometries[currentEditableIds.geometryId] || {}"
       v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
     />
 
@@ -100,11 +100,12 @@ export default {
     />
 
     <canvas-section
-      :scene="scene"
+      :objects="objects"
+      :materials="materials"
+      :geometrys="geometries"
       :objectToScene="objectToScene"
       :transformationMode="transformationMode"
-      :isFullScreenMode="!isVisibleControlsPanel"
-      :onToggleFullScreenMode="onToggleFullScreenMode"
+      :currentEditableIds="currentEditableIds"
     >
       <div slot="header" class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />

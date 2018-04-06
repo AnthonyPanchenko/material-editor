@@ -1,5 +1,6 @@
 <script>
 import noop from '../../common/utils/noop';
+import emptyObject from '../../common/utils/emptyObject';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import BaseScene from './utils/BaseScene';
 import { getBasicGeometryByType } from './utils/base-scene-helper';
@@ -7,8 +8,10 @@ import { getBasicGeometryByType } from './utils/base-scene-helper';
 export default {
   name: 'CanvasSection',
   props: {
-    onToggleFullScreenMode: { type: Function, default: noop },
-    isFullScreenMode: { type: Boolean, default: false },
+    objects: { type: Object, default: emptyObject },
+    materials: { type: Object, default: emptyObject },
+    geometrys: { type: Object, default: emptyObject },
+    currentEditableIds: { type: Object, default: emptyObject },
     transformationMode: { type: String, default: '' },
     objectToScene: { type: String, default: '' }
   },
@@ -17,16 +20,17 @@ export default {
   },
   data() {
     return {
-      scene: {}
+      baseScene: {}
     }
   },
   watch: {
     transformationMode(mode) {
-      this.scene.controls.transformControls.setMode(mode);
+      this.baseScene.controls.transformControls.setMode(mode);
     },
     objectToScene(type) {
       const geometry = getBasicGeometryByType(type);
-      this.scene.addMesh(geometry);
+      console.log(geometry);
+      this.baseScene.addMesh(geometry);
     }
   },
   methods: {
@@ -38,26 +42,26 @@ export default {
     },
     addCustomMeshToScene() {
       // const geometry = null;
-      // const json = this.scene.addMesh(geometry);
+      // const json = this.baseScene.addMesh(geometry);
     },
     removeMesh(uuid) {
-      this.scene.removeMesh(uuid);
+      this.baseScene.removeMesh(uuid);
     }
   },
   mounted() {
     const canvasContainer = this.$refs.canvasContainer;
 
-    this.scene = new BaseScene(
+    this.baseScene = new BaseScene(
       canvasContainer.clientWidth,
       canvasContainer.clientHeight,
       this.selectMeshInSceneCallback,
       this.deselectMeshInSceneCallback
     );
 
-    this.scene.init(canvasContainer);
+    this.baseScene.init(canvasContainer);
   },
   beforeDestroy() {
-    this.scene.removeEventListeners();
+    this.baseScene.removeEventListeners();
   }
 }
 </script>
@@ -73,12 +77,6 @@ export default {
 
     <div class="footer controls-row">
       <span class="label fps">FPS 60</span>
-      <custom-btn
-        accesskey="b"
-        class="ctrl-btn default xs"
-        :iconClass="isFullScreenMode ? 'icon-minimize' : 'icon-maximize'"
-        :onClick="onToggleFullScreenMode"
-      />
     </div>
   </section>
 </template>

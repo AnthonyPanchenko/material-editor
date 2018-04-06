@@ -1,9 +1,6 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const actions = {
-  onToggleFullScreenMode(context) {
-    context.commit(mutationTypes.TOGGLE_FULLSCREEN_MODE);
-  },
   onSetTransformationMode(context, transformationMode) {
     context.commit(mutationTypes.SET_TRANSFORMATION_MODE, transformationMode);
   },

@@ -1,12 +1,13 @@
 import * as THREE from 'three';
 
+import noop from '../../../common/utils/noop';
 import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
 class BaseScene {
   constructor(canvasWidth, canvasHeight, selectMesh, deselectMesh) {
-    this.sceneMeshes = [];
+    this.selectedMeshIndex = undefined;
     this.selectedMesh = null;
 
     this.canvasWidth = canvasWidth;
@@ -16,17 +17,28 @@ class BaseScene {
     this.raycaster = new THREE.Raycaster();
     this.gridHelper = new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888);
 
-    this.selectMeshCallback = selectMesh;
-    this.deselectMeshCallback = deselectMesh;
+    this.selectMeshCallback = selectMesh || noop;
+    this.deselectMeshCallback = deselectMesh || noop;
 
     this.camera = createCamera(canvasWidth, canvasHeight);
     this.renderer = createRenderer(canvasWidth, canvasHeight);
     this.controls = createControls(this.camera, this.renderer);
+
+    this.avoidIntersectionsWith = ['00000000-0000-0000-0000-000000000000', '11111111-1111-1111-1111-111111111111'];
   }
 
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
-    return this.raycaster.intersectObjects(this.sceneMeshes);
+    const intersects = this.raycaster.intersectObjects(this.scene.children);
+
+    if (intersects.length && intersects[0].uuid && this.avoidIntersectionsWith.indexOf(intersects[0].uuid) === -1) {
+      return {
+        mesh: intersects[0],
+        index: this.scene.children.findIndex(o => o.uuid === intersects[0].uuid)
+      };
+    }
+
+    return null;
   }
 
   getClickPositions(event) {
@@ -35,31 +47,40 @@ class BaseScene {
     return positions;
   }
 
+  updateMeshObject(prop, val) {
+
+  }
+
+  updateMeshMaterial(prop, val) {
+
+  }
+
+  updateMeshGeometry(prop, val) {
+
+  }
+
   selectMesh(mesh) {
     this.selectedMesh = mesh;
     this.controls.transformControls.attach(mesh.object);
-    if (typeof this.selectMeshCallback === 'function') {
-      this.selectMeshCallback(mesh.object.toJSON());
-    }
+    this.selectMeshCallback(mesh.object.toJSON());
   }
 
   deselectMesh() {
     this.controls.transformControls.detach(this.selectedMesh.object);
     this.selectedMesh = null;
-    if (typeof this.deselectMeshCallback === 'function') {
-      this.deselectMeshCallback();
-    }
+    this.selectedMeshIndex = undefined;
+    this.deselectMeshCallback();
   }
 
   addMesh(geometry) {
     const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
+
     mesh.add(new THREE.LineSegments(
       new THREE.EdgesGeometry(mesh.geometry),
       new THREE.LineBasicMaterial({ color: 0xffffff, linewidth: 2 })
     ));
 
     this.scene.add(mesh);
-    this.sceneMeshes.push(mesh);
 
     return mesh;
   }
@@ -68,19 +89,23 @@ class BaseScene {
     if (this.selectedMesh) {
       this.controls.transformControls.detach(this.selectedMesh.object);
       this.scene.remove(this.selectedMesh.object);
-      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.uuid !== this.selectedMesh.object.uuid);
+      this.selectedMeshIndex = undefined;
       this.selectedMesh = null;
     }
   }
 
   removeMeshByUuuid(uuid) {
     if (uuid) {
-      this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.object.uuid !== uuid);
-
       if (this.selectedMesh && this.selectedMesh.object.uuid === uuid) {
         this.controls.transformControls.detach(this.selectedMesh.object);
         this.scene.remove(this.selectedMesh);
+        this.selectedMeshIndex = undefined;
         this.selectedMesh = null;
+      } else {
+        const mesh = this.scene.children.find(mesh => mesh.uuid === uuid);
+        if (mesh) {
+          this.scene.remove(mesh);
+        }
       }
     }
   }
@@ -92,13 +117,14 @@ class BaseScene {
   }
 
   onCanvasClick(event) {
-    const intersectsArr = this.getIntersects(this.getClickPositions(event));
+    const intersected = this.getIntersects(this.getClickPositions(event));
 
-    if (intersectsArr.length) {
-      if (!this.selectedMesh || this.selectedMesh.object.uuid !== intersectsArr[0].object.uuid) {
-        this.selectMesh(intersectsArr[0]);
+    if (intersected) {
+      if (this.selectedMeshIndex === undefined || this.selectedMeshIndex !== intersected.index) {
+        this.selectMesh(intersected.mesh);
+        this.selectedMeshIndex = intersected.index;
       }
-    } else if (this.selectedMesh) {
+    } else if (this.selectedMeshIndex !== undefined) {
       this.deselectMesh();
     }
   }
@@ -127,6 +153,9 @@ class BaseScene {
 
     const canvasContainerObserveResizing = new ResizeObserver(debounce(7, this.onResize.bind(this)));
     canvasContainerObserveResizing.observe(canvasContainer);
+
+    this.gridHelper.uuid = this.avoidIntersectionsWith[0];
+    this.controls.transformControls.uuid = this.avoidIntersectionsWith[1];
 
     this.scene.add(this.gridHelper);
     this.scene.add(this.controls.transformControls);

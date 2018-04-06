@@ -14,8 +14,8 @@ const mutations = {
   [mutationTypes.TOGGLE_MESHES_LIST](state) {
     state.isVisibleMeshesList = !state.isVisibleMeshesList;
   },
-  [mutationTypes.TOGGLE_CREATE_NEW_MATERIAL_FORM](state) {
-    state.isOpenCreateNewMaterialForm = !state.isOpenCreateNewMaterialForm;
+  [mutationTypes.TOGGLE_OPEN_GALLERY](state) {
+    state.isOpenGallery = !state.isOpenGallery;
   },
   [mutationTypes.SET_EDITABLE_OBJECT_IDS](state, obj) {
     state.currentEditableIds = {

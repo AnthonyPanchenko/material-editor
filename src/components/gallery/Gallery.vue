@@ -69,7 +69,7 @@ export default {
     <section class="container controls-section">
       <div class="header controls-row">
         <h5 class="title">{{ title }}</h5>
-        <custom-btn iconClass="icon-arrow-left" :onClick="onClose" class="danger xs" />
+        <custom-btn iconClass="icon-close" :onClick="onClose" class="danger xs" />
       </div>
 
       <div class="body">

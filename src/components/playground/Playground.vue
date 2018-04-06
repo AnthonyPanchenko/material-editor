@@ -2,7 +2,6 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
-import { obj } from '../../common/utils/emptyObject';
 import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
@@ -10,7 +9,6 @@ import transformationsModes from '../../common/constants/transformations-modes';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
-import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
@@ -19,18 +17,15 @@ import CanvasSection from '../canvas-section/CanvasSection.vue';
 import LightingEditor from '../lighting-editor/LightingEditor.vue';
 import ParticlesEditor from '../particles-editor/ParticlesEditor.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
-import CreateNewMaterial from '../create-new-material/CreateNewMaterial.vue';
 
 export default {
   name: 'Playground',
   components: {
-    CreateNewMaterial,
     ParticlesEditor,
     MaterialEditor,
     LightingEditor,
     CanvasSection,
     ShaderEditor,
-    ModalWindow,
     MeshesList,
     InputFile,
     CustomBtn,
@@ -52,7 +47,7 @@ export default {
     'isVisibleMeshesList',
     'currentVisibleEditor',
     'isVisibleControlsPanel',
-    'isOpenCreateNewMaterialForm'
+    'isOpenGallery'
   ]),
   methods: {
     ...mapActions([
@@ -60,7 +55,7 @@ export default {
       'onAddObjectToScene',
       'onToggleFullScreenMode',
       'onSetTransformationMode',
-      'onToggleCreateNewMaterialForm'
+      'onToggleOpenGallery'
     ]),
     onChangeSelect(selectedValue, name) {
       console.log(selectedValue);
@@ -80,15 +75,15 @@ export default {
 
 <template>
   <div class="base-layout">
-    <modal-window :isOpen="isOpenCreateNewMaterialForm">
-      <create-new-material :onClose="onToggleCreateNewMaterialForm" />
-    </modal-window>
+    <transition name="fade">
+      <gallery v-if="isOpenGallery" :onClose="onToggleOpenGallery" />
+    </transition>
 
     <material-editor
-      :object="scene.objects[currentEditableIds.objectId] || obj"
-      :material="scene.materials[currentEditableIds.materialId] || obj"
-      :geometry="scene.geometries[currentEditableIds.geometryId] || obj"
-      :onOpenGallery="onOpenGallery"
+      :onToggleOpenGallery="onToggleOpenGallery"
+      :object="scene.objects[currentEditableIds.objectId] || {}"
+      :material="scene.materials[currentEditableIds.materialId] || {}"
+      :geometry="scene.geometries[currentEditableIds.geometryId] || {}"
       v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
     />
 

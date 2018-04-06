@@ -20,7 +20,7 @@ export default {
     object: { type: Object, default: emptyObject },
     material: { type: Object, default: emptyObject },
     geometry: { type: Object, default: emptyObject },
-    onOpenGallery: { type: Function, default: noop }
+    onToggleOpenGallery: { type: Function, default: noop }
   },
   components: {
     MaterialSection,
@@ -96,7 +96,7 @@ export default {
         :data="sections.MATERIAL"
         :onClick="onSetActiveSectionName"
       />
-      <custom-btn iconClass="icon-gallery" :onClick="onOpenGallery" class="xs" />
+      <custom-btn iconClass="icon-gallery" :onClick="onToggleOpenGallery" class="xs" />
     </header>
 
     <section class="body">

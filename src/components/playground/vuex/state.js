@@ -3,9 +3,9 @@ import transformationsModes from '../../../common/constants/transformations-mode
 
 const state = {
   objectToScene: null,
+  isOpenGallery: false,
   isVisibleMeshesList: true,
   isVisibleControlsPanel: true,
-  isOpenCreateNewMaterialForm: false,
   transformationMode: transformationsModes.TRANSLATE,
   currentVisibleEditor: editorsNames.MATERIAL_EDITOR,
   currentEditableIds: {

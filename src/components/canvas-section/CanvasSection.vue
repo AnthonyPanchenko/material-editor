@@ -1,5 +1,4 @@
 <script>
-import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import BaseScene from './utils/BaseScene';
@@ -29,13 +28,13 @@ export default {
     },
     objectToScene(type) {
       const geometry = getBasicGeometryByType(type);
-      console.log(geometry);
       this.baseScene.addMesh(geometry);
     }
   },
   methods: {
-    selectMeshInSceneCallback(obj) {
-      console.log(obj);
+    selectMeshInSceneCallback(mesh) {
+      console.log(mesh);
+      // mesh.material.wireframe = true;
     },
     deselectMeshInSceneCallback() {
       console.log('deselectMesh');
@@ -76,6 +75,7 @@ export default {
     </div>
 
     <div class="footer controls-row">
+      <slot name="controls"></slot>
       <span class="label fps">FPS 60</span>
     </div>
   </section>

@@ -7,8 +7,10 @@ import { createCamera, createRenderer, createControls } from './base-scene-helpe
 
 class BaseScene {
   constructor(canvasWidth, canvasHeight, selectMesh, deselectMesh) {
+    this.requestAnimationId = undefined;
     this.selectedMeshIndex = undefined;
     this.selectedMesh = null;
+    this.sceneMeshes = [];
 
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
@@ -23,18 +25,16 @@ class BaseScene {
     this.camera = createCamera(canvasWidth, canvasHeight);
     this.renderer = createRenderer(canvasWidth, canvasHeight);
     this.controls = createControls(this.camera, this.renderer);
-
-    this.avoidIntersectionsWith = ['00000000-0000-0000-0000-000000000000', '11111111-1111-1111-1111-111111111111'];
   }
 
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.scene.children);
+    const intersects = this.raycaster.intersectObjects(this.sceneMeshes);
 
-    if (intersects.length && intersects[0].uuid && this.avoidIntersectionsWith.indexOf(intersects[0].uuid) === -1) {
+    if (intersects.length && intersects[0].object.uuid) {
       return {
         mesh: intersects[0],
-        index: this.scene.children.findIndex(o => o.uuid === intersects[0].uuid)
+        index: this.scene.children.findIndex(mesh => mesh.uuid === intersects[0].object.uuid)
       };
     }
 
@@ -47,26 +47,25 @@ class BaseScene {
     return positions;
   }
 
-  updateMeshObject(prop, val) {
-
+  selectMesh(index) {
+    this.selectedMeshIndex = index;
+    this.selectedMesh = this.scene.children[index];
+    this.controls.transformControls.attach(this.scene.children[index]);
+    this.selectMeshCallback(this.scene.children[index]);
   }
 
-  updateMeshMaterial(prop, val) {
+  selectMeshByUuid(uuid) {
+    if (uuid) {
+      const index = this.scene.children.findIndex(mesh => mesh.uuid === uuid);
 
-  }
-
-  updateMeshGeometry(prop, val) {
-
-  }
-
-  selectMesh(mesh) {
-    this.selectedMesh = mesh;
-    this.controls.transformControls.attach(mesh.object);
-    this.selectMeshCallback(mesh.object.toJSON());
+      if (index !== -1) {
+        this.selectMesh(index);
+      }
+    }
   }
 
   deselectMesh() {
-    this.controls.transformControls.detach(this.selectedMesh.object);
+    this.controls.transformControls.detach(this.selectedMesh);
     this.selectedMesh = null;
     this.selectedMeshIndex = undefined;
     this.deselectMeshCallback();
@@ -81,26 +80,23 @@ class BaseScene {
     ));
 
     this.scene.add(mesh);
+    this.sceneMeshes.push(mesh);
 
     return mesh;
   }
 
   removeSelectedMesh() {
-    if (this.selectedMesh) {
-      this.controls.transformControls.detach(this.selectedMesh.object);
-      this.scene.remove(this.selectedMesh.object);
-      this.selectedMeshIndex = undefined;
-      this.selectedMesh = null;
-    }
+    this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.uuid !== this.selectedMesh.uuid);
+    this.controls.transformControls.detach(this.selectedMesh);
+    this.scene.remove(this.selectedMesh);
+    this.selectedMeshIndex = undefined;
+    this.selectedMesh = null;
   }
 
   removeMeshByUuuid(uuid) {
     if (uuid) {
-      if (this.selectedMesh && this.selectedMesh.object.uuid === uuid) {
-        this.controls.transformControls.detach(this.selectedMesh.object);
-        this.scene.remove(this.selectedMesh);
-        this.selectedMeshIndex = undefined;
-        this.selectedMesh = null;
+      if (this.selectedMesh && this.selectedMesh.uuid === uuid) {
+        this.removeSelectedMesh();
       } else {
         const mesh = this.scene.children.find(mesh => mesh.uuid === uuid);
         if (mesh) {
@@ -111,8 +107,10 @@ class BaseScene {
   }
 
   onKeydown(event) {
-    if (event.keyCode === 46) {
-      this.removeSelectedMesh();
+    if (this.selectedMesh && event.keyCode === 46) {
+      if (confirm('Are you sure?')) {
+        this.removeSelectedMesh();
+      }
     }
   }
 
@@ -121,8 +119,7 @@ class BaseScene {
 
     if (intersected) {
       if (this.selectedMeshIndex === undefined || this.selectedMeshIndex !== intersected.index) {
-        this.selectMesh(intersected.mesh);
-        this.selectedMeshIndex = intersected.index;
+        this.selectMesh(intersected.index);
       }
     } else if (this.selectedMeshIndex !== undefined) {
       this.deselectMesh();
@@ -143,8 +140,26 @@ class BaseScene {
     this.renderer.setSize(this.canvasWidth, this.canvasHeight);
   }
 
-  animate() {
-    requestAnimationFrame(this.animate.bind(this));
+  animationLoop(time) {
+    this.requestAnimationId = undefined;
+    this.startAnimation();
+  }
+
+  startAnimation() {
+    if (!this.requestAnimationId) {
+      this.requestAnimationId = requestAnimationFrame(this.animationLoop.bind(this));
+      this.renderScene();
+    }
+  }
+
+  stopAnimation() {
+    if (this.requestAnimationId) {
+      cancelAnimationFrame(this.requestAnimationId);
+      this.requestAnimationId = undefined;
+    }
+  }
+
+  onCanvasMove() {
     this.renderScene();
   }
 
@@ -154,20 +169,22 @@ class BaseScene {
     const canvasContainerObserveResizing = new ResizeObserver(debounce(7, this.onResize.bind(this)));
     canvasContainerObserveResizing.observe(canvasContainer);
 
-    this.gridHelper.uuid = this.avoidIntersectionsWith[0];
-    this.controls.transformControls.uuid = this.avoidIntersectionsWith[1];
-
     this.scene.add(this.gridHelper);
     this.scene.add(this.controls.transformControls);
 
-    this.animate.apply(this);
     document.addEventListener('keydown', this.onKeydown.bind(this));
     this.renderer.domElement.addEventListener('click', this.onCanvasClick.bind(this));
+    this.renderer.domElement.addEventListener('mousemove', this.onCanvasMove.bind(this));
+    this.renderer.domElement.addEventListener('wheel', this.onCanvasMove.bind(this));
+
+    this.startAnimation();
   }
 
   removeEventListeners() {
     document.removeEventListener('keydown', this.onKeydown);
     this.renderer.domElement.removeEventListener('click', this.onCanvasClick);
+    this.renderer.domElement.removeEventListener('mousemove', this.onCanvasMove);
+    this.renderer.domElement.removeEventListener('wheel', this.onCanvasMove);
   }
 }
 

@@ -13,6 +13,7 @@
     "no-param-reassign": 0,
     "no-nested-ternary": 0,
     "linebreak-style": "off",
+    "no-useless-call": "off",
     "no-plusplus": "off",
     "arrow-parens": "off",
     "global-require": "warn",

@@ -65,6 +65,16 @@ export default {
         <checkbox-btn class="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
         <checkbox-btn class="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
       </div>
+
+      <div class="row">
+        <label class="label">Visible</label>
+        <checkbox-btn name="visible" :checked="false" />
+      </div>
+
+      <div class="row">
+        <label class="label">Frustum Culled</label>
+        <checkbox-btn name="frustumCulled" :checked="false" />
+      </div>
     </div>
   </div>
 </template>

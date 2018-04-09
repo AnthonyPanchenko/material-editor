@@ -6,7 +6,7 @@
   flex-direction: row;
   display: flex;
 
-  .container {
+  > .container {
     display: flex;
     flex-wrap: nowrap;
     flex-direction: column;
@@ -20,18 +20,18 @@
       flex: 1 1 100%;
       overflow: hidden;
 
-      .body {
+      > .body {
         display: flex;
         flex-direction: row;
         flex-wrap: nowrap;
 
-        .canvas-box {
+        > .canvas-box {
           overflow: hidden;
           flex: 1 1 100%;
         }
       }
 
-      .footer {
+      > .footer {
         justify-content: space-between;
 
         .fps {
@@ -41,17 +41,17 @@
       }
     }
 
-    .header {
+    > .header {
       flex: 0 0 auto;
       border-bottom: 1px solid $content-border-color;
     }
 
-    .body { /* stylelint-disable-line */
+    > .body { /* stylelint-disable-line */
       flex: 1 1 auto;
       display: flex;
     }
 
-    .footer { /* stylelint-disable-line */
+    > .footer { /* stylelint-disable-line */
       flex: 0 0 auto;
       border-top: 1px solid $content-border-color;
     }

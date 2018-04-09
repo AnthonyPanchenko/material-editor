@@ -5,28 +5,35 @@ import './output-color-btn.scss';
 export default {
   name: 'OutputColorBtn',
   props: {
+    name: { type: String, default: '' },
     onClick: { type: Function, default: noop },
-    color: { type: Object, default: () => ({ r: 70, g: 70, b: 220, a: 1 }) },
-    disabled: { type: Boolean, default: false },
-    data: null
+    color: { type: Array, default: () => [70, 70, 220, 1] }
   },
   data() {
     return {
-      iconColor: (255 / 3) > ((this.color.r + this.color.g + this.color.b) / 3) ? '#fff' : '#000'
+      buttonTrigger: null,
+      iconColor: (255 / 3) > ((this.color[0] + this.color[1] + this.color[2]) / 3) ? '#fff' : '#000'
     };
   },
   methods: {
     onButtonClick(event) {
-      if (!this.disabled) {
-        this.onClick(this.data, event);
-      }
+      this.onClick(this.buttonTrigger, this.name, this.color, event);
     }
+  },
+  mounted() {
+    this.buttonTrigger = this.$refs.buttonTrigger;
   }
 };
 </script>
 
 <template>
-  <button :style="{ backgroundColor: `rgba(${color.r}, ${color.g}, ${color.b}, ${color.a})` }" type="button" :tabindex="`${disabled ? -1 : 0}`" class="output-color-btn" :disabled="disabled" @click="onButtonClick">
+  <button
+    ref="buttonTrigger"
+    :style="{ backgroundColor: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})` }"
+    type="button"
+    class="output-color-btn"
+    @click="onButtonClick"
+  >
     <i class="icon-color-palette" :style="{ color: iconColor }" />
   </button>
 </template>

@@ -33,7 +33,7 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      BoxBufferGeometry
+      <span class="title">BoxBufferGeometry</span>
     </div>
 
     <item-name-row name="Box" />

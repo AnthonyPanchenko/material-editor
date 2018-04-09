@@ -65,7 +65,7 @@ export default {
 </script>
 
 <template>
-  <div class="base-layout gallery">
+  <div class="gallery">
     <section class="container controls-section">
       <div class="header controls-row">
         <h5 class="title">{{ title }}</h5>

@@ -1,9 +1,10 @@
 .gallery {
-  height: 100%;
-  width: 100%;
+  width: 1024px;
+  height: 500px;
   position: fixed;
   display: flex;
   z-index: 11;
+  background-color: $body-bg-color;
   box-shadow: 0 3px 9px 1px #232323;
 
   .controls-section {
@@ -24,6 +25,8 @@
     }
 
     .body {
+      overflow: hidden;
+
       .list {
         padding: 5px;
         width: 100%;
@@ -42,6 +45,7 @@
   }
 
   .canvas-section {
+    overflow: hidden;
     border-left: 1px solid #555;
   }
 }

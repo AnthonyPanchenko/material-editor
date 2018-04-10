@@ -1,8 +1,12 @@
 <script>
-import { normalize, schema } from 'normalizr';
+// import { normalize, schema } from 'normalizr';
+import ModalWindow from './common/components/modal-window/ModalWindow.vue';
 
 export default {
   name: 'Test',
+  components: {
+    ModalWindow
+  },
   data() {
     return {
       scene: {
@@ -63,7 +67,9 @@ export default {
           type: 'Mesh',
           uuid: '87772536-53AF-455A-958F-E4D03079F222'
         }
-      }
+      },
+
+      isOpen: false
     };
   },
   methods: {
@@ -77,25 +83,35 @@ export default {
       }
 
       return { ids, entities };
+    },
+    onToggleModalWindow() {
+      this.isOpen = !this.isOpen;
+    },
+    onOverlayClose() {
+      this.isOpen = false;
     }
   },
   mounted() {
-    const materialsSchema = new schema.Entity('materials', {}, { idAttribute: 'uuid' });
-    const materialsListSchema = new schema.Array(materialsSchema); // [materialsSchema]
+    // const materialsSchema = new schema.Entity('materials', {}, { idAttribute: 'uuid' });
+    // const materialsListSchema = new schema.Array(materialsSchema); // [materialsSchema]
 
-    const responseSchema = new schema.Object({ materials: new schema.Array(materialsSchema) }); // {materials: [materialsSchema]}
+    // const responseSchema = new schema.Object({ materials: new schema.Array(materialsSchema) }); // {materials: [materialsSchema]}
 
-    const normalizedScene = normalize(this.scene, responseSchema);
-    console.log(normalizedScene);
+    // const normalizedScene = normalize(this.scene, responseSchema);
+    // console.log(normalizedScene);
 
-    const normalizedMaterials = normalize(this.scene.materials, materialsListSchema);
-    console.log(normalizedMaterials);
+    // const normalizedMaterials = normalize(this.scene.materials, materialsListSchema);
+    // console.log(normalizedMaterials);
   }
 };
 </script>
 
 <template>
   <div class='test'>
-    <h1>Test</h1>
+    <button type="button" @click="onToggleModalWindow">Btn</button>
+
+  <modal-window сloseByOverlayClick :isOpen="isOpen" isResizable :onOverlayClose="onOverlayClose">
+    modalwindow test
+  </modal-window>
   </div>
 </template>

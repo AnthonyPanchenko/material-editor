@@ -1,5 +1,6 @@
+$grab-resizer-dimension: 5px;
+
 .modal-window {
-  background-color: rgba(19, 19, 19, 0.72);
   left: 0;
   top: 0;
   bottom: 0;
@@ -8,40 +9,109 @@
   display: flex;
   z-index: 11;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
 
-  .is-overlay {}
+  &.is-overlay {
+    background-color: rgba(19, 19, 19, 0.72);
+  }
 
-  .is-maximized {}
+  &.center-center {
+    align-items: center;
+    justify-content: center;
+  }
 
-  .center-center {}
-
-  .top-center {}
+  &.top-center {
+    align-items: center;
+    justify-content: flex-start;
+  }
 
   .container {
+    position: relative;
     background-color: #fff;
-    max-width: 1024px;
-    max-height: 100%;
     min-width: 300px;
-    min-height: 120px;
+    min-height: 80px;
 
-    .header {}
+    .header {
+      cursor: move;
+    }
 
-    .top-left-corner {}
+    .top-left-corner {
+      cursor: se-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      width: $grab-resizer-dimension;
+      top: -$grab-resizer-dimension;
+      left: -$grab-resizer-dimension;
+    }
 
-    .top-right-corner {}
+    .top-right-corner {
+      cursor: sw-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      width: $grab-resizer-dimension;
+      top: -$grab-resizer-dimension;
+      right: -$grab-resizer-dimension;
+    }
 
-    .top-border {}
+    .bottom-left-corner {
+      cursor: sw-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      width: $grab-resizer-dimension;
+      bottom: -$grab-resizer-dimension;
+      left: -$grab-resizer-dimension;
+    }
 
-    .left-border {}
+    .bottom-right-corner {
+      cursor: se-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      width: $grab-resizer-dimension;
+      bottom: -$grab-resizer-dimension;
+      right: -$grab-resizer-dimension;
+    }
 
-    .bottom-left-corner {}
+    .top-border {
+      cursor: n-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      top: -$grab-resizer-dimension;
+      left: 0;
+      right: 0;
+    }
 
-    .right-border {}
+    .left-border {
+      cursor: e-resize;
+      position: absolute;
+      width: $grab-resizer-dimension;
+      left: -$grab-resizer-dimension;
+      top: 0;
+      bottom: 0;
+    }
 
-    .bottom-border {}
+    .right-border {
+      cursor: e-resize;
+      position: absolute;
+      width: $grab-resizer-dimension;
+      right: -$grab-resizer-dimension;
+      top: 0;
+      bottom: 0;
+    }
 
-    .bottom-right-corner {}
+    .bottom-border {
+      cursor: n-resize;
+      position: absolute;
+      height: $grab-resizer-dimension;
+      bottom: -$grab-resizer-dimension;
+      left: 0;
+      right: 0;
+    }
+  }
+
+  &.is-maximized .container {
+    left: 0;
+    top: 0;
+    bottom: 0;
+    right: 0;
+    position: fixed;
   }
 }

@@ -16,7 +16,7 @@ export default {
   },
   data() {
     return {
-      isMouseDown: false,
+      mouseDownClassName: '',
       width: 1024,
       height: 500,
       offsetLeft: 0,
@@ -30,15 +30,40 @@ export default {
       }
     },
     onMouseDown(event) {
-      console.log(event);
+      this.mouseDownClassName = event.target.className;
     },
     onMouseMove(event) {
-      if (this.isMouseDown) {
-        console.log(event);
+      event.preventDefault();
+
+      switch (this.mouseDownClassName) {
+        case 'top-left-corner':
+          console.log(event);
+          break;
+        case 'top-right-corner':
+          console.log(event);
+          break;
+        case 'bottom-left-corner':
+          console.log(event);
+          break;
+        case 'bottom-right-corner':
+          console.log(event);
+          break;
+        case 'top-border':
+          console.log(event);
+          break;
+        case 'left-border':
+          console.log(event);
+          break;
+        case 'right-border':
+          console.log(event);
+          break;
+        case 'bottom-border':
+          console.log(event);
+          break;
       }
     },
     onMouseUp() {
-      this.isMouseDown = false;
+      this.mouseDownClassName = '';
     }
   },
   mounted() {
@@ -54,23 +79,23 @@ export default {
 
 <template>
   <transition name="fade">
-    <div v-if="isOpen" :class="['modal-window', { 'is-overlay': isOverlay, 'is-maximized': isMaximized }, position]" @click.self="onCloseModalWindow">
-      <div v-if="isResizable" class="container">
-        <span class="top-left-corner" @mousedown="onMouseDown" />
-        <span class="top-right-corner" @mousedown="onMouseDown" />
-        <span class="top-border" @mousedown="onMouseDown" />
-        <span class="left-border" @mousedown="onMouseDown" />
+    <div v-if="isOpen" :class="['modal-window', { 'is-overlay': isOverlay, 'is-maximized': isMaximized }, position]" @mousedown.self="onCloseModalWindow">
+      <div v-if="isResizable" class="container" ref="container">
+        <div class="top-left-corner" @mousedown="onMouseDown" />
+        <div class="top-right-corner" @mousedown="onMouseDown" />
+        <div class="top-border" @mousedown="onMouseDown" />
+        <div class="left-border" @mousedown="onMouseDown" />
         <div v-if="isDraggable" class="header" @mousedown="onMouseDown">
           <slot name="header">Header</slot>
         </div>
         <slot>Content here</slot>
-        <span class="bottom-left-corner" @mousedown="onMouseDown" />
-        <span class="right-border" @mousedown="onMouseDown" />
-        <span class="bottom-border" @mousedown="onMouseDown" />
-        <span class="bottom-right-corner" @mousedown="onMouseDown" />
+        <div class="bottom-left-corner" @mousedown="onMouseDown" />
+        <div class="right-border" @mousedown="onMouseDown" />
+        <div class="bottom-border" @mousedown="onMouseDown" />
+        <div class="bottom-right-corner" @mousedown="onMouseDown" />
       </div>
 
-      <div v-else class="container">
+      <div v-else class="container" ref="container">
         <div v-if="isDraggable" class="header" @mousedown="onMouseDown">
           <slot name="header">Header</slot>
         </div>

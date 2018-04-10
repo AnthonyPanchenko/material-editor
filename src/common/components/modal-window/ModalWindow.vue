@@ -56,18 +56,18 @@ export default {
   <transition name="fade">
     <div v-if="isOpen" :class="['modal-window', { 'is-overlay': isOverlay, 'is-maximized': isMaximized }, position]" @click.self="onCloseModalWindow">
       <div v-if="isResizable" class="container">
-        <span class="top-left-corner-grab" @mousedown="onMouseDown" />
-        <span class="top-right-corner-grab" @mousedown="onMouseDown" />
-        <span class="top-border-grab" @mousedown="onMouseDown" />
-        <span class="left-border-grab" @mousedown="onMouseDown" />
+        <span class="top-left-corner" @mousedown="onMouseDown" />
+        <span class="top-right-corner" @mousedown="onMouseDown" />
+        <span class="top-border" @mousedown="onMouseDown" />
+        <span class="left-border" @mousedown="onMouseDown" />
         <div v-if="isDraggable" class="header" @mousedown="onMouseDown">
           <slot name="header">Header</slot>
         </div>
         <slot>Content here</slot>
-        <span class="bottom-left-corner-grab" @mousedown="onMouseDown" />
-        <span class="right-border-grab" @mousedown="onMouseDown" />
-        <span class="bottom-border-grab" @mousedown="onMouseDown" />
-        <span class="bottom-right-corner-grab" @mousedown="onMouseDown" />
+        <span class="bottom-left-corner" @mousedown="onMouseDown" />
+        <span class="right-border" @mousedown="onMouseDown" />
+        <span class="bottom-border" @mousedown="onMouseDown" />
+        <span class="bottom-right-corner" @mousedown="onMouseDown" />
       </div>
 
       <div v-else class="container">

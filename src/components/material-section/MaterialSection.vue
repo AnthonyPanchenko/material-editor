@@ -53,8 +53,8 @@ export default {
       selects,
       mProps,
       isOpen: false,
-      colorPickerName: '',
-      color: [70, 70, 220, 1],
+      currentColorPickerName: '',
+      colors: {},
       colorPickerTrigger: null,
       mapedMaterialsProps,
       selectOptions
@@ -67,11 +67,12 @@ export default {
     onClosePopover(name) {
       if (this.isOpen) {
         this.isOpen = false;
+        this.currentColorPickerName = '';
       }
     },
     onToggleColorPickerPopover(triggerRef, name) {
       this.colorPickerTrigger = triggerRef;
-      this.colorPickerName = name;
+      this.currentColorPickerName = name;
       this.isOpen = !this.isOpen;
     },
     onChangeColor(value, channel) {
@@ -88,14 +89,14 @@ export default {
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
     <item-name-row name="MeshBasicMaterial" />
 
-    <popover :isOpen="isOpen" :name="colorPickerName" :trigger="colorPickerTrigger" :onClose="onClosePopover">
-      <color-picker :name="colorPickerName" :color="color" :onChange="onChangeColor" />
+    <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
+      <color-picker :name="currentColorPickerName" :color="colors[currentColorPickerName]" :onChange="onChangeColor" />
     </popover>
 
     <div class="controls scroll-box">
       <div v-if="isDisplayedSection(mProps.COLOR)" class="row">
         <label class="label">Color</label>
-        <output-color-btn :name="mProps.COLOR" :onClick="onToggleColorPickerPopover" :color="color" />
+        <output-color-btn :name="mProps.COLOR" :onClick="onToggleColorPickerPopover" :color="colors[mProps.COLOR]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.ROUGHNESS)" class="row">
@@ -110,12 +111,12 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.EMISSIVE)" class="row">
         <label class="label">Emissive</label>
-        <output-color-btn :name="mProps.EMISSIVE" :onClick="onToggleColorPickerPopover" :color="color" />
+        <output-color-btn :name="mProps.EMISSIVE" :onClick="onToggleColorPickerPopover" :color="colors[mProps.EMISSIVE]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.SPECULAR)" class="row">
         <label class="label">Specular</label>
-        <output-color-btn :name="mProps.SPECULAR" :onClick="onToggleColorPickerPopover" :color="color" />
+        <output-color-btn :name="mProps.SPECULAR" :onClick="onToggleColorPickerPopover" :color="colors[mProps.SPECULAR]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.SHININESS)" class="row">

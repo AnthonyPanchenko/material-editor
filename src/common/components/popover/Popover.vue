@@ -33,7 +33,6 @@ const opositPositions = {
 export default {
   name: 'Popover',
   props: {
-    name: { type: String, default: '' },
     isOpen: { type: Boolean, default: false },
     position: { type: String, default: 'top' },
     closeByItselfClick: { type: Boolean, default: false },
@@ -191,10 +190,10 @@ export default {
 
       if (!this.closeByItselfClick && event) {
         if (this.popover && !this.popover.contains(event.target)) {
-          this.onClose(this.name);
+          this.onClose();
         }
       } else {
-        this.onClose(this.name);
+        this.onClose();
       }
     }
   },

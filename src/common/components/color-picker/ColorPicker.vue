@@ -10,7 +10,7 @@ import './color-picker.scss';
 export default {
   name: 'ColorPicker',
   props: {
-    name: String,
+    name: { type: String, default: '' },
     сolorMode: { type: String, default: 'RGB' },
     color: { type: Array, default: () => [70, 70, 220, 1] }, // R.G.B.A
     onChange: { type: Function, default: noop }

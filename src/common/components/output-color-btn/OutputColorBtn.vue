@@ -16,8 +16,8 @@ export default {
     };
   },
   methods: {
-    onButtonClick(event) {
-      this.onClick(this.buttonTrigger, this.name, this.color, event);
+    onButtonClick() {
+      this.onClick(this.buttonTrigger, this.name, this.color);
     }
   },
   mounted() {

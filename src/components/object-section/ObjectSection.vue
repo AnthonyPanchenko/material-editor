@@ -1,5 +1,8 @@
 <script>
+import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
+
+import oProps from '../../common/constants/object-properties';
 
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 import InputNumber from '../../common/components/input-number/InputNumber.vue';
@@ -8,6 +11,11 @@ import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 export default {
   name: 'ObjectSection',
   props: {
+    onApplyNewMaterialName: { type: Function, default: noop },
+    onChangePosition: { type: Function, default: noop },
+    onChangeRotation: { type: Function, default: noop },
+    onChangeScale: { type: Function, default: noop },
+    onChangeCheckBox: { type: Function, default: noop },
     object: { type: Object, default: emptyObject }
   },
   components: {
@@ -16,15 +24,9 @@ export default {
     CheckboxBtn
   },
   data() {
-    return {};
-  },
-  methods: {
-    onChangeNumberInput(value, name, min, max, step) {
-      console.log(value, name, min, max, step);
-    },
-    onChangeCheckBox(state, value, name) {
-      console.log(state, value, name);
-    }
+    return {
+      oProps
+    };
   }
 };
 </script>
@@ -33,47 +35,51 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <span class="title">BoxBufferGeometry</span>
+      <span class="title">{{ object[type] }}</span>
     </div>
 
-    <item-name-row name="Box" />
+    <item-name-row :name="object[name]" :onApply="onApplyNewObjectName" />
 
     <div class="controls scroll-box">
       <div class="row">
         <label class="label">Position</label>
-        <input-number prefix="X:" />
-        <input-number prefix="Y:" />
-        <input-number prefix="Z:" />
+        <input-number prefix="X:" :name="0" :value="object[oProps.POSITION][0]" :onChange="onChangePosition" />
+        <input-number prefix="Y:" :name="1" :value="object[oProps.POSITION][1]" :onChange="onChangePosition" />
+        <input-number prefix="Z:" :name="2" :value="object[oProps.POSITION][2]" :onChange="onChangePosition" />
       </div>
 
       <div class="row">
         <label class="label">Rotation</label>
-        <input-number prefix="X:" sufix="°" />
-        <input-number prefix="Y:" sufix="°" />
-        <input-number prefix="Z:" sufix="°" />
+        <input-number prefix="X:" sufix="°" :name="0" :value="object[oProps.ROTATION][0]" :onChange="onChangeRotation" />
+        <input-number prefix="Y:" sufix="°" :name="1" :value="object[oProps.ROTATION][1]" :onChange="onChangeRotation" />
+        <input-number prefix="Z:" sufix="°" :name="2" :value="object[oProps.ROTATION][2]" :onChange="onChangeRotation" />
       </div>
 
       <div class="row">
         <label class="label">Scale</label>
-        <input-number prefix="X:" />
-        <input-number prefix="Y:" />
-        <input-number prefix="Z:" />
-      </div>
-
-      <div class="row">
-        <label class="label">Shadow</label>
-        <checkbox-btn class="check-box" sufix="cast" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-        <checkbox-btn class="check-box" sufix="receive" name="n2ame31" value="value1" :onChange="onChangeCheckBox" />
-      </div>
-
-      <div class="row">
-        <label class="label">Visible</label>
-        <checkbox-btn name="visible" :checked="false" />
+        <input-number prefix="X:" :name="0" :value="object[oProps.SCALE][0]" :onChange="onChangeScale" />
+        <input-number prefix="Y:" :name="1" :value="object[oProps.SCALE][1]" :onChange="onChangeScale" />
+        <input-number prefix="Z:" :name="2" :value="object[oProps.SCALE][2]" :onChange="onChangeScale" />
       </div>
 
       <div class="row">
         <label class="label">Frustum Culled</label>
-        <checkbox-btn name="frustumCulled" :checked="false" />
+        <checkbox-btn :name="oProps.FRUSTUMCULLED" :checked="object[oProps.FRUSTUMCULLED]" :onChange="onChangeCheckBox" />
+      </div>
+
+      <div class="row">
+        <label class="label">Cast shadow</label>
+        <checkbox-btn :name="oProps.CASTSHADOW" :checked="object[oProps.CASTSHADOW]" :onChange="onChangeCheckBox" />
+      </div>
+
+      <div class="row">
+        <label class="label">Receive shadow</label>
+        <checkbox-btn :name="oProps.RECEIVESHADOW" :checked="object[oProps.RECEIVESHADOW]" :onChange="onChangeCheckBox" />
+      </div>
+
+      <div class="row">
+        <label class="label">Visible</label>
+        <checkbox-btn :name="oProps.VISIBLE" :checked="object[oProps.VISIBLE]" :onChange="onChangeCheckBox" />
       </div>
     </div>
   </div>

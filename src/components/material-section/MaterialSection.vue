@@ -24,12 +24,14 @@ export default {
   name: 'MaterialSection',
   props: {
     activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
+    onApplyNewMaterialName: { type: Function, default: noop },
     onSetActiveMaterialTypeId: { type: Function, default: noop },
     onOpenShadersEditor: { type: Function, default: noop },
     onAttachShaders: { type: Function, default: noop },
     onChangeSelect: { type: Function, default: noop },
     onChangeFileInput: { type: Function, default: noop },
     onChangeCheckBox: { type: Function, default: noop },
+    onChangeColor: { type: Function, default: noop },
     onChangeNumberInput: { type: Function, default: noop },
     material: { type: Object, default: emptyObject }
   },
@@ -54,7 +56,6 @@ export default {
       mProps,
       isOpen: false,
       currentColorPickerName: '',
-      colors: {},
       colorPickerTrigger: null,
       mapedMaterialsProps,
       selectOptions
@@ -74,11 +75,6 @@ export default {
       this.colorPickerTrigger = triggerRef;
       this.currentColorPickerName = name;
       this.isOpen = !this.isOpen;
-    },
-    onChangeColor(value, channel) {
-      this.color = value;
-      console.log(value);
-      console.log(channel);
     }
   }
 };
@@ -87,51 +83,51 @@ export default {
 <template>
   <div class="fieldset">
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
-    <item-name-row name="MeshBasicMaterial" />
+    <item-name-row :name="material[name]" :onApply="onApplyNewMaterialName" />
 
     <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
-      <color-picker :name="currentColorPickerName" :color="colors[currentColorPickerName]" :onChange="onChangeColor" />
+      <color-picker :name="currentColorPickerName" :color="material[currentColorPickerName]" :onChange="onChangeColor" />
     </popover>
 
     <div class="controls scroll-box">
       <div v-if="isDisplayedSection(mProps.COLOR)" class="row">
         <label class="label">Color</label>
-        <output-color-btn :name="mProps.COLOR" :onClick="onToggleColorPickerPopover" :color="colors[mProps.COLOR]" />
+        <output-color-btn :name="mProps.COLOR" :onClick="onToggleColorPickerPopover" :color="material[mProps.COLOR]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.ROUGHNESS)" class="row">
         <label class="label">Roughness</label>
-        <input-number :name="mProps.ROUGHNESS" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.ROUGHNESS]" :name="mProps.ROUGHNESS" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.METALNESS)" class="row">
         <label class="label">Metalness</label>
-        <input-number :name="mProps.METALNESS" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.METALNESS]" :name="mProps.METALNESS" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.EMISSIVE)" class="row">
         <label class="label">Emissive</label>
-        <output-color-btn :name="mProps.EMISSIVE" :onClick="onToggleColorPickerPopover" :color="colors[mProps.EMISSIVE]" />
+        <output-color-btn :name="mProps.EMISSIVE" :onClick="onToggleColorPickerPopover" :color="material[mProps.EMISSIVE]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.SPECULAR)" class="row">
         <label class="label">Specular</label>
-        <output-color-btn :name="mProps.SPECULAR" :onClick="onToggleColorPickerPopover" :color="colors[mProps.SPECULAR]" />
+        <output-color-btn :name="mProps.SPECULAR" :onClick="onToggleColorPickerPopover" :color="material[mProps.SPECULAR]" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.SHININESS)" class="row">
         <label class="label">Shininess</label>
-        <input-number :name="mProps.SHININESS" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.SHININESS]" :name="mProps.SHININESS" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.CLEARCOAT)" class="row">
         <label class="label">ClearCoat</label>
-        <input-number :name="mProps.CLEARCOAT" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.CLEARCOAT]" :name="mProps.CLEARCOAT" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.CLEARCOATROUGHNESS)" class="row">
         <label class="label">ClearCoat Roughness</label>
-        <input-number :name="mProps.CLEARCOATROUGHNESS" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.CLEARCOATROUGHNESS]" :name="mProps.CLEARCOATROUGHNESS" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.SHADERS)" class="row">
@@ -147,12 +143,12 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.SKINNING)" class="row">
         <label class="label">Skinning</label>
-        <checkbox-btn :name="mProps.SKINNING" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.SKINNING" :checked="material[mProps.SKINNING]" :onChange="onChangeCheckBox" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.MAP)" class="row">
         <label class="label">Map</label>
-        <checkbox-btn :name="mProps.MAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.MAP" :checked="material[mProps.MAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.MAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -160,7 +156,7 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.ALPHAMAP)" class="row">
         <label class="label">Alpha Map</label>
-        <checkbox-btn :name="mProps.ALPHAMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.ALPHAMAP" :checked="material[mProps.ALPHAMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.ALPHAMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -168,16 +164,16 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.BUMPMAP)" class="row">
         <label class="label">Bump Map</label>
-        <checkbox-btn :name="mProps.BUMPMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.BUMPMAP" :checked="material[mProps.BUMPMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.BUMPMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
-        <input-number :name="mProps.BUMPMAP" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.BUMPMAP]" :name="mProps.BUMPMAP" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.NORMALMAP)" class="row">
         <label class="label">Normal Map</label>
-        <checkbox-btn :name="mProps.NORMALMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.NORMALMAP" :checked="material[mProps.NORMALMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.NORMALMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -185,16 +181,16 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.DISPLACEMENTMAP)" class="row">
         <label class="label">Displacement Map</label>
-        <checkbox-btn :name="mProps.DISPLACEMENTMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.DISPLACEMENTMAP" :checked="material[mProps.DISPLACEMENTMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.DISPLACEMENTMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
-        <input-number :name="mProps.DISPLACEMENTMAP" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.DISPLACEMENTMAP]" :name="mProps.DISPLACEMENTMAP" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.ROUGHNESSMAP)" class="row">
         <label class="label">Roughness Map</label>
-        <checkbox-btn :name="mProps.ROUGHNESSMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.ROUGHNESSMAP" :checked="material[mProps.ROUGHNESSMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.ROUGHNESSMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -202,7 +198,7 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.METALNESSMAP)" class="row">
         <label class="label">Metalness Map</label>
-        <checkbox-btn :name="mProps.METALNESSMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.METALNESSMAP" :checked="material[mProps.METALNESSMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.METALNESSMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -210,7 +206,7 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.SPECULARMAP)" class="row">
         <label class="label">Specular Map</label>
-        <checkbox-btn :name="mProps.SPECULARMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.SPECULARMAP" :checked="material[mProps.SPECULARMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.SPECULARMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -218,16 +214,16 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.ENVMAP)" class="row">
         <label class="label">Env Map</label>
-        <checkbox-btn :name="mProps.ENVMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.ENVMAP" :checked="material[mProps.ENVMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.ENVMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
-        <input-number :name="mProps.ENVMAP" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.ENVMAP]" :name="mProps.ENVMAP" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.LIGHTMAP)" class="row">
         <label class="label">Light Map</label>
-        <checkbox-btn :name="mProps.LIGHTMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.LIGHTMAP" :checked="material[mProps.LIGHTMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.LIGHTMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -235,16 +231,16 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.AOMAP)" class="row">
         <label class="label">Ao Map</label>
-        <checkbox-btn :name="mProps.AOMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.AOMAP" :checked="material[mProps.AOMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.AOMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
-        <input-number :name="mProps.AOMAP" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.AOMAP]" :name="mProps.AOMAP" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.EMISSIVEMAP)" class="row">
         <label class="label">Emissive Map</label>
-        <checkbox-btn :name="mProps.EMISSIVEMAP" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.EMISSIVEMAP" :checked="material[mProps.EMISSIVEMAP]" :onChange="onChangeCheckBox" />
         <input-file :name="mProps.EMISSIVEMAP" :onChange="onChangeFileInput">
           <img-box />
         </input-file>
@@ -257,7 +253,7 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.FLATSHADING)" class="row">
         <label class="label">Flat Shaded</label>
-        <checkbox-btn :name="mProps.FLATSHADING" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.FLATSHADING" :checked="material[mProps.FLATSHADING]" :onChange="onChangeCheckBox" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.BLENDING)" class="row">
@@ -267,23 +263,22 @@ export default {
 
       <div v-if="isDisplayedSection(mProps.OPACITY)" class="row">
         <label class="label">Opacity</label>
-        <input-number :name="mProps.OPACITY" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.OPACITY]" :name="mProps.OPACITY" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.TRANSPARENT)" class="row">
         <label class="label">Transparent</label>
-        <checkbox-btn :name="mProps.TRANSPARENT" :checked="false" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="mProps.TRANSPARENT" :checked="material[mProps.TRANSPARENT]" :onChange="onChangeCheckBox" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.ALPHATEST)" class="row">
         <label class="label">Alpha Test</label>
-        <input-number :name="mProps.ALPHATEST" :onChange="onChangeNumberInput" />
+        <input-number :value="material[mProps.ALPHATEST]" :name="mProps.ALPHATEST" :onChange="onChangeNumberInput" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.WIREFRAME)" class="row">
         <label class="label">Wireframe</label>
-        <checkbox-btn :name="mProps.WIREFRAME" :checked="false" :onChange="onChangeCheckBox" />
-        <input-number :name="mProps.WIREFRAME" :onChange="onChangeNumberInput" />
+        <checkbox-btn :name="mProps.WIREFRAME" :checked="material[mProps.WIREFRAME]" :onChange="onChangeCheckBox" />
       </div>
     </div>
 

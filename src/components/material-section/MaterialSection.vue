@@ -83,7 +83,7 @@ export default {
 <template>
   <div class="fieldset">
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
-    <item-name-row :name="material[name]" :onApply="onApplyNewMaterialName" />
+    <item-name-row :name="material['name']" :onApply="onApplyNewMaterialName" />
 
     <popover v-if="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
       <color-picker :name="currentColorPickerName" :color="material[currentColorPickerName]" :onChange="onChangeColor" />

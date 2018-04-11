@@ -35,10 +35,10 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <span class="title">{{ object[type] }}</span>
+      <span class="title">{{ object['type'] }}</span>
     </div>
 
-    <item-name-row :name="object[name]" :onApply="onApplyNewObjectName" />
+    <item-name-row :name="object['name']" :onApply="onApplyNewObjectName" />
 
     <div class="controls scroll-box">
       <div class="row">

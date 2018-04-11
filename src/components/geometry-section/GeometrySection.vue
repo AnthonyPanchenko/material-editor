@@ -33,10 +33,10 @@ export default {
   <div class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
-      <span class="title">{{ geometry[type] }}</span>
+      <span class="title">{{ geometry['type'] }}</span>
     </div>
 
-    <item-name-row :name="geometry[name]" :onApply="onApplyNewGeometryName" />
+    <item-name-row :name="geometry['name']" :onApply="onApplyNewGeometryName" />
 
     <div class="controls scroll-box">
       <div class="row">

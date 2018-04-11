@@ -64,7 +64,6 @@ export default {
   methods: {
     getNewOrientation(position, currentOrientation) {
       const orientations = this.orientationsList[position];
-
       return orientations.indexOf(currentOrientation) !== -1 ? currentOrientation : orientations[0];
     },
     getNewPosition(bestFitPositions, position) {
@@ -143,7 +142,7 @@ export default {
       this.bestFitPositions.right = (window.innerWidth - (triggerOffsets.left + this.trigger.offsetWidth + this.popover.offsetWidth + this.triangle.offsetWidth)) >= 0;
       this.bestFitPositions.bottom = (window.innerHeight - (triggerOffsets.top + this.trigger.offsetHeight + this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
     },
-    observe() {
+    observePosition() {
       const triggerOffsets = getElementOffsets(this.trigger);
       this.observeBestFitPosition(triggerOffsets);
 
@@ -193,14 +192,13 @@ export default {
       }
     }
   },
-  updated() {
-    if (this.trigger && Object.keys(this.trigger).length) {
-      this.observe();
-    }
-  },
   mounted() {
     this.popover = this.$refs.popover;
     this.triangle = this.$refs.triangle;
+
+    if (this.trigger && Object.keys(this.trigger).length) {
+      this.observePosition();
+    }
 
     document.addEventListener('mousedown', this.onClosePopover);
   },

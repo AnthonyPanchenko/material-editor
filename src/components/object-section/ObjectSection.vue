@@ -11,7 +11,7 @@ import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 export default {
   name: 'ObjectSection',
   props: {
-    onApplyNewMaterialName: { type: Function, default: noop },
+    onApplyNewObjectName: { type: Function, default: noop },
     onChangePosition: { type: Function, default: noop },
     onChangeRotation: { type: Function, default: noop },
     onChangeScale: { type: Function, default: noop },
@@ -43,23 +43,23 @@ export default {
     <div class="controls scroll-box">
       <div class="row">
         <label class="label">Position</label>
-        <input-number prefix="X:" :name="0" :value="object[oProps.POSITION][0]" :onChange="onChangePosition" />
-        <input-number prefix="Y:" :name="1" :value="object[oProps.POSITION][1]" :onChange="onChangePosition" />
-        <input-number prefix="Z:" :name="2" :value="object[oProps.POSITION][2]" :onChange="onChangePosition" />
+        <input-number prefix="X:" :name="0" :value="object[oProps.POSITION] && object[oProps.POSITION][0] || 0" :onChange="onChangePosition" />
+        <input-number prefix="Y:" :name="1" :value="object[oProps.POSITION] && object[oProps.POSITION][1] || 0" :onChange="onChangePosition" />
+        <input-number prefix="Z:" :name="2" :value="object[oProps.POSITION] && object[oProps.POSITION][2] || 0" :onChange="onChangePosition" />
       </div>
 
       <div class="row">
         <label class="label">Rotation</label>
-        <input-number prefix="X:" sufix="°" :name="0" :value="object[oProps.ROTATION][0]" :onChange="onChangeRotation" />
-        <input-number prefix="Y:" sufix="°" :name="1" :value="object[oProps.ROTATION][1]" :onChange="onChangeRotation" />
-        <input-number prefix="Z:" sufix="°" :name="2" :value="object[oProps.ROTATION][2]" :onChange="onChangeRotation" />
+        <input-number prefix="X:" sufix="°" :name="0" :value="object[oProps.ROTATION] && object[oProps.ROTATION][0] || 0" :onChange="onChangeRotation" />
+        <input-number prefix="Y:" sufix="°" :name="1" :value="object[oProps.ROTATION] && object[oProps.ROTATION][1] || 0" :onChange="onChangeRotation" />
+        <input-number prefix="Z:" sufix="°" :name="2" :value="object[oProps.ROTATION] && object[oProps.ROTATION][2] || 0" :onChange="onChangeRotation" />
       </div>
 
       <div class="row">
         <label class="label">Scale</label>
-        <input-number prefix="X:" :name="0" :value="object[oProps.SCALE][0]" :onChange="onChangeScale" />
-        <input-number prefix="Y:" :name="1" :value="object[oProps.SCALE][1]" :onChange="onChangeScale" />
-        <input-number prefix="Z:" :name="2" :value="object[oProps.SCALE][2]" :onChange="onChangeScale" />
+        <input-number prefix="X:" :name="0" :value="object[oProps.SCALE] && object[oProps.SCALE][0] || 0" :onChange="onChangeScale" />
+        <input-number prefix="Y:" :name="1" :value="object[oProps.SCALE] && object[oProps.SCALE][1] || 0" :onChange="onChangeScale" />
+        <input-number prefix="Z:" :name="2" :value="object[oProps.SCALE] && object[oProps.SCALE][2] || 0" :onChange="onChangeScale" />
       </div>
 
       <div class="row">

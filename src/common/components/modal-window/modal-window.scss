@@ -24,7 +24,7 @@ $grab-resizer-dimension: 5px;
     justify-content: flex-start;
   }
 
-  .container {
+  .content {
     position: relative;
     background-color: #fafafa;
     box-shadow: 0 2px 14px 0 #000;
@@ -33,12 +33,6 @@ $grab-resizer-dimension: 5px;
 
     .header {
       cursor: move;
-      display: flex;
-      align-items: center;
-      flex: 1 0 $controls-row-height;
-      height: $controls-row-height;
-      background-color: $controls-row-bg;
-      border-bottom: 1px solid $content-border-color;
     }
 
     .top-left-corner {
@@ -114,7 +108,7 @@ $grab-resizer-dimension: 5px;
     }
   }
 
-  &.is-maximized .container {
+  &.is-maximized .content {
     left: 0;
     top: 0;
     bottom: 0;

@@ -7,9 +7,8 @@ export default {
   props: {
     isOverlay: { type: Boolean, default: true },
     isResizable: { type: Boolean, default: false },
-    isDraggable: { type: Boolean, default: false },
     isMaximized: { type: Boolean, default: false },
-    сloseByOverlayClick: { type: Boolean, default: true },
+    сloseByOverlayClick: { type: Boolean, default: false },
     onOverlayClose: { type: Function, default: noop },
     position: { type: String, default: 'center-center' }
   },
@@ -22,82 +21,97 @@ export default {
       initialHeight: 0,
       initialOffsetTop: 0,
       initialOffsetLeft: 0,
-      mouseDownClassName: '',
-      width: '700px',
-      height: '500px',
+      executedFunction: null,
+      width: '1024px',
+      height: '700px',
       left: '50px',
       top: '50px'
     };
   },
   methods: {
+    onDragModalWindow(event) {
+      this.left = `${event.pageX - (this.initialX - this.initialOffsetLeft)}px`;
+      this.top = `${event.pageY - (this.initialY - this.initialOffsetTop)}px`;
+    },
+    onResizeTopLeftCorner(event) {
+      this.left = `${event.pageX}px`;
+      this.top = `${event.pageY}px`;
+      this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
+      this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
+    },
+    onResizeTopRightCorner(event) {
+      this.top = `${event.pageY}px`;
+      this.width = `${event.pageX - this.contentBox.offsetLeft}px`;
+      this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
+    },
+    onResizeBottomLeftCorner(event) {
+      this.left = `${event.pageX}px`;
+      this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
+      this.height = `${event.pageY - this.contentBox.offsetTop}px`;
+    },
+    onResizeBottomRightCorner(event) {
+      this.width = `${event.pageX - this.contentBox.offsetLeft}px`;
+      this.height = `${event.pageY - this.contentBox.offsetTop}px`;
+    },
+    onResizeTopBorder(event) {
+      this.top = `${event.pageY}px`;
+      this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
+    },
+    onResizeLeftBorder(event) {
+      this.left = `${event.pageX}px`;
+      this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
+    },
+    onResizeRightBorder(event) {
+      this.width = `${event.pageX - this.contentBox.offsetLeft}px`;
+    },
+    onResizeBottomBorder(event) {
+      this.height = `${event.pageY - this.contentBox.offsetTop}px`;
+    },
     onCloseModalWindow() {
       if (this.сloseByOverlayClick) {
         this.onOverlayClose();
       }
     },
-    onMouseDown(event) {
-      if (this.container) {
-        this.mouseDownClassName = event.target.className;
-        this.initialOffsetLeft = this.container.offsetLeft;
-        this.initialOffsetTop = this.container.offsetTop;
-        this.initialWidth = this.container.clientWidth;
-        this.initialHeight = this.container.clientHeight;
+    getExecutedFunctionByClassName(className) {
+      if (className.indexOf('header') !== -1) {
+        return this.onDragModalWindow;
+      }
+
+      switch (className) {
+        case 'top-left-corner': return this.onResizeTopLeftCorner;
+        case 'top-right-corner': return this.onResizeTopRightCorner;
+        case 'bottom-left-corner': return this.onResizeBottomLeftCorner;
+        case 'bottom-right-corner': return this.onResizeBottomRightCorner;
+        case 'top-border': return this.onResizeTopBorder;
+        case 'left-border': return this.onResizeLeftBorder;
+        case 'right-border': return this.onResizeRightBorder;
+        case 'bottom-border': return this.onResizeBottomBorder;
+        default: return null;
+      }
+    },
+    onContentMouseDown(event) {
+      if (this.contentBox) {
+        this.executedFunction = this.getExecutedFunctionByClassName(event.target.className);
+        this.initialOffsetLeft = this.contentBox.offsetLeft;
+        this.initialOffsetTop = this.contentBox.offsetTop;
+        this.initialWidth = this.contentBox.clientWidth;
+        this.initialHeight = this.contentBox.clientHeight;
         this.initialX = event.pageX;
         this.initialY = event.pageY;
       }
     },
     onMouseMove(event) {
-      if (this.container) {
+      if (this.contentBox && this.executedFunction) {
         event.preventDefault();
-
-        switch (this.mouseDownClassName) {
-          case 'header':
-            this.left = `${event.pageX - (this.initialX - this.initialOffsetLeft)}px`;
-            this.top = `${event.pageY - (this.initialY - this.initialOffsetTop)}px`;
-            break;
-          case 'top-left-corner':
-            this.left = `${event.pageX}px`;
-            this.top = `${event.pageY}px`;
-            this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
-            this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
-            break;
-          case 'top-right-corner':
-            this.top = `${event.pageY}px`;
-            this.width = `${event.pageX - this.container.offsetLeft}px`;
-            this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
-            break;
-          case 'bottom-left-corner':
-            this.left = `${event.pageX}px`;
-            this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
-            this.height = `${event.pageY - this.container.offsetTop}px`;
-            break;
-          case 'bottom-right-corner':
-            this.width = `${event.pageX - this.container.offsetLeft}px`;
-            this.height = `${event.pageY - this.container.offsetTop}px`;
-            break;
-          case 'top-border':
-            this.top = `${event.pageY}px`;
-            this.height = `${this.initialHeight - (event.pageY - this.initialOffsetTop)}px`;
-            break;
-          case 'left-border':
-            this.left = `${event.pageX}px`;
-            this.width = `${this.initialWidth - (event.pageX - this.initialOffsetLeft)}px`;
-            break;
-          case 'right-border':
-            this.width = `${event.pageX - this.container.offsetLeft}px`;
-            break;
-          case 'bottom-border':
-            this.height = `${event.pageY - this.container.offsetTop}px`;
-            break;
-        }
+        this.executedFunction(event);
       }
     },
     onMouseUp() {
-      this.mouseDownClassName = '';
+      this.executedFunction = null;
     }
   },
   mounted() {
-    this.container = this.$refs.container;
+    this.contentBox = this.$refs.modalWindowContent;
     document.addEventListener('mousemove', this.onMouseMove);
     document.addEventListener('mouseup', this.onMouseUp);
   },
@@ -116,25 +130,23 @@ export default {
     >
       <div
         v-if="isResizable"
-        class="container"
-        ref="container"
+        class="content"
+        ref="modalWindowContent"
+        @mousedown="onContentMouseDown"
         :style="{ width: width, height: height, top: top, left: left }"
       >
-        <div class="top-left-corner" @mousedown="onMouseDown" />
-        <div class="top-right-corner" @mousedown="onMouseDown" />
-        <div class="top-border" @mousedown="onMouseDown" />
-        <div class="left-border" @mousedown="onMouseDown" />
-        <div v-if="isDraggable" class="header" @mousedown="onMouseDown">
-          <slot name="header">Header</slot>
-        </div>
+        <div class="top-left-corner" />
+        <div class="top-right-corner" />
+        <div class="top-border" />
+        <div class="left-border" />
         <slot>Content here</slot>
-        <div class="bottom-left-corner" @mousedown="onMouseDown" />
-        <div class="right-border" @mousedown="onMouseDown" />
-        <div class="bottom-border" @mousedown="onMouseDown" />
-        <div class="bottom-right-corner" @mousedown="onMouseDown" />
+        <div class="bottom-left-corner" />
+        <div class="right-border" />
+        <div class="bottom-border" />
+        <div class="bottom-right-corner" />
       </div>
 
-      <div v-else class="container">
+      <div v-else class="content">
         <slot>Content here</slot>
       </div>
     </div>

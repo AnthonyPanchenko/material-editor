@@ -81,7 +81,7 @@ export default {
 
 <template>
   <div class="base-layout">
-    <modal-window сloseByOverlayClick v-if="isOpenGallery" isDraggable isResizable :onOverlayClose="onToggleOpenGallery">
+    <modal-window v-if="isOpenGallery" isResizable :onOverlayClose="onToggleOpenGallery">
       <gallery :onClose="onToggleOpenGallery" />
     </modal-window>
 

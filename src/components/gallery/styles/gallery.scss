@@ -7,11 +7,15 @@
 
   .controls-section {
     border-right: 1px solid #555;
+    display: flex;
+    flex-direction: column;
     flex: 0 0 60%;
 
     .header {
+      border-bottom: 1px solid $content-border-color;
       justify-content: space-between;
       align-items: center;
+      flex: 0 0 auto;
 
       .back-btn {
         padding: 6px 12px 2px 0;
@@ -24,6 +28,8 @@
 
     .body {
       overflow: hidden;
+      display: flex;
+      flex: 1 0 auto;
 
       .list {
         padding: 5px;
@@ -37,13 +43,43 @@
       }
     }
 
-    .footer .input-text input {
-      padding-left: 10px;
+    .footer {
+      flex: 0 0 auto;
+      border-top: 1px solid $content-border-color;
+
+      .input-text input {
+        padding-left: 10px;
+      }
     }
   }
 
   .canvas-section {
+    display: flex;
+    flex-direction: column;
     overflow: hidden;
+    flex: 0 0 40%;
     border-left: 1px solid #555;
+
+    .body {
+      overflow: hidden;
+      flex-direction: row;
+      display: flex;
+      flex: 1 0 auto;
+
+      .canvas-box {
+        overflow: hidden;
+        flex: 1 1 100%;
+      }
+    }
+
+    .header {
+      flex: 0 0 auto;
+      border-bottom: 1px solid $content-border-color;
+    }
+
+    .footer {
+      flex: 0 0 auto;
+      border-top: 1px solid $content-border-color;
+    }
   }
 }

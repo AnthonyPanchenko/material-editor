@@ -110,7 +110,7 @@ export default {
   <div class='test'>
     <button type="button" @click="onToggleModalWindow">Btn</button>
 
-  <modal-window сloseByOverlayClick v-if="isOpen" isResizable :onOverlayClose="onOverlayClose">
+  <modal-window сloseByOverlayClick v-if="isOpen" isDraggable isResizable :onOverlayClose="onOverlayClose">
     modalwindow test
   </modal-window>
 

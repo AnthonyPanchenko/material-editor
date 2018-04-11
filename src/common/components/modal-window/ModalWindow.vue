@@ -16,6 +16,8 @@ export default {
   data() {
     return {
       container: null,
+      initialX: 0,
+      initialY: 0,
       initialWidth: 0,
       initialHeight: 0,
       initialOffsetTop: 0,
@@ -40,6 +42,8 @@ export default {
         this.initialOffsetTop = this.container.offsetTop;
         this.initialWidth = this.container.clientWidth;
         this.initialHeight = this.container.clientHeight;
+        this.initialX = event.pageX;
+        this.initialY = event.pageY;
       }
     },
     onMouseMove(event) {
@@ -47,6 +51,10 @@ export default {
         event.preventDefault();
 
         switch (this.mouseDownClassName) {
+          case 'header':
+            this.left = `${event.pageX - (this.initialX - this.initialOffsetLeft)}px`;
+            this.top = `${event.pageY - (this.initialY - this.initialOffsetTop)}px`;
+            break;
           case 'top-left-corner':
             this.left = `${event.pageX}px`;
             this.top = `${event.pageY}px`;

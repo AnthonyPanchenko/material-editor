@@ -26,12 +26,19 @@ $grab-resizer-dimension: 5px;
 
   .container {
     position: relative;
-    background-color: #fff;
+    background-color: #fafafa;
+    box-shadow: 0 2px 14px 0 #000;
     min-width: 300px;
     min-height: 80px;
 
     .header {
       cursor: move;
+      display: flex;
+      align-items: center;
+      flex: 1 0 $controls-row-height;
+      height: $controls-row-height;
+      background-color: $controls-row-bg;
+      border-bottom: 1px solid $content-border-color;
     }
 
     .top-left-corner {

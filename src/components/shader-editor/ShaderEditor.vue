@@ -2,6 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
+import noop from '../../common/utils/noop';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
@@ -13,6 +14,9 @@ import shadersTypes from '../../common/constants/shaders-types';
 
 export default {
   name: 'ShaderEditor',
+  props: {
+    onOpenMaterialEditor: { type: Function, default: noop }
+  },
   components: {
     ShaderControls,
     ResizeBox,
@@ -77,8 +81,7 @@ export default {
       <custom-btn iconClass="icon-undo" class="xs" />
       <custom-btn iconClass="icon-save" class="xs" />
       <custom-btn iconClass="icon-redo" class="xs" />
-      <custom-btn iconClass="icon-new-file" class="xs" :onClick="onOpenCreateNewMaterial" />
-      <custom-btn iconClass="icon-open-folder" class="xs" />
+      <custom-btn iconClass="icon-close" class="danger xs" :onClick="onOpenMaterialEditor" />
     </header>
 
     <section class="body">

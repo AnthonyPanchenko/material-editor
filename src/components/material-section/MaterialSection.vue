@@ -26,7 +26,7 @@ export default {
     activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
     onApplyNewMaterialName: { type: Function, default: noop },
     onSetActiveMaterialTypeId: { type: Function, default: noop },
-    onOpenShadersEditor: { type: Function, default: noop },
+    onOpenShaderEditor: { type: Function, default: noop },
     onAttachShaders: { type: Function, default: noop },
     onChangeSelect: { type: Function, default: noop },
     onChangeFileInput: { type: Function, default: noop },
@@ -133,7 +133,7 @@ export default {
       <div v-if="isDisplayedSection(mProps.SHADERS)" class="row">
         <label class="label">Shaders</label>
         <custom-btn title="Attach" iconClass="icon-plus" :onClick="onAttachShaders" class="success" />
-        <custom-btn title="Edit" iconClass="icon-pencil" :onClick="onOpenShadersEditor" class="primary" />
+        <custom-btn title="Edit" iconClass="icon-pencil" :onClick="onOpenShaderEditor" class="primary" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.VERTEXCOLORS)" class="row">

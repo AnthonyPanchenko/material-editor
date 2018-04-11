@@ -20,6 +20,7 @@ export default {
     currentObject: { type: Object, default: emptyObject },
     currentMaterial: { type: Object, default: emptyObject },
     currentGeometry: { type: Object, default: emptyObject },
+    onOpenShaderEditor: { type: Function, default: noop },
     onToggleOpenGallery: { type: Function, default: noop }
   },
   components: {
@@ -110,6 +111,7 @@ export default {
       />
       <material-section
         :material="currentMaterial"
+        :onOpenShaderEditor="onOpenShaderEditor"
         :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
         :activeMaterialTypeId="activeMaterialTypeId"
         v-if="activeSectionName === sections.MATERIAL"

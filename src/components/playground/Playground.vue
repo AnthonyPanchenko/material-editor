@@ -9,6 +9,7 @@ import transformationsModes from '../../common/constants/transformations-modes';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
+import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
@@ -21,6 +22,7 @@ import MaterialEditor from '../material-editor/MaterialEditor.vue';
 export default {
   name: 'Playground',
   components: {
+    ModalWindow,
     ParticlesEditor,
     MaterialEditor,
     LightingEditor,
@@ -54,6 +56,10 @@ export default {
     ...mapActions([
       'onToggleMeshesList',
       'onAddObjectToScene',
+      'onOpenShaderEditor',
+      'onOpenMaterialEditor',
+      'onOpenLightingEditor',
+      'onOpenParticlesEditor',
       'onSetTransformationMode',
       'onToggleOpenGallery'
     ]),
@@ -75,11 +81,12 @@ export default {
 
 <template>
   <div class="base-layout">
-    <transition name="fade">
-      <gallery v-if="isOpenGallery" :onClose="onToggleOpenGallery" />
-    </transition>
+    <modal-window сloseByOverlayClick v-if="isOpenGallery" isDraggable isResizable :onOverlayClose="onToggleOpenGallery">
+      <gallery :onClose="onToggleOpenGallery" />
+    </modal-window>
 
     <material-editor
+      :onOpenShaderEditor="onOpenShaderEditor"
       :onToggleOpenGallery="onToggleOpenGallery"
       :currentObject="objects[currentEditableIds.objectId] || {}"
       :currentMaterial="materials[currentEditableIds.materialId] || {}"
@@ -88,14 +95,17 @@ export default {
     />
 
     <shader-editor
+      :onOpenMaterialEditor="onOpenMaterialEditor"
       v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
     />
 
     <lighting-editor
+      :onOpenLightingEditor="onOpenLightingEditor"
       v-if="currentVisibleEditor === editorsNames.LIGHTING_EDITOR"
     />
 
     <particles-editor
+      :onOpenParticlesEditor="onOpenParticlesEditor"
       v-if="currentVisibleEditor === editorsNames.PARTICLES_EDITOR"
     />
 

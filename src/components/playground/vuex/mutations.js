@@ -7,6 +7,9 @@ const mutations = {
   [mutationTypes.ADD_OBJECT_TO_SCENE](state, type) {
     state.objectToScene = type;
   },
+  [mutationTypes.SET_ACTIVE_EDITOR_TYPE](state, type) {
+    state.currentVisibleEditor = type;
+  },
   [mutationTypes.TOGGLE_MESHES_LIST](state) {
     state.isVisibleMeshesList = !state.isVisibleMeshesList;
   },

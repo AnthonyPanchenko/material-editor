@@ -58,7 +58,7 @@ export default {
 
     <input-number :value="numberValue" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
-    <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
       <number-picker :value="numberValue" :step="step" :onChange="onChange" />
     </popover>
 

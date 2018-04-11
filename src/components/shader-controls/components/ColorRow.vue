@@ -63,7 +63,7 @@ export default {
     <input-number prefix="B" :name="2" :value="color[2]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
     <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputColorValue" v-if="type === 'vec4'" />
 
-    <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
       <color-picker :name="_id" :color="color" :onChange="onChange" />
     </popover>
 

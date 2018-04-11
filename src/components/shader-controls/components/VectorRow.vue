@@ -102,15 +102,15 @@ export default {
     <input-number prefix="Z" :name="2" :value="vector[2]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
     <input-number prefix="W" :name="3" :value="vector[3]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
-    <popover :isOpen="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
       <vec2-picker :name="_id" :vector="vector" :onChange="onChange" />
     </popover>
 
-    <popover :isOpen="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
       <vec3-picker :name="_id" :vector="vector" :onChange="onChange" />
     </popover>
 
-    <popover :isOpen="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
       <number-picker :name="_id" :value="vector[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
     </popover>
 

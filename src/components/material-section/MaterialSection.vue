@@ -85,7 +85,7 @@ export default {
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
     <item-name-row :name="material[name]" :onApply="onApplyNewMaterialName" />
 
-    <popover :isOpen="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
+    <popover v-if="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
       <color-picker :name="currentColorPickerName" :color="material[currentColorPickerName]" :onChange="onChangeColor" />
     </popover>
 

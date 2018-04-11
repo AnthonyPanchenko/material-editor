@@ -33,7 +33,6 @@ const opositPositions = {
 export default {
   name: 'Popover',
   props: {
-    isOpen: { type: Boolean, default: false },
     position: { type: String, default: 'top' },
     closeByItselfClick: { type: Boolean, default: false },
     onClose: { type: Function, default: noop },
@@ -145,9 +144,6 @@ export default {
       this.bestFitPositions.bottom = (window.innerHeight - (triggerOffsets.top + this.trigger.offsetHeight + this.popover.offsetHeight + this.triangle.offsetHeight)) >= 0;
     },
     observe() {
-      this.popover = this.$refs.popover;
-      this.triangle = this.$refs.triangle;
-
       const triggerOffsets = getElementOffsets(this.trigger);
       this.observeBestFitPosition(triggerOffsets);
 
@@ -198,22 +194,25 @@ export default {
     }
   },
   updated() {
-    if (this.isOpen && this.trigger && Object.keys(this.trigger).length) {
+    if (this.trigger && Object.keys(this.trigger).length) {
       this.observe();
     }
   },
   mounted() {
+    this.popover = this.$refs.popover;
+    this.triangle = this.$refs.triangle;
+
     document.addEventListener('mousedown', this.onClosePopover);
   },
   beforeDestroy() {
-    document.removeEventListener('mouseup', this.onClosePopover);
+    document.removeEventListener('mousedown', this.onClosePopover);
   }
 };
 </script>
 
 <template>
   <transition name="fade">
-    <div v-if="isOpen" class="popover" ref="popover">
+    <div class="popover" ref="popover">
       <span :class="['triangle', triangleClassName]" ref="triangle" />
       <slot>Content here</slot>
     </div>

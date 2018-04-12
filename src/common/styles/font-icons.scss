@@ -1,3 +1,47 @@
+.icon-gear:before {
+  content: "\e925";
+}
+
+.icon-pause:before {
+  content: "\e900";
+}
+
+.icon-play:before {
+  content: "\e951";
+}
+
+.icon-stop:before {
+  content: "\e952";
+}
+
+.icon-triangle-down:before {
+  content: "\e954";
+}
+
+.icon-triangle-left:before {
+  content: "\e955";
+}
+
+.icon-triangle-right:before {
+  content: "\e956";
+}
+
+.icon-triangle-up:before {
+  content: "\e957";
+}
+
+.icon-archive:before {
+  content: "\e922";
+}
+
+.icon-images:before {
+  content: "\e95a";
+}
+
+.icon-edit:before {
+  content: "\e95c";
+}
+
 .icon-assign-material:before {
   content: "\e901";
 }
@@ -126,24 +170,12 @@
   content: "\e920";
 }
 
-.icon-gallery:before {
-  content: "\e921";
-}
-
-.icon-gear:before {
-  content: "\e922";
-}
-
 .icon-history:before {
   content: "\e923";
 }
 
 .icon-image:before {
   content: "\e924";
-}
-
-.icon-image-gallery:before {
-  content: "\e925";
 }
 
 .icon-import:before {
@@ -162,7 +194,7 @@
   content: "\e929";
 }
 
-.icon-material-editor:before {
+.icon-editor:before {
   content: "\e92a";
 }
 
@@ -240,10 +272,6 @@
 
 .icon-settings:before {
   content: "\e93d";
-}
-
-.icon-shader-editor:before {
-  content: "\e93e";
 }
 
 .icon-sphere:before {

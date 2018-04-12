@@ -97,7 +97,7 @@ export default {
         :data="sections.MATERIAL"
         :onClick="onSetActiveSectionName"
       />
-      <custom-btn iconClass="icon-gallery" :onClick="onToggleOpenGallery" class="xs" />
+      <custom-btn iconClass="icon-archive" :onClick="onToggleOpenGallery" class="xs" />
     </header>
 
     <section class="body">

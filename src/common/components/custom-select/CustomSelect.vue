@@ -10,6 +10,7 @@ export default {
     name: String,
     onChange: { type: Function, default: noop },
     selectedOptionId: { type: String, default: '' },
+    isDropDownBtn: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     options: { type: Array, default: emptyArray }
@@ -63,7 +64,7 @@ export default {
 
         this.optionsListElement.style.top = `${optionsLisTopOffset}px`;
         this.optionsListElement.style.left = `${triggerOffsets.left}px`;
-        this.optionsListElement.style.width = `${this.triggerSelect.offsetWidth}px`;
+        this.optionsListElement.style.minWidth = `${this.triggerSelect.offsetWidth}px`;
         this.optionsListElement.style.height = this.getOptionsLisHeight(optionsLisTopOffset);
       }
     },
@@ -157,6 +158,7 @@ export default {
     @keyup.enter="onEnterClick"
     ref="triggerSelect"
   >
+
     <span class="option-name">{{ selectedOption.title }}</span>
     <i class="icon-select-arrows" />
 

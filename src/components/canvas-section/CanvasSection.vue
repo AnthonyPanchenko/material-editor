@@ -27,10 +27,10 @@ export default {
       this.baseScene.controls.transformControls.setMode(mode);
     },
     objectToScene(type) {
-      const geometry = getObjectByType(type);
+      const obj = getObjectByType(type);
 
-      if (geometry) {
-        this.baseScene.addMesh(geometry);
+      if (obj) {
+        this.baseScene.addMesh(obj);
       }
     }
   },

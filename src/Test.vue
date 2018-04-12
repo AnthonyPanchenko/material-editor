@@ -1,5 +1,4 @@
 <script>
-// import { normalize, schema } from 'normalizr';
 import ModalWindow from './common/components/modal-window/ModalWindow.vue';
 
 export default {

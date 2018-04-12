@@ -2,7 +2,7 @@
 import emptyObject from '../../common/utils/emptyObject';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import BaseScene from './utils/BaseScene';
-import { getBasicGeometryByType } from './utils/base-scene-helper';
+import { getObjectByType } from './utils/base-scene-helper';
 
 export default {
   name: 'CanvasSection',
@@ -27,8 +27,11 @@ export default {
       this.baseScene.controls.transformControls.setMode(mode);
     },
     objectToScene(type) {
-      const geometry = getBasicGeometryByType(type);
-      this.baseScene.addMesh(geometry);
+      const geometry = getObjectByType(type);
+
+      if (geometry) {
+        this.baseScene.addMesh(geometry);
+      }
     }
   },
   methods: {

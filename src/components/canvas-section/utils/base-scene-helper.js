@@ -2,25 +2,37 @@ import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
 import 'three/examples/js/controls/TransformControls';
 
+import geometryTypes from '../../../common/constants/geometry-types';
+import lightingTypes from '../../../common/constants/lighting-types';
 import objectTypes from '../../../common/constants/object-types';
 
 // window.THREE = THREE;
 
-export const getBasicGeometryByType = (type) => {
+export const getObjectByType = (type) => {
   switch (type) {
-    case objectTypes.SPHERE:
+    case lightingTypes.POINTLIGHT:
+      return new THREE.PointLight(0xff0000, 1, 100);
+    case lightingTypes.SPOTLIGHT:
+      return new THREE.SpotLight(0xffffff);
+    case lightingTypes.DIRECTIONALLIGHT:
+      return new THREE.DirectionalLight(0xffffff, 0.5);
+    case lightingTypes.HEMISPHERELIGHT:
+      return new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
+    case lightingTypes.AMBIENTLIGHT:
+      return new THREE.AmbientLight(0x404040);
+    case geometryTypes.SPHERE:
       return new THREE.SphereGeometry(3.5, 15, 15);
-    case objectTypes.CUBE:
+    case geometryTypes.BOX:
       return new THREE.BoxGeometry(5, 5, 5);
-    case objectTypes.CYLINDER:
+    case geometryTypes.CYLINDER:
       return new THREE.CylinderGeometry(2, 2, 15, 20);
-    case objectTypes.TORUS:
+    case geometryTypes.TORUS:
       return new THREE.TorusGeometry(5, 1.5, 16, 35);
-    case objectTypes.PLANE:
+    case geometryTypes.PLANE:
       return new THREE.PlaneGeometry(12, 12);
-    case objectTypes.LIGHT:
+    case objectTypes.MESH:
     case objectTypes.PARTICLES_EMITTER:
-      return new THREE.TorusGeometry(5, 1.5, 16, 35);
+      return null;
     default:
       return null;
   }

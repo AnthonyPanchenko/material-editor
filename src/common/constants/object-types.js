@@ -1,11 +1,6 @@
 const objectTypes = {
-  CUBE: 'CUBE',
-  PLANE: 'PLANE',
-  TORUS: 'TORUS',
-  LIGHT: 'LIGHT',
-  SPHERE: 'SPHERE',
-  CYLINDER: 'CYLINDER',
-  PARTICLES_EMITTER: 'PARTICLES_EMITTER'
+  MESH: 'Mesh',
+  PARTICLES_EMITTER: 'ParticlesEmitter'
 };
 
 export default objectTypes;

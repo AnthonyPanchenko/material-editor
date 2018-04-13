@@ -10,7 +10,6 @@ export default {
     name: String,
     onChange: { type: Function, default: noop },
     selectedOptionId: { type: String, default: '' },
-    isDropDownBtn: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     options: { type: Array, default: emptyArray }
@@ -18,12 +17,12 @@ export default {
   data() {
     return {
       optionsListElement: null,
-      initIndexOfSelectedOption: 0,
-      indexOfSelectedOption: 0,
+      initIndexOfSelectedOption: this.selectedOptionId ? 0 : undefined,
+      indexOfSelectedOption: this.selectedOptionId ? 0 : undefined,
       optionsListLength: this.options.length,
       triggerSelect: null,
       isOpen: false,
-      selectedOption: this.options[0] || { id: '', title: '...' }
+      selectedOption: this.selectedOptionId ? this.options[0] || { id: '', title: '...' } : {}
     };
   },
   methods: {
@@ -78,8 +77,12 @@ export default {
       }
     },
     onOptionClick(event) {
-      this.setSelectedOption(event.target.dataset.id)
+      if (this.selectedOptionId) {
+        this.setSelectedOption(event.target.dataset.id);
+      }
+
       this.onChange(this.selectedOption, this.name);
+      this.isOpen = false;
     },
     onUpDown(event) {
       // up
@@ -159,8 +162,10 @@ export default {
     ref="triggerSelect"
   >
 
-    <span class="option-name">{{ selectedOption.title }}</span>
-    <i class="icon-select-arrows" />
+    <slot>
+      <span class="option-name">{{ selectedOption.title }}</span>
+      <i class="icon-select-arrows" />
+    </slot>
 
     <transition name="fade">
       <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement">

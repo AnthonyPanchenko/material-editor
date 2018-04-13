@@ -6,10 +6,13 @@ import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
 
+import { selectOptions } from '../../common/constants/lighting-types';
+
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
+import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
 
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
@@ -23,6 +26,7 @@ export default {
   name: 'Playground',
   components: {
     ModalWindow,
+    CustomSelect,
     ParticlesEditor,
     MaterialEditor,
     LightingEditor,
@@ -36,6 +40,7 @@ export default {
   },
   data() {
     return {
+      selectOptions,
       editorsNames,
       objectTypes,
       transformationsModes
@@ -148,9 +153,14 @@ export default {
         />
 
         <custom-btn iconClass="icon-emitter" :data="objectTypes.PARTICLES_EMITTER" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-bulb-on" :data="objectTypes.LIGHT" :onClick="onAddObjectToScene" />
+
+        <custom-select :options="selectOptions" :onChange="onAddObjectToScene">
+          <custom-btn iconClass="icon-bulb-on" />
+          <i class="icon-triangle-down" />
+        </custom-select>
+
         <custom-btn iconClass="icon-sphere" :data="objectTypes.SPHERE" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-cube" :data="objectTypes.CUBE" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-cube" :data="objectTypes.BOX" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-cylinder" :data="objectTypes.CYLINDER" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-torus" :data="objectTypes.TORUS" :onClick="onAddObjectToScene" />
         <custom-btn iconClass="icon-plane" :data="objectTypes.PLANE" :onClick="onAddObjectToScene" />

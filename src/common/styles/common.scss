@@ -65,6 +65,28 @@ i[class*=" icon-"] {
   }
 }
 
+.dropdown-btn {
+  cursor: pointer;
+  width: 100%;
+  position: relative;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  font-size: 16px;
+
+  .icon-triangle-down {
+    font-size: 12px;
+    position: absolute;
+    right: 0;
+    opacity: 0.39;
+    top: 3px;
+    padding: 5px 0 5px 4px;
+    bottom: 3px;
+    border-left: 1px solid #7d7777;
+  }
+}
+
 .ctrl-inp {
   &:focus {
     outline: none;

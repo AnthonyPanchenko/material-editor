@@ -19,6 +19,27 @@ $select-bg-hover-color: rgba(121, 136, 185, 0.14);
   justify-content: space-between;
   align-items: center;
 
+  &:hover {
+    background-color: $ctrl-btn-default-hover-bg-color;
+    color: $ctrl-btn-default-hover-color;
+  }
+
+  &.xs {
+    flex: 0 0 110px;
+  }
+
+  &.sm {
+    flex: 0 0 160px;
+  }
+
+  &.md {
+    flex: 0 0 210px;
+  }
+
+  &.lg {
+    flex: 0 0 260px;
+  }
+
   .option-name {
     cursor: inherit;
     white-space: nowrap;
@@ -49,8 +70,12 @@ $select-bg-hover-color: rgba(121, 136, 185, 0.14);
       overflow: hidden;
       white-space: nowrap;
       text-overflow: ellipsis;
-      padding: 5px;
+      padding: 7px;
       border-bottom: 1px solid #575757;
+
+      &:first-child {
+        border-top: 1px solid #575757;
+      }
 
       &:hover {
         background-color: $select-bg-hover-color;

@@ -5,7 +5,6 @@ import noop from '../../common/utils/noop';
 
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputText from '../../common/components/input-text/InputText.vue';
-import CanvasSection from '../canvas-section/CanvasSection.vue';
 import GalleryItem from './components/GalleryItem.vue';
 
 import './styles/gallery.scss';
@@ -26,7 +25,6 @@ export default {
   components: {
     InputText,
     GalleryItem,
-    CanvasSection,
     CustomBtn
   },
   data() {
@@ -93,14 +91,22 @@ export default {
       <div v-else class="footer controls-row" />
     </section>
 
-    <canvas-section>
-      <div slot="header" class="header controls-row">
+    <section class="container canvas-section">
+      <div class="header controls-row">
         <custom-btn iconClass="icon-sphere" />
         <custom-btn iconClass="icon-cube" />
         <custom-btn iconClass="icon-cylinder" />
         <custom-btn iconClass="icon-torus" />
         <custom-btn iconClass="icon-plane" />
       </div>
-    </canvas-section>
+
+      <div class="body">
+        <div ref="canvasBox" class="canvas-box" />
+      </div>
+
+      <div class="footer controls-row">
+        <span class="label fps">FPS 60</span>
+      </div>
+    </section>
   </div>
 </template>

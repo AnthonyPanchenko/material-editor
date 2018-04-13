@@ -1,6 +1,6 @@
 import * as THREE from 'three';
 
-import noop from '../../../common/utils/noop';
+import noop from './noop';
 import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';

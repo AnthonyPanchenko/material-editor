@@ -4,9 +4,6 @@ const mutations = {
   [mutationTypes.SET_TRANSFORMATION_MODE](state, transformationMode) {
     state.transformationMode = transformationMode;
   },
-  [mutationTypes.ADD_OBJECT_TO_SCENE](state, type) {
-    state.objectToScene = type;
-  },
   [mutationTypes.SET_ACTIVE_EDITOR_TYPE](state, type) {
     state.currentVisibleEditor = type;
   },

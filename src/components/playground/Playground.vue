@@ -2,6 +2,10 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
+import BaseScene from '../../common/utils/BaseScene';
+import { getGeometryByType } from '../../common/utils/base-scene-helper';
+
+import geometryTypes from '../../common/constants/geometry-types';
 import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
@@ -17,7 +21,6 @@ import CustomSelect from '../../common/components/custom-select/CustomSelect.vue
 import Gallery from '../gallery/Gallery.vue';
 import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
-import CanvasSection from '../canvas-section/CanvasSection.vue';
 import LightingEditor from '../lighting-editor/LightingEditor.vue';
 import ParticlesEditor from '../particles-editor/ParticlesEditor.vue';
 import MaterialEditor from '../material-editor/MaterialEditor.vue';
@@ -30,7 +33,6 @@ export default {
     ParticlesEditor,
     MaterialEditor,
     LightingEditor,
-    CanvasSection,
     ShaderEditor,
     MeshesList,
     InputFile,
@@ -40,9 +42,11 @@ export default {
   },
   data() {
     return {
+      baseScene: {},
       selectOptions,
       editorsNames,
       objectTypes,
+      geometryTypes,
       transformationsModes
     };
   },
@@ -50,7 +54,6 @@ export default {
     'objects',
     'materials',
     'geometries',
-    'objectToScene',
     'currentEditableIds',
     'transformationMode',
     'isVisibleMeshesList',
@@ -60,26 +63,61 @@ export default {
   methods: {
     ...mapActions([
       'onToggleMeshesList',
-      'onAddObjectToScene',
       'onOpenShaderEditor',
       'onOpenMaterialEditor',
       'onOpenLightingEditor',
-      'onOpenParticlesEditor',
       'onSetTransformationMode',
+      'onOpenParticlesEditor',
       'onToggleOpenGallery'
     ]),
-    onChangeSelect(selectedValue, name) {
-      console.log(selectedValue);
-      console.log(name);
+    setTransformationMode(mode) {
+      this.onSetTransformationMode(mode);
+      this.baseScene.controls.transformControls.setMode(mode);
     },
-    onChangeFileInput(file) {
-      console.log(file);
+    onAddParticlesEmitterToScene() {
+      console.log('onAddParticlesEmitterToScene');
     },
-    onChangeCheckBox(state, value, name) {
-      console.log(state);
-      console.log(value);
-      console.log(name);
+    addGeometryToScene(type) {
+      const geometry = getGeometryByType(type);
+      if (geometry) {
+        this.baseScene.addMesh(geometry);
+      }
+    },
+    removeMeshByUuid(uuid) {
+      this.baseScene.removeMesh(uuid);
+    },
+    selectMeshInSceneCallback(mesh) {
+      console.log(mesh);
+      // mesh.material.wireframe = true;
+    },
+    deselectMeshInSceneCallback() {
+      console.log('deselectMesh');
+    },
+    addCustomMeshToScene() {
+      // const geometry = null;
+      // const json = this.baseScene.addMesh(geometry);
+    },
+    onAddObjectToScene(type) {
+      console.log(type);
+    },
+    onSelectLightingType(val) {
+      this.onAddObjectToScene(val.id);
     }
+  },
+  mounted() {
+    const canvasBox = this.$refs.canvasBox;
+
+    this.baseScene = new BaseScene(
+      canvasBox.clientWidth,
+      canvasBox.clientHeight,
+      this.selectMeshInSceneCallback,
+      this.deselectMeshInSceneCallback
+    );
+
+    this.baseScene.init(canvasBox);
+  },
+  beforeDestroy() {
+    this.baseScene.removeEventListeners();
   }
 };
 </script>
@@ -114,15 +152,8 @@ export default {
       v-if="currentVisibleEditor === editorsNames.PARTICLES_EDITOR"
     />
 
-    <canvas-section
-      :objects="objects"
-      :materials="materials"
-      :geometrys="geometries"
-      :objectToScene="objectToScene"
-      :transformationMode="transformationMode"
-      :currentEditableIds="currentEditableIds"
-    >
-      <div slot="header" class="header controls-row">
+    <section class="container canvas-section">
+      <div class="header controls-row">
         <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
 
         <custom-btn
@@ -131,7 +162,7 @@ export default {
           iconClass="icon-move"
           :active="transformationMode === transformationsModes.TRANSLATE"
           :data="transformationsModes.TRANSLATE"
-          :onClick="onSetTransformationMode"
+          :onClick="setTransformationMode"
         />
 
         <custom-btn
@@ -140,7 +171,7 @@ export default {
           iconClass="icon-rotate"
           :active="transformationMode === transformationsModes.ROTATE"
           :data="transformationsModes.ROTATE"
-          :onClick="onSetTransformationMode"
+          :onClick="setTransformationMode"
         />
 
         <custom-btn
@@ -149,27 +180,35 @@ export default {
           iconClass="icon-scale"
           :active="transformationMode === transformationsModes.SCALE"
           :data="transformationsModes.SCALE"
-          :onClick="onSetTransformationMode"
+          :onClick="setTransformationMode"
         />
 
-        <custom-btn iconClass="icon-emitter" :data="objectTypes.PARTICLES_EMITTER" :onClick="onAddObjectToScene" />
-
-        <custom-select :options="selectOptions" :onChange="onAddObjectToScene">
-          <custom-btn iconClass="icon-bulb-on" />
-          <i class="icon-triangle-down" />
+        <custom-select isDropDownBtn :options="selectOptions" :onChange="onSelectLightingType" class="xs">
+          <span class="dropdown-btn">
+            <i class="icon-bulb-on" />
+            <i class="icon-triangle-down" />
+          </span>
         </custom-select>
 
-        <custom-btn iconClass="icon-sphere" :data="objectTypes.SPHERE" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-cube" :data="objectTypes.BOX" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-cylinder" :data="objectTypes.CYLINDER" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-torus" :data="objectTypes.TORUS" :onClick="onAddObjectToScene" />
-        <custom-btn iconClass="icon-plane" :data="objectTypes.PLANE" :onClick="onAddObjectToScene" />
+        <custom-btn iconClass="icon-emitter" :onClick="onAddParticlesEmitterToScene" />
+        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-cube" :data="geometryTypes.BOX" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="addGeometryToScene" />
         <input-file name="file1" />
       </div>
 
-      <transition slot="sidebar" name="slide-meshes-list">
-        <meshes-list v-show="isVisibleMeshesList" />
-      </transition>
-    </canvas-section>
+      <div class="body">
+        <transition slot="sidebar" name="slide-meshes-list">
+          <meshes-list v-show="isVisibleMeshesList" />
+        </transition>
+        <div ref="canvasBox" class="canvas-box" />
+      </div>
+
+      <div class="footer controls-row">
+        <span class="label fps">FPS 60</span>
+      </div>
+    </section>
   </div>
 </template>

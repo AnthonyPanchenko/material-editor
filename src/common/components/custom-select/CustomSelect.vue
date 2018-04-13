@@ -10,6 +10,7 @@ export default {
     name: String,
     onChange: { type: Function, default: noop },
     selectedOptionId: { type: String, default: '' },
+    isDropDownBtn: { type: Boolean, default: false },
     disabled: { type: Boolean, default: false },
     readonly: { type: Boolean, default: false },
     options: { type: Array, default: emptyArray }
@@ -17,12 +18,12 @@ export default {
   data() {
     return {
       optionsListElement: null,
-      initIndexOfSelectedOption: this.selectedOptionId ? 0 : undefined,
-      indexOfSelectedOption: this.selectedOptionId ? 0 : undefined,
+      initIndexOfSelectedOption: 0,
+      indexOfSelectedOption: 0,
       optionsListLength: this.options.length,
       triggerSelect: null,
       isOpen: false,
-      selectedOption: this.selectedOptionId ? this.options[0] || { id: '', title: '...' } : {}
+      selectedOption: this.options[0] || { id: '', title: '...' }
     };
   },
   methods: {
@@ -41,16 +42,14 @@ export default {
       return 'auto';
     },
     getTopOffsetByPlacement(triggerOffsets, placement) {
-      if (placement === 'top') {
-        return triggerOffsets.top - this.optionsListElement.offsetHeight;
+      if (placement === 'bottom') {
+        return triggerOffsets.top + this.triggerSelect.offsetHeight;
       }
 
-      return triggerOffsets.top + this.triggerSelect.offsetHeight; // placement === 'bottom'
+      return triggerOffsets.top - this.optionsListElement.offsetHeight;
     },
     getBestFitPlacement(triggerOffsets) {
-      const top = (triggerOffsets.top - this.optionsListElement.offsetHeight) >= 0;
-
-      return top ? 'top' : 'bottom';
+      return (window.innerHeight - (this.triggerSelect.offsetHeight + triggerOffsets.top + this.optionsListElement.offsetHeight)) >= 0 ? 'bottom' : 'top';
     },
     observe() {
       if (this.isOpen) {
@@ -77,12 +76,8 @@ export default {
       }
     },
     onOptionClick(event) {
-      if (this.selectedOptionId) {
-        this.setSelectedOption(event.target.dataset.id);
-      }
-
+      this.setSelectedOption(event.target.dataset.id);
       this.onChange(this.selectedOption, this.name);
-      this.isOpen = false;
     },
     onUpDown(event) {
       // up
@@ -174,7 +169,7 @@ export default {
           :key="option.id"
           :data-id="option.id"
           @click="onOptionClick"
-          :class="['option', { 'selected': index === indexOfSelectedOption }]"
+          :class="['option', { 'selected': index === indexOfSelectedOption && !isDropDownBtn }]"
         >
           {{ option.title }}
         </li>

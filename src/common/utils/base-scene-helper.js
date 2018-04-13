@@ -2,13 +2,29 @@ import * as THREE from 'three';
 import 'three/examples/js/controls/OrbitControls';
 import 'three/examples/js/controls/TransformControls';
 
-import geometryTypes from '../../../common/constants/geometry-types';
-import lightingTypes from '../../../common/constants/lighting-types';
-import objectTypes from '../../../common/constants/object-types';
+import geometryTypes from '../constants/geometry-types';
+import lightingTypes from '../constants/lighting-types';
 
 // window.THREE = THREE;
 
-export const getObjectByType = (type) => {
+export const getGeometryByType = (type) => {
+  switch (type) {
+    case geometryTypes.SPHERE:
+      return new THREE.SphereGeometry(3.5, 15, 15);
+    case geometryTypes.BOX:
+      return new THREE.BoxGeometry(5, 5, 5);
+    case geometryTypes.CYLINDER:
+      return new THREE.CylinderGeometry(2, 2, 15, 20);
+    case geometryTypes.TORUS:
+      return new THREE.TorusGeometry(5, 1.5, 16, 35);
+    case geometryTypes.PLANE:
+      return new THREE.PlaneGeometry(12, 12);
+    default:
+      return null;
+  }
+};
+
+export const getLightingByType = (type) => {
   switch (type) {
     case lightingTypes.POINTLIGHT:
       return new THREE.PointLight(0xff0000, 1, 100);
@@ -20,19 +36,21 @@ export const getObjectByType = (type) => {
       return new THREE.HemisphereLight(0xffffbb, 0x080820, 1);
     case lightingTypes.AMBIENTLIGHT:
       return new THREE.AmbientLight(0x404040);
-    case geometryTypes.SPHERE:
-      return new THREE.SphereGeometry(3.5, 15, 15);
-    case geometryTypes.BOX:
-      return new THREE.BoxGeometry(5, 5, 5);
-    case geometryTypes.CYLINDER:
-      return new THREE.CylinderGeometry(2, 2, 15, 20);
-    case geometryTypes.TORUS:
-      return new THREE.TorusGeometry(5, 1.5, 16, 35);
-    case geometryTypes.PLANE:
-      return new THREE.PlaneGeometry(12, 12);
-    case objectTypes.MESH:
-    case objectTypes.PARTICLES_EMITTER:
+    default:
       return null;
+  }
+};
+
+export const getLightingHelperByType = (type, lighting) => {
+  switch (type) {
+    case lightingTypes.POINTLIGHT:
+      return new THREE.PointLightHelper(lighting, 1);
+    case lightingTypes.SPOTLIGHT:
+      return new THREE.SpotLightHelper(lighting);
+    case lightingTypes.DIRECTIONALLIGHT:
+      return new THREE.DirectionalLightHelper(lighting, 5);
+    case lightingTypes.HEMISPHERELIGHT:
+      return new THREE.HemisphereLightHelper(lighting, 5);
     default:
       return null;
   }
@@ -62,6 +80,7 @@ export const createControls = (camera, renderer) => {
   const orbitControls = new THREE.OrbitControls(camera, renderer.domElement);
   // orbitControls.maxPolarAngle = 0.9 * Math.PI / 2;
   orbitControls.enableZoom = true;
+  orbitControls.enableKeys = false;
 
   return {
     transformControls,

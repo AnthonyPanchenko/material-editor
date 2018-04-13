@@ -2,7 +2,7 @@
 import emptyObject from '../../common/utils/emptyObject';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import BaseScene from './utils/BaseScene';
-import { getObjectByType } from './utils/base-scene-helper';
+import { getGeometryByType } from './utils/base-scene-helper';
 
 export default {
   name: 'CanvasSection',
@@ -10,9 +10,10 @@ export default {
     objects: { type: Object, default: emptyObject },
     materials: { type: Object, default: emptyObject },
     geometrys: { type: Object, default: emptyObject },
-    currentEditableIds: { type: Object, default: emptyObject },
-    transformationMode: { type: String, default: '' },
-    objectToScene: { type: String, default: '' }
+    customGeometry
+    basicGeometry
+    particleEmiter
+    currentEditableIds: { type: Object, default: emptyObject }
   },
   components: {
     CustomBtn
@@ -27,10 +28,9 @@ export default {
       this.baseScene.controls.transformControls.setMode(mode);
     },
     objectToScene(type) {
-      const obj = getObjectByType(type);
-
-      if (obj) {
-        this.baseScene.addMesh(obj);
+      const geometry = getGeometryByType(type);
+      if (geometry) {
+        this.baseScene.addMesh(geometry);
       }
     }
   },

@@ -3,7 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
 
 import BaseScene from '../../common/utils/BaseScene';
-import { getGeometryByType } from '../../common/utils/base-scene-helper';
+import { getGeometryByType, getLightingByType, getLightingHelperByType } from '../../common/utils/base-scene-helper';
 
 import geometryTypes from '../../common/constants/geometry-types';
 import objectTypes from '../../common/constants/object-types';
@@ -74,8 +74,8 @@ export default {
       this.onSetTransformationMode(mode);
       this.baseScene.controls.transformControls.setMode(mode);
     },
-    onAddParticlesEmitterToScene() {
-      console.log('onAddParticlesEmitterToScene');
+    addParticlesEmitterToScene() {
+      console.log('addParticlesEmitterToScene');
     },
     addGeometryToScene(type) {
       const geometry = getGeometryByType(type);
@@ -97,11 +97,11 @@ export default {
       // const geometry = null;
       // const json = this.baseScene.addMesh(geometry);
     },
-    onAddObjectToScene(type) {
-      console.log(type);
-    },
-    onSelectLightingType(val) {
-      this.onAddObjectToScene(val.id);
+    addLightingToScene(val) {
+      const lighting = getLightingByType(val.id);
+      if (lighting) {
+        this.baseScene.addLighting(lighting, getLightingHelperByType(val.id, lighting));
+      }
     }
   },
   mounted() {
@@ -183,14 +183,14 @@ export default {
           :onClick="setTransformationMode"
         />
 
-        <custom-select isDropDownBtn :options="selectOptions" :onChange="onSelectLightingType" class="xs">
+        <custom-select isDropDownBtn :options="selectOptions" :onChange="addLightingToScene" class="xs">
           <span class="dropdown-btn">
             <i class="icon-bulb-on" />
             <i class="icon-triangle-down" />
           </span>
         </custom-select>
 
-        <custom-btn iconClass="icon-emitter" :onClick="onAddParticlesEmitterToScene" />
+        <custom-btn iconClass="icon-emitter" :onClick="addParticlesEmitterToScene" />
         <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="addGeometryToScene" />
         <custom-btn iconClass="icon-cube" :data="geometryTypes.BOX" :onClick="addGeometryToScene" />
         <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="addGeometryToScene" />

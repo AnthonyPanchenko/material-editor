@@ -106,6 +106,10 @@ class BaseScene {
     }
   }
 
+  addLighting(lighting) {
+    console.log(lighting);
+  }
+
   onKeydown(event) {
     if (this.selectedMesh && event.keyCode === 46) {
       if (confirm('Are you sure?')) {

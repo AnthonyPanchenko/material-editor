@@ -29,8 +29,9 @@ class BaseScene {
 
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.sceneMeshes);
-
+    const intersects = this.raycaster.intersectObjects(this.scene.children);
+    console.log(intersects);
+    console.log(this.sceneMeshes);
     if (intersects.length && intersects[0].object.uuid) {
       return {
         mesh: intersects[0],
@@ -106,8 +107,15 @@ class BaseScene {
     }
   }
 
-  addLighting(lighting) {
+  addLighting(lighting, helper) {
+    this.scene.add(lighting);
+    // this.sceneMeshes.push(helper);
+    this.sceneMeshes.push(lighting);
+    console.log(helper);
     console.log(lighting);
+    if (helper) {
+      this.scene.add(helper);
+    }
   }
 
   onKeydown(event) {
@@ -120,7 +128,7 @@ class BaseScene {
 
   onCanvasClick(event) {
     const intersected = this.getIntersects(this.getClickPositions(event));
-
+    console.log(intersected);
     if (intersected) {
       if (this.selectedMeshIndex === undefined || this.selectedMeshIndex !== intersected.index) {
         this.selectMesh(intersected.index);

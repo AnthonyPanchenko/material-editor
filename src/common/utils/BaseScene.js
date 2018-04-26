@@ -6,11 +6,11 @@ import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
 class BaseScene {
-  constructor(canvasWidth, canvasHeight, selectMesh, deselectMesh) {
+  constructor(canvasWidth, canvasHeight, selectObject, deselectObject) {
     this.requestAnimationId = undefined;
-    this.selectedMeshIndex = undefined;
-    this.selectedMesh = null;
-    this.sceneMeshes = [];
+    this.selectedObjectIndex = undefined;
+    this.selectedObject = null;
+    this.sceneObjects = [];
 
     this.canvasWidth = canvasWidth;
     this.canvasHeight = canvasHeight;
@@ -19,8 +19,8 @@ class BaseScene {
     this.raycaster = new THREE.Raycaster();
     this.gridHelper = new THREE.GridHelper(30, 30, 0xa39bcf, 0x888888);
 
-    this.selectMeshCallback = selectMesh || noop;
-    this.deselectMeshCallback = deselectMesh || noop;
+    this.selectObjectCallback = selectObject || noop;
+    this.deselectObjectCallback = deselectObject || noop;
 
     this.camera = createCamera(canvasWidth, canvasHeight);
     this.renderer = createRenderer(canvasWidth, canvasHeight);
@@ -29,9 +29,9 @@ class BaseScene {
 
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
-    const intersects = this.raycaster.intersectObjects(this.scene.children);
+    const intersects = this.raycaster.intersectObjects(this.sceneObjects);
+    console.log(this.sceneObjects);
     console.log(intersects);
-    console.log(this.sceneMeshes);
     if (intersects.length && intersects[0].object.uuid) {
       return {
         mesh: intersects[0],
@@ -48,29 +48,41 @@ class BaseScene {
     return positions;
   }
 
-  selectMesh(index) {
-    this.selectedMeshIndex = index;
-    this.selectedMesh = this.scene.children[index];
+  selectObject(index) {
+    this.selectedObjectIndex = index;
+    this.selectedObject = this.scene.children[index];
     this.controls.transformControls.attach(this.scene.children[index]);
-    this.selectMeshCallback(this.scene.children[index]);
+    this.selectObjectCallback(this.scene.children[index]);
   }
 
-  selectMeshByUuid(uuid) {
+  selectObjectByUuid(uuid) {
     if (uuid) {
-      const index = this.scene.children.findIndex(mesh => mesh.uuid === uuid);
+      const index = this.scene.children.findIndex(obj => obj.uuid === uuid);
 
       if (index !== -1) {
-        this.selectMesh(index);
+        this.selectObject(index);
       }
     }
   }
 
-  deselectMesh() {
-    this.controls.transformControls.detach(this.selectedMesh);
-    this.selectedMesh = null;
-    this.selectedMeshIndex = undefined;
-    this.deselectMeshCallback();
+  deselectObject() {
+    this.controls.transformControls.detach(this.selectedObject);
+    this.selectedObject = null;
+    this.selectedObjectIndex = undefined;
+    this.deselectObjectCallback();
   }
+
+
+  removeHelper(object) {
+    if (this.helpers[object.id] !== undefined) {
+      var helper = this.helpers[object.id];
+      helper.parent.remove(helper);
+      delete this.helpers[object.id];
+      this.signals.helperRemoved.dispatch(helper);
+    }
+  }
+
+
 
   addMesh(geometry) {
     const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
@@ -81,27 +93,27 @@ class BaseScene {
     ));
 
     this.scene.add(mesh);
-    this.sceneMeshes.push(mesh);
+    this.sceneObjects.push(mesh);
 
     return mesh;
   }
 
-  removeSelectedMesh() {
-    this.sceneMeshes = this.sceneMeshes.filter(mesh => mesh.uuid !== this.selectedMesh.uuid);
-    this.controls.transformControls.detach(this.selectedMesh);
-    this.scene.remove(this.selectedMesh);
-    this.selectedMeshIndex = undefined;
-    this.selectedMesh = null;
+  removeSelectedObject() {
+    this.sceneObjects = this.sceneObjects.filter(obj => obj.uuid !== this.selectedObject.uuid);
+    this.controls.transformControls.detach(this.selectedObject);
+    this.scene.remove(this.selectedObject);
+    this.selectedObjectIndex = undefined;
+    this.selectedObject = null;
   }
 
-  removeMeshByUuuid(uuid) {
+  removeObjectByUuuid(uuid) {
     if (uuid) {
-      if (this.selectedMesh && this.selectedMesh.uuid === uuid) {
-        this.removeSelectedMesh();
+      if (this.selectedObject && this.selectedObject.uuid === uuid) {
+        this.removeSelectedObject();
       } else {
-        const mesh = this.scene.children.find(mesh => mesh.uuid === uuid);
-        if (mesh) {
-          this.scene.remove(mesh);
+        const obj = this.scene.children.find(obj => obj.uuid === uuid);
+        if (obj) {
+          this.scene.remove(obj);
         }
       }
     }
@@ -109,32 +121,30 @@ class BaseScene {
 
   addLighting(lighting, helper) {
     this.scene.add(lighting);
-    // this.sceneMeshes.push(helper);
-    this.sceneMeshes.push(lighting);
-    console.log(helper);
-    console.log(lighting);
+
     if (helper) {
       this.scene.add(helper);
+      this.sceneObjects.push(helper);
     }
   }
 
   onKeydown(event) {
-    if (this.selectedMesh && event.keyCode === 46) {
+    if (this.selectedObject && event.keyCode === 46 || event.keyCode === 8) {
       if (confirm('Are you sure?')) {
-        this.removeSelectedMesh();
+        this.removeSelectedObject();
       }
     }
   }
 
   onCanvasClick(event) {
     const intersected = this.getIntersects(this.getClickPositions(event));
-    console.log(intersected);
+
     if (intersected) {
-      if (this.selectedMeshIndex === undefined || this.selectedMeshIndex !== intersected.index) {
-        this.selectMesh(intersected.index);
+      if (this.selectedObjectIndex === undefined || this.selectedObjectIndex !== intersected.index) {
+        this.selectObject(intersected.index);
       }
-    } else if (this.selectedMeshIndex !== undefined) {
-      this.deselectMesh();
+    } else if (this.selectedObjectIndex !== undefined) {
+      this.deselectObject();
     }
   }
 

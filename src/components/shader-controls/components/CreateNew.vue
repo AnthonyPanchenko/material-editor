@@ -50,8 +50,8 @@ export default {
 </script>
 
 <template>
-  <div class="create-new">
-    <div class="settings-row">
+  <div class="create-new controls">
+    <div class="row">
       <custom-select :options="selectOptions" :selectedOptionId="selectedOptionId" name="selectname" :onChange="onChange" />
 
       <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />

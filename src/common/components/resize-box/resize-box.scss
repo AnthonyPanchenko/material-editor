@@ -4,7 +4,7 @@
   &.column {
     padding-right: 3px;
 
-    .grab-resize {
+    > .grab-resize {
       cursor: col-resize;
       right: 0;
       top: 0;
@@ -14,7 +14,7 @@
   }
 
   &.row {
-    .grab-resize {
+    > .grab-resize {
       cursor: row-resize;
       right: 0;
       top: 0;

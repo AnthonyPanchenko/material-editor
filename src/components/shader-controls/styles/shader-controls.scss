@@ -18,89 +18,9 @@
     .create-new {
       display: flex;
       flex-direction: column;
-      padding: $controls-gutter $controls-gutter $controls-gutter 0;
-      background-color: #5b5e5f;
-      border-bottom: 1px solid #787878;
-      border-top: 1px solid #787878;
-      min-width: 78px;
-      flex: 0 0 78px;
-
-      .settings-row {
-        display: flex;
-        align-items: center;
-        padding-bottom: $controls-gutter;
-        border-bottom: 1px solid #787878;
-
-        > label,
-        > button {
-          margin-left: $controls-gutter;
-        }
-      }
-
-      .parameters-row {
-        display: flex;
-        align-items: center;
-        padding-top: $controls-gutter;
-        border-top: 1px solid #535050;
-
-        > label,
-        > button {
-          margin-left: $controls-gutter;
-        }
-      }
-    }
-
-    .controls {
-      .row {
-        display: flex;
-        align-items: center;
-        padding: $controls-gutter;
-        border-bottom: 1px solid #383838;
-
-        .info {
-          display: flex;
-          flex-direction: column;
-          flex: 0 0 100px;
-
-          .name {
-            font-size: 13px;
-          }
-
-          .type {
-            font-size: 11px;
-            color: #505050;
-          }
-        }
-
-        .matrix {
-          margin-left: 5px;
-          display: flex;
-          flex-wrap: wrap;
-          justify-content: space-between;
-          flex: 0 1 100%;
-
-          label {
-            margin-top: 1px;
-            margin-bottom: 1px;
-          }
-
-          &.mat2 label {
-            flex: 0 0 calc(50% - 1px);
-          }
-
-          &.mat3 label {
-            flex: 0 0 calc(33.3% - 1px);
-          }
-
-          &.mat4 label {
-            flex: 0 0 calc(25% - 1px);
-          }
-        }
-
-        &:nth-child(even) {
-          background-color: rgba(194, 199, 215, 0.04);
-        }
-      }
+      background-color: #000;
+      border-top: 1px solid #383838;
+      flex: 0 0 auto;
     }
   }
 }

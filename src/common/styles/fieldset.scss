@@ -10,7 +10,6 @@
     border-bottom: 1px solid #454545;
     height: 28px;
     align-items: center;
-    padding-left: 5px;
     display: flex;
     flex: 0 0 auto;
     color: #7f7f7f;
@@ -31,28 +30,69 @@
       padding-left: 5px;
     }
   }
+}
 
-  .controls {
-    .row {
+.controls {
+  .row {
+    display: flex;
+    align-items: center;
+    min-height: 27px;
+    padding: 5px 5px 5px 0;
+    border-bottom: 1px solid #383838;
+
+    > .label {
+      flex: 0 0 100px;
+      cursor: default;
+    }
+
+    button,
+    label {
+      margin-left: $controls-gutter;
+    }
+
+    .info {
       display: flex;
-      align-items: center;
-      min-height: 27px;
-      padding: 5px;
-      border-bottom: 1px solid #383838;
+      padding-left: 5px;
+      flex-direction: column;
+      flex: 0 0 145px;
 
-      > .label {
-        flex: 0 0 100px;
-        cursor: default;
+      .name {
+        font-size: 13px;
       }
 
-      button,
+      .type {
+        font-size: 11px;
+        color: #505050;
+      }
+    }
+
+    .matrix {
+      margin-left: 5px;
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: space-between;
+      flex: 0 1 100%;
+
       label {
-        margin-left: $controls-gutter;
+        margin-top: 1px;
+        margin-bottom: 1px;
       }
 
-      &:nth-child(even) {
-        background-color: rgba(194, 199, 215, 0.04);
+      &.mat2 label {
+        flex: 0 0 calc(50% - 1px);
       }
+
+      &.mat3 label {
+        flex: 0 0 calc(33.3% - 1px);
+      }
+
+      &.mat4 label {
+        flex: 0 0 calc(25% - 1px);
+      }
+    }
+
+    &:nth-child(even) {
+      background-color: rgba(194, 199, 215, 0.04);
     }
   }
 }

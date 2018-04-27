@@ -4,6 +4,7 @@ import emptyObject from '../../common/utils/emptyObject';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
+import CreateNew from './components/CreateNew.vue';
 import './styles/shader-controls.scss';
 
 export default {
@@ -18,12 +19,14 @@ export default {
     activeControlsType: { type: String, default: shadersControlsTypes.UNIFORMS }
   },
   components: {
+    CreateNew,
     CustomBtn,
     ResizeBox
   },
   data() {
     return {
-      shadersControlsTypes
+      shadersControlsTypes,
+      isVisibleCreateNewArea: false
     };
   },
   methods: {
@@ -35,7 +38,7 @@ export default {
     },
     onTabClick(controlType) {
       if (controlType === this.activeControlsType) {
-        console.log('create new setting');
+        this.isVisibleCreateNewArea = !this.isVisibleCreateNewArea;
       } else {
         this.onSetActiveControlsType(controlType);
       }
@@ -89,7 +92,7 @@ export default {
     </div>
 
     <div v-if="isVisibleControlsFooter" class="shader-ctrl-settings">
-      {{ activeControlsType }}
+      <create-new v-if="isVisibleCreateNewArea" />
       <div class="controls scroll-box"></div>
     </div>
   </resize-box>

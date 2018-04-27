@@ -20,9 +20,11 @@ export default {
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
+    onCreate: { type: Function, default: noop },
+    onCancel: { type: Function, default: noop },
 
     numberValue: { type: Number, default: 0.1 },
-    matrix: { type: Array, default: matrices.mat3 },
+    matrix: { type: Array, default: () => matrices.mat3 },
     vector: { type: Object, default: () => [0.25, 0.78, 0.4] },
     color: { type: Array, default: () => [70, 70, 220, 1] },
     background: { type: String, default: '' },
@@ -50,20 +52,20 @@ export default {
 <template>
   <div class="create-new">
     <div class="settings-row">
-      <custom-select :options="selectOptions" :selectedOptionId="selectedOptionId" name="selectname" :onChange="onChangeSelect" />
+      <custom-select :options="selectOptions" :selectedOptionId="selectedOptionId" name="selectname" :onChange="onChange" />
 
-      <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChangeRadioBtn" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
-      <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChangeRadioBtn" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
+      <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
+      <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
 
-      <input-text name="tex" placeholder="name" :onInput="" :value="name" />
-      <custom-btn iconClass="icon-checkmark" class="success xs" :data="_id" :onClick="onCreateNew" />
-      <custom-btn iconClass="icon-close" class="danger xs" :data="_id" :onClick="onCancelCreate" />
+      <input-text name="tex" placeholder="name" :onInput="onChange" :value="name" />
+      <custom-btn iconClass="icon-checkmark" class="success xs" :data="_id" :onClick="onCreate" />
+      <custom-btn iconClass="icon-close" class="danger xs" :data="_id" :onClick="onCancel" />
     </div>
 
-    <texture-row v-if="type === 'sampler2D'" isEditable />
-    <number-row v-if="type === 'int' || type === 'float'" isEditable />
-    <matrix-row v-if="type === 'mat2' || type === 'mat3' || type === 'mat4'" isEditable />
-    <color-row v-if="(type === 'vec3' || type === 'vec4') && mode === 'color'" isEditable />
-    <vector-row v-if="(type === 'vec2' || type === 'vec3' || type === 'vec4') && mode === 'vector'" isEditable />
+    <texture-row v-if="type === 'sampler2D'" :isEditable="isEditable" />
+    <number-row v-if="type === 'int' || type === 'float'" :isEditable="isEditable" />
+    <matrix-row v-if="type === 'mat2' || type === 'mat3' || type === 'mat4'" :isEditable="isEditable" />
+    <color-row v-if="(type === 'vec3' || type === 'vec4') && mode === 'color'" :isEditable="isEditable" />
+    <vector-row v-if="(type === 'vec2' || type === 'vec3' || type === 'vec4') && mode === 'vector'" :isEditable="isEditable" />
   </div>
 </template>

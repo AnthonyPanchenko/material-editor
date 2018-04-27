@@ -56,68 +56,6 @@ export const getLightingHelperByType = (type, lighting) => {
   }
 };
 
-
-
-
-export const addHelper = (object) => {
-
-  var geometry = new THREE.SphereBufferGeometry(2, 4, 2);
-  var material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
-
-
-  var helper;
-
-  if (object instanceof THREE.Camera) {
-
-    helper = new THREE.CameraHelper(object, 1);
-
-  } else if (object instanceof THREE.PointLight) {
-
-    helper = new THREE.PointLightHelper(object, 1);
-
-  } else if (object instanceof THREE.DirectionalLight) {
-
-    helper = new THREE.DirectionalLightHelper(object, 1);
-
-  } else if (object instanceof THREE.SpotLight) {
-
-    helper = new THREE.SpotLightHelper(object, 1);
-
-  } else if (object instanceof THREE.HemisphereLight) {
-
-    helper = new THREE.HemisphereLightHelper(object, 1);
-
-  } else if (object instanceof THREE.SkinnedMesh) {
-
-    helper = new THREE.SkeletonHelper(object);
-
-  } else {
-    // no helper for this object type
-    return;
-
-  }
-
-  var picker = new THREE.Mesh(geometry, material);
-  picker.name = 'picker';
-  picker.userData.object = object;
-  helper.add(picker);
-
-  this.sceneHelpers.add(helper);
-  this.helpers[object.id] = helper;
-
-  this.signals.helperAdded.dispatch(helper);
-
-};
-
-
-
-
-
-
-
-
-
-
 export const createRenderer = (canvasWidth, canvasHeight) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);

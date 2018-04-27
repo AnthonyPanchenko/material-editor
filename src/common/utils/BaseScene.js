@@ -72,7 +72,6 @@ class BaseScene {
     this.deselectObjectCallback();
   }
 
-
   removeHelper(object) {
     if (this.helpers[object.id] !== undefined) {
       var helper = this.helpers[object.id];
@@ -81,8 +80,6 @@ class BaseScene {
       this.signals.helperRemoved.dispatch(helper);
     }
   }
-
-
 
   addMesh(geometry) {
     const mesh = new THREE.Mesh(geometry, new THREE.MeshBasicMaterial({ color: 0xcccccc, side: THREE.DoubleSide }));
@@ -123,8 +120,15 @@ class BaseScene {
     this.scene.add(lighting);
 
     if (helper) {
-      this.scene.add(helper);
-      this.sceneObjects.push(helper);
+      const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
+      const material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
+      const picker = new THREE.Mesh(geometry, material);
+      picker.name = 'picker';
+      picker.userData.object = lighting;
+      helper.add(picker);
+
+      this.scene.add(picker);
+      this.sceneObjects.push(picker);
     }
   }
 

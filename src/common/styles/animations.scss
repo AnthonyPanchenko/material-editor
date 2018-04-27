@@ -4,6 +4,26 @@ $fade-out-leave-transition-duration: 200ms;
 $slide-down-enter-transition-duration: 270ms;
 $slide-up-leave-transition-duration: 210ms;
 
+.opacity-enter-active {
+  opacity: 0;
+  transition: opacity 130ms linear;
+
+  &.opacity-enter-to {
+    opacity: 1;
+    transition: opacity 130ms linear;
+  }
+}
+
+.opacity-leave-active {
+  opacity: 0.7;
+  transition: opacity 100ms linear;
+
+  &.opacity-leave-to {
+    opacity: 0;
+    transition: opacity 100ms linear;
+  }
+}
+
 .fade-enter-active {
   position: fixed;
   opacity: 0;

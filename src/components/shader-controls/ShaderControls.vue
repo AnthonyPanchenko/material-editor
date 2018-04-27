@@ -41,6 +41,7 @@ export default {
         this.isVisibleCreateNewArea = !this.isVisibleCreateNewArea;
       } else {
         this.onSetActiveControlsType(controlType);
+        this.isVisibleCreateNewArea = false;
       }
     }
   }
@@ -92,7 +93,9 @@ export default {
     </div>
 
     <div v-if="isVisibleControlsFooter" class="shader-ctrl-settings">
-      <create-new v-if="isVisibleCreateNewArea" />
+      <transition name="opacity">
+        <create-new v-if="isVisibleCreateNewArea" />
+      </transition>
       <div class="controls scroll-box"></div>
     </div>
   </resize-box>

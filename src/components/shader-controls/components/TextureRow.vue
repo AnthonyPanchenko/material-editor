@@ -7,7 +7,7 @@ import InputFile from '../../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 
 export default {
-  name: 'MatrixRow',
+  name: 'TextureRow',
   props: {
     _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
@@ -34,7 +34,7 @@ export default {
 
 <template>
   <div class="row">
-    <img-box :background="background" :isUploading="" />
+    <img-box :background="background" />
     <info :name="name" :type="type" v-if="!isEditable" />
 
     <input-file v-if="isEditable" :onChange="onChangeFileInput" />

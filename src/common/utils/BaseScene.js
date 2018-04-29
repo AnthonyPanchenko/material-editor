@@ -133,7 +133,7 @@ class BaseScene {
   }
 
   onKeydown(event) {
-    if (this.selectedObject && event.keyCode === 46 || event.keyCode === 8) {
+    if (this.selectedObject && (event.keyCode === 46 || event.keyCode === 8)) {
       if (confirm('Are you sure?')) {
         this.removeSelectedObject();
       }

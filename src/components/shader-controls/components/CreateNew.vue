@@ -32,7 +32,7 @@ export default {
     selectOptions: { type: Array, default: emptyArray },
     selectedOptionId: { type: String, default: '' },
     mode: { type: String, default: 'vector' },
-    name: { type: String, default: '_vector' },
+    name: { type: String, default: '' },
     type: { type: String, default: 'vec3' }
   },
   components: {
@@ -62,10 +62,10 @@ export default {
       <custom-btn iconClass="icon-close" class="danger xs" :data="_id" :onClick="onCancel" />
     </div>
 
-    <texture-row v-if="type === 'sampler2D'" :isEditable="isEditable" />
-    <number-row v-if="type === 'int' || type === 'float'" :isEditable="isEditable" />
-    <matrix-row v-if="type === 'mat2' || type === 'mat3' || type === 'mat4'" :isEditable="isEditable" />
-    <color-row v-if="(type === 'vec3' || type === 'vec4') && mode === 'color'" :isEditable="isEditable" />
-    <vector-row v-if="(type === 'vec2' || type === 'vec3' || type === 'vec4') && mode === 'vector'" :isEditable="isEditable" />
+    <texture-row v-if="type === 'sampler2D'" isEditable />
+    <number-row v-if="type === 'int' || type === 'float'" isEditable />
+    <matrix-row v-if="type === 'mat2' || type === 'mat3' || type === 'mat4'" isEditable />
+    <color-row v-if="(type === 'vec3' || type === 'vec4') && mode === 'color'" isEditable />
+    <vector-row v-if="(type === 'vec2' || type === 'vec3' || type === 'vec4') && mode === 'vector'" isEditable />
   </div>
 </template>

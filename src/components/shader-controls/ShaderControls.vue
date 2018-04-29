@@ -2,8 +2,10 @@
 import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
+import shadersDataTypes from '../../common/constants/shaders-data-types';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
+import createSelectsOptions from '../../common/utils/create-selects-options';
 import CreateNew from './components/CreateNew.vue';
 import './styles/shader-controls.scss';
 
@@ -26,7 +28,8 @@ export default {
   data() {
     return {
       shadersControlsTypes,
-      isVisibleCreateNewArea: false
+      isVisibleCreateNewArea: false,
+      selectOptions: createSelectsOptions(shadersDataTypes)
     };
   },
   methods: {
@@ -94,7 +97,11 @@ export default {
 
     <div v-if="isVisibleControlsFooter" class="shader-ctrl-settings">
       <transition name="opacity">
-        <create-new v-if="isVisibleCreateNewArea" />
+        <create-new
+          isEditable
+          v-if="isVisibleCreateNewArea"
+          :selectOptions="selectOptions"
+        />
       </transition>
       <div class="controls scroll-box"></div>
     </div>

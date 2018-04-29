@@ -10,7 +10,8 @@ import objectTypes from '../../common/constants/object-types';
 import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
 
-import { selectOptions } from '../../common/constants/lighting-types';
+import lightingTypes from '../../common/constants/lighting-types';
+import createSelectsOptions from '../../common/utils/create-selects-options';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -43,7 +44,7 @@ export default {
   data() {
     return {
       baseScene: {},
-      selectOptions,
+      selectOptions: createSelectsOptions(lightingTypes),
       editorsNames,
       objectTypes,
       geometryTypes,

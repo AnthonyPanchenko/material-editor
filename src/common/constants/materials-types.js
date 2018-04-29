@@ -11,6 +11,4 @@ const materialsTypes = {
   MESH_SHADER_MATERIAL: 'MeshShaderMaterial'
 };
 
-export const selectOptions = Object.keys(materialsTypes).map(key => ({ title: materialsTypes[key], id: materialsTypes[key] }));
-
 export default materialsTypes;

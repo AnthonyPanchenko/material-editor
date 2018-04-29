@@ -6,6 +6,4 @@ const lightingTypes = {
   AMBIENTLIGHT: 'AmbientLight'
 };
 
-export const selectOptions = Object.keys(lightingTypes).map(key => ({ title: lightingTypes[key], id: lightingTypes[key] }));
-
 export default lightingTypes;

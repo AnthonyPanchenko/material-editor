@@ -1,5 +1,6 @@
 <script>
-import materialsTypes, { selectOptions } from '../../common/constants/materials-types';
+import materialsTypes from '../../common/constants/materials-types';
+import createSelectsOptions from '../../common/utils/create-selects-options';
 import selects from './utils/selects';
 import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
@@ -58,7 +59,7 @@ export default {
       currentColorPickerName: '',
       colorPickerTrigger: null,
       mapedMaterialsProps,
-      selectOptions
+      selectOptions: createSelectsOptions(materialsTypes)
     };
   },
   methods: {

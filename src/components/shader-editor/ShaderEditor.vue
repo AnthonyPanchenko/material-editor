@@ -15,7 +15,7 @@ import shadersTypes from '../../common/constants/shaders-types';
 export default {
   name: 'ShaderEditor',
   props: {
-    onOpenMaterialEditor: { type: Function, default: noop }
+    onOpenOgmEditor: { type: Function, default: noop }
   },
   components: {
     ShaderControls,
@@ -81,7 +81,7 @@ export default {
       <custom-btn iconClass="icon-undo" class="xs" />
       <custom-btn iconClass="icon-save" class="xs" />
       <custom-btn iconClass="icon-redo" class="xs" />
-      <custom-btn iconClass="icon-close" class="danger xs" :onClick="onOpenMaterialEditor" />
+      <custom-btn iconClass="icon-close" class="danger xs" :onClick="onOpenOgmEditor" />
     </header>
 
     <section class="body">

@@ -1,7 +1,7 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const mutations = {
-  [mutationTypes.SET_PANEL_CONTROLS_WIDTH_OF_MATERIAL_EDITOR](state, width) {
+  [mutationTypes.SET_PANEL_CONTROLS_WIDTH_OF_OGM_EDITOR](state, width) {
     state.controlsPanelWidth = width;
   },
   [mutationTypes.SET_ACTIVE_SECTION_NAME](state, name) {

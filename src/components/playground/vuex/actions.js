@@ -17,8 +17,8 @@ const actions = {
   onOpenShaderEditor(context) {
     context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.SHADER_EDITOR);
   },
-  onOpenMaterialEditor(context) {
-    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.MATERIAL_EDITOR);
+  onOpenOgmEditor(context) {
+    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.OGM_EDITOR);
   },
   onOpenLightingEditor(context) {
     context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.LIGHTING_EDITOR);

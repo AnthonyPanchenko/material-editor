@@ -56,6 +56,24 @@ export const getLightingHelperByType = (type, lighting) => {
   }
 };
 
+export const setObjectMaterial = (object, slot, newMaterial) => {
+  if (Array.isArray(object.material)) {
+    object.material[slot] = newMaterial;
+  } else {
+    object.material = newMaterial;
+  }
+};
+
+export const getObjectMaterial = (object, slot) => {
+  let material = object.material;
+
+  if (Array.isArray(material)) {
+    material = material[slot];
+  }
+
+  return material;
+};
+
 export const createRenderer = (canvasWidth, canvasHeight) => {
   const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
   renderer.setPixelRatio(window.devicePixelRatio);

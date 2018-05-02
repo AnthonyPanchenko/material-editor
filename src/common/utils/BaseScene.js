@@ -5,6 +5,17 @@ import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
+const consl = { // eslint-disable-line
+  cl: function() {
+    console.clear();
+    return this;
+  },
+  log: function() {
+    console.log(...arguments);
+    return this;
+  }
+};
+
 class BaseScene {
   constructor(canvasWidth, canvasHeight, selectObject, deselectObject) {
     this.requestAnimationId = undefined;
@@ -30,8 +41,10 @@ class BaseScene {
   getIntersects(clickPosition) {
     this.raycaster.setFromCamera(clickPosition, this.camera);
     const intersects = this.raycaster.intersectObjects(this.sceneObjects);
-    console.log(this.sceneObjects);
-    console.log(intersects);
+
+    // console.log(this.sceneObjects);
+    // consl.cl().log(intersects, this.scene.children);
+
     if (intersects.length && intersects[0].object.uuid) {
       return {
         mesh: intersects[0],
@@ -48,11 +61,11 @@ class BaseScene {
     return positions;
   }
 
-  selectObject(index) {
+  selectObject(index, mesh) {
     this.selectedObjectIndex = index;
     this.selectedObject = this.scene.children[index];
     this.controls.transformControls.attach(this.scene.children[index]);
-    this.selectObjectCallback(this.scene.children[index]);
+    this.selectObjectCallback(mesh);
   }
 
   selectObjectByUuid(uuid) {
@@ -96,7 +109,7 @@ class BaseScene {
   }
 
   removeSelectedObject() {
-    this.sceneObjects = this.sceneObjects.filter(obj => obj.uuid !== this.selectedObject.uuid);
+    // this.sceneObjects = this.sceneObjects.filter(obj => obj.uuid !== this.selectedObject.uuid);
     this.controls.transformControls.detach(this.selectedObject);
     this.scene.remove(this.selectedObject);
     this.selectedObjectIndex = undefined;
@@ -117,18 +130,18 @@ class BaseScene {
   }
 
   addLighting(lighting, helper) {
-    this.scene.add(lighting);
-
     if (helper) {
       const geometry = new THREE.SphereBufferGeometry(2, 4, 2);
       const material = new THREE.MeshBasicMaterial({ color: 0xff0000, visible: false });
       const picker = new THREE.Mesh(geometry, material);
       picker.name = 'picker';
-      picker.userData.object = lighting;
-      helper.add(picker);
+      // picker.userData.object = lighting;
+      picker.add(helper);
 
       this.scene.add(picker);
       this.sceneObjects.push(picker);
+    } else {
+      this.scene.add(lighting);
     }
   }
 
@@ -145,7 +158,7 @@ class BaseScene {
 
     if (intersected) {
       if (this.selectedObjectIndex === undefined || this.selectedObjectIndex !== intersected.index) {
-        this.selectObject(intersected.index);
+        this.selectObject(intersected.index, intersected.mesh);
       }
     } else if (this.selectedObjectIndex !== undefined) {
       this.deselectObject();

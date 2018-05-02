@@ -3,7 +3,7 @@ import mutations from './mutations';
 import state from './state';
 // import getters from './getters';
 
-const materialEditor = {
+const ogmEditor = {
   namespaced: true,
   state,
   actions,
@@ -11,4 +11,4 @@ const materialEditor = {
   // getters
 };
 
-export default materialEditor;
+export default ogmEditor;

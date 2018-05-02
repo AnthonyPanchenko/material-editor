@@ -9,7 +9,7 @@ import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 
 export default {
-  name: 'ObjectSection',
+  name: 'ObjectEditor',
   props: {
     onApplyNewObjectName: { type: Function, default: noop },
     onChangePosition: { type: Function, default: noop },

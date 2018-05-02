@@ -5,7 +5,7 @@ const state = {
   isOpenGallery: false,
   isVisibleMeshesList: true,
   transformationMode: transformationsModes.TRANSLATE,
-  currentVisibleEditor: editorsNames.MATERIAL_EDITOR,
+  currentVisibleEditor: editorsNames.OGM_EDITOR,
   currentEditableIds: {
     objectId: '',
     geometryId: '',

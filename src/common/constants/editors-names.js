@@ -1,7 +1,7 @@
 const editorsNames = {
+  OGM_EDITOR: 'ogmEditor',
   LIGHTING_EDITOR: 'lightingEditor',
   PARTICLES_EDITOR: 'particlesEditor',
-  MATERIAL_EDITOR: 'materialEditor',
   SHADER_EDITOR: 'shaderEditor'
 };
 

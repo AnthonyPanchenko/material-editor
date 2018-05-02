@@ -24,15 +24,15 @@ import MeshesList from '../meshes-list/MeshesList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
 import LightingEditor from '../lighting-editor/LightingEditor.vue';
 import ParticlesEditor from '../particles-editor/ParticlesEditor.vue';
-import MaterialEditor from '../material-editor/MaterialEditor.vue';
+import OgmEditor from '../ogm-editor/OGMeditor.vue';
 
 export default {
   name: 'Playground',
   components: {
+    OgmEditor,
     ModalWindow,
     CustomSelect,
     ParticlesEditor,
-    MaterialEditor,
     LightingEditor,
     ShaderEditor,
     MeshesList,
@@ -65,7 +65,7 @@ export default {
     ...mapActions([
       'onToggleMeshesList',
       'onOpenShaderEditor',
-      'onOpenMaterialEditor',
+      'onOpenOgmEditor',
       'onOpenLightingEditor',
       'onSetTransformationMode',
       'onOpenParticlesEditor',
@@ -89,7 +89,7 @@ export default {
     },
     selectMeshInSceneCallback(mesh) {
       console.log(mesh);
-      // mesh.material.wireframe = true;
+      mesh.object.material.color = {r: 0.3, g: 0.2, b: 0.7};
     },
     deselectMeshInSceneCallback() {
       console.log('deselectMesh');
@@ -129,17 +129,17 @@ export default {
       <gallery :onClose="onToggleOpenGallery" />
     </modal-window>
 
-    <material-editor
+    <ogm-editor
       :onOpenShaderEditor="onOpenShaderEditor"
       :onToggleOpenGallery="onToggleOpenGallery"
       :currentObject="objects[currentEditableIds.objectId] || {}"
       :currentMaterial="materials[currentEditableIds.materialId] || {}"
       :currentGeometry="geometries[currentEditableIds.geometryId] || {}"
-      v-if="currentVisibleEditor === editorsNames.MATERIAL_EDITOR"
+      v-if="currentVisibleEditor === editorsNames.OGM_EDITOR"
     />
 
     <shader-editor
-      :onOpenMaterialEditor="onOpenMaterialEditor"
+      :onOpenOgmEditor="onOpenOgmEditor"
       v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
     />
 

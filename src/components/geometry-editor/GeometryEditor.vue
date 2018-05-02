@@ -9,7 +9,7 @@ import InputNumber from '../../common/components/input-number/InputNumber.vue';
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 
 export default {
-  name: 'GeometrySection',
+  name: 'GeometryEditor',
   props: {
     onChangeInputNumber: { type: Function, default: noop },
     onApplyNewGeometryName: { type: Function, default: noop },

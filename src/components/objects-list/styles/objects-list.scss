@@ -1,0 +1,85 @@
+$objects-list-width: 250px;
+$slide-objects-list-transition-duration: 70ms;
+$obj-item-transition-duration: 250ms;
+
+.obj-item-enter-active {
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: left center;
+  transition: opacity $obj-item-transition-duration linear, transform $obj-item-transition-duration linear;
+}
+
+.obj-item-enter-to {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: left center;
+  transition: opacity $obj-item-transition-duration linear, transform $obj-item-transition-duration linear;
+}
+
+.obj-item-leave-active {
+  opacity: 1;
+  transform: scale(1);
+  transform-origin: left center;
+  transition: opacity $obj-item-transition-duration linear, transform $obj-item-transition-duration linear;
+}
+
+.obj-item-leave-to {
+  opacity: 0.1;
+  transform: scale(0.1);
+  transform-origin: left center;
+  transition: opacity $obj-item-transition-duration linear, transform $obj-item-transition-duration linear;
+}
+
+.objects {
+  flex-grow: 1;
+  flex-shrink: 0;
+  flex-basis: $objects-list-width;
+  background-color: lighten($body-bg-color, 5%);
+  border-right: 1px solid $content-border-color;
+  overflow-y: auto;
+
+  .obj {
+    display: flex;
+
+    &:not(:first-child) {
+      border-top: 1px solid $content-border-color;
+    }
+
+    .active,
+    &:hover {
+      background-color: rgba(121, 136, 185, 0.14);
+    }
+
+    .trash-bin,
+    .show-hide {
+      flex: 0 0 30px;
+    }
+
+    .name {
+      text-align: left;
+      flex: 1 1 auto;
+    }
+  }
+
+  &.slide-objects-list-enter-active {
+    overflow: hidden;
+    flex-basis: 0;
+    transition: flex-basis $slide-objects-list-transition-duration linear;
+
+    &.slide-objects-list-enter-to {
+      flex-basis: $objects-list-width;
+      transition: flex-basis $slide-objects-list-transition-duration linear;
+    }
+  }
+
+  &.slide-objects-list-leave-active {
+    overflow: hidden;
+    flex-basis: $objects-list-width;
+    transition: flex-basis $slide-objects-list-transition-duration linear;
+
+    &.slide-objects-list-leave-to {
+      flex-basis: 0;
+      transition: flex-basis $slide-objects-list-transition-duration linear;
+    }
+  }
+}

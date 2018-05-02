@@ -6,6 +6,7 @@ import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
 import mProps from '../../common/constants/materials-properties';
 import mapedMaterialsProps from './utils/maped-materials-properties';
+import editorsNames from '../../common/constants/editors-names';
 
 import ItemTypeRow from '../item-type-row/ItemTypeRow.vue';
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';
@@ -52,6 +53,7 @@ export default {
       selects,
       mProps,
       isOpen: false,
+      editorsNames,
       currentColorPickerName: '',
       colorPickerTrigger: null,
       mapedMaterialsProps,
@@ -145,7 +147,7 @@ export default {
       <div v-if="isDisplayedSection(mProps.SHADERS)" class="row">
         <label class="label">Shaders</label>
         <custom-btn title="Attach" iconClass="icon-plus" :onClick="onAttachShaders" class="success" />
-        <custom-btn title="Edit" iconClass="icon-pencil" :onClick="onOpenShaderEditor" class="primary" />
+        <custom-btn title="Edit" iconClass="icon-pencil" :data="editorsNames.SHADER_EDITOR" :onClick="onOpenShaderEditor" class="primary" />
       </div>
 
       <div v-if="isDisplayedSection(mProps.VERTEXCOLORS)" class="row">

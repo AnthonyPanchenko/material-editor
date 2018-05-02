@@ -20,7 +20,7 @@ import ModalWindow from '../../common/components/modal-window/ModalWindow.vue';
 import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
 
 import Gallery from '../gallery/Gallery.vue';
-import MeshesList from '../meshes-list/MeshesList.vue';
+import ObjectsList from '../objects-list/ObjectsList.vue';
 import ShaderEditor from '../shader-editor/ShaderEditor.vue';
 import LightingEditor from '../lighting-editor/LightingEditor.vue';
 import ParticlesEditor from '../particles-editor/ParticlesEditor.vue';
@@ -35,7 +35,7 @@ export default {
     ParticlesEditor,
     LightingEditor,
     ShaderEditor,
-    MeshesList,
+    ObjectsList,
     InputFile,
     CustomBtn,
     Gallery,
@@ -55,16 +55,23 @@ export default {
       transformationsModes
     };
   },
-  computed: mapState([
-    'objects',
-    'materials',
-    'geometries',
-    'activeEditableIds',
-    'transformationMode',
-    'isVisibleMeshesList',
-    'activeEditorName',
-    'isOpenGallery'
-  ]),
+  computed: {
+    ...mapState([
+      'objects',
+      'materials',
+      'geometries',
+      'activeEditableIds',
+      'transformationMode',
+      'isVisibleMeshesList',
+      'activeEditorName',
+      'isOpenGallery'
+    ]),
+    objectsList() {
+      return Object.keys(this.objects)
+        .map(objId => ({ id: objId, name: this.objects[objId].name }))
+        .sort((a, b) => (a.name.toLowerCase() < b.name.toLowerCase() ? -1 : 1));
+    }
+  },
   methods: {
     ...mapActions([
       'onToggleMeshesList',
@@ -81,6 +88,9 @@ export default {
     },
     addParticlesEmitterToScene() {
       console.log('addParticlesEmitterToScene');
+    },
+    onSetNewMaterialName() {
+      console.log('onSetNewMaterialName');
     },
     addGeometryToScene(type) {
       const geometry = getGeometryByType(type);
@@ -151,10 +161,12 @@ export default {
     </modal-window>
 
     <ogm-editor
+      :activeEditorName="activeEditorName"
       :onChangeObjectProperty="onChangeObjectProperty"
       :onChangeGeometryProperty="onChangeGeometryProperty"
       :onChangeMaterialProperty="onChangeMaterialProperty"
       :onSetActiveEditorName="onSetActiveEditorName"
+      :onSetNewMaterialName="onSetNewMaterialName"
       :onToggleOpenGallery="onToggleOpenGallery"
       :activeObject="objects[activeEditableIds.objectId] || {}"
       :activeMaterial="materials[activeEditableIds.materialId] || {}"
@@ -227,9 +239,9 @@ export default {
       </div>
 
       <div class="body">
-        <transition slot="sidebar" name="slide-meshes-list">
-          <meshes-list
-            :objects="objects"
+        <transition slot="sidebar" name="slide-objects-list">
+          <objects-list
+            :list="objectsList"
             :onSelect="onSelectMeshByUuid"
             :onRemove="onRemoveMeshByUuid"
             v-show="isVisibleMeshesList"

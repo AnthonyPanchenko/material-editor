@@ -17,7 +17,11 @@ import ObjectEditor from '../object-editor/ObjectEditor.vue';
 export default {
   name: 'OgmEditor',
   props: {
+    activeEditorName: { type: String, default: editorsNames.MATERIAL_EDITOR },
     onSetActiveEditorName: { type: Function, default: noop },
+    onSetNewMaterialName: { type: Function, default: noop },
+    onSetNewGeometryName: { type: Function, default: noop },
+    onSetNewObjectName: { type: Function, default: noop },
     activeObject: { type: Object, default: emptyObject },
     activeMaterial: { type: Object, default: emptyObject },
     activeGeometry: { type: Object, default: emptyObject },
@@ -40,7 +44,6 @@ export default {
     };
   },
   computed: mapState([
-    'activeEditorName',
     'controlsPanelWidth',
     'activeMaterialTypeId'
   ]),

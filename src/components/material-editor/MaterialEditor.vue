@@ -25,15 +25,11 @@ export default {
   name: 'MaterialEditor',
   props: {
     activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
-    onApplyNewMaterialName: { type: Function, default: noop },
+    onSetNewMaterialName: { type: Function, default: noop },
     onSetActiveMaterialTypeId: { type: Function, default: noop },
     onOpenShaderEditor: { type: Function, default: noop },
     onAttachShaders: { type: Function, default: noop },
-    onChangeSelect: { type: Function, default: noop },
-    onChangeFileInput: { type: Function, default: noop },
-    onChangeCheckBox: { type: Function, default: noop },
-    onChangeColor: { type: Function, default: noop },
-    onChangeNumberInput: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
     material: { type: Object, default: emptyObject }
   },
   components: {
@@ -76,6 +72,21 @@ export default {
       this.colorPickerTrigger = triggerRef;
       this.currentColorPickerName = name;
       this.isOpen = !this.isOpen;
+    },
+    onChangeSelect() {
+      this.onChange();
+    },
+    onChangeFileInput() {
+      this.onChange();
+    },
+    onChangeCheckBox() {
+      this.onChange();
+    },
+    onChangeColor() {
+      this.onChange();
+    },
+    onChangeNumberInput() {
+      this.onChange();
     }
   }
 };
@@ -84,7 +95,7 @@ export default {
 <template>
   <div class="fieldset">
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
-    <item-name-row :name="material['name']" :onApply="onApplyNewMaterialName" />
+    <item-name-row :name="material['name']" :onApply="onSetNewMaterialName" />
 
     <popover v-if="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
       <color-picker :name="currentColorPickerName" :color="material[currentColorPickerName]" :onChange="onChangeColor" />

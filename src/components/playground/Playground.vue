@@ -44,6 +44,10 @@ export default {
   data() {
     return {
       baseScene: {},
+      activeObject: {
+        geometry: {},
+        material: {}
+      },
       selectOptions: createSelectsOptions(lightingTypes),
       editorsNames,
       objectTypes,
@@ -55,10 +59,10 @@ export default {
     'objects',
     'materials',
     'geometries',
-    'currentEditableIds',
+    'activeEditableIds',
     'transformationMode',
     'isVisibleMeshesList',
-    'currentVisibleEditor',
+    'activeEditorName',
     'isOpenGallery'
   ]),
   methods: {
@@ -88,11 +92,28 @@ export default {
       this.baseScene.removeMesh(uuid);
     },
     selectMeshInSceneCallback(mesh) {
-      console.log(mesh);
-      mesh.object.material.color = {r: 0.3, g: 0.2, b: 0.7};
+      this.activeObject = mesh.object;
     },
     deselectMeshInSceneCallback() {
-      console.log('deselectMesh');
+      this.activeObject = {};
+    },
+    onChangeObjectProperty(propName, newVal) {
+      this.onSetObjectPropertyValue(propName, newVal);
+      this.activeObject[propName] = newVal;
+    },
+    onChangeGeometryProperty(propName, newVal) {
+      this.onSetObjectPropertyValue(propName, newVal);
+      this.activeObject.geometry[propName] = newVal;
+    },
+    onChangeMaterialProperty(propName, newVal) {
+      this.onSetObjectPropertyValue(propName, newVal);
+      this.activeObject.material[propName] = newVal;
+    },
+    onSelectMeshByUuid(uuid) {
+      console.log(uuid);
+    },
+    onRemoveMeshByUuid(uuid) {
+      console.log(uuid);
     },
     addCustomMeshToScene() {
       // const geometry = null;
@@ -130,27 +151,32 @@ export default {
     </modal-window>
 
     <ogm-editor
+      :onChangeObjectProperty="onChangeObjectProperty"
+      :onChangeGeometryProperty="onChangeGeometryProperty"
+      :onChangeMaterialProperty="onChangeMaterialProperty"
       :onOpenShaderEditor="onOpenShaderEditor"
       :onToggleOpenGallery="onToggleOpenGallery"
-      :currentObject="objects[currentEditableIds.objectId] || {}"
-      :currentMaterial="materials[currentEditableIds.materialId] || {}"
-      :currentGeometry="geometries[currentEditableIds.geometryId] || {}"
-      v-if="currentVisibleEditor === editorsNames.OGM_EDITOR"
+      :activeObject="objects[activeEditableIds.objectId] || {}"
+      :activeMaterial="materials[activeEditableIds.materialId] || {}"
+      :activeGeometry="geometries[activeEditableIds.geometryId] || {}"
+      v-if="activeEditorName === editorsNames.OGM_EDITOR"
     />
 
     <shader-editor
+      :onChange="onChangeMaterialProperty"
       :onOpenOgmEditor="onOpenOgmEditor"
-      v-if="currentVisibleEditor === editorsNames.SHADER_EDITOR"
+      v-if="activeEditorName === editorsNames.SHADER_EDITOR"
     />
 
     <lighting-editor
+      :onChange="onChangeObjectProperty"
       :onOpenLightingEditor="onOpenLightingEditor"
-      v-if="currentVisibleEditor === editorsNames.LIGHTING_EDITOR"
+      v-if="activeEditorName === editorsNames.LIGHTING_EDITOR"
     />
 
     <particles-editor
       :onOpenParticlesEditor="onOpenParticlesEditor"
-      v-if="currentVisibleEditor === editorsNames.PARTICLES_EDITOR"
+      v-if="activeEditorName === editorsNames.PARTICLES_EDITOR"
     />
 
     <section class="container canvas-section">
@@ -202,7 +228,12 @@ export default {
 
       <div class="body">
         <transition slot="sidebar" name="slide-meshes-list">
-          <meshes-list v-show="isVisibleMeshesList" />
+          <meshes-list
+            :objects="objects"
+            :onSelect="onSelectMeshByUuid"
+            :onRemove="onRemoveMeshByUuid"
+            v-show="isVisibleMeshesList"
+          />
         </transition>
         <div ref="canvasBox" class="canvas-box" />
       </div>

@@ -11,11 +11,8 @@ import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
 export default {
   name: 'ObjectEditor',
   props: {
-    onApplyNewObjectName: { type: Function, default: noop },
-    onChangePosition: { type: Function, default: noop },
-    onChangeRotation: { type: Function, default: noop },
-    onChangeScale: { type: Function, default: noop },
-    onChangeCheckBox: { type: Function, default: noop },
+    onSetNewObjectName: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
     object: { type: Object, default: emptyObject }
   },
   components: {
@@ -27,6 +24,20 @@ export default {
     return {
       oProps
     };
+  },
+  methods: {
+    onChangePosition() {
+      this.onChange();
+    },
+    onChangeRotation() {
+      this.onChange();
+    },
+    onChangeScale() {
+      this.onChange();
+    },
+    onChangeCheckBox() {
+      this.onChange();
+    }
   }
 };
 </script>
@@ -38,7 +49,7 @@ export default {
       <span class="title">{{ object['type'] }}</span>
     </div>
 
-    <item-name-row :name="object['name']" :onApply="onApplyNewObjectName" />
+    <item-name-row :name="object['name']" :onApply="onSetNewObjectName" />
 
     <div class="controls scroll-box">
       <div class="row">

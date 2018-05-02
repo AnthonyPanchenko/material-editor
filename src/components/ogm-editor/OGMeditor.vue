@@ -17,9 +17,12 @@ import ObjectEditor from '../object-editor/ObjectEditor.vue';
 export default {
   name: 'OgmEditor',
   props: {
-    currentObject: { type: Object, default: emptyObject },
-    currentMaterial: { type: Object, default: emptyObject },
-    currentGeometry: { type: Object, default: emptyObject },
+    activeObject: { type: Object, default: emptyObject },
+    activeMaterial: { type: Object, default: emptyObject },
+    activeGeometry: { type: Object, default: emptyObject },
+    onChangeObjectProperty: { type: Function, default: noop },
+    onChangeGeometryProperty: { type: Function, default: noop },
+    onChangeMaterialProperty: { type: Function, default: noop },
     onOpenShaderEditor: { type: Function, default: noop },
     onToggleOpenGallery: { type: Function, default: noop }
   },
@@ -102,16 +105,22 @@ export default {
 
     <section class="body">
       <object-editor
-        :object="currentObject"
+        :object="activeObject"
+        :onSetNewObjectName="onSetNewObjectName"
+        :onChange="onChangeObjectProperty"
         v-if="activeSectionName === sections.OBJECT"
       />
       <geometry-editor
-        :geometry="currentGeometry"
+        :geometry="activeGeometry"
+        :onSetNewGeometryName="onSetNewGeometryName"
+        :onChange="onChangeGeometryProperty"
         v-if="activeSectionName === sections.GEOMETRY"
       />
       <material-editor
-        :material="currentMaterial"
+        :material="activeMaterial"
+        :onChange="onChangeMaterialProperty"
         :onOpenShaderEditor="onOpenShaderEditor"
+        :onSetNewMaterialName="onSetNewMaterialName"
         :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
         :activeMaterialTypeId="activeMaterialTypeId"
         v-if="activeSectionName === sections.MATERIAL"

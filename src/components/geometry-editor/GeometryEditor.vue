@@ -11,9 +11,8 @@ import ItemNameRow from '../item-name-row/ItemNameRow.vue';
 export default {
   name: 'GeometryEditor',
   props: {
-    onChangeInputNumber: { type: Function, default: noop },
-    onApplyNewGeometryName: { type: Function, default: noop },
-    onChangeCheckBox: { type: Function, default: noop },
+    onSetNewGeometryName: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
     geometry: { type: Object, default: emptyObject }
   },
   components: {
@@ -25,6 +24,14 @@ export default {
     return {
       gProps
     };
+  },
+  methods: {
+    onChangeInputNumber() {
+      this.onChange();
+    },
+    onChangeCheckBox() {
+      this.onChange();
+    }
   }
 };
 </script>
@@ -36,7 +43,7 @@ export default {
       <span class="title">{{ geometry['type'] }}</span>
     </div>
 
-    <item-name-row :name="geometry['name']" :onApply="onApplyNewGeometryName" />
+    <item-name-row :name="geometry['name']" :onApply="onSetNewGeometryName" />
 
     <div class="controls scroll-box">
       <div class="row">

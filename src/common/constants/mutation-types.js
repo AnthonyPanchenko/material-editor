@@ -1,7 +1,4 @@
 const mutationTypes = {
-  // meshes list
-  REMOVE_MESH_BY_ID: 'REMOVE_MESH_BY_ID',
-
   // playground
   SET_ACTIVE_EDITOR_TYPE: 'SET_ACTIVE_EDITOR_TYPE',
   SET_EDITABLE_OBJECT_IDS: 'SET_EDITABLE_OBJECT_IDS',

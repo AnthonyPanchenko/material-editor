@@ -5,7 +5,7 @@ const mutations = {
     state.transformationMode = transformationMode;
   },
   [mutationTypes.SET_ACTIVE_EDITOR_TYPE](state, type) {
-    state.currentVisibleEditor = type;
+    state.activeEditorName = type;
   },
   [mutationTypes.TOGGLE_MESHES_LIST](state) {
     state.isVisibleMeshesList = !state.isVisibleMeshesList;
@@ -14,7 +14,7 @@ const mutations = {
     state.isOpenGallery = !state.isOpenGallery;
   },
   [mutationTypes.SET_EDITABLE_OBJECT_IDS](state, obj) {
-    state.currentEditableIds = {
+    state.activeEditableIds = {
       objectId: obj && obj.uuid || '',
       geometryId: obj && obj.geometry || '',
       materialId: obj && obj.material || ''

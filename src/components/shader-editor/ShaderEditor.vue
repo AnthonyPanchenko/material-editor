@@ -3,6 +3,7 @@ import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
 import noop from '../../common/utils/noop';
+import editorsNames from '../../common/constants/editors-names';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
@@ -15,7 +16,7 @@ import shadersTypes from '../../common/constants/shaders-types';
 export default {
   name: 'ShaderEditor',
   props: {
-    onOpenOgmEditor: { type: Function, default: noop }
+    onSetActiveEditorName: { type: Function, default: noop }
   },
   components: {
     ShaderControls,
@@ -26,6 +27,7 @@ export default {
   },
   data() {
     return {
+      editorsNames,
       shadersTypes
     };
   },
@@ -76,12 +78,13 @@ export default {
         title="Vertex"
         iconClass="icon-vertex"
         :active="activeShaderType === shadersTypes.VERTEX_SHADER"
-        :data="shadersTypes.VERTEX_SHADER" :onClick="onSetActiveShaderType"
+        :data="shadersTypes.VERTEX_SHADER"
+        :onClick="onSetActiveShaderType"
       />
       <custom-btn iconClass="icon-undo" class="xs" />
       <custom-btn iconClass="icon-save" class="xs" />
       <custom-btn iconClass="icon-redo" class="xs" />
-      <custom-btn iconClass="icon-close" class="danger xs" :onClick="onOpenOgmEditor" />
+      <custom-btn iconClass="icon-close" class="danger xs" :data="editorsNames.MATERIAL_EDITOR" :onClick="onSetActiveEditorName" />
     </header>
 
     <section class="body">

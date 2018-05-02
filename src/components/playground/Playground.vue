@@ -68,11 +68,11 @@ export default {
   methods: {
     ...mapActions([
       'onToggleMeshesList',
-      'onOpenShaderEditor',
-      'onOpenOgmEditor',
-      'onOpenLightingEditor',
+      'onSetObjectPropertyValue',
+      'onSetGeometryPropertyValue',
+      'onSetMaterialPropertyValue',
+      'onSetActiveEditorName',
       'onSetTransformationMode',
-      'onOpenParticlesEditor',
       'onToggleOpenGallery'
     ]),
     setTransformationMode(mode) {
@@ -98,15 +98,15 @@ export default {
       this.activeObject = {};
     },
     onChangeObjectProperty(propName, newVal) {
-      this.onSetObjectPropertyValue(propName, newVal);
+      this.onSetObjectPropertyValue({ propName, newVal });
       this.activeObject[propName] = newVal;
     },
     onChangeGeometryProperty(propName, newVal) {
-      this.onSetObjectPropertyValue(propName, newVal);
+      this.onSetGeometryPropertyValue({ propName, newVal });
       this.activeObject.geometry[propName] = newVal;
     },
     onChangeMaterialProperty(propName, newVal) {
-      this.onSetObjectPropertyValue(propName, newVal);
+      this.onSetMaterialPropertyValue({ propName, newVal });
       this.activeObject.material[propName] = newVal;
     },
     onSelectMeshByUuid(uuid) {
@@ -154,28 +154,28 @@ export default {
       :onChangeObjectProperty="onChangeObjectProperty"
       :onChangeGeometryProperty="onChangeGeometryProperty"
       :onChangeMaterialProperty="onChangeMaterialProperty"
-      :onOpenShaderEditor="onOpenShaderEditor"
+      :onSetActiveEditorName="onSetActiveEditorName"
       :onToggleOpenGallery="onToggleOpenGallery"
       :activeObject="objects[activeEditableIds.objectId] || {}"
       :activeMaterial="materials[activeEditableIds.materialId] || {}"
       :activeGeometry="geometries[activeEditableIds.geometryId] || {}"
-      v-if="activeEditorName === editorsNames.OGM_EDITOR"
+      v-if="activeEditorName === editorsNames.OBJECT_EDITOR || activeEditorName === editorsNames.GEOMETRY_EDITOR || activeEditorName === editorsNames.MATERIAL_EDITOR"
     />
 
     <shader-editor
       :onChange="onChangeMaterialProperty"
-      :onOpenOgmEditor="onOpenOgmEditor"
+      :onSetActiveEditorName="onSetActiveEditorName"
       v-if="activeEditorName === editorsNames.SHADER_EDITOR"
     />
 
     <lighting-editor
       :onChange="onChangeObjectProperty"
-      :onOpenLightingEditor="onOpenLightingEditor"
+      :onSetActiveEditorName="onSetActiveEditorName"
       v-if="activeEditorName === editorsNames.LIGHTING_EDITOR"
     />
 
     <particles-editor
-      :onOpenParticlesEditor="onOpenParticlesEditor"
+      :onSetActiveEditorName="onSetActiveEditorName"
       v-if="activeEditorName === editorsNames.PARTICLES_EDITOR"
     />
 

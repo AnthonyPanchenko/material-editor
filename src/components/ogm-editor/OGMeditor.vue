@@ -5,7 +5,7 @@ const { mapState, mapActions } = createNamespacedHelpers('ogmEditor');
 import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
 
-import sections from '../../common/constants/material-editor-sections';
+import editorsNames from '../../common/constants/editors-names';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputFile from '../../common/components/input-file/InputFile.vue';
@@ -17,13 +17,13 @@ import ObjectEditor from '../object-editor/ObjectEditor.vue';
 export default {
   name: 'OgmEditor',
   props: {
+    onSetActiveEditorName: { type: Function, default: noop },
     activeObject: { type: Object, default: emptyObject },
     activeMaterial: { type: Object, default: emptyObject },
     activeGeometry: { type: Object, default: emptyObject },
     onChangeObjectProperty: { type: Function, default: noop },
     onChangeGeometryProperty: { type: Function, default: noop },
     onChangeMaterialProperty: { type: Function, default: noop },
-    onOpenShaderEditor: { type: Function, default: noop },
     onToggleOpenGallery: { type: Function, default: noop }
   },
   components: {
@@ -36,17 +36,16 @@ export default {
   },
   data() {
     return {
-      sections
+      editorsNames
     };
   },
   computed: mapState([
-    'activeSectionName',
+    'activeEditorName',
     'controlsPanelWidth',
     'activeMaterialTypeId'
   ]),
   methods: {
     ...mapActions([
-      'onSetActiveSectionName',
       'onSetActiveMaterialTypeId',
       'onSetControlsPanelWidth'
     ]),
@@ -82,23 +81,23 @@ export default {
       <custom-btn
         accesskey="o"
         title="Object"
-        :active="activeSectionName === sections.OBJECT"
-        :data="sections.OBJECT"
-        :onClick="onSetActiveSectionName"
+        :active="activeEditorName === editorsNames.OBJECT_EDITOR"
+        :data="editorsNames.OBJECT_EDITOR"
+        :onClick="onSetActiveEditorName"
       />
       <custom-btn
         accesskey="g"
         title="Geometry"
-        :active="activeSectionName === sections.GEOMETRY"
-        :data="sections.GEOMETRY"
-        :onClick="onSetActiveSectionName"
+        :active="activeEditorName === editorsNames.GEOMETRY_EDITOR"
+        :data="editorsNames.GEOMETRY_EDITOR"
+        :onClick="onSetActiveEditorName"
       />
       <custom-btn
         accesskey="m"
         title="Material"
-        :active="activeSectionName === sections.MATERIAL"
-        :data="sections.MATERIAL"
-        :onClick="onSetActiveSectionName"
+        :active="activeEditorName === editorsNames.MATERIAL_EDITOR"
+        :data="editorsNames.MATERIAL_EDITOR"
+        :onClick="onSetActiveEditorName"
       />
       <custom-btn iconClass="icon-archive" :onClick="onToggleOpenGallery" class="xs" />
     </header>
@@ -108,22 +107,22 @@ export default {
         :object="activeObject"
         :onSetNewObjectName="onSetNewObjectName"
         :onChange="onChangeObjectProperty"
-        v-if="activeSectionName === sections.OBJECT"
+        v-if="activeEditorName === editorsNames.OBJECT_EDITOR"
       />
       <geometry-editor
         :geometry="activeGeometry"
         :onSetNewGeometryName="onSetNewGeometryName"
         :onChange="onChangeGeometryProperty"
-        v-if="activeSectionName === sections.GEOMETRY"
+        v-if="activeEditorName === editorsNames.GEOMETRY_EDITOR"
       />
       <material-editor
         :material="activeMaterial"
         :onChange="onChangeMaterialProperty"
-        :onOpenShaderEditor="onOpenShaderEditor"
+        :onOpenShaderEditor="onSetActiveEditorName"
         :onSetNewMaterialName="onSetNewMaterialName"
         :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"
         :activeMaterialTypeId="activeMaterialTypeId"
-        v-if="activeSectionName === sections.MATERIAL"
+        v-if="activeEditorName === editorsNames.MATERIAL_EDITOR"
       />
     </section>
     <footer class="footer controls-row" />

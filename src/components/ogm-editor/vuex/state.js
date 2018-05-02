@@ -1,10 +1,10 @@
 import materialsTypes from '../../../common/constants/materials-types';
-import sections from '../../../common/constants/material-editor-sections';
+import editorsNames from '../../../common/constants/editors-names';
 
 const state = {
   materialsList: [],
   selectedMaterial: null,
-  activeSectionName: sections.MATERIAL,
+  activeEditorName: editorsNames.MATERIAL_EDITOR,
   controlsPanelWidth: 30,
   activeMaterialTypeId: materialsTypes.MESH_BASIC_MATERIAL
 };

@@ -4,9 +4,6 @@ const mutations = {
   [mutationTypes.SET_PANEL_CONTROLS_WIDTH_OF_OGM_EDITOR](state, width) {
     state.controlsPanelWidth = width;
   },
-  [mutationTypes.SET_ACTIVE_SECTION_NAME](state, name) {
-    state.activeSectionName = name;
-  },
   [mutationTypes.SET_ACTIVE_MATERIAL_TYPE_ID](state, id) {
     state.activeMaterialTypeId = id;
   },

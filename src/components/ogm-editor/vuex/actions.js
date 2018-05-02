@@ -12,9 +12,6 @@ const actions = {
   },
   onSelectMaterial(context, payload) {
     context.commit(mutationTypes.SET_SELECTED_MATERIAL, payload);
-  },
-  onSetActiveSectionName(context, sectionName) {
-    context.commit(mutationTypes.SET_ACTIVE_SECTION_NAME, sectionName);
   }
 };
 

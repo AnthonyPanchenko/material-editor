@@ -1,4 +1,3 @@
-import editorsNames from '../../../common/constants/editors-names';
 import mutationTypes from '../../../common/constants/mutation-types';
 
 const actions = {
@@ -14,17 +13,17 @@ const actions = {
   onToggleOpenGallery(context) {
     context.commit(mutationTypes.TOGGLE_OPEN_GALLERY);
   },
-  onOpenShaderEditor(context) {
-    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.SHADER_EDITOR);
+  onSetActiveEditorName(context, editorName) {
+    context.commit(mutationTypes.SET_ACTIVE_EDITOR_NAME, editorName);
   },
-  onOpenOgmEditor(context) {
-    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.OGM_EDITOR);
+  onSetObjectPropertyValue(context, payload) {
+    context.commit(mutationTypes.SET_OBJECT_PROPERTY_VALUE, payload);
   },
-  onOpenLightingEditor(context) {
-    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.LIGHTING_EDITOR);
+  onSetGeometryPropertyValue(context, payload) {
+    context.commit(mutationTypes.SET_GEOMETRY_PROPERTY_VALUE, payload);
   },
-  onOpenParticlesEditor(context) {
-    context.commit(mutationTypes.SET_ACTIVE_EDITOR_TYPE, editorsNames.PARTICLES_EDITOR);
+  onSetMaterialPropertyValue(context, payload) {
+    context.commit(mutationTypes.SET_MATERIAL_PROPERTY_VALUE, payload);
   }
 };
 

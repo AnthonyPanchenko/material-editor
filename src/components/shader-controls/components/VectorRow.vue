@@ -11,17 +11,19 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'VectorRow',
   props: {
-    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
-    name: { type: String, default: '_vec3' },
+
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
     type: { type: String, default: 'vec3' },
-    vector: { type: Object, default: () => [0.25, 0.78, 0.4] },
-    min: -1,
-    max: 1,
-    step: 0.01
+    value: { type: Object, default: () => [0.25, 0.78, 0.4] },
+
+    min: { type: Number, default: -1 },
+    max: { type: Number, default: 1 },
+    step: { type: Number, default: 0.01 }
   },
   components: {
     Info,
@@ -69,11 +71,11 @@ export default {
       this.numberPickerTrigger = this.$refs.numberPickerTrigger.$el;
       this.isOpenNumberPicker = !this.isOpenNumberPicker;
     },
-    onInputVectorValue(value, axis) {
-      const vector = [...this.vector];
-      vector[axis] = value;
+    onInputVectorValue(val, axis) {
+      const vector = [...this.value];
+      vector[axis] = val;
 
-      this.onChange(vector, this._id);
+      this.onChange(vector, this.id);
     }
   },
   mounted() {
@@ -97,26 +99,62 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="!isEditable" />
 
-    <input-number prefix="X" :name="0" :value="vector[0]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
-    <input-number prefix="Y" :name="1" :value="vector[1]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" />
-    <input-number prefix="Z" :name="2" :value="vector[2]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec3'" />
-    <input-number prefix="W" :name="3" :value="vector[3]" :min="min" :max="max" :step="step" :onInput="onInputVectorValue" v-if="type === 'vec4'" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+    <input-number
+      prefix="X"
+      :name="0"
+      :value="value[0]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="Y"
+      :name="1"
+      :value="value[1]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="Z"
+      :name="2"
+      :value="value[2]"
+      :min="min"
+      :max="max"
+      :step="step"
+      v-if="type === 'vec3'"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="W"
+      :name="3"
+      :value="value[3]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+      :onClick="onToggleNumberPickerPopover"
+      ref="numberPickerTrigger"
+      v-if="type === 'vec4'"
+    />
 
     <popover v-if="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
-      <vec2-picker :name="_id" :vector="vector" :onChange="onChange" />
+      <vec2-picker :name="id" :vector="value" :onChange="onChange" />
     </popover>
 
     <popover v-if="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
-      <vec3-picker :name="_id" :vector="vector" :onChange="onChange" />
+      <vec3-picker :name="id" :vector="value" :onChange="onChange" />
     </popover>
 
     <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :name="_id" :value="vector[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
+      <number-picker :name="id" :value="value[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
     <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

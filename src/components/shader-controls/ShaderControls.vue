@@ -2,7 +2,6 @@
 import noop from '../../common/utils/noop';
 import emptyObject from '../../common/utils/emptyObject';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
-import shadersDataTypes from '../../common/constants/shaders-data-types';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
 import createSelectsOptions from '../../common/utils/create-selects-options';
@@ -29,8 +28,7 @@ export default {
   data() {
     return {
       shadersControlsTypes,
-      isVisibleCreateNewArea: false,
-      selectOptions: createSelectsOptions(shadersDataTypes)
+      isVisibleCreateNewArea: false
     };
   },
   methods: {
@@ -90,32 +88,23 @@ export default {
         :onClick="onTabClick"
       />
       <custom-btn
+        class="xs"
         accesskey="c"
         :iconClass="isVisibleControlsFooter ? 'icon-collapse-vertical' : 'icon-expand-vertical'"
-        class="xs" :onClick="onToggleFooterControls"
+        :onClick="onToggleFooterControls"
       />
     </div>
 
     <div v-if="isVisibleControlsFooter" class="shader-ctrl-settings">
       <transition name="opacity">
-        <create-new
-          isEditable
-          v-if="isVisibleCreateNewArea"
-          :selectOptions="selectOptions"
-        />
+        <create-new isEditable v-if="isVisibleCreateNewArea" class="create-new" />
       </transition>
       <div class="controls scroll-box">
-
         <create-new
           v-for="ctrlId in controlsIds[activeControlsType]"
-          :id="controls[ctrlId]._id"
-          :value="controls[ctrlId].value"
-          :mode="controls[ctrlId].mode"
-          :name="controls[ctrlId].name"
-          :type="controls[ctrlId].dataType"
-          :selectOptions="selectOptions"
+          :key="ctrlId"
+          :ctrlData="controls[ctrlId]"
         />
-
       </div>
     </div>
   </resize-box>

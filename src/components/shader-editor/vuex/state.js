@@ -6,7 +6,7 @@ const state = {
   isVisibleControlsFooter: true,
   activeControlsType: shadersControlsTypes.UNIFORM,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
-  controlsFooterHeight: 30,
+  controlsFooterHeight: 35,
   controlsPanelWidth: 42,
   shaders: {
     [shadersTypes.FRAGMENT_SHADER]: '',

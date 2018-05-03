@@ -9,14 +9,15 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'TextureRow',
   props: {
-    _id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
-    name: { type: String, default: '_texture' },
+
+    id: { type: String, default: '' },
+    name: { type: String, default: '' },
     type: { type: String, default: 'sampler2D' },
-    background: { type: String, default: '' }
+    value: { type: String, default: '' }
   },
   components: {
     Info,
@@ -25,8 +26,8 @@ export default {
     CustomBtn
   },
   methods: {
-    onChangeFileInput(filses) {
-      console.log(filses);
+    onChangeFileInput(file) {
+      console.log(file);
     }
   }
 };
@@ -34,12 +35,12 @@ export default {
 
 <template>
   <div class="row">
-    <img-box :background="background" />
     <info :name="name" :type="type" v-if="!isEditable" />
 
     <input-file v-if="isEditable" :onChange="onChangeFileInput" />
+    <img-box :background="value" />
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
   </div>
 </template>

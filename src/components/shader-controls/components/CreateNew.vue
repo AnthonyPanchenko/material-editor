@@ -15,20 +15,19 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'CreateNew',
   props: {
-    _id: { type: String, required: true },
+    value: null,
+    id: { type: String, required: true },
     isEditable: { type: Boolean, default: false },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },
     onCreate: { type: Function, default: noop },
     onCancel: { type: Function, default: noop },
-
     numberValue: { type: Number, default: 0.1 },
     matrix: { type: Array, default: () => matrices.mat3 },
     vector: { type: Object, default: () => [0.25, 0.78, 0.4] },
     color: { type: Array, default: () => [70, 70, 220, 1] },
     background: { type: String, default: '' },
-
     selectOptions: { type: Array, default: emptyArray },
     selectedOptionId: { type: String, default: '' },
     mode: { type: String, default: 'vector' },
@@ -58,8 +57,8 @@ export default {
       <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
 
       <input-text name="tex" placeholder="name" :onInput="onChange" :value="name" />
-      <custom-btn iconClass="icon-checkmark" class="success xs" :data="_id" :onClick="onCreate" />
-      <custom-btn iconClass="icon-close" class="danger xs" :data="_id" :onClick="onCancel" />
+      <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onCreate" />
+      <custom-btn iconClass="icon-close" class="danger xs" :data="id" :onClick="onCancel" />
     </div>
 
     <texture-row v-if="type === 'sampler2D'" isEditable />

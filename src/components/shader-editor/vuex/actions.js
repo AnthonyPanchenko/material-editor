@@ -18,12 +18,6 @@ const actions = {
   },
   onSetFooterControlsHeight(context, height) {
     context.commit(mutationTypes.SET_FOOTER_CONTROLS_HEIGHT, height);
-  },
-  onSuccessLoadGlslPrograms(context, list) {
-    context.commit(mutationTypes.LOAD_GLSL_PROGRAMS_SUCCESS, list);
-  },
-  onSelectGlslProgram(context, payload) {
-    context.commit(mutationTypes.SET_SELECTED_GLSL_PROGRAM, payload);
   }
 };
 

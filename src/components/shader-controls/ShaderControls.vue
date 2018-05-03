@@ -13,6 +13,7 @@ export default {
   name: 'ShaderControls',
   props: {
     controls: { type: Object, default: emptyObject },
+    controlsIds: { type: Object, default: emptyObject },
     controlsFooterHeight: { type: Number, default: 32 },
     isVisibleControlsFooter: { type: Boolean, default: true },
     onToggleFooterControls: { type: Function, default: noop },
@@ -103,7 +104,19 @@ export default {
           :selectOptions="selectOptions"
         />
       </transition>
-      <div class="controls scroll-box"></div>
+      <div class="controls scroll-box">
+
+        <create-new
+          v-for="ctrlId in controlsIds[activeControlsType]"
+          :id="controls[ctrlId]._id"
+          :value="controls[ctrlId].value"
+          :mode="controls[ctrlId].mode"
+          :name="controls[ctrlId].name"
+          :type="controls[ctrlId].dataType"
+          :selectOptions="selectOptions"
+        />
+
+      </div>
     </div>
   </resize-box>
 </template>

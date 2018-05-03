@@ -14,7 +14,6 @@ const actions = {
     context.commit(mutationTypes.TOGGLE_OPEN_GALLERY);
   },
   onSetActiveEditorName(context, editorName) {
-    console.log(editorName);
     context.commit(mutationTypes.SET_ACTIVE_EDITOR_NAME, editorName);
   },
   onSetObjectPropertyValue(context, payload) {

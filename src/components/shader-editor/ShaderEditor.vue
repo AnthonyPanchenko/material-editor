@@ -34,7 +34,8 @@ export default {
   computed: mapState([
     'shaders',
     'controls',
-    'shadersInfo',
+    'controlsIds',
+    'materialId',
     'activeShaderType',
     'activeControlsType',
     'isVisibleControlsFooter',
@@ -97,6 +98,8 @@ export default {
     </section>
 
     <shader-controls
+      :controls="controls[activeShaderType]"
+      :controlsIds="controlsIds[activeShaderType]"
       :onSetFooterControlsHeight="onSetFooterControlsHeight"
       :onSetActiveControlsType="onSetActiveControlsType"
       :onToggleFooterControls="onToggleFooterControls"

@@ -18,12 +18,6 @@ const mutations = {
   },
   [mutationTypes.SET_FOOTER_CONTROLS_HEIGHT](state, height) {
     state.footerHeight = height;
-  },
-  [mutationTypes.LOAD_GLSL_PROGRAMS_SUCCESS](state, list) {
-    state.glslProgramsList = list;
-  },
-  [mutationTypes.SET_SELECTED_GLSL_PROGRAM](state, payload) {
-    state.selectedGlslprogram = payload;
   }
 };
 

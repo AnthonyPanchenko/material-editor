@@ -18,7 +18,7 @@ export default {
     onToggleFooterControls: { type: Function, default: noop },
     onSetFooterControlsHeight: { type: Function, default: noop },
     onSetActiveControlsType: { type: Function, default: noop },
-    activeControlsType: { type: String, default: shadersControlsTypes.UNIFORMS }
+    activeControlsType: { type: String, default: shadersControlsTypes.UNIFORM }
   },
   components: {
     CreateNew,
@@ -64,28 +64,28 @@ export default {
       <custom-btn
         accesskey="a"
         title="Attributes"
-        :iconClass="getIconClass(shadersControlsTypes.ATTRIBUTES)"
-        :active="isActive(shadersControlsTypes.ATTRIBUTES)"
+        :iconClass="getIconClass(shadersControlsTypes.ATTRIBUTE)"
+        :active="isActive(shadersControlsTypes.ATTRIBUTE)"
         :disabled="!isVisibleControlsFooter"
-        :data="shadersControlsTypes.ATTRIBUTES"
+        :data="shadersControlsTypes.ATTRIBUTE"
         :onClick="onTabClick"
       />
       <custom-btn
         accesskey="u"
         title="Uniforms"
-        :iconClass="getIconClass(shadersControlsTypes.UNIFORMS)"
-        :active="isActive(shadersControlsTypes.UNIFORMS)"
+        :iconClass="getIconClass(shadersControlsTypes.UNIFORM)"
+        :active="isActive(shadersControlsTypes.UNIFORM)"
         :disabled="!isVisibleControlsFooter"
-        :data="shadersControlsTypes.UNIFORMS"
+        :data="shadersControlsTypes.UNIFORM"
         :onClick="onTabClick"
       />
       <custom-btn
         accesskey="t"
         title="Textures"
-        :iconClass="getIconClass(shadersControlsTypes.TEXTURES)"
-        :active="isActive(shadersControlsTypes.TEXTURES)"
+        :iconClass="getIconClass(shadersControlsTypes.TEXTURE)"
+        :active="isActive(shadersControlsTypes.TEXTURE)"
         :disabled="!isVisibleControlsFooter"
-        :data="shadersControlsTypes.TEXTURES"
+        :data="shadersControlsTypes.TEXTURE"
         :onClick="onTabClick"
       />
       <custom-btn

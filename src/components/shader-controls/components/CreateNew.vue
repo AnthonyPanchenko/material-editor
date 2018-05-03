@@ -52,7 +52,7 @@ export default {
 <template>
   <div class="create-new controls">
     <div class="row">
-      <custom-select :options="selectOptions" :selectedOptionId="selectedOptionId" name="selectname" :onChange="onChange" />
+      <custom-select :options="selectOptions" :selectedOptionId="selectedOptionId" name="selectname" :onChange="onChange" class="data-type-select" />
 
       <radio-btn name="colorvector" sufix="color" value="color" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />
       <radio-btn name="colorvector" sufix="vector" value="vector" :onChange="onChange" picked="color" v-if="type === 'vec3' || type === 'vec4'" />

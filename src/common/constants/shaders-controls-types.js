@@ -1,7 +1,8 @@
 const shadersControlsTypes = {
-  ATTRIBUTES: 'attributes',
-  UNIFORMS: 'uniforms',
-  TEXTURES: 'textures'
+  ATTRIBUTE: 'attribute',
+  UNIFORM: 'uniform',
+  TEXTURE: 'texture',
+  CONST: 'const'
 };
 
 export default shadersControlsTypes;

@@ -8,6 +8,22 @@ const state = {
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
   controlsFooterHeight: 35,
   controlsPanelWidth: 42,
+  controlsCopies: {
+    [shadersTypes.FRAGMENT_SHADER]: {},
+    [shadersTypes.VERTEX_SHADER]: {}
+  },
+  newControl: {
+    [shadersTypes.FRAGMENT_SHADER]: {
+      [shadersControlsTypes.ATTRIBUTE]: {},
+      [shadersControlsTypes.UNIFORM]: {},
+      [shadersControlsTypes.TEXTURE]: {}
+    },
+    [shadersTypes.VERTEX_SHADER]: {
+      [shadersControlsTypes.ATTRIBUTE]: {},
+      [shadersControlsTypes.UNIFORM]: {},
+      [shadersControlsTypes.TEXTURE]: {}
+    }
+  },
   shaders: {
     [shadersTypes.FRAGMENT_SHADER]: '',
     [shadersTypes.VERTEX_SHADER]: ''

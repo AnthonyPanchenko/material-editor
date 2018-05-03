@@ -12,6 +12,8 @@ export default {
   props: {
     controls: { type: Object, default: emptyObject },
     controlsIds: { type: Object, default: emptyObject },
+    controlsCopies: { type: Object, default: emptyObject },
+    newControl: { type: Object, default: emptyObject },
     controlsFooterHeight: { type: Number, default: 35 },
     isVisibleControlsFooter: { type: Boolean, default: true },
     onToggleFooterControls: { type: Function, default: noop },
@@ -96,12 +98,18 @@ export default {
 
     <div v-if="isVisibleControlsFooter" class="shader-ctrl-settings">
       <transition name="opacity">
-        <create-new isEditable v-if="isVisibleCreateNewArea" class="create-new" />
+        <create-new
+          isEditable
+          class="create-new"
+          :ctrlData="newControl[activeControlsType]"
+          v-if="isVisibleCreateNewArea"
+        />
       </transition>
       <div class="controls scroll-box">
         <create-new
           v-for="ctrlId in controlsIds[activeControlsType]"
           :key="ctrlId"
+          :isEditable="controlsCopies.hasOwnProperty(ctrlId)"
           :ctrlData="controls[ctrlId]"
         />
       </div>

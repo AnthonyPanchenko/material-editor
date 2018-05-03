@@ -19,7 +19,7 @@ export default {
     id: { type: String, default: '' },
     name: { type: String, default: '' },
     type: { type: String, default: 'vec3' },
-    value: { type: Object, default: () => [0.25, 0.78, 0.4] },
+    value: { type: Array, default: () => [0.25, 0.78, 0.4] },
 
     min: { type: Number, default: -1 },
     max: { type: Number, default: 1 },

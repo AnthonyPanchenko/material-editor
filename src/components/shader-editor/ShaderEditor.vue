@@ -35,7 +35,9 @@ export default {
     'shaders',
     'controls',
     'controlsIds',
+    'newControl',
     'materialId',
+    'controlsCopies',
     'activeShaderType',
     'activeControlsType',
     'isVisibleControlsFooter',
@@ -100,6 +102,8 @@ export default {
     <shader-controls
       :controls="controls[activeShaderType]"
       :controlsIds="controlsIds[activeShaderType]"
+      :newControl="newControl[activeShaderType]"
+      :controlsCopies="controlsCopies[activeShaderType]"
       :onSetFooterControlsHeight="onSetFooterControlsHeight"
       :onSetActiveControlsType="onSetActiveControlsType"
       :onToggleFooterControls="onToggleFooterControls"

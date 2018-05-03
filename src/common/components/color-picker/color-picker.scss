@@ -146,9 +146,12 @@
     }
 
     label {
-      margin-right: 3px;
       flex-direction: column-reverse;
       height: auto;
+
+      &:first-child {
+        margin-left: 0;
+      }
 
       input {
         text-align: center;

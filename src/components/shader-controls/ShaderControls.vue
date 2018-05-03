@@ -4,7 +4,6 @@ import emptyObject from '../../common/utils/emptyObject';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
-import createSelectsOptions from '../../common/utils/create-selects-options';
 import CreateNew from './components/CreateNew.vue';
 import './styles/shader-controls.scss';
 
@@ -13,7 +12,7 @@ export default {
   props: {
     controls: { type: Object, default: emptyObject },
     controlsIds: { type: Object, default: emptyObject },
-    controlsFooterHeight: { type: Number, default: 32 },
+    controlsFooterHeight: { type: Number, default: 35 },
     isVisibleControlsFooter: { type: Boolean, default: true },
     onToggleFooterControls: { type: Function, default: noop },
     onSetFooterControlsHeight: { type: Function, default: noop },

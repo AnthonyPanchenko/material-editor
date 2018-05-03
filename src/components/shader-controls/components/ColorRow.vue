@@ -59,16 +59,17 @@ export default {
   <div class="row">
     <info :name="name" :type="type" v-if="!isEditable" />
 
-    <input-number prefix="R" :name="0" :value="value[0]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
-    <input-number prefix="G" :name="1" :value="value[1]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
-    <input-number prefix="B" :name="2" :value="value[2]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
-    <input-number prefix="A" :name="3" :value="value[3]" :min="0" :max="1" :step="0.01" :onInput="onInputColorValue" v-if="type === 'vec4'" />
+    <input-number prefix="R:" :name="0" :value="value[0]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="G:" :name="1" :value="value[1]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="B:" :name="2" :value="value[2]" :min="0" :max="255" :step="1" :onInput="onInputColorValue" />
+    <input-number prefix="A:" :name="3" :value="value[3]" :min="0" :max="1" :step="0.01" :onInput="onInputColorValue" v-if="type === 'vec4'" />
 
     <popover v-if="isOpen" :trigger="colorPickerTrigger" :onClose="onClosePopover">
       <color-picker :name="id" :color="value" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerTrigger" :onClick="onToggleColorPickerPopover" />
+
     <custom-btn iconClass="icon-pencil" class="primary xs" :data="_id" :onClick="onEdit" v-if="!isEditable" />
     <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="_id" :onClick="onRemove" v-if="!isEditable" />
   </div>

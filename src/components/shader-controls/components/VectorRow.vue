@@ -39,7 +39,6 @@ export default {
       isOpenVec2Picker: false,
       isOpenVec3Picker: false,
       isOpenNumberPicker: false,
-
       vec2PickerTrigger: null,
       vec3PickerTrigger: null,
       numberPickerTrigger: null
@@ -100,7 +99,7 @@ export default {
     <info :name="name" :type="type" v-if="!isEditable" />
 
     <input-number
-      prefix="X"
+      prefix="X:"
       :name="0"
       :value="value[0]"
       :min="min"
@@ -109,7 +108,7 @@ export default {
       :onInput="onInputVectorValue"
     />
     <input-number
-      prefix="Y"
+      prefix="Y:"
       :name="1"
       :value="value[1]"
       :min="min"
@@ -118,7 +117,7 @@ export default {
       :onInput="onInputVectorValue"
     />
     <input-number
-      prefix="Z"
+      prefix="Z:"
       :name="2"
       :value="value[2]"
       :min="min"
@@ -128,7 +127,7 @@ export default {
       :onInput="onInputVectorValue"
     />
     <input-number
-      prefix="W"
+      prefix="W:"
       :name="3"
       :value="value[3]"
       :min="min"
@@ -154,6 +153,7 @@ export default {
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
     <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
+
     <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
     <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
   </div>

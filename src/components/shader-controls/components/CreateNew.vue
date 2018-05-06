@@ -82,6 +82,9 @@ export default {
       :type="ctrlData.dataType"
       :value="ctrlData.value"
       :isEditable="isEditable"
+      :onChange="onChange"
+      :onRemove="onRemove"
+      :onEdit="onEdit"
       v-if="ctrlData.dataType === 'sampler2D'"
     />
     <number-row
@@ -90,6 +93,9 @@ export default {
       :type="ctrlData.dataType"
       :value="ctrlData.value"
       :isEditable="isEditable"
+      :onChange="onChange"
+      :onRemove="onRemove"
+      :onEdit="onEdit"
       v-if="ctrlData.dataType === 'int' || ctrlData.dataType === 'float'"
     />
     <matrix-row
@@ -98,6 +104,9 @@ export default {
       :type="ctrlData.dataType"
       :value="ctrlData.value"
       :isEditable="isEditable"
+      :onChange="onChange"
+      :onRemove="onRemove"
+      :onEdit="onEdit"
       v-if="ctrlData.dataType === 'mat2' || ctrlData.dataType === 'mat3' || ctrlData.dataType === 'mat4'"
     />
     <color-row
@@ -106,6 +115,9 @@ export default {
       :type="ctrlData.dataType"
       :value="ctrlData.value"
       :isEditable="isEditable"
+      :onChange="onChange"
+      :onRemove="onRemove"
+      :onEdit="onEdit"
       v-if="(ctrlData.dataType === 'vec3' || ctrlData.dataType === 'vec4') && ctrlData.mode === 'color'"
     />
     <vector-row
@@ -114,6 +126,9 @@ export default {
       :type="ctrlData.dataType"
       :value="ctrlData.value"
       :isEditable="isEditable"
+      :onChange="onChange"
+      :onRemove="onRemove"
+      :onEdit="onEdit"
       v-if="(ctrlData.dataType === 'vec2' || ctrlData.dataType === 'vec3' || ctrlData.dataType === 'vec4') && ctrlData.mode === 'vector'"
     />
   </div>

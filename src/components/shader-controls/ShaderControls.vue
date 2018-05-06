@@ -10,16 +10,22 @@ import './styles/shader-controls.scss';
 export default {
   name: 'ShaderControls',
   props: {
+    onEdit: { type: Function, default: noop },
+    onCreate: { type: Function, default: noop },
+    onCancel: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
+    onRemove: { type: Function, default: noop },
     controls: { type: Object, default: emptyObject },
-    controlsIds: { type: Object, default: emptyObject },
-    controlsCopies: { type: Object, default: emptyObject },
     newControl: { type: Object, default: emptyObject },
+    controlsIds: { type: Object, default: emptyObject },
     controlsFooterHeight: { type: Number, default: 35 },
+    controlsCopies: { type: Object, default: emptyObject },
     isVisibleControlsFooter: { type: Boolean, default: true },
     onToggleFooterControls: { type: Function, default: noop },
+    onSetActiveControlType: { type: Function, default: noop },
     onSetFooterControlsHeight: { type: Function, default: noop },
-    onSetActiveControlsType: { type: Function, default: noop },
-    activeControlsType: { type: String, default: shadersControlsTypes.UNIFORM }
+    onToggleCreateNewControlArea: { type: Function, default: noop },
+    activeControlType: { type: String, default: shadersControlsTypes.UNIFORM }
   },
   components: {
     CreateNew,
@@ -28,23 +34,26 @@ export default {
   },
   data() {
     return {
-      shadersControlsTypes,
-      isVisibleCreateNewArea: false
+      shadersControlsTypes
     };
+  },
+  watch: {
+    newControl(nextType, prevType) {
+      console.log(nextType);
+    }
   },
   methods: {
     isActive(controlType) {
-      return this.activeControlsType === controlType && this.isVisibleControlsFooter;
+      return this.activeControlType === controlType && this.isVisibleControlsFooter;
     },
     getIconClass(controlType) {
-      return this.isActive(controlType) ? 'icon-plus' : '222';
+      return this.isActive(controlType) ? 'icon-plus' : '';
     },
     onTabClick(controlType) {
-      if (controlType === this.activeControlsType) {
-        this.isVisibleCreateNewArea = !this.isVisibleCreateNewArea;
+      if (controlType === this.activeControlType) {
+        this.onToggleCreateNewControlArea();
       } else {
-        this.onSetActiveControlsType(controlType);
-        this.isVisibleCreateNewArea = false;
+        this.onSetActiveControlType(controlType);
       }
     }
   }
@@ -101,14 +110,24 @@ export default {
         <create-new
           isEditable
           class="create-new"
-          :ctrlData="newControl[activeControlsType]"
-          v-if="isVisibleCreateNewArea"
+          :onEdit="onEdit"
+          :onCreate="onCreate"
+          :onCancel="onCancel"
+          :onChange="onChange"
+          :onRemove="onRemove"
+          :ctrlData="newControl[activeControlType]"
+          v-if="!!Object.keys(newControl[activeControlType]).length"
         />
       </transition>
       <div class="controls scroll-box">
         <create-new
-          v-for="ctrlId in controlsIds[activeControlsType]"
+          v-for="ctrlId in controlsIds[activeControlType]"
           :key="ctrlId"
+          :onEdit="onEdit"
+          :onCreate="onCreate"
+          :onCancel="onCancel"
+          :onChange="onChange"
+          :onRemove="onRemove"
           :isEditable="controlsCopies.hasOwnProperty(ctrlId)"
           :ctrlData="controls[ctrlId]"
         />

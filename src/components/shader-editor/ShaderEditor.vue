@@ -39,23 +39,27 @@ export default {
     'materialId',
     'controlsCopies',
     'activeShaderType',
-    'activeControlsType',
+    'activeControlType',
     'isVisibleControlsFooter',
     'controlsFooterHeight',
     'controlsPanelWidth'
   ]),
   methods: {
     ...mapActions([
+      'onSaveShader',
+      'onEditControl',
+      'onCreateControl',
+      'onRemoveControl',
       'onChangeCodeEditor',
+      'onChangeControlValue',
+      'onCancelCreateControl',
       'onSetPanelControlsWidth',
+      'onToggleCreateNewControlArea',
       'onSetActiveShaderType',
       'onToggleFooterControls',
-      'onSetActiveControlsType',
+      'onSetActiveControlType',
       'onSetFooterControlsHeight'
-    ]),
-    onSaveShader(payload) {
-      console.log(payload);
-    }
+    ])
   }
 };
 </script>
@@ -92,24 +96,30 @@ export default {
 
     <section class="body">
       <code-editor
-        :activeShader="activeShaderType"
         :shaders="shaders"
+        :activeShader="activeShaderType"
         :onChange="onChangeCodeEditor"
         :onSave="onSaveShader"
       />
     </section>
 
     <shader-controls
+      :onEdit="onEditControl"
+      :onCreate="onCreateControl"
+      :onRemove="onRemoveControl"
+      :onCancel="onCancelCreateControl"
+      :onChange="onChangeControlValue"
       :controls="controls[activeShaderType]"
       :controlsIds="controlsIds[activeShaderType]"
       :newControl="newControl[activeShaderType]"
-      :controlsCopies="controlsCopies[activeShaderType]"
-      :onSetFooterControlsHeight="onSetFooterControlsHeight"
-      :onSetActiveControlsType="onSetActiveControlsType"
       :onToggleFooterControls="onToggleFooterControls"
+      :controlsCopies="controlsCopies[activeShaderType]"
+      :onSetActiveControlType="onSetActiveControlType"
       :isVisibleControlsFooter="isVisibleControlsFooter"
+      :onSetFooterControlsHeight="onSetFooterControlsHeight"
+      :onToggleCreateNewControlArea="onToggleCreateNewControlArea"
       :controlsFooterHeight="controlsFooterHeight"
-      :activeControlsType="activeControlsType"
+      :activeControlType="activeControlType"
     />
   </resize-box>
 </template>

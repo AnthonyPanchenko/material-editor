@@ -1,47 +1,30 @@
 import shadersControlsTypes from '../../../common/constants/shaders-controls-types';
 import shadersTypes from '../../../common/constants/shaders-types';
 
-const newControlsInitStates = {
-  [shadersControlsTypes.ATTRIBUTE]: {
-    value: 0.1,
-    name: '',
-    ctrlType: 'attribute',
-    mode: 'number',
-    dataType: 'float'
-  },
-  [shadersControlsTypes.UNIFORM]: {
-    value: [0.25, 0.78, -0.4],
-    name: '',
-    ctrlType: 'uniform',
-    mode: 'vector',
-    dataType: 'vec3'
-  },
-  [shadersControlsTypes.TEXTURE]: {
-    value: '',
-    mode: 'texture',
-    name: '',
-    ctrlType: 'texture',
-    dataType: 'sampler2D'
-  }
-};
-
 const state = {
   materialId: 'jkhsdfgywiou-2354-5436-xdfg4-dsfgdsgsdgfw3e',
   isVisibleControlsFooter: true,
-  activeControlsType: shadersControlsTypes.UNIFORM,
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
   controlsFooterHeight: 35,
   controlsPanelWidth: 42,
+  activeControlType: {
+    [shadersTypes.FRAGMENT_SHADER]: shadersControlsTypes.UNIFORM,
+    [shadersTypes.VERTEX_SHADER]: shadersControlsTypes.UNIFORM
+  },
   controlsCopies: {
     [shadersTypes.FRAGMENT_SHADER]: {},
     [shadersTypes.VERTEX_SHADER]: {}
   },
   newControl: {
     [shadersTypes.FRAGMENT_SHADER]: {
-      ...newControlsInitStates
+      [shadersControlsTypes.ATTRIBUTE]: {},
+      [shadersControlsTypes.UNIFORM]: {},
+      [shadersControlsTypes.TEXTURE]: {}
     },
     [shadersTypes.VERTEX_SHADER]: {
-      ...newControlsInitStates
+      [shadersControlsTypes.ATTRIBUTE]: {},
+      [shadersControlsTypes.UNIFORM]: {},
+      [shadersControlsTypes.TEXTURE]: {}
     }
   },
   shaders: {

@@ -18,6 +18,9 @@ const MainStore = new Vuex.Store({
   }
 });
 
-// window.store = MainStore;
+window.vuex = {
+  getState: () => MainStore.state,
+  getStore: () => MainStore
+};
 
 export default MainStore;

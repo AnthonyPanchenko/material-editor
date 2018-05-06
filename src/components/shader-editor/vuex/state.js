@@ -1,6 +1,30 @@
 import shadersControlsTypes from '../../../common/constants/shaders-controls-types';
 import shadersTypes from '../../../common/constants/shaders-types';
 
+const newControlsInitStates = {
+  [shadersControlsTypes.ATTRIBUTE]: {
+    value: 0.1,
+    name: '',
+    ctrlType: 'attribute',
+    mode: 'number',
+    dataType: 'float'
+  },
+  [shadersControlsTypes.UNIFORM]: {
+    value: [0.25, 0.78, -0.4],
+    name: '',
+    ctrlType: 'uniform',
+    mode: 'vector',
+    dataType: 'vec3'
+  },
+  [shadersControlsTypes.TEXTURE]: {
+    value: '',
+    mode: 'texture',
+    name: '',
+    ctrlType: 'texture',
+    dataType: 'sampler2D'
+  }
+};
+
 const state = {
   materialId: 'jkhsdfgywiou-2354-5436-xdfg4-dsfgdsgsdgfw3e',
   isVisibleControlsFooter: true,
@@ -14,14 +38,10 @@ const state = {
   },
   newControl: {
     [shadersTypes.FRAGMENT_SHADER]: {
-      [shadersControlsTypes.ATTRIBUTE]: {},
-      [shadersControlsTypes.UNIFORM]: {},
-      [shadersControlsTypes.TEXTURE]: {}
+      ...newControlsInitStates
     },
     [shadersTypes.VERTEX_SHADER]: {
-      [shadersControlsTypes.ATTRIBUTE]: {},
-      [shadersControlsTypes.UNIFORM]: {},
-      [shadersControlsTypes.TEXTURE]: {}
+      ...newControlsInitStates
     }
   },
   shaders: {
@@ -85,7 +105,7 @@ const state = {
       '112c2b71-d8d0-408c-9036-efe0f1549700': {
         _id: '112c2b71-d8d0-408c-9036-efe0f1549700',
         value: 'https://image.prntscr.com/image/lAsuUdTFQ6uf8YCr3edGTQ.png',
-        mode: 'vector',
+        mode: 'texture',
         name: 'texture_stones',
         ctrlType: 'texture',
         dataType: 'sampler2D'

@@ -37,7 +37,7 @@ export default {
       return this.activeControlsType === controlType && this.isVisibleControlsFooter;
     },
     getIconClass(controlType) {
-      return this.isActive(controlType) ? 'icon-plus' : '';
+      return this.isActive(controlType) ? 'icon-plus' : '222';
     },
     onTabClick(controlType) {
       if (controlType === this.activeControlsType) {

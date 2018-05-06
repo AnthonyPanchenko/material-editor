@@ -1,6 +1,7 @@
 const webpack = require('webpack');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const VueLoaderPlugin = require('vue-loader/lib/plugin');
 
 const isProd = process.env.NODE_ENV === 'production';
 
@@ -53,11 +54,16 @@ module.exports = (settings) => {
         {
           test: /\.vue$/,
           loader: 'vue-loader',
-          options: {
-            loaders: {
-              js: isProd ? [{ loader: 'babel-loader' }] : [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }]
-            }
-          }
+          exclude: /node_modules/
+        },
+        {
+          test: /\.html$/,
+          loader: 'html-loader'
+        },
+        {
+          test: /\.js$/,
+          loader: isProd ? [{ loader: 'babel-loader' }] : [{ loader: 'babel-loader' }, { loader: 'eslint-loader' }],
+          exclude: /node_modules/
         },
         {
           test: /\.(css|scss)$/,
@@ -77,6 +83,7 @@ module.exports = (settings) => {
     },
 
     plugins: [
+      new VueLoaderPlugin(),
       new webpack.LoaderOptionsPlugin({ minimize: isProd, debug: !isProd }),
       new HtmlWebpackPlugin({ template: `${settings.src}/template.html` }),
       new webpack.DefinePlugin({ 'process.env.NODE_ENV': JSON.stringify(process.env.NODE_ENV) })

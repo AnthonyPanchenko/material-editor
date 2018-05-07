@@ -47,13 +47,16 @@ export default {
   methods: {
     ...mapActions([
       'onSaveShader',
-      'onEditControl',
-      'onCreateControl',
       'onRemoveControl',
+      'onSetEditControl',
       'onChangeCodeEditor',
+      'onSaveNewControl',
+      'onSaveEditedControl',
+      'onCancelEditControl',
       'onChangeControlValue',
-      'onCancelCreateControl',
       'onSetPanelControlsWidth',
+      'onChangeNewControlValue',
+      'onCancelCreateNewControl',
       'onToggleCreateNewControlArea',
       'onSetActiveShaderType',
       'onToggleFooterControls',
@@ -104,11 +107,14 @@ export default {
     </section>
 
     <shader-controls
-      :onEdit="onEditControl"
-      :onCreate="onCreateControl"
-      :onRemove="onRemoveControl"
-      :onCancel="onCancelCreateControl"
-      :onChange="onChangeControlValue"
+      :onRemoveControl="onRemoveControl"
+      :onSetEditControl="onSetEditControl"
+      :onSaveNewControl="onSaveNewControl"
+      :onSaveEditedControl="onSaveEditedControl"
+      :onCancelEditControl="onCancelEditControl"
+      :onChangeControlValue="onChangeControlValue"
+      :onChangeNewControlValue="onChangeNewControlValue"
+      :onCancelCreateNewControl="onCancelCreateNewControl"
       :controls="controls[activeShaderType]"
       :controlsIds="controlsIds[activeShaderType]"
       :newControl="newControl[activeShaderType]"
@@ -118,8 +124,8 @@ export default {
       :isVisibleControlsFooter="isVisibleControlsFooter"
       :onSetFooterControlsHeight="onSetFooterControlsHeight"
       :onToggleCreateNewControlArea="onToggleCreateNewControlArea"
+      :activeControlType="activeControlType[activeShaderType]"
       :controlsFooterHeight="controlsFooterHeight"
-      :activeControlType="activeControlType"
     />
   </resize-box>
 </template>

@@ -42,7 +42,6 @@ export default {
         [shadersTypes.FRAGMENT_SHADER]: 'x-shader/x-fragment',
         [shadersTypes.VERTEX_SHADER]: 'x-shader/x-vertex'
       },
-      payload: { value: '', type: '' },
       options: {
         gutters: ['CodeMirror-lint-markers', 'CodeMirror-linenumbers', 'CodeMirror-foldgutter'],
         inputStyle: 'contenteditable',
@@ -100,16 +99,10 @@ export default {
       }
     },
     onChangeCode(cm) {
-      this.payload.value = cm.getValue().replace(/"/g, '');
-      this.payload.type = this.activeShader;
-
-      this.onChange(this.payload);
+      this.onChange(cm.getValue().replace(/"/g, ''));
     },
     onSaveCode(cm) {
-      this.payload.value = cm.getValue().replace(/"/g, '');
-      this.payload.type = this.activeShader;
-
-      this.onSave(this.payload);
+      this.onSave(cm.getValue().replace(/"/g, ''));
     }
   },
   mounted() {

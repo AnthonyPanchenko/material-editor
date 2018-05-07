@@ -10,11 +10,14 @@ import './styles/shader-controls.scss';
 export default {
   name: 'ShaderControls',
   props: {
-    onEdit: { type: Function, default: noop },
-    onCreate: { type: Function, default: noop },
-    onCancel: { type: Function, default: noop },
-    onChange: { type: Function, default: noop },
-    onRemove: { type: Function, default: noop },
+    onSaveNewControl: { type: Function, default: noop },
+    onCancelCreateNewControl: { type: Function, default: noop },
+    onChangeNewControlValue: { type: Function, default: noop },
+    onSetEditControl: { type: Function, default: noop },
+    onSaveEditedControl: { type: Function, default: noop },
+    onCancelEditControl: { type: Function, default: noop },
+    onChangeControlValue: { type: Function, default: noop },
+    onRemoveControl: { type: Function, default: noop },
     controls: { type: Object, default: emptyObject },
     newControl: { type: Object, default: emptyObject },
     controlsIds: { type: Object, default: emptyObject },
@@ -51,7 +54,7 @@ export default {
     },
     onTabClick(controlType) {
       if (controlType === this.activeControlType) {
-        this.onToggleCreateNewControlArea();
+        this.onToggleCreateNewControlArea(controlType);
       } else {
         this.onSetActiveControlType(controlType);
       }
@@ -110,11 +113,9 @@ export default {
         <create-new
           isEditable
           class="create-new"
-          :onEdit="onEdit"
-          :onCreate="onCreate"
-          :onCancel="onCancel"
-          :onChange="onChange"
-          :onRemove="onRemove"
+          :onCreate="onSaveNewControl"
+          :onCancel="onCancelCreateNewControl"
+          :onChange="onChangeNewControlValue"
           :ctrlData="newControl[activeControlType]"
           v-if="!!Object.keys(newControl[activeControlType]).length"
         />
@@ -123,11 +124,11 @@ export default {
         <create-new
           v-for="ctrlId in controlsIds[activeControlType]"
           :key="ctrlId"
-          :onEdit="onEdit"
-          :onCreate="onCreate"
-          :onCancel="onCancel"
-          :onChange="onChange"
-          :onRemove="onRemove"
+          :onEdit="onSetEditControl"
+          :onCreate="onSaveEditedControl"
+          :onCancel="onCancelEditControl"
+          :onChange="onChangeControlValue"
+          :onRemove="onRemoveControl"
           :isEditable="controlsCopies.hasOwnProperty(ctrlId)"
           :ctrlData="controls[ctrlId]"
         />

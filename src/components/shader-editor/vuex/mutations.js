@@ -2,6 +2,9 @@ import mutationTypes from '../../../common/constants/mutation-types';
 import newControlsInitStates from '../utils/newControlsInitStates';
 
 const mutations = {
+  [mutationTypes.NEW_CONTROL_SET_VALUE](state, payload) {
+    state.newControl[state.activeShaderType][state.activeControlType[state.activeShaderType]][payload.fieldName] = payload.value;
+  },
   [mutationTypes.SET_SHADER_VALUE_BY_TYPE](state, value) {
     state.shaders[state.activeShaderType] = value;
   },

@@ -28,11 +28,11 @@ const actions = {
   onSaveShader(context, cotrolsType) {
     context.commit(mutationTypes.SAVE_SHADER, cotrolsType);
   },
-  onChangeControlValue(context, cotrolsType) {
-    context.commit(mutationTypes.CONTROL_SET_VALUE, cotrolsType);
+  onChangeControlValue(context, payload) {
+    context.commit(mutationTypes.CONTROL_SET_VALUE, payload);
   },
-  onChangeNewControlValue(context, cotrolsType) {
-    context.commit(mutationTypes.NEW_CONTROL_SET_VALUE, cotrolsType);
+  onChangeNewControlValue(context, payload) {
+    context.commit(mutationTypes.NEW_CONTROL_SET_VALUE, payload);
   },
   onCancelEditControl(context, cotrolsType) {
     context.commit(mutationTypes.CONTROL_CANCEL_EDIT, cotrolsType);

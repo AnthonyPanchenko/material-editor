@@ -95,7 +95,7 @@ export default {
       if (isAllowedToSet) {
         this.initIndexOfSelectedOption = this.indexOfSelectedOption;
         this.selectedOption = this.options[this.indexOfSelectedOption];
-        this.onChange(this.selectedOption, this.name);
+        this.onChange(this.selectedOption, this.name, this.data);
       }
     },
     onWindowResizeCloseSelectList() {

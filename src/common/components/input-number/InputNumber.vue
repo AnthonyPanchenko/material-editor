@@ -6,7 +6,7 @@ export default {
   name: 'InputNumber',
   props: {
     name: [String, Number],
-    value: Number,
+    value: { type: Number, default: 0 },
     min: Number,
     max: Number,
     step: Number,
@@ -20,10 +20,17 @@ export default {
     onInputClick() {
       this.onClick();
     },
+    onKeyDownInput(event) {
+      if (event.keyCode === 69) {
+        event.preventDefault();
+      }
+    },
     onInputNumber(event) {
       if (!this.disabled) {
-        const value = +event.target.value.replace(/[^.\d]/g, '');
-        this.onInput(value, this.name, +this.min, +this.max, +this.step);
+        const value = +event.target.value;
+        if (!isNaN(value)) {
+          this.onInput(value, this.name, +this.min, +this.max, +this.step);
+        }
       }
     }
   },
@@ -39,7 +46,18 @@ export default {
 <template>
   <label :class="['input-number', { 'disabled': disabled }]" :title="value" @click="onInputClick">
     <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input ref="inpNumber" type="number" :name="name" :step="step" :min="min" :max="max" v-on:input="onInputNumber" :value="value" :disabled="disabled">
+    <input
+      @keydown="onKeyDownInput"
+      ref="inpNumber"
+      type="number"
+      :name="name"
+      :step="step"
+      :min="min"
+      :max="max"
+      v-on:input="onInputNumber"
+      :value="value"
+      :disabled="disabled"
+    >
     <span v-if="sufix" class="sufix"> {{ sufix }} </span>
   </label>
 </template>

@@ -5,6 +5,9 @@ const mutations = {
   [mutationTypes.NEW_CONTROL_SET_VALUE](state, payload) {
     state.newControl[state.activeShaderType][state.activeControlType[state.activeShaderType]][payload.fieldName] = payload.value;
   },
+  [mutationTypes.CONTROL_SET_VALUE](state, payload) {
+    state.controls[state.activeShaderType][payload.id][payload.fieldName] = payload.value;
+  },
   [mutationTypes.SET_SHADER_VALUE_BY_TYPE](state, value) {
     state.shaders[state.activeShaderType] = value;
   },

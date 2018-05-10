@@ -36,6 +36,7 @@ export default {
   },
   data() {
     return {
+      isVisibleRemoveControl: false,
       isOpenVec2Picker: false,
       isOpenVec3Picker: false,
       isOpenNumberPicker: false,
@@ -45,6 +46,9 @@ export default {
     };
   },
   methods: {
+    onTogleRemoveMode() {
+      this.isVisibleRemoveControl = !this.isVisibleRemoveControl;
+    },
     onClosePopover() {
       if (this.isOpenVec2Picker) {
         this.isOpenVec2Picker = false;
@@ -154,7 +158,9 @@ export default {
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
     <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
   </div>
 </template>

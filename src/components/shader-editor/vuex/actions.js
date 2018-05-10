@@ -22,8 +22,8 @@ const actions = {
   onToggleCreateNewControlArea(context, cotrolsType) {
     context.commit(mutationTypes.TOGGLE_CREATE_NEW_CONTROL_AREA, cotrolsType);
   },
-  onRemoveControl(context, cotrolsType) {
-    context.commit(mutationTypes.CONTROL_REMOVE, cotrolsType);
+  onRemoveControl(context, id) {
+    context.commit(mutationTypes.CONTROL_REMOVE, id);
   },
   onSaveShader(context, cotrolsType) {
     context.commit(mutationTypes.SAVE_SHADER, cotrolsType);

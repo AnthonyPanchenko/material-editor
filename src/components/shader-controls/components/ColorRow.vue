@@ -29,10 +29,14 @@ export default {
   data() {
     return {
       isOpen: false,
+      isVisibleRemoveControl: false,
       colorPickerTrigger: null
     };
   },
   methods: {
+    onTogleRemoveMode() {
+      this.isVisibleRemoveControl = !this.isVisibleRemoveControl;
+    },
     onClosePopover() {
       if (this.isOpen) {
         this.isOpen = false;
@@ -70,7 +74,9 @@ export default {
 
     <custom-btn iconClass="icon-color-palette" class="xs" ref="colorPickerTrigger" :onClick="onToggleColorPickerPopover" />
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
   </div>
 </template>

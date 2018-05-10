@@ -32,6 +32,17 @@ const mutations = {
   },
   [mutationTypes.SET_FOOTER_CONTROLS_HEIGHT](state, height) {
     state.footerHeight = height;
+  },
+  [mutationTypes.CONTROL_REMOVE](state, id) {
+    let copiesArray = [...state.controlsIds[state.activeShaderType][state.activeControlType[state.activeShaderType]]];
+    state.controlsIds[state.activeShaderType][state.activeControlType[state.activeShaderType]] = copiesArray.filter(objId => objId !== id);
+    copiesArray = null;
+
+    let copiesObject = {...state.controls[state.activeShaderType]};
+    delete copiesObject[id];
+
+    state.controls[state.activeShaderType] = {...copiesObject};
+    copiesObject = null;
   }
 };
 

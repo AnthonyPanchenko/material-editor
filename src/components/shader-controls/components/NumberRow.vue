@@ -28,12 +28,16 @@ export default {
   },
   data() {
     return {
+      isVisibleRemoveControl: false,
       step: (this.type === 'float') ? 0.01 : 1,
       isOpenNumberPicker: false,
       numberPickerTrigger: null
     };
   },
   methods: {
+    onTogleRemoveMode() {
+      this.isVisibleRemoveControl = !this.isVisibleRemoveControl;
+    },
     onClosePopover() {
       if (this.isOpenNumberPicker) {
         this.isOpenNumberPicker = false;
@@ -63,7 +67,9 @@ export default {
       <number-picker :value="value" :step="step" :onChange="onChange" />
     </popover>
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
   </div>
 </template>

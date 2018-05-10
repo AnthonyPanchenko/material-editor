@@ -25,7 +25,15 @@ export default {
     InputFile,
     CustomBtn
   },
+  data() {
+    return {
+      isVisibleRemoveControl: false
+    };
+  },
   methods: {
+    onTogleRemoveMode() {
+      this.isVisibleRemoveControl = !this.isVisibleRemoveControl;
+    },
     onChangeFileInput(file) {
       console.log(file);
     }
@@ -40,7 +48,9 @@ export default {
     <input-file v-if="isEditable" :onChange="onChangeFileInput" />
     <img-box :background="value" />
 
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :data="id" :onClick="onRemove" v-if="!isEditable" />
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
   </div>
 </template>

@@ -1,5 +1,6 @@
 <script>
 import noop from '../../common/utils/noop';
+import emptyArray from '../../common/utils/emptyArray';
 import emptyObject from '../../common/utils/emptyObject';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
@@ -10,8 +11,8 @@ import './styles/shader-controls.scss';
 export default {
   name: 'ShaderControls',
   props: {
+    editableControlsIds: { type: Array, default: emptyArray },
     onSaveNewControl: { type: Function, default: noop },
-    onCancelCreateNewControl: { type: Function, default: noop },
     onChangeNewControlValue: { type: Function, default: noop },
     onSetEditControl: { type: Function, default: noop },
     onSaveEditedControl: { type: Function, default: noop },
@@ -40,17 +41,18 @@ export default {
       shadersControlsTypes
     };
   },
-  watch: {
-    newControl(nextType, prevType) {
-      console.log(nextType);
-    }
-  },
   methods: {
+    isEditableControl(id) {
+      return this.editableControlsIds.indexOf(id) !== -1;
+    },
     isActive(controlType) {
       return this.activeControlType === controlType && this.isVisibleControlsFooter;
     },
     getIconClass(controlType) {
       return this.isActive(controlType) ? 'icon-plus' : '';
+    },
+    onCancelCreateNewControl() {
+      this.onToggleCreateNewControlArea(this.activeControlType);
     },
     onTabClick(controlType) {
       if (controlType === this.activeControlType) {
@@ -129,7 +131,7 @@ export default {
           :onCancel="onCancelEditControl"
           :onChange="onChangeControlValue"
           :onRemove="onRemoveControl"
-          :isEditable="controlsCopies.hasOwnProperty(ctrlId)"
+          :isEditable="isEditableControl(ctrlId)"
           :ctrlData="controls[ctrlId]"
         />
       </div>

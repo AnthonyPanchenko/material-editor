@@ -40,6 +40,7 @@ export default {
     'controlsCopies',
     'activeShaderType',
     'activeControlType',
+    'editableControlsIds',
     'isVisibleControlsFooter',
     'controlsFooterHeight',
     'controlsPanelWidth'
@@ -56,7 +57,6 @@ export default {
       'onChangeControlValue',
       'onSetPanelControlsWidth',
       'onChangeNewControlValue',
-      'onCancelCreateNewControl',
       'onToggleCreateNewControlArea',
       'onSetActiveShaderType',
       'onToggleFooterControls',
@@ -114,7 +114,6 @@ export default {
       :onCancelEditControl="onCancelEditControl"
       :onChangeControlValue="onChangeControlValue"
       :onChangeNewControlValue="onChangeNewControlValue"
-      :onCancelCreateNewControl="onCancelCreateNewControl"
       :controls="controls[activeShaderType]"
       :controlsIds="controlsIds[activeShaderType]"
       :newControl="newControl[activeShaderType]"
@@ -125,6 +124,7 @@ export default {
       :onSetFooterControlsHeight="onSetFooterControlsHeight"
       :onToggleCreateNewControlArea="onToggleCreateNewControlArea"
       :activeControlType="activeControlType[activeShaderType]"
+      :editableControlsIds="editableControlsIds"
       :controlsFooterHeight="controlsFooterHeight"
     />
   </resize-box>

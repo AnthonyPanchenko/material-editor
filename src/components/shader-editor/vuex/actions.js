@@ -20,7 +20,7 @@ const actions = {
     context.commit(mutationTypes.SET_ACTIVE_CONTROL_TYPE, cotrolsType);
   },
   onToggleCreateNewControlArea(context, cotrolsType) {
-    context.commit(mutationTypes.TOGGLE_CREATE_NEW_CONTROL_AREA, cotrolsType);
+    context.commit(mutationTypes.NEW_CONTROL_TOGGLE_CREATE_MODE, cotrolsType);
   },
   onRemoveControl(context, id) {
     context.commit(mutationTypes.CONTROL_REMOVE, id);
@@ -34,20 +34,17 @@ const actions = {
   onChangeNewControlValue(context, payload) {
     context.commit(mutationTypes.NEW_CONTROL_SET_VALUE, payload);
   },
-  onCancelEditControl(context, cotrolsType) {
-    context.commit(mutationTypes.CONTROL_CANCEL_EDIT, cotrolsType);
-  },
-  onCancelCreateNewControl(context, cotrolsType) {
-    context.commit(mutationTypes.NEW_CONTROL_CANCEL_CREATE, cotrolsType);
-  },
   onSaveEditedControl(context, cotrolsType) {
     context.commit(mutationTypes.CONTROL_SAVE_EDITED, cotrolsType);
   },
   onSaveNewControl(context, cotrolsType) {
     context.commit(mutationTypes.NEW_CONTROL_SAVE, cotrolsType);
   },
-  onSetEditControl(context, cotrolsType) {
-    context.commit(mutationTypes.CONTROL_SET_EDIT, cotrolsType);
+  onCancelEditControl(context, id) {
+    context.commit(mutationTypes.CONTROL_CANCEL_EDIT, id);
+  },
+  onSetEditControl(context, id) {
+    context.commit(mutationTypes.CONTROL_SET_EDIT, id);
   }
 };
 

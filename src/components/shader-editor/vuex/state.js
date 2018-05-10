@@ -7,6 +7,7 @@ const state = {
   activeShaderType: shadersTypes.FRAGMENT_SHADER,
   controlsFooterHeight: 35,
   controlsPanelWidth: 42,
+  editableControlsIds: [],
   activeControlType: {
     [shadersTypes.FRAGMENT_SHADER]: shadersControlsTypes.UNIFORM,
     [shadersTypes.VERTEX_SHADER]: shadersControlsTypes.UNIFORM

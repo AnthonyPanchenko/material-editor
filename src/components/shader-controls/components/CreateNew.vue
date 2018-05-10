@@ -16,8 +16,8 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'CreateNew',
   props: {
-    ctrlData: { type: Object, default: emptyObject },
     isEditable: { type: Boolean, default: false },
+    ctrlData: { type: Object, default: emptyObject },
     onChange: { type: Function, default: noop },
     onRemove: { type: Function, default: noop },
     onEdit: { type: Function, default: noop },

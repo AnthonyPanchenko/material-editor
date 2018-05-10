@@ -35,7 +35,7 @@ export default {
     };
   },
   methods: {
-    isDifferenceNames() {
+    isDifferentNames() {
       return (this.newItemName && (this.selectedItem && this.selectedItem.name)) !== this.newItemName.trim();
     },
     onItemClick(item) {
@@ -44,7 +44,7 @@ export default {
       this.isVisibleCtrls = false;
     },
     onRenameItem() {
-      if (this.isDifferenceNames()) {
+      if (this.isDifferentNames()) {
         console.log(this.newItemName.trim());
       }
     },
@@ -83,7 +83,7 @@ export default {
         <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onCancelRemoveItem" class="danger xs" />
         <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onRemove" class="success xs" />
         <input-text :value="newItemName" :onInput="onChangeItemName" />
-        <custom-btn :disabled="!isDifferenceNames()" title="Rename" :onClick="onRenameItem" class="success sm" />
+        <custom-btn :disabled="!isDifferentNames()" title="Rename" :onClick="onRenameItem" class="success sm" />
         <custom-btn title="Edit" :onClick="onEdit" class="primary sm" />
         <custom-btn title="Apply" :onClick="onApply" class="primary sm" />
       </div>

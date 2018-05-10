@@ -89,6 +89,12 @@ export default {
     addParticlesEmitterToScene() {
       console.log('addParticlesEmitterToScene');
     },
+    onSetNewObjectName() {
+      console.log('onSetNewObjectName');
+    },
+    onSetNewGeometryName() {
+      console.log('onSetNewGeometryName');
+    },
     onSetNewMaterialName() {
       console.log('onSetNewMaterialName');
     },
@@ -107,17 +113,17 @@ export default {
     deselectMeshInSceneCallback() {
       this.activeObject = {};
     },
-    onChangeObjectProperty(propName, newVal) {
-      this.onSetObjectPropertyValue({ propName, newVal });
-      this.activeObject[propName] = newVal;
+    onChangeObjectProperty(payload) {
+      this.onSetObjectPropertyValue(payload);
+      this.activeObject[payload.fieldName] = payload.value;
     },
-    onChangeGeometryProperty(propName, newVal) {
-      this.onSetGeometryPropertyValue({ propName, newVal });
-      this.activeObject.geometry[propName] = newVal;
+    onChangeGeometryProperty(payload) {
+      this.onSetGeometryPropertyValue(payload);
+      this.activeObject.geometry[payload.fieldName] = payload.value;
     },
-    onChangeMaterialProperty(propName, newVal) {
-      this.onSetMaterialPropertyValue({ propName, newVal });
-      this.activeObject.material[propName] = newVal;
+    onChangeMaterialProperty(payload) {
+      this.onSetMaterialPropertyValue(payload);
+      this.activeObject.material[payload.fieldName] = payload.value;
     },
     onSelectMeshByUuid(uuid) {
       console.log(uuid);
@@ -166,6 +172,8 @@ export default {
       :onChangeGeometryProperty="onChangeGeometryProperty"
       :onChangeMaterialProperty="onChangeMaterialProperty"
       :onSetActiveEditorName="onSetActiveEditorName"
+      :onSetNewObjectName="onSetNewObjectName"
+      :onSetNewGeometryName="onSetNewGeometryName"
       :onSetNewMaterialName="onSetNewMaterialName"
       :onToggleOpenGallery="onToggleOpenGallery"
       :activeObject="objects[activeEditableIds.objectId] || {}"

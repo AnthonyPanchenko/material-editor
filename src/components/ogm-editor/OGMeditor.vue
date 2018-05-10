@@ -51,22 +51,7 @@ export default {
     ...mapActions([
       'onSetActiveMaterialTypeId',
       'onSetControlsPanelWidth'
-    ]),
-    onChangeNumberInput(value, name, min, max, step) {
-      console.log(value, name, min, max, step);
-    },
-    onChangeSelect(selectedValue, name) {
-      console.log(selectedValue);
-      console.log(name);
-    },
-    onChangeFileInput(file) {
-      console.log(file);
-    },
-    onChangeCheckBox(state, value, name) {
-      console.log(state);
-      console.log(value);
-      console.log(name);
-    }
+    ])
   }
 };
 </script>

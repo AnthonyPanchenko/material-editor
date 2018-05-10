@@ -26,17 +26,29 @@ export default {
     };
   },
   methods: {
-    onChangePosition() {
-      this.onChange();
+    getValue(valueOf, index) {
+      return this.object[valueOf] && this.object[valueOf][index] || 0;
     },
-    onChangeRotation() {
-      this.onChange();
+    onChangePosition(value, index) {
+      const copyArr = [...this.object[this.oProps.POSITION]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.POSITION, id: this.object.id });
     },
-    onChangeScale() {
-      this.onChange();
+    onChangeRotation(value, index) {
+      const copyArr = [...this.object[this.oProps.ROTATION]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.ROTATION, id: this.object.id });
     },
-    onChangeCheckBox() {
-      this.onChange();
+    onChangeScale(value, index) {
+      const copyArr = [...this.object[this.oProps.SCALE]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.SCALE, id: this.object.id });
+    },
+    onChangeCheckBox(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.object.id });
     }
   }
 };
@@ -54,23 +66,23 @@ export default {
     <div class="controls scroll-box">
       <div class="row">
         <label class="label">Position</label>
-        <input-number prefix="X:" :name="0" :value="object[oProps.POSITION] && object[oProps.POSITION][0] || 0" :onChange="onChangePosition" />
-        <input-number prefix="Y:" :name="1" :value="object[oProps.POSITION] && object[oProps.POSITION][1] || 0" :onChange="onChangePosition" />
-        <input-number prefix="Z:" :name="2" :value="object[oProps.POSITION] && object[oProps.POSITION][2] || 0" :onChange="onChangePosition" />
+        <input-number prefix="X:" :name="0" :value="getValue(oProps.POSITION, 0)" :onChange="onChangePosition" />
+        <input-number prefix="Y:" :name="1" :value="getValue(oProps.POSITION, 1)" :onChange="onChangePosition" />
+        <input-number prefix="Z:" :name="2" :value="getValue(oProps.POSITION, 2)" :onChange="onChangePosition" />
       </div>
 
       <div class="row">
         <label class="label">Rotation</label>
-        <input-number prefix="X:" sufix="°" :name="0" :value="object[oProps.ROTATION] && object[oProps.ROTATION][0] || 0" :onChange="onChangeRotation" />
-        <input-number prefix="Y:" sufix="°" :name="1" :value="object[oProps.ROTATION] && object[oProps.ROTATION][1] || 0" :onChange="onChangeRotation" />
-        <input-number prefix="Z:" sufix="°" :name="2" :value="object[oProps.ROTATION] && object[oProps.ROTATION][2] || 0" :onChange="onChangeRotation" />
+        <input-number prefix="X:" sufix="°" :name="0" :value="getValue(oProps.ROTATION, 0)" :onChange="onChangeRotation" />
+        <input-number prefix="Y:" sufix="°" :name="1" :value="getValue(oProps.ROTATION, 1)" :onChange="onChangeRotation" />
+        <input-number prefix="Z:" sufix="°" :name="2" :value="getValue(oProps.ROTATION, 2)" :onChange="onChangeRotation" />
       </div>
 
       <div class="row">
         <label class="label">Scale</label>
-        <input-number prefix="X:" :name="0" :value="object[oProps.SCALE] && object[oProps.SCALE][0] || 0" :onChange="onChangeScale" />
-        <input-number prefix="Y:" :name="1" :value="object[oProps.SCALE] && object[oProps.SCALE][1] || 0" :onChange="onChangeScale" />
-        <input-number prefix="Z:" :name="2" :value="object[oProps.SCALE] && object[oProps.SCALE][2] || 0" :onChange="onChangeScale" />
+        <input-number prefix="X:" :name="0" :value="getValue(oProps.SCALE, 0)" :onChange="onChangeScale" />
+        <input-number prefix="Y:" :name="1" :value="getValue(oProps.SCALE, 1)" :onChange="onChangeScale" />
+        <input-number prefix="Z:" :name="2" :value="getValue(oProps.SCALE, 2)" :onChange="onChangeScale" />
       </div>
 
       <div class="row">

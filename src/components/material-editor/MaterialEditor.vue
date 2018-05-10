@@ -75,20 +75,20 @@ export default {
       this.currentColorPickerName = name;
       this.isOpen = !this.isOpen;
     },
-    onChangeSelect() {
-      this.onChange();
+    onChangeSelect(option, fieldName) {
+      this.onChange({ value: option.id, fieldName, id: this.material.id });
     },
-    onChangeFileInput() {
-      this.onChange();
+    onChangeFileInput(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
     },
-    onChangeCheckBox() {
-      this.onChange();
+    onChangeCheckBox(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
     },
-    onChangeColor() {
-      this.onChange();
+    onChangeColor(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
     },
-    onChangeNumberInput() {
-      this.onChange();
+    onChangeNumberInput(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
     }
   }
 };

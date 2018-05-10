@@ -26,11 +26,8 @@ export default {
     };
   },
   methods: {
-    onChangeInputNumber() {
-      this.onChange();
-    },
-    onChangeCheckBox() {
-      this.onChange();
+    onChangeControl(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.geometry.id });
     }
   }
 };
@@ -48,87 +45,87 @@ export default {
     <div class="controls scroll-box">
       <div class="row">
         <label class="label">Radius</label>
-        <input-number :name="gProps.RADIUS" :value="geometry[gProps.RADIUS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.RADIUS" :value="geometry[gProps.RADIUS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Tube</label>
-        <input-number :name="gProps.TUBE" :value="geometry[gProps.TUBE]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.TUBE" :value="geometry[gProps.TUBE]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Segments</label>
-        <input-number :name="gProps.SEGMENTS" :value="geometry[gProps.SEGMENTS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.SEGMENTS" :value="geometry[gProps.SEGMENTS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Radius top</label>
-        <input-number :name="gProps.RADIUSTOP" :value="geometry[gProps.RADIUSTOP]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.RADIUSTOP" :value="geometry[gProps.RADIUSTOP]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Radius bottom</label>
-        <input-number :name="gProps.RADIUSBOTTOM" :value="geometry[gProps.RADIUSBOTTOM]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.RADIUSBOTTOM" :value="geometry[gProps.RADIUSBOTTOM]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Height</label>
-        <input-number :name="gProps.HEIGHT" :value="geometry[gProps.HEIGHT]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.HEIGHT" :value="geometry[gProps.HEIGHT]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Width</label>
-        <input-number :name="gProps.WIDTH" :value="geometry[gProps.WIDTH]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.WIDTH" :value="geometry[gProps.WIDTH]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Depth</label>
-        <input-number :name="gProps.DEPTH" :value="geometry[gProps.DEPTH]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.DEPTH" :value="geometry[gProps.DEPTH]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Radial segments</label>
-        <input-number :name="gProps.RADIALSEGMENTS" :value="geometry[gProps.RADIALSEGMENTS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.RADIALSEGMENTS" :value="geometry[gProps.RADIALSEGMENTS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Height segments</label>
-        <input-number :name="gProps.HEIGHTSEGMENTS" :value="geometry[gProps.HEIGHTSEGMENTS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.HEIGHTSEGMENTS" :value="geometry[gProps.HEIGHTSEGMENTS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Width segments</label>
-        <input-number :name="gProps.WIDTHSEGMENTS" :value="geometry[gProps.WIDTHSEGMENTS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.WIDTHSEGMENTS" :value="geometry[gProps.WIDTHSEGMENTS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Depth segments</label>
-        <input-number :name="gProps.DEPTHSEGMENTS" :value="geometry[gProps.DEPTHSEGMENTS]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.DEPTHSEGMENTS" :value="geometry[gProps.DEPTHSEGMENTS]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Theta start</label>
-        <input-number :name="gProps.THETASTART" :value="geometry[gProps.THETASTART]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.THETASTART" :value="geometry[gProps.THETASTART]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Theta length</label>
-        <input-number :name="gProps.THETALENGTH" :value="geometry[gProps.THETALENGTH]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.THETALENGTH" :value="geometry[gProps.THETALENGTH]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Detail</label>
-        <input-number :name="gProps.DETAIL" :value="geometry[gProps.DETAIL]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.DETAIL" :value="geometry[gProps.DETAIL]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Arc</label>
-        <input-number :name="gProps.ARC" :value="geometry[gProps.ARC]" :onChange="onChangeInputNumber" />
+        <input-number :name="gProps.ARC" :value="geometry[gProps.ARC]" :onChange="onChangeControl" />
       </div>
 
       <div class="row">
         <label class="label">Open ended</label>
-        <checkbox-btn :name="gProps.OPENENDED" :checked="geometry[gProps.OPENENDED]" :onChange="onChangeCheckBox" />
+        <checkbox-btn :name="gProps.OPENENDED" :checked="geometry[gProps.OPENENDED]" :onChange="onChangeControl" />
       </div>
     </div>
   </div>

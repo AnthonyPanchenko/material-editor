@@ -1,7 +1,7 @@
 <script>
 import noop from '../../utils/noop';
 import { arr } from '../../utils/emptyArray';
-import clamp from '../../utils/clamp';
+import { roundNum, clamp } from '../../utils/math-helper';
 import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/matrix';
 import getElementOffsets from '../../utils/getElementOffsets';
 import './vec3-picker.scss';
@@ -43,7 +43,7 @@ export default {
   watch: {
     vector(value) {
       this.drawAxes();
-      console.log(value);
+
       const newViewVector = multiplyMatrixByVector(this.viewMatrix, value.map(v => v * this.halfSize));
       this.pointX = newViewVector[0];
       this.pointY = newViewVector[1];
@@ -120,7 +120,7 @@ export default {
       const inversViewVector = multiplyMatrixByVector(this.inversMatrix, [...this.getLocalCoords(curentX, currentY), this.viewVector[2]]);
       this.tempVector = inversViewVector.map(cord => clamp(cord, -this.halfSize, this.halfSize));
 
-      this.onChange(this.tempVector.map(v => v / this.halfSize), this.name);
+      this.onChange(this.tempVector.map(v => roundNum(v / this.halfSize)), this.name);
     },
     onRotateCoordinateSystem(curentX, currentY) {
       this.thetaX = this.rotationSpeed * (currentY - this.startY) + this.dx;

@@ -1,6 +1,6 @@
 <script>
 import noop from '../../utils/noop';
-import clamp from '../../utils/clamp';
+import { roundNum, clamp } from '../../utils/math-helper';
 import getElementOffsets from '../../utils/getElementOffsets';
 import './vec2-picker.scss';
 
@@ -100,7 +100,10 @@ export default {
       const currentX = clamp(event.pageX - this.canvasOffsets.left, 0, this.dimension);
       const currentY = clamp(event.pageY - this.canvasOffsets.top, 0, this.dimension);
 
-      return [(currentX - this.halfSize) / this.halfSize, (-1 * (currentY - this.halfSize) || 0) / this.halfSize];
+      return [
+        roundNum((currentX - this.halfSize) / this.halfSize),
+        roundNum((-1 * (currentY - this.halfSize) || 0) / this.halfSize)
+      ];
     },
     onMouseDown(event) {
       this.isMouseDown = true;

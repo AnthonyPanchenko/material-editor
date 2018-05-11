@@ -1,6 +1,6 @@
 <script>
 import noop from '../../utils/noop';
-import clamp from '../../utils/clamp';
+import { clamp } from '../../utils/math-helper';
 import emptyObject from '../../utils/emptyObject';
 import getElementOffsets from '../../utils/getElementOffsets';
 

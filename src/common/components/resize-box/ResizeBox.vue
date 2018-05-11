@@ -1,5 +1,5 @@
 <script>
-import clamp from '../../utils/clamp';
+import { clamp } from '../../utils/math-helper';
 import noop from '../../utils/noop';
 import './resize-box.scss';
 

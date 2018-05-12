@@ -1,5 +1,5 @@
 <script>
-import noop from '../../utils/noop';
+import { noop } from '../../utils/base-helper';
 import './input-text.scss';
 
 export default {

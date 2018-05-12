@@ -2,7 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
 
-import noop from '../../common/utils/noop';
+import { noop } from '../../common/utils/base-helper';
 import editorsNames from '../../common/constants/editors-names';
 import InputFile from '../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';

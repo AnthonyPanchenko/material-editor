@@ -1,8 +1,7 @@
 import * as THREE from 'three';
 
-import noop from './noop';
-import debounce from './resize-observer-debounce';
 import ResizeObserver from 'resize-observer-polyfill';
+import { noop, debounce } from './base-helper';
 import { createCamera, createRenderer, createControls } from './base-scene-helper';
 
 const consl = { // eslint-disable-line

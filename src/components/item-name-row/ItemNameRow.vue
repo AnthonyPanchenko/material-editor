@@ -1,5 +1,5 @@
 <script>
-import noop from '../../common/utils/noop';
+import { noop } from '../../common/utils/base-helper';
 import InputText from '../../common/components/input-text/InputText.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 

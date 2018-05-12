@@ -1,7 +1,5 @@
 <script>
-import noop from '../../common/utils/noop';
-import emptyArray from '../../common/utils/emptyArray';
-import emptyObject from '../../common/utils/emptyObject';
+import { noop, emptyArray, emptyObject } from '../../common/utils/base-helper';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';

@@ -1,7 +1,6 @@
 <script>
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-import noop from '../../common/utils/noop';
-import emptyArray from '../../common/utils/emptyArray';
+import { noop, emptyArray } from '../../common/utils/base-helper';
 import './styles/objects-list.scss';
 
 export default {

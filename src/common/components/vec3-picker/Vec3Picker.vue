@@ -1,9 +1,6 @@
 <script>
-import noop from '../../utils/noop';
-import { arr } from '../../utils/emptyArray';
-import { roundNum, clamp } from '../../utils/math-helper';
-import { multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/matrix';
-import getElementOffsets from '../../utils/getElementOffsets';
+import { noop, getElementOffsets } from '../../utils/base-helper';
+import { roundNum, clamp, multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/math-helper';
 import './vec3-picker.scss';
 
 export default {
@@ -19,7 +16,7 @@ export default {
       canvas: null,
       canvasOffsets: null,
       ctx: null,
-      axes: arr,
+      axes: [],
       rotationSpeed: 0.01,
       isMouseOverPoint: false,
       isMouseDownOnCoordsSystem: false,
@@ -28,7 +25,7 @@ export default {
       halfSize: 0.5 * this.dimension,
       lineDash: [5.3, 2.7],
       localVector: [0, 0, 0], // relative to the coordinate system (not normalized)
-      tempVector: arr, // temporary
+      tempVector: [], // temporary
       viewVector: [0, 0, 0], // relative to the canvas view (not normalized)
       pointX: 0,
       pointY: 0,

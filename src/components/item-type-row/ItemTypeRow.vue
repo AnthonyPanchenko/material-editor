@@ -1,6 +1,5 @@
 <script>
-import noop from '../../common/utils/noop';
-import emptyArray from '../../common/utils/emptyArray';
+import { noop, emptyArray } from '../../common/utils/base-helper';
 import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 

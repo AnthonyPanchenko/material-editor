@@ -1,7 +1,7 @@
 <script>
 import Info from './Info.vue';
-import noop from '../../../common/utils/noop';
-import { matrices } from '../../../common/utils/matrix';
+import { noop } from '../../../common/utils/base-helper';
+import { matrices } from '../../../common/utils/math-helper';
 import InputNumber from '../../../common/components/input-number/InputNumber.vue';
 import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 

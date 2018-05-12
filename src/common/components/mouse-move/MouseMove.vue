@@ -1,8 +1,6 @@
 <script>
-import noop from '../../utils/noop';
+import { noop, emptyObject, getElementOffsets } from '../../utils/base-helper';
 import { clamp } from '../../utils/math-helper';
-import emptyObject from '../../utils/emptyObject';
-import getElementOffsets from '../../utils/getElementOffsets';
 
 export default {
   name: 'MouseMove',

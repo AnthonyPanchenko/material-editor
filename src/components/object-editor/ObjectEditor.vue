@@ -1,7 +1,5 @@
 <script>
-import noop from '../../common/utils/noop';
-import emptyObject from '../../common/utils/emptyObject';
-
+import { noop, emptyObject } from '../../common/utils/base-helper';
 import oProps from '../../common/constants/object-properties';
 
 import ItemNameRow from '../item-name-row/ItemNameRow.vue';

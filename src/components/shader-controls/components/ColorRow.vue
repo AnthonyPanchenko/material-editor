@@ -1,6 +1,6 @@
 <script>
 import Info from './Info.vue';
-import noop from '../../../common/utils/noop';
+import { noop } from '../../../common/utils/base-helper';
 import Popover from '../../../common/components/popover/Popover.vue';
 import ColorPicker from '../../../common/components/color-picker/ColorPicker.vue';
 import InputNumber from '../../../common/components/input-number/InputNumber.vue';

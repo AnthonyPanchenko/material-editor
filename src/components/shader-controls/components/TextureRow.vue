@@ -1,7 +1,6 @@
 <script>
 import Info from './Info.vue';
-import noop from '../../../common/utils/noop';
-
+import { noop } from '../../../common/utils/base-helper';
 import ImgBox from '../../../common/components/img-box/ImgBox.vue';
 import InputFile from '../../../common/components/input-file/InputFile.vue';
 import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';

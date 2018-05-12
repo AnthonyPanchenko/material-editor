@@ -1,7 +1,6 @@
 <script>
-import noop from '../../utils/noop';
+import { noop, getElementOffsets } from '../../utils/base-helper';
 import { roundNum, clamp } from '../../utils/math-helper';
-import getElementOffsets from '../../utils/getElementOffsets';
 import './vec2-picker.scss';
 
 export default {

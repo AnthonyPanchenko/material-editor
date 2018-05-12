@@ -1,7 +1,5 @@
 <script>
-import noop from '../../common/utils/noop';
-import emptyObject from '../../common/utils/emptyObject';
-
+import { noop, emptyObject } from '../../common/utils/base-helper';
 import gProps from '../../common/constants/geometry-properties';
 
 import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';

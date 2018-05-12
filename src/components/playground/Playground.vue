@@ -11,7 +11,7 @@ import editorsNames from '../../common/constants/editors-names';
 import transformationsModes from '../../common/constants/transformations-modes';
 
 import lightingTypes from '../../common/constants/lighting-types';
-import createSelectsOptions from '../../common/utils/create-selects-options';
+import { createSelectsOptions } from '../../common/utils/base-helper';
 
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';

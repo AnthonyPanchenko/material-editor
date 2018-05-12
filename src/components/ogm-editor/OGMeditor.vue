@@ -2,9 +2,7 @@
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('ogmEditor');
 
-import noop from '../../common/utils/noop';
-import emptyObject from '../../common/utils/emptyObject';
-
+import { noop, emptyObject } from '../../common/utils/base-helper';
 import editorsNames from '../../common/constants/editors-names';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';

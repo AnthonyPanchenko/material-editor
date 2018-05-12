@@ -1,12 +1,10 @@
 <script>
-import noop from '../../../common/utils/noop';
 import ColorRow from './ColorRow.vue';
 import MatrixRow from './MatrixRow.vue';
 import NumberRow from './NumberRow.vue';
 import VectorRow from './VectorRow.vue';
 import TextureRow from './TextureRow.vue';
-import emptyObject from '../../../common/utils/emptyObject';
-import createSelectsOptions from '../../../common/utils/create-selects-options';
+import { createSelectsOptions, noop, emptyObject } from '../../../common/utils/base-helper';
 import shadersDataTypes from '../../../common/constants/shaders-data-types';
 import InputText from '../../../common/components/input-text/InputText.vue';
 import RadioBtn from '../../../common/components/radio-btn/RadioBtn.vue';

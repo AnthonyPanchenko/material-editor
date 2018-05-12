@@ -1,6 +1,5 @@
 <script>
-import emptyObject from '../../../common/utils/emptyObject';
-import noop from '../../../common/utils/noop';
+import { noop, emptyObject } from '../../../common/utils/base-helper';
 import '../styles/gallery-item.scss';
 
 export default {

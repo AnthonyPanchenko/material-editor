@@ -1,8 +1,5 @@
 <script>
-import emptyArray from '../../common/utils/emptyArray';
-import emptyObject from '../../common/utils/emptyObject';
-import noop from '../../common/utils/noop';
-
+import { noop, emptyObject, emptyArray } from '../../common/utils/base-helper';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import InputText from '../../common/components/input-text/InputText.vue';
 import GalleryItem from './components/GalleryItem.vue';

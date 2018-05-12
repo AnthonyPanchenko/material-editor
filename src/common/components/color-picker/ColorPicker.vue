@@ -1,5 +1,5 @@
 <script>
-import noop from '../../utils/noop';
+import { noop } from '../../utils/base-helper';
 import { hsvToRgb, rgbToHsv, rgbToHex, hexToRgb, hueToRgb, isHex } from '../../utils/color-converters';
 import MouseMove from '../mouse-move/MouseMove.vue';
 import CustomBtn from '../custom-btn/CustomBtn.vue';

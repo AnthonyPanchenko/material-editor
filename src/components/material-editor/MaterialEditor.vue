@@ -1,9 +1,7 @@
 <script>
 import materialsTypes from '../../common/constants/materials-types';
-import createSelectsOptions from '../../common/utils/create-selects-options';
+import { createSelectsOptions, noop, emptyObject } from '../../common/utils/base-helper';
 import selects from './utils/selects';
-import noop from '../../common/utils/noop';
-import emptyObject from '../../common/utils/emptyObject';
 import mProps from '../../common/constants/materials-properties';
 import mapedMaterialsProps from './utils/maped-materials-properties';
 import editorsNames from '../../common/constants/editors-names';

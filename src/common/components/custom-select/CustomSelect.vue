@@ -1,7 +1,5 @@
 <script>
-import noop from '../../utils/noop';
-import getElementOffsets from '../../utils/getElementOffsets';
-import emptyArray from '../../utils/emptyArray';
+import { noop, emptyArray, getElementOffsets } from '../../utils/base-helper';
 import './custom-select.scss';
 
 export default {

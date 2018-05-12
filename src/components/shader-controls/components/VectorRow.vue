@@ -1,6 +1,6 @@
 <script>
 import Info from './Info.vue';
-import noop from '../../../common/utils/noop';
+import { noop } from '../../../common/utils/base-helper';
 import Popover from '../../../common/components/popover/Popover.vue';
 import NumberPicker from '../../../common/components/number-picker/NumberPicker.vue';
 import Vec3Picker from '../../../common/components/vec3-picker/Vec3Picker.vue';

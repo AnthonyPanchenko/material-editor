@@ -1,6 +1,5 @@
 <script>
-import noop from '../../utils/noop';
-import emptyArray from '../../utils/emptyArray';
+import { noop, emptyArray } from '../../utils/base-helper';
 import './notifications.scss';
 
 export default {

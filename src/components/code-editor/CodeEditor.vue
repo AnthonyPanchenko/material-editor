@@ -1,6 +1,6 @@
 <script>
 import CodeMirror from 'codemirror';
-import noop from '../../common/utils/noop';
+import { noop } from '../../common/utils/base-helper';
 import specialCharPlaceholder from './utils/specialCharPlaceholder';
 import shadersTypes from '../../common/constants/shaders-types';
 import 'codemirror/addon/search/search';

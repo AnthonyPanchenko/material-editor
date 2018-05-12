@@ -1,7 +1,7 @@
 export const clamp = (num, min, max) =>
   Math.min(Math.max(num, min), max);
 
-export const roundNum = (x, n = 2) => {
+export const roundNum = (x, n = 3) => {
   if (isNaN(x)) {
     return 0;
   };

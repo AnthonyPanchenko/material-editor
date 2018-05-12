@@ -29,7 +29,7 @@ export default {
   data() {
     return {
       isVisibleRemoveControl: false,
-      step: (this.type === 'float') ? 0.01 : 1,
+      step: (this.type === 'float') ? 0.001 : 1,
       isOpenNumberPicker: false,
       numberPickerTrigger: null
     };

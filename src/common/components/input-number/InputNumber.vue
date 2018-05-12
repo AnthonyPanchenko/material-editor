@@ -7,9 +7,9 @@ export default {
   props: {
     name: [String, Number],
     value: { type: Number, default: 0 },
-    min: Number,
-    max: Number,
-    step: Number,
+    min: { type: Number, default: -1 },
+    max: { type: Number, default: 1 },
+    step: { type: Number, default: 0.001 },
     prefix: [String, Number],
     sufix: [String, Number],
     disabled: { type: Boolean, default: false },

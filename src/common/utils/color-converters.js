@@ -1,44 +1,45 @@
-import { clamp } from './math-helper';
-
+// https://www.easyrgb.com/en/math.php
 // http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-const xyzMatrix = {
-  x: [0.4124564, 0.3575761, 0.1804375],
-  y: [0.2126729, 0.7151522, 0.0721750],
-  z: [0.0193339, 0.1191920, 0.9503041]
-};
-
-const rgbMatrix = {
-  r: [3.2404542, -1.5371385, -0.4985314],
-  g: [-0.9692660, 1.8760108, 0.0415560],
-  b: [0.0556434, -0.2040259, 1.0572252]
-};
+// sRGB D65
 
 export const xyzToRgb = (x, y, z) => {
-  const n = 0.416666667;
-  const m = 0.0031308;
+  const dx = x / 100;
+  const dy = y / 100;
+  const dz = z / 100;
 
-  const r = x * rgbMatrix.r[0] + y * rgbMatrix.r[1] + z * rgbMatrix.r[2];
-  const g = x * rgbMatrix.g[0] + y * rgbMatrix.g[1] + z * rgbMatrix.g[2];
-  const b = x * rgbMatrix.b[0] + y * rgbMatrix.b[1] + z * rgbMatrix.b[2];
+  const red = (dx * 3.2404542) + (dy * -1.5371385) + (dz * -0.4985314);
+  const green = (dx * -0.9692660) + (dy * 1.8760108) + (dz * 0.0415560);
+  const blue = (dx * 0.0556434) + (dy * -0.2040259) + (dz * 1.0572252);
 
   return {
-    r: clamp((r > m ? 1.055 * Math.pow(r, n) - 0.055 : 12.92 * r), 0, 1),
-    g: clamp((g > m ? 1.055 * Math.pow(g, n) - 0.055 : 12.92 * g), 0, 1),
-    b: clamp((b > m ? 1.055 * Math.pow(b, n) - 0.055 : 12.92 * b), 0, 1)
+    r: Math.round(((red > 0.0031308) ? 1.055 * (red ** (1 / 2.4)) - 0.055 : 12.92 * red) * 255),
+    g: Math.round(((green > 0.0031308) ? 1.055 * (green ** (1 / 2.4)) - 0.055 : 12.92 * green) * 255),
+    b: Math.round(((blue > 0.0031308) ? 1.055 * (blue ** (1 / 2.4)) - 0.055 : 12.92 * blue) * 255)
   };
-}
+};
 
 export const rgbToXyz = (r, g, b) => {
-  const n = 0.04045;
-  const red = (r > n ? Math.pow((r + 0.055) / 1.055, 2.4) : r / 12.92);
-  const green = (g > n ? Math.pow((g + 0.055) / 1.055, 2.4) : g / 12.92);
-  const blue = (b > n ? Math.pow((b + 0.055) / 1.055, 2.4) : b / 12.92);
+  const dr = r / 255;
+  const dg = g / 255;
+  const db = b / 255;
+
+  const red = ((dr > 0.04045) ? ((dr + 0.055) / 1.055) ** 2.4 : dr / 12.92) * 100;
+  const green = ((dg > 0.04045) ? ((dg + 0.055) / 1.055) ** 2.4 : dg / 12.92) * 100;
+  const blue = ((db > 0.04045) ? ((db + 0.055) / 1.055) ** 2.4 : db / 12.92) * 100;
 
   return {
-    x: red * xyzMatrix.x[0] + green * xyzMatrix.x[1] + blue * xyzMatrix.x[2],
-    y: red * xyzMatrix.y[0] + green * xyzMatrix.y[1] + blue * xyzMatrix.y[2],
-    z: red * xyzMatrix.z[0] + green * xyzMatrix.z[1] + blue * xyzMatrix.z[2]
+    x: (red * 0.4124564) + (green * 0.3575761) + (blue * 0.1804375),
+    y: (red * 0.2126729) + (green * 0.7151522) + (blue * 0.0721750),
+    z: (red * 0.0193339) + (green * 0.1191920) + (blue * 0.9503041)
   };
+};
+
+export const rgbToVector = (rgb) => {
+  return rgb.map(c => +(c / 255).toFixed(3));
+};
+
+export const vectorToRgb = (vec) => {
+  return vec.map(v => Math.round(Math.abs(v) * 255));
 };
 
 export const hueToRgb = (hue) => {

@@ -25,6 +25,7 @@ module.exports = (settings) => ({
   ],
 
   devServer: {
+    contentBase: settings.static,
     publicPath: settings.publicPath,
     historyApiFallback: true,
     host: settings.host,

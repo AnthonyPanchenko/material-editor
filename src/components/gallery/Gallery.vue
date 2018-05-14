@@ -14,13 +14,12 @@
         </ul>
       </div>
 
-      <div v-if="selectedItem" class="footer controls-row">
+      <div v-if="!!Object.keys(selectedItem).length" class="footer controls-row">
         <custom-btn v-if="!isVisibleCtrls" iconClass="icon-trash-bin" :onClick="onRemoveItem" class="danger xs" />
         <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onCancelRemoveItem" class="danger xs" />
         <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onRemove" class="success xs" />
         <input-text :value="newItemName" :onInput="onChangeItemName" />
         <custom-btn :disabled="!isDifferentNames()" title="Rename" :onClick="onRenameItem" class="success sm" />
-        <custom-btn title="Edit" :onClick="onEdit" class="primary sm" />
         <custom-btn title="Apply" :onClick="onApply" class="primary sm" />
       </div>
 
@@ -76,7 +75,6 @@ export default {
   data() {
     return {
       newItemName: '',
-      isEditable: false,
       isVisibleCtrls: false
     };
   },

@@ -48,6 +48,7 @@
       <material-editor
         :material="activeMaterial"
         :onChange="onChangeMaterialProperty"
+        :onToggleOpenGallery="onToggleOpenGallery"
         :onOpenShaderEditor="onSetActiveEditorName"
         :onSetNewMaterialName="onSetNewMaterialName"
         :onSetActiveMaterialTypeId="onSetActiveMaterialTypeId"

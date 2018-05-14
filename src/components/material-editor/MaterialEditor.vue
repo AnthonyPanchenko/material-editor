@@ -50,7 +50,7 @@
 
       <div v-if="isDisplayedSection(mProps.SHADERS)" class="row">
         <label class="label">Shaders</label>
-        <custom-btn title="Attach" iconClass="icon-plus" :onClick="onAttachShaders" class="success" />
+        <custom-btn title="Attach" iconClass="icon-plus" :onClick="onToggleOpenGallery" class="success" />
         <custom-btn title="Edit" iconClass="icon-pencil" :data="editorsNames.SHADER_EDITOR" :onClick="onOpenShaderEditor" class="primary" />
       </div>
 
@@ -232,7 +232,7 @@ export default {
     onSetNewMaterialName: { type: Function, default: noop },
     onSetActiveMaterialTypeId: { type: Function, default: noop },
     onOpenShaderEditor: { type: Function, default: noop },
-    onAttachShaders: { type: Function, default: noop },
+    onToggleOpenGallery: { type: Function, default: noop },
     onChange: { type: Function, default: noop },
     material: { type: Object, default: emptyObject }
   },

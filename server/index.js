@@ -29,9 +29,17 @@ app.use(express.static(serverConfigs.dist));
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true })); // for parsing application/x-www-form-urlencoded
-app.use(fallback('/index.html'));
+app.use(fallback(`${serverConfigs.dist}/index.html`));
 
 // app.all('/api/*', requireAuthentication);
+
+app.get('/*', (req, res, next) => {
+  if (req.url.indexOf(api.API_PATH) === -1) {
+    res.sendFile(`${serverConfigs.dist}/index.html`);
+  }
+
+  next();
+});
 
 app.use(api.API_PATH, apiRoutes);
 

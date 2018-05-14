@@ -1,3 +1,108 @@
+<template>
+  <div class="base-layout">
+    <modal-window v-if="isOpenGallery" isResizable :onOverlayClose="onToggleOpenGallery">
+      <gallery :onClose="onToggleOpenGallery" />
+    </modal-window>
+
+    <ogm-editor
+      :activeEditorName="activeEditorName"
+      :onChangeObjectProperty="onChangeObjectProperty"
+      :onChangeGeometryProperty="onChangeGeometryProperty"
+      :onChangeMaterialProperty="onChangeMaterialProperty"
+      :onSetActiveEditorName="onSetActiveEditorName"
+      :onSetNewObjectName="onSetNewObjectName"
+      :onSetNewGeometryName="onSetNewGeometryName"
+      :onSetNewMaterialName="onSetNewMaterialName"
+      :onToggleOpenGallery="onToggleOpenGallery"
+      :activeObject="objects[activeEditableIds.objectId] || {}"
+      :activeMaterial="materials[activeEditableIds.materialId] || {}"
+      :activeGeometry="geometries[activeEditableIds.geometryId] || {}"
+      v-if="activeEditorName === editorsNames.OBJECT_EDITOR || activeEditorName === editorsNames.GEOMETRY_EDITOR || activeEditorName === editorsNames.MATERIAL_EDITOR"
+    />
+
+    <shader-editor
+      :onChange="onChangeMaterialProperty"
+      :onSetActiveEditorName="onSetActiveEditorName"
+      v-if="activeEditorName === editorsNames.SHADER_EDITOR"
+    />
+
+    <lighting-editor
+      :onChange="onChangeObjectProperty"
+      :onSetActiveEditorName="onSetActiveEditorName"
+      v-if="activeEditorName === editorsNames.LIGHTING_EDITOR"
+    />
+
+    <particles-editor
+      :onSetActiveEditorName="onSetActiveEditorName"
+      v-if="activeEditorName === editorsNames.PARTICLES_EDITOR"
+    />
+
+    <section class="container canvas-section">
+      <div class="header controls-row">
+        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
+
+        <custom-btn
+          class="xs"
+          accesskey="w"
+          iconClass="icon-move"
+          :active="transformationMode === transformationsModes.TRANSLATE"
+          :data="transformationsModes.TRANSLATE"
+          :onClick="setTransformationMode"
+        />
+
+        <custom-btn
+          class="xs"
+          accesskey="e"
+          iconClass="icon-rotate"
+          :active="transformationMode === transformationsModes.ROTATE"
+          :data="transformationsModes.ROTATE"
+          :onClick="setTransformationMode"
+        />
+
+        <custom-btn
+          class="xs"
+          accesskey="r"
+          iconClass="icon-scale"
+          :active="transformationMode === transformationsModes.SCALE"
+          :data="transformationsModes.SCALE"
+          :onClick="setTransformationMode"
+        />
+
+        <custom-select isDropDownBtn :options="selectOptions" :onChange="addLightingToScene" class="xs">
+          <span class="dropdown-btn">
+            <i class="icon-bulb-on" />
+            <i class="icon-triangle-down" />
+          </span>
+        </custom-select>
+
+        <custom-btn iconClass="icon-emitter" :onClick="addParticlesEmitterToScene" />
+        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-cube" :data="geometryTypes.BOX" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="addGeometryToScene" />
+        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="addGeometryToScene" />
+        <input-file name="file1" />
+      </div>
+
+      <div class="body">
+        <transition slot="sidebar" name="slide-objects-list">
+          <objects-list
+            :list="objectsList"
+            :onSelect="onSelectMeshByUuid"
+            :onRemove="onRemoveMeshByUuid"
+            v-show="isVisibleMeshesList"
+          />
+        </transition>
+        <div ref="canvasBox" class="canvas-box" />
+      </div>
+
+      <div class="footer controls-row">
+        <span class="label fps">FPS 60</span>
+      </div>
+    </section>
+  </div>
+</template>
+
 <script>
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('playground');
@@ -159,108 +264,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="base-layout">
-    <modal-window v-if="isOpenGallery" isResizable :onOverlayClose="onToggleOpenGallery">
-      <gallery :onClose="onToggleOpenGallery" />
-    </modal-window>
-
-    <ogm-editor
-      :activeEditorName="activeEditorName"
-      :onChangeObjectProperty="onChangeObjectProperty"
-      :onChangeGeometryProperty="onChangeGeometryProperty"
-      :onChangeMaterialProperty="onChangeMaterialProperty"
-      :onSetActiveEditorName="onSetActiveEditorName"
-      :onSetNewObjectName="onSetNewObjectName"
-      :onSetNewGeometryName="onSetNewGeometryName"
-      :onSetNewMaterialName="onSetNewMaterialName"
-      :onToggleOpenGallery="onToggleOpenGallery"
-      :activeObject="objects[activeEditableIds.objectId] || {}"
-      :activeMaterial="materials[activeEditableIds.materialId] || {}"
-      :activeGeometry="geometries[activeEditableIds.geometryId] || {}"
-      v-if="activeEditorName === editorsNames.OBJECT_EDITOR || activeEditorName === editorsNames.GEOMETRY_EDITOR || activeEditorName === editorsNames.MATERIAL_EDITOR"
-    />
-
-    <shader-editor
-      :onChange="onChangeMaterialProperty"
-      :onSetActiveEditorName="onSetActiveEditorName"
-      v-if="activeEditorName === editorsNames.SHADER_EDITOR"
-    />
-
-    <lighting-editor
-      :onChange="onChangeObjectProperty"
-      :onSetActiveEditorName="onSetActiveEditorName"
-      v-if="activeEditorName === editorsNames.LIGHTING_EDITOR"
-    />
-
-    <particles-editor
-      :onSetActiveEditorName="onSetActiveEditorName"
-      v-if="activeEditorName === editorsNames.PARTICLES_EDITOR"
-    />
-
-    <section class="container canvas-section">
-      <div class="header controls-row">
-        <custom-btn iconClass="icon-list" class="xs" accesskey="q" :onClick="onToggleMeshesList" />
-
-        <custom-btn
-          class="xs"
-          accesskey="w"
-          iconClass="icon-move"
-          :active="transformationMode === transformationsModes.TRANSLATE"
-          :data="transformationsModes.TRANSLATE"
-          :onClick="setTransformationMode"
-        />
-
-        <custom-btn
-          class="xs"
-          accesskey="e"
-          iconClass="icon-rotate"
-          :active="transformationMode === transformationsModes.ROTATE"
-          :data="transformationsModes.ROTATE"
-          :onClick="setTransformationMode"
-        />
-
-        <custom-btn
-          class="xs"
-          accesskey="r"
-          iconClass="icon-scale"
-          :active="transformationMode === transformationsModes.SCALE"
-          :data="transformationsModes.SCALE"
-          :onClick="setTransformationMode"
-        />
-
-        <custom-select isDropDownBtn :options="selectOptions" :onChange="addLightingToScene" class="xs">
-          <span class="dropdown-btn">
-            <i class="icon-bulb-on" />
-            <i class="icon-triangle-down" />
-          </span>
-        </custom-select>
-
-        <custom-btn iconClass="icon-emitter" :onClick="addParticlesEmitterToScene" />
-        <custom-btn iconClass="icon-sphere" :data="geometryTypes.SPHERE" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-cube" :data="geometryTypes.BOX" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-cylinder" :data="geometryTypes.CYLINDER" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-torus" :data="geometryTypes.TORUS" :onClick="addGeometryToScene" />
-        <custom-btn iconClass="icon-plane" :data="geometryTypes.PLANE" :onClick="addGeometryToScene" />
-        <input-file name="file1" />
-      </div>
-
-      <div class="body">
-        <transition slot="sidebar" name="slide-objects-list">
-          <objects-list
-            :list="objectsList"
-            :onSelect="onSelectMeshByUuid"
-            :onRemove="onRemoveMeshByUuid"
-            v-show="isVisibleMeshesList"
-          />
-        </transition>
-        <div ref="canvasBox" class="canvas-box" />
-      </div>
-
-      <div class="footer controls-row">
-        <span class="label fps">FPS 60</span>
-      </div>
-    </section>
-  </div>
-</template>

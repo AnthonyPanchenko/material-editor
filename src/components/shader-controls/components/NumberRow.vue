@@ -1,3 +1,20 @@
+<template>
+  <div class="row">
+    <info :name="name" :type="type" v-if="!isEditable" />
+
+    <input-number :value="value" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
+
+    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
+      <number-picker :value="value" :step="step" :onChange="onChange" />
+    </popover>
+
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
+  </div>
+</template>
+
 <script>
 import Info from './Info.vue';
 import { noop } from '../../../common/utils/base-helper';
@@ -56,20 +73,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="row">
-    <info :name="name" :type="type" v-if="!isEditable" />
-
-    <input-number :value="value" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
-
-    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="value" :step="step" :onChange="onChange" />
-    </popover>
-
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
-  </div>
-</template>

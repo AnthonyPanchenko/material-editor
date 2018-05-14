@@ -1,3 +1,22 @@
+<template>
+  <label :class="['input-number', { 'disabled': disabled }]" :title="value" @click="onInputClick">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
+    <input
+      @keydown="onKeyDownInput"
+      ref="inpNumber"
+      type="number"
+      :name="name"
+      :step="step"
+      :min="min"
+      :max="max"
+      v-on:input="onInputNumber"
+      :value="value"
+      :disabled="disabled"
+    >
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
+  </label>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './input-number.scss';
@@ -42,22 +61,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <label :class="['input-number', { 'disabled': disabled }]" :title="value" @click="onInputClick">
-    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input
-      @keydown="onKeyDownInput"
-      ref="inpNumber"
-      type="number"
-      :name="name"
-      :step="step"
-      :min="min"
-      :max="max"
-      v-on:input="onInputNumber"
-      :value="value"
-      :disabled="disabled"
-    >
-    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
-  </label>
-</template>

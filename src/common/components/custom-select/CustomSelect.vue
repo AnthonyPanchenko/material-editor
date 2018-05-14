@@ -1,3 +1,34 @@
+<template>
+  <label
+    :tabindex="`${disabled || readonly ? -1 : 0}`"
+    :class="['ctrl-select', { 'disabled': disabled, 'readonly': readonly }]"
+    @keydown="onUpDown"
+    @click="onMouseClick"
+    @keyup.enter="onEnterClick"
+    ref="triggerSelect"
+  >
+
+    <slot>
+      <span class="option-name">{{ selectedOption.title }}</span>
+      <i class="icon-select-arrows" />
+    </slot>
+
+    <transition name="fade">
+      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement">
+        <li
+          v-for="(option, index) in options"
+          :key="option.id"
+          :data-id="option.id"
+          @click="onOptionClick"
+          :class="['option', { 'selected': index === indexOfSelectedOption && !isDropDownBtn }]"
+        >
+          {{ option.title }}
+        </li>
+      </ul>
+    </transition>
+  </label>
+</template>
+
 <script>
 import { noop, emptyArray, getElementOffsets } from '../../utils/base-helper';
 import './custom-select.scss';
@@ -144,34 +175,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <label
-    :tabindex="`${disabled || readonly ? -1 : 0}`"
-    :class="['ctrl-select', { 'disabled': disabled, 'readonly': readonly }]"
-    @keydown="onUpDown"
-    @click="onMouseClick"
-    @keyup.enter="onEnterClick"
-    ref="triggerSelect"
-  >
-
-    <slot>
-      <span class="option-name">{{ selectedOption.title }}</span>
-      <i class="icon-select-arrows" />
-    </slot>
-
-    <transition name="fade">
-      <ul v-if="isOpen" class="options-list scroll-box" ref="optionsListElement">
-        <li
-          v-for="(option, index) in options"
-          :key="option.id"
-          :data-id="option.id"
-          @click="onOptionClick"
-          :class="['option', { 'selected': index === indexOfSelectedOption && !isDropDownBtn }]"
-        >
-          {{ option.title }}
-        </li>
-      </ul>
-    </transition>
-  </label>
-</template>

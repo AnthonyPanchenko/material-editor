@@ -1,3 +1,17 @@
+<template>
+  <div class="row">
+    <info :name="name" :type="type" v-if="!isEditable" />
+
+    <input-file v-if="isEditable" :onChange="onChangeFileInput" />
+    <img-box :background="value" />
+
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
+  </div>
+</template>
+
 <script>
 import Info from './Info.vue';
 import { noop } from '../../../common/utils/base-helper';
@@ -39,17 +53,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="row">
-    <info :name="name" :type="type" v-if="!isEditable" />
-
-    <input-file v-if="isEditable" :onChange="onChangeFileInput" />
-    <img-box :background="value" />
-
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
-  </div>
-</template>

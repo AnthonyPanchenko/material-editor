@@ -1,3 +1,34 @@
+<template>
+  <transition name="fade">
+    <div
+      @mousedown.self="onCloseModalWindow"
+      :class="['modal-window', { 'is-overlay': isOverlay, 'is-maximized': isMaximized }, isResizable ? '' : position]"
+    >
+      <div
+        v-if="isResizable"
+        class="content"
+        ref="modalWindowContent"
+        @mousedown="onContentMouseDown"
+        :style="{ width: width, height: height, top: top, left: left }"
+      >
+        <div class="top-left-corner" />
+        <div class="top-right-corner" />
+        <div class="top-border" />
+        <div class="left-border" />
+        <slot>Content here</slot>
+        <div class="bottom-left-corner" />
+        <div class="right-border" />
+        <div class="bottom-border" />
+        <div class="bottom-right-corner" />
+      </div>
+
+      <div v-else class="content">
+        <slot>Content here</slot>
+      </div>
+    </div>
+  </transition>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './modal-window.scss';
@@ -121,34 +152,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <transition name="fade">
-    <div
-      @mousedown.self="onCloseModalWindow"
-      :class="['modal-window', { 'is-overlay': isOverlay, 'is-maximized': isMaximized }, isResizable ? '' : position]"
-    >
-      <div
-        v-if="isResizable"
-        class="content"
-        ref="modalWindowContent"
-        @mousedown="onContentMouseDown"
-        :style="{ width: width, height: height, top: top, left: left }"
-      >
-        <div class="top-left-corner" />
-        <div class="top-right-corner" />
-        <div class="top-border" />
-        <div class="left-border" />
-        <slot>Content here</slot>
-        <div class="bottom-left-corner" />
-        <div class="right-border" />
-        <div class="bottom-border" />
-        <div class="bottom-right-corner" />
-      </div>
-
-      <div v-else class="content">
-        <slot>Content here</slot>
-      </div>
-    </div>
-  </transition>
-</template>

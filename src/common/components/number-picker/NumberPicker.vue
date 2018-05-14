@@ -1,3 +1,7 @@
+<template>
+  <canvas ref="numberPicker" class="number-picker" :width="width" :height="height" @mousedown="onMouseDown"></canvas>
+</template>
+
 <script>
 import { noop, getElementOffsets } from '../../utils/base-helper';
 import { clamp } from '../../utils/math-helper';
@@ -132,7 +136,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <canvas ref="numberPicker" class="number-picker" :width="width" :height="height" @mousedown="onMouseDown"></canvas>
-</template>

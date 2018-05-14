@@ -1,3 +1,13 @@
+<template>
+  <div class="type">
+    <label class="label">Type:</label>
+    <custom-select :readonly="!isVisibleCtrls" :selectedOptionId="newTypeId" :options="options" :onChange="onChangeType" />
+    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onEnableSelect" class="primary xs" />
+    <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onApplyNewType" class="success xs" />
+    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onDisableSelect" class="danger xs" />
+  </div>
+</template>
+
 <script>
 import { noop, emptyArray } from '../../common/utils/base-helper';
 import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
@@ -41,13 +51,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="type">
-    <label class="label">Type:</label>
-    <custom-select :readonly="!isVisibleCtrls" :selectedOptionId="newTypeId" :options="options" :onChange="onChangeType" />
-    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onEnableSelect" class="primary xs" />
-    <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onApplyNewType" class="success xs" />
-    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onDisableSelect" class="danger xs" />
-  </div>
-</template>

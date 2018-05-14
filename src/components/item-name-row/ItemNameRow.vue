@@ -1,3 +1,13 @@
+<template>
+  <div class="name">
+    <label class="label">Name:</label>
+    <input-text ref="input" :readonly="!isVisibleCtrls" :value="newName" :onInput="onChangeName" />
+    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onEnableInput" class="primary xs" />
+    <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onApplyNewName" class="success xs" />
+    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onDisableInput" class="danger xs" />
+  </div>
+</template>
+
 <script>
 import { noop } from '../../common/utils/base-helper';
 import InputText from '../../common/components/input-text/InputText.vue';
@@ -41,13 +51,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="name">
-    <label class="label">Name:</label>
-    <input-text ref="input" :readonly="!isVisibleCtrls" :value="newName" :onInput="onChangeName" />
-    <custom-btn v-if="!isVisibleCtrls" iconClass="icon-pencil" :onClick="onEnableInput" class="primary xs" />
-    <custom-btn v-if="isVisibleCtrls" iconClass="icon-checkmark" :onClick="onApplyNewName" class="success xs" />
-    <custom-btn v-if="isVisibleCtrls" iconClass="icon-close" :onClick="onDisableInput" class="danger xs" />
-  </div>
-</template>

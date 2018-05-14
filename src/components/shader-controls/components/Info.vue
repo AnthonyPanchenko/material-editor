@@ -1,3 +1,10 @@
+<template>
+  <div class="info">
+    <span class="name">{{ name }}</span>
+    <span class="type">{{ type }}</span>
+  </div>
+</template>
+
 <script>
 export default {
   name: 'Info',
@@ -7,10 +14,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="info">
-    <span class="name">{{ name }}</span>
-    <span class="type">{{ type }}</span>
-  </div>
-</template>

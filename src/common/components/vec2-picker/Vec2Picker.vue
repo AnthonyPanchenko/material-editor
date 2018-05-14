@@ -1,3 +1,7 @@
+<template>
+  <canvas ref="vec2Picker" class="vec2-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
+</template>
+
 <script>
 import { noop, getElementOffsets } from '../../utils/base-helper';
 import { roundNum, clamp } from '../../utils/math-helper';
@@ -135,7 +139,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <canvas ref="vec2Picker" class="vec2-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
-</template>

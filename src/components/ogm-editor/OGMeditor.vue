@@ -1,59 +1,3 @@
-<script>
-import { createNamespacedHelpers } from 'vuex';
-const { mapState, mapActions } = createNamespacedHelpers('ogmEditor');
-
-import { noop, emptyObject } from '../../common/utils/base-helper';
-import editorsNames from '../../common/constants/editors-names';
-import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
-import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-import InputFile from '../../common/components/input-file/InputFile.vue';
-
-import MaterialEditor from '../material-editor/MaterialEditor.vue';
-import GeometryEditor from '../geometry-editor/GeometryEditor.vue';
-import ObjectEditor from '../object-editor/ObjectEditor.vue';
-
-export default {
-  name: 'OgmEditor',
-  props: {
-    activeEditorName: { type: String, default: editorsNames.MATERIAL_EDITOR },
-    onSetActiveEditorName: { type: Function, default: noop },
-    onSetNewMaterialName: { type: Function, default: noop },
-    onSetNewGeometryName: { type: Function, default: noop },
-    onSetNewObjectName: { type: Function, default: noop },
-    activeObject: { type: Object, default: emptyObject },
-    activeMaterial: { type: Object, default: emptyObject },
-    activeGeometry: { type: Object, default: emptyObject },
-    onChangeObjectProperty: { type: Function, default: noop },
-    onChangeGeometryProperty: { type: Function, default: noop },
-    onChangeMaterialProperty: { type: Function, default: noop },
-    onToggleOpenGallery: { type: Function, default: noop }
-  },
-  components: {
-    MaterialEditor,
-    GeometryEditor,
-    ObjectEditor,
-    InputFile,
-    CustomBtn,
-    ResizeBox
-  },
-  data() {
-    return {
-      editorsNames
-    };
-  },
-  computed: mapState([
-    'controlsPanelWidth',
-    'activeMaterialTypeId'
-  ]),
-  methods: {
-    ...mapActions([
-      'onSetActiveMaterialTypeId',
-      'onSetControlsPanelWidth'
-    ])
-  }
-};
-</script>
-
 <template>
   <resize-box
     tag="section"
@@ -114,3 +58,59 @@ export default {
     <footer class="footer controls-row" />
   </resize-box>
 </template>
+
+<script>
+import { createNamespacedHelpers } from 'vuex';
+const { mapState, mapActions } = createNamespacedHelpers('ogmEditor');
+
+import { noop, emptyObject } from '../../common/utils/base-helper';
+import editorsNames from '../../common/constants/editors-names';
+import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+import InputFile from '../../common/components/input-file/InputFile.vue';
+
+import MaterialEditor from '../material-editor/MaterialEditor.vue';
+import GeometryEditor from '../geometry-editor/GeometryEditor.vue';
+import ObjectEditor from '../object-editor/ObjectEditor.vue';
+
+export default {
+  name: 'OgmEditor',
+  props: {
+    activeEditorName: { type: String, default: editorsNames.MATERIAL_EDITOR },
+    onSetActiveEditorName: { type: Function, default: noop },
+    onSetNewMaterialName: { type: Function, default: noop },
+    onSetNewGeometryName: { type: Function, default: noop },
+    onSetNewObjectName: { type: Function, default: noop },
+    activeObject: { type: Object, default: emptyObject },
+    activeMaterial: { type: Object, default: emptyObject },
+    activeGeometry: { type: Object, default: emptyObject },
+    onChangeObjectProperty: { type: Function, default: noop },
+    onChangeGeometryProperty: { type: Function, default: noop },
+    onChangeMaterialProperty: { type: Function, default: noop },
+    onToggleOpenGallery: { type: Function, default: noop }
+  },
+  components: {
+    MaterialEditor,
+    GeometryEditor,
+    ObjectEditor,
+    InputFile,
+    CustomBtn,
+    ResizeBox
+  },
+  data() {
+    return {
+      editorsNames
+    };
+  },
+  computed: mapState([
+    'controlsPanelWidth',
+    'activeMaterialTypeId'
+  ]),
+  methods: {
+    ...mapActions([
+      'onSetActiveMaterialTypeId',
+      'onSetControlsPanelWidth'
+    ])
+  }
+};
+</script>

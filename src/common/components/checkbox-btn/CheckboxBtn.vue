@@ -1,3 +1,12 @@
+<template>
+  <label class="checkbox-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="{ 'disabled': disabled }">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
+    <input type="checkbox" ref="checkBox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
+    <span class="switch-icon" />
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
+  </label>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './checkbox-btn.scss';
@@ -30,12 +39,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <label class="checkbox-btn" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter" :class="{ 'disabled': disabled }">
-    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="checkbox" ref="checkBox" :name="name" :value="value" @change="onChangeCheckBox" v-model="checkedState" :disabled="disabled">
-    <span class="switch-icon" />
-    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
-  </label>
-</template>

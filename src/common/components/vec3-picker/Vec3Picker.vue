@@ -1,3 +1,7 @@
+<template>
+  <canvas ref="vec3Picker" class="vec3-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
+</template>
+
 <script>
 import { noop, getElementOffsets } from '../../utils/base-helper';
 import { roundNum, clamp, multiplyMatrixByVector, getInverseMatrix, getViewMatrix, matrices } from '../../utils/math-helper';
@@ -193,7 +197,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <canvas ref="vec3Picker" class="vec3-picker" :width="dimension" :height="dimension" @mousedown="onMouseDown"></canvas>
-</template>

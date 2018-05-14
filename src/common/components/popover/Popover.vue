@@ -1,3 +1,12 @@
+<template>
+  <transition name="fade">
+    <div class="popover" ref="popover">
+      <span :class="['triangle', triangleClassName]" ref="triangle" />
+      <slot>Content here</slot>
+    </div>
+  </transition>
+</template>
+
 <script>
 import { noop, getElementOffsets } from '../../utils/base-helper';
 import { clamp } from '../../utils/math-helper';
@@ -206,12 +215,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <transition name="fade">
-    <div class="popover" ref="popover">
-      <span :class="['triangle', triangleClassName]" ref="triangle" />
-      <slot>Content here</slot>
-    </div>
-  </transition>
-</template>

@@ -1,3 +1,13 @@
+<template>
+  <router-link v-if="link" :to="link" :tabindex="`${disabled ? -1 : 0}`" :event="disabled ? '' : 'click'" :class="['ctrl-btn', { 'active': active, 'disabled': disabled }]" @click.native="onButtonClick">
+    <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
+  </router-link>
+
+  <button v-else type="button" :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-btn', { 'active': active }]" :disabled="disabled" @click="onButtonClick">
+    <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
+  </button>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './custom-btn.scss';
@@ -22,13 +32,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <router-link v-if="link" :to="link" :tabindex="`${disabled ? -1 : 0}`" :event="disabled ? '' : 'click'" :class="['ctrl-btn', { 'active': active, 'disabled': disabled }]" @click.native="onButtonClick">
-    <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
-  </router-link>
-
-  <button v-else type="button" :tabindex="`${disabled ? -1 : 0}`" :class="['ctrl-btn', { 'active': active }]" :disabled="disabled" @click="onButtonClick">
-    <i v-if="iconClass" :class="iconClass" aria-hidden="true" /> {{ title }}
-  </button>
-</template>

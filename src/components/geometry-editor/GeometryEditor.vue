@@ -1,36 +1,3 @@
-<script>
-import { noop, emptyObject } from '../../common/utils/base-helper';
-import gProps from '../../common/constants/geometry-properties';
-
-import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-import InputNumber from '../../common/components/input-number/InputNumber.vue';
-import ItemNameRow from '../item-name-row/ItemNameRow.vue';
-
-export default {
-  name: 'GeometryEditor',
-  props: {
-    onSetNewGeometryName: { type: Function, default: noop },
-    onChange: { type: Function, default: noop },
-    geometry: { type: Object, default: emptyObject }
-  },
-  components: {
-    CheckboxBtn,
-    ItemNameRow,
-    InputNumber
-  },
-  data() {
-    return {
-      gProps
-    };
-  },
-  methods: {
-    onChangeControl(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.geometry.id });
-    }
-  }
-};
-</script>
-
 <template>
   <div class="fieldset">
     <div class="type">
@@ -128,3 +95,36 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { noop, emptyObject } from '../../common/utils/base-helper';
+import gProps from '../../common/constants/geometry-properties';
+
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import ItemNameRow from '../item-name-row/ItemNameRow.vue';
+
+export default {
+  name: 'GeometryEditor',
+  props: {
+    onSetNewGeometryName: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
+    geometry: { type: Object, default: emptyObject }
+  },
+  components: {
+    CheckboxBtn,
+    ItemNameRow,
+    InputNumber
+  },
+  data() {
+    return {
+      gProps
+    };
+  },
+  methods: {
+    onChangeControl(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.geometry.id });
+    }
+  }
+};
+</script>

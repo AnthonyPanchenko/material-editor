@@ -1,3 +1,11 @@
+<template>
+  <label :class="['input-text', { 'disabled': disabled }]" :title="value">
+    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
+    <input type="text" :name="name" v-on:input="onInputText" :placeholder="placeholder" :readonly="readonly" :value="value" :disabled="disabled">
+    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
+  </label>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './input-text.scss';
@@ -24,11 +32,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <label :class="['input-text', { 'disabled': disabled }]" :title="value">
-    <span v-if="prefix" class="prefix"> {{ prefix }} </span>
-    <input type="text" :name="name" v-on:input="onInputText" :placeholder="placeholder" :readonly="readonly" :value="value" :disabled="disabled">
-    <span v-if="sufix" class="sufix"> {{ sufix }} </span>
-  </label>
-</template>

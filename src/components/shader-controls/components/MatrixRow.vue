@@ -1,3 +1,18 @@
+<template>
+  <div class="row">
+    <info :name="name" :type="type" v-if="!isEditable" />
+
+    <div :class="['matrix', type]">
+      <input-number v-for="(val, index) in value" :name="index" :value="val" :step="0.01" :key="index" :onInput="onInputNumberValue" />
+    </div>
+
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
+  </div>
+</template>
+
 <script>
 import Info from './Info.vue';
 import { noop } from '../../../common/utils/base-helper';
@@ -41,18 +56,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="row">
-    <info :name="name" :type="type" v-if="!isEditable" />
-
-    <div :class="['matrix', type]">
-      <input-number v-for="(val, index) in value" :name="index" :value="val" :step="0.01" :key="index" :onInput="onInputNumberValue" />
-    </div>
-
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
-  </div>
-</template>

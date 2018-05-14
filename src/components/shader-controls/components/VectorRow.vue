@@ -1,3 +1,70 @@
+<template>
+  <div class="row">
+    <info :name="name" :type="type" v-if="!isEditable" />
+
+    <input-number
+      prefix="X:"
+      :name="0"
+      :value="value[0]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="Y:"
+      :name="1"
+      :value="value[1]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="Z:"
+      :name="2"
+      :value="value[2]"
+      :min="min"
+      :max="max"
+      :step="step"
+      v-if="type === 'vec3'"
+      :onInput="onInputVectorValue"
+    />
+    <input-number
+      prefix="W:"
+      :name="3"
+      :value="value[3]"
+      :min="min"
+      :max="max"
+      :step="step"
+      :onInput="onInputVectorValue"
+      :onClick="onToggleNumberPickerPopover"
+      ref="numberPickerTrigger"
+      v-if="type === 'vec4'"
+    />
+
+    <popover v-if="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
+      <vec2-picker :name="id" :vector="value" :onChange="onChange" />
+    </popover>
+
+    <popover v-if="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
+      <vec3-picker :name="id" :vector="value" :onChange="onChange" />
+    </popover>
+
+    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
+      <number-picker :name="id" :value="value[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
+    </popover>
+
+    <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
+    <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
+
+    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
+    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
+  </div>
+</template>
+
 <script>
 import Info from './Info.vue';
 import { noop } from '../../../common/utils/base-helper';
@@ -97,70 +164,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="row">
-    <info :name="name" :type="type" v-if="!isEditable" />
-
-    <input-number
-      prefix="X:"
-      :name="0"
-      :value="value[0]"
-      :min="min"
-      :max="max"
-      :step="step"
-      :onInput="onInputVectorValue"
-    />
-    <input-number
-      prefix="Y:"
-      :name="1"
-      :value="value[1]"
-      :min="min"
-      :max="max"
-      :step="step"
-      :onInput="onInputVectorValue"
-    />
-    <input-number
-      prefix="Z:"
-      :name="2"
-      :value="value[2]"
-      :min="min"
-      :max="max"
-      :step="step"
-      v-if="type === 'vec3'"
-      :onInput="onInputVectorValue"
-    />
-    <input-number
-      prefix="W:"
-      :name="3"
-      :value="value[3]"
-      :min="min"
-      :max="max"
-      :step="step"
-      :onInput="onInputVectorValue"
-      :onClick="onToggleNumberPickerPopover"
-      ref="numberPickerTrigger"
-      v-if="type === 'vec4'"
-    />
-
-    <popover v-if="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
-      <vec2-picker :name="id" :vector="value" :onChange="onChange" />
-    </popover>
-
-    <popover v-if="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
-      <vec3-picker :name="id" :vector="value" :onChange="onChange" />
-    </popover>
-
-    <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :name="id" :value="value[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
-    </popover>
-
-    <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
-    <custom-btn iconClass="icon-xyz" class="xs" ref="vec3PickerTrigger" :onClick="onToggleVec3PickerPopover" v-else />
-
-    <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-trash-bin" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && !isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-checkmark" class="success xs" :data="id" :onClick="onRemove" v-if="!isEditable && isVisibleRemoveControl" />
-    <custom-btn iconClass="icon-close" class="danger xs" :onClick="onTogleRemoveMode" v-if="!isEditable && isVisibleRemoveControl" />
-  </div>
-</template>

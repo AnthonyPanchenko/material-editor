@@ -1,3 +1,66 @@
+<template>
+  <resize-box
+    tag="section"
+    resize="column"
+    class="container controls-section"
+    :onEndOfResize="onSetPanelControlsWidth"
+    :size="controlsPanelWidth"
+  >
+    <header class="header controls-row">
+      <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
+      <custom-btn
+        title="Fragment"
+        iconClass="icon-fragment"
+        :active="activeShaderType === shadersTypes.FRAGMENT_SHADER"
+        :data="shadersTypes.FRAGMENT_SHADER"
+        :onClick="onSetActiveShaderType"
+      />
+      <custom-btn
+        title="Vertex"
+        iconClass="icon-vertex"
+        :active="activeShaderType === shadersTypes.VERTEX_SHADER"
+        :data="shadersTypes.VERTEX_SHADER"
+        :onClick="onSetActiveShaderType"
+      />
+      <custom-btn iconClass="icon-undo" class="xs" />
+      <custom-btn iconClass="icon-save" class="xs" />
+      <custom-btn iconClass="icon-redo" class="xs" />
+      <custom-btn iconClass="icon-close" class="danger xs" :data="editorsNames.MATERIAL_EDITOR" :onClick="onSetActiveEditorName" />
+    </header>
+
+    <section class="body">
+      <code-editor
+        :shaders="shaders"
+        :activeShader="activeShaderType"
+        :onChange="onChangeCodeEditor"
+        :onSave="onSaveShader"
+      />
+    </section>
+
+    <shader-controls
+      :onRemoveControl="onRemoveControl"
+      :onSetEditControl="onSetEditControl"
+      :onSaveNewControl="onSaveNewControl"
+      :onSaveEditedControl="onSaveEditedControl"
+      :onCancelEditControl="onCancelEditControl"
+      :onChangeControlValue="onChangeControlValue"
+      :onChangeNewControlValue="onChangeNewControlValue"
+      :controls="controls[activeShaderType]"
+      :controlsIds="controlsIds[activeShaderType]"
+      :newControl="newControl[activeShaderType]"
+      :onToggleFooterControls="onToggleFooterControls"
+      :controlsCopies="controlsCopies[activeShaderType]"
+      :onSetActiveControlType="onSetActiveControlType"
+      :isVisibleControlsFooter="isVisibleControlsFooter"
+      :onSetFooterControlsHeight="onSetFooterControlsHeight"
+      :onToggleCreateNewControlArea="onToggleCreateNewControlArea"
+      :activeControlType="activeControlType[activeShaderType]"
+      :editableControlsIds="editableControlsIds"
+      :controlsFooterHeight="controlsFooterHeight"
+    />
+  </resize-box>
+</template>
+
 <script>
 import { createNamespacedHelpers } from 'vuex';
 const { mapState, mapActions } = createNamespacedHelpers('shaderEditor');
@@ -66,66 +129,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <resize-box
-    tag="section"
-    resize="column"
-    class="container controls-section"
-    :onEndOfResize="onSetPanelControlsWidth"
-    :size="controlsPanelWidth"
-  >
-    <header class="header controls-row">
-      <custom-btn accesskey="s" iconClass="icon-settings" class="xs" />
-      <custom-btn
-        title="Fragment"
-        iconClass="icon-fragment"
-        :active="activeShaderType === shadersTypes.FRAGMENT_SHADER"
-        :data="shadersTypes.FRAGMENT_SHADER"
-        :onClick="onSetActiveShaderType"
-      />
-      <custom-btn
-        title="Vertex"
-        iconClass="icon-vertex"
-        :active="activeShaderType === shadersTypes.VERTEX_SHADER"
-        :data="shadersTypes.VERTEX_SHADER"
-        :onClick="onSetActiveShaderType"
-      />
-      <custom-btn iconClass="icon-undo" class="xs" />
-      <custom-btn iconClass="icon-save" class="xs" />
-      <custom-btn iconClass="icon-redo" class="xs" />
-      <custom-btn iconClass="icon-close" class="danger xs" :data="editorsNames.MATERIAL_EDITOR" :onClick="onSetActiveEditorName" />
-    </header>
-
-    <section class="body">
-      <code-editor
-        :shaders="shaders"
-        :activeShader="activeShaderType"
-        :onChange="onChangeCodeEditor"
-        :onSave="onSaveShader"
-      />
-    </section>
-
-    <shader-controls
-      :onRemoveControl="onRemoveControl"
-      :onSetEditControl="onSetEditControl"
-      :onSaveNewControl="onSaveNewControl"
-      :onSaveEditedControl="onSaveEditedControl"
-      :onCancelEditControl="onCancelEditControl"
-      :onChangeControlValue="onChangeControlValue"
-      :onChangeNewControlValue="onChangeNewControlValue"
-      :controls="controls[activeShaderType]"
-      :controlsIds="controlsIds[activeShaderType]"
-      :newControl="newControl[activeShaderType]"
-      :onToggleFooterControls="onToggleFooterControls"
-      :controlsCopies="controlsCopies[activeShaderType]"
-      :onSetActiveControlType="onSetActiveControlType"
-      :isVisibleControlsFooter="isVisibleControlsFooter"
-      :onSetFooterControlsHeight="onSetFooterControlsHeight"
-      :onToggleCreateNewControlArea="onToggleCreateNewControlArea"
-      :activeControlType="activeControlType[activeShaderType]"
-      :editableControlsIds="editableControlsIds"
-      :controlsFooterHeight="controlsFooterHeight"
-    />
-  </resize-box>
-</template>

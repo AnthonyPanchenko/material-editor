@@ -1,3 +1,14 @@
+<template>
+  <label :class="['input-file', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
+    <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
+    <slot>
+      <span class="button">
+        <i class="icon-upload" aria-hidden="true" />
+      </span>
+    </slot>
+  </label>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './input-file.scss';
@@ -24,14 +35,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <label :class="['input-file', { 'disabled': disabled }]" :tabindex="`${disabled ? -1 : 0}`" @keyup.enter="onPressEnter">
-    <input type="file" ref="inputFile" :name="name" @change="onChangeInputFile" :value="value" :disabled="disabled" :multiple="multiple" :accept="accept">
-    <slot>
-      <span class="button">
-        <i class="icon-upload" aria-hidden="true" />
-      </span>
-    </slot>
-  </label>
-</template>

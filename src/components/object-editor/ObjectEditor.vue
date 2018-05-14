@@ -1,57 +1,3 @@
-<script>
-import { noop, emptyObject } from '../../common/utils/base-helper';
-import oProps from '../../common/constants/object-properties';
-
-import ItemNameRow from '../item-name-row/ItemNameRow.vue';
-import InputNumber from '../../common/components/input-number/InputNumber.vue';
-import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-
-export default {
-  name: 'ObjectEditor',
-  props: {
-    onSetNewObjectName: { type: Function, default: noop },
-    onChange: { type: Function, default: noop },
-    object: { type: Object, default: emptyObject }
-  },
-  components: {
-    ItemNameRow,
-    InputNumber,
-    CheckboxBtn
-  },
-  data() {
-    return {
-      oProps
-    };
-  },
-  methods: {
-    getValue(valueOf, index) {
-      return this.object[valueOf] && this.object[valueOf][index] || 0;
-    },
-    onChangePosition(value, index) {
-      const copyArr = [...this.object[this.oProps.POSITION]];
-      copyArr[index] = value;
-
-      this.onChange({ value: copyArr, fieldName: this.oProps.POSITION, id: this.object.id });
-    },
-    onChangeRotation(value, index) {
-      const copyArr = [...this.object[this.oProps.ROTATION]];
-      copyArr[index] = value;
-
-      this.onChange({ value: copyArr, fieldName: this.oProps.ROTATION, id: this.object.id });
-    },
-    onChangeScale(value, index) {
-      const copyArr = [...this.object[this.oProps.SCALE]];
-      copyArr[index] = value;
-
-      this.onChange({ value: copyArr, fieldName: this.oProps.SCALE, id: this.object.id });
-    },
-    onChangeCheckBox(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.object.id });
-    }
-  }
-};
-</script>
-
 <template>
   <div class="fieldset">
     <div class="type">
@@ -105,3 +51,57 @@ export default {
     </div>
   </div>
 </template>
+
+<script>
+import { noop, emptyObject } from '../../common/utils/base-helper';
+import oProps from '../../common/constants/object-properties';
+
+import ItemNameRow from '../item-name-row/ItemNameRow.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+
+export default {
+  name: 'ObjectEditor',
+  props: {
+    onSetNewObjectName: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
+    object: { type: Object, default: emptyObject }
+  },
+  components: {
+    ItemNameRow,
+    InputNumber,
+    CheckboxBtn
+  },
+  data() {
+    return {
+      oProps
+    };
+  },
+  methods: {
+    getValue(valueOf, index) {
+      return this.object[valueOf] && this.object[valueOf][index] || 0;
+    },
+    onChangePosition(value, index) {
+      const copyArr = [...this.object[this.oProps.POSITION]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.POSITION, id: this.object.id });
+    },
+    onChangeRotation(value, index) {
+      const copyArr = [...this.object[this.oProps.ROTATION]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.ROTATION, id: this.object.id });
+    },
+    onChangeScale(value, index) {
+      const copyArr = [...this.object[this.oProps.SCALE]];
+      copyArr[index] = value;
+
+      this.onChange({ value: copyArr, fieldName: this.oProps.SCALE, id: this.object.id });
+    },
+    onChangeCheckBox(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.object.id });
+    }
+  }
+};
+</script>

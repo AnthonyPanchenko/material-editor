@@ -1,3 +1,43 @@
+<template>
+  <div class="color-picker">
+    <mouse-move ref="alphaScale" class="alpha-scale" :onMove="onMoveAlphaScale">
+      <span class="bg-gradient" :style="{ background: `linear-gradient(to left, rgb(${color[0]}, ${color[1]}, ${color[2]}) 0%, transparent 100%)` }" />
+      <i class="horizontal-triangles" :style="{ borderTopColor: alphaScaleTrianglesBgColor, borderBottomColor: alphaScaleTrianglesBgColor, left: `calc(${alphaScaleTrianglesLeftPos}px - 5px)` }" />
+    </mouse-move>
+
+    <div class="container">
+      <mouse-move ref="gradientBox" :styleCss="{ backgroundColor: `rgb(${gradientBoxColor[0]}, ${gradientBoxColor[1]}, ${gradientBoxColor[2]})` }" class="gradient-box" :onMove="onMoveGradientBox">
+        <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
+      </mouse-move>
+
+      <mouse-move class="hue-scale" :onMove="onMoveHueScale">
+        <i class="vertical-triangles" :style="{ top: `calc(${hueScaleTrianglesTopPos}% - 5px)` }" />
+      </mouse-move>
+    </div>
+
+    <div v-if="activeColorMode === 'RGB'" class="color-controls">
+      <input-number prefix="R" :name="0" :value="color[0]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="G" :name="1" :value="color[1]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="B" :name="2" :value="color[2]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
+      <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <custom-btn iconClass="icon-back-forth" data="HEX" :onClick="switchColorMode" />
+    </div>
+
+    <div v-if="activeColorMode === 'HEX'" class="color-controls">
+      <input-text prefix="HEX" :value="`#${hexa}`" :onInput="onInputHexValue" />
+      <custom-btn iconClass="icon-back-forth" data="HSV" :onClick="switchColorMode" />
+    </div>
+
+    <div v-if="activeColorMode === 'HSV'" class="color-controls">
+      <input-number prefix="H°" :name="0" :value="hsva[0]" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="S%" :name="1" :value="hsva[1]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="V%" :name="2" :value="hsva[2]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
+      <input-number prefix="A" :name="3" :value="hsva[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
+      <custom-btn iconClass="icon-back-forth" data="RGB" :onClick="switchColorMode" />
+    </div>
+  </div>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import { hsvToRgb, rgbToHsv, rgbToHex, hexToRgb, hueToRgb, isHex } from '../../utils/color-converters';
@@ -133,43 +173,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <div class="color-picker">
-    <mouse-move ref="alphaScale" class="alpha-scale" :onMove="onMoveAlphaScale">
-      <span class="bg-gradient" :style="{ background: `linear-gradient(to left, rgb(${color[0]}, ${color[1]}, ${color[2]}) 0%, transparent 100%)` }" />
-      <i class="horizontal-triangles" :style="{ borderTopColor: alphaScaleTrianglesBgColor, borderBottomColor: alphaScaleTrianglesBgColor, left: `calc(${alphaScaleTrianglesLeftPos}px - 5px)` }" />
-    </mouse-move>
-
-    <div class="container">
-      <mouse-move ref="gradientBox" :styleCss="{ backgroundColor: `rgb(${gradientBoxColor[0]}, ${gradientBoxColor[1]}, ${gradientBoxColor[2]})` }" class="gradient-box" :onMove="onMoveGradientBox">
-        <i class="circle icon-radio-unchecked" :style="{ color: circleColor, top: `calc(${circleTopPos}% - 4px)`, left: `calc(${circleLeftPos}% - 4px)` }" />
-      </mouse-move>
-
-      <mouse-move class="hue-scale" :onMove="onMoveHueScale">
-        <i class="vertical-triangles" :style="{ top: `calc(${hueScaleTrianglesTopPos}% - 5px)` }" />
-      </mouse-move>
-    </div>
-
-    <div v-if="activeColorMode === 'RGB'" class="color-controls">
-      <input-number prefix="R" :name="0" :value="color[0]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="G" :name="1" :value="color[1]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="B" :name="2" :value="color[2]" :min="0" :max="255" :step="1" :onInput="onInputRgbValue" />
-      <input-number prefix="A" :name="3" :value="color[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" data="HEX" :onClick="switchColorMode" />
-    </div>
-
-    <div v-if="activeColorMode === 'HEX'" class="color-controls">
-      <input-text prefix="HEX" :value="`#${hexa}`" :onInput="onInputHexValue" />
-      <custom-btn iconClass="icon-back-forth" data="HSV" :onClick="switchColorMode" />
-    </div>
-
-    <div v-if="activeColorMode === 'HSV'" class="color-controls">
-      <input-number prefix="H°" :name="0" :value="hsva[0]" :min="0" :max="360" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="S%" :name="1" :value="hsva[1]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="V%" :name="2" :value="hsva[2]" :min="0" :max="100" :step="1" :onInput="onInputHsvValue" />
-      <input-number prefix="A" :name="3" :value="hsva[3]" :min="0" :max="1" :step="0.01" :onInput="onInputAlphaValue" />
-      <custom-btn iconClass="icon-back-forth" data="RGB" :onClick="switchColorMode" />
-    </div>
-  </div>
-</template>

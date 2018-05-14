@@ -1,3 +1,15 @@
+<template>
+  <button
+    ref="buttonTrigger"
+    :style="{ backgroundColor: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})` }"
+    type="button"
+    class="output-color-btn"
+    @click="onButtonClick"
+  >
+    <i class="icon-color-palette" :style="{ color: iconColor }" />
+  </button>
+</template>
+
 <script>
 import { noop } from '../../utils/base-helper';
 import './output-color-btn.scss';
@@ -25,15 +37,3 @@ export default {
   }
 };
 </script>
-
-<template>
-  <button
-    ref="buttonTrigger"
-    :style="{ backgroundColor: `rgba(${color[0]}, ${color[1]}, ${color[2]}, ${color[3]})` }"
-    type="button"
-    class="output-color-btn"
-    @click="onButtonClick"
-  >
-    <i class="icon-color-palette" :style="{ color: iconColor }" />
-  </button>
-</template>

@@ -1,16 +1,3 @@
-<script>
-import { noop, emptyArray } from '../../utils/base-helper';
-import './notifications.scss';
-
-export default {
-  name: 'Notifications',
-  props: {
-    list: { type: Array, default: emptyArray },
-    onClose: { type: Function, default: noop }
-  }
-};
-</script>
-
 <template>
   <transition-group tag="ul" class="notifications-list scroll-box" name="notification">
     <li :class="['notification', item.status]" v-for="item in list" :key="item.id" @click="() => onClose(item.id)">
@@ -25,3 +12,16 @@ export default {
     </li>
   </transition-group>
 </template>
+
+<script>
+import { noop, emptyArray } from '../../utils/base-helper';
+import './notifications.scss';
+
+export default {
+  name: 'Notifications',
+  props: {
+    list: { type: Array, default: emptyArray },
+    onClose: { type: Function, default: noop }
+  }
+};
+</script>

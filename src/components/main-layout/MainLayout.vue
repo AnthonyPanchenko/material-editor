@@ -1,3 +1,12 @@
+<template>
+  <div class="main-layout">
+    <notifications :list="notifications" :onClose="onRemoveNotification" />
+    <transition name="fade">
+      <router-view></router-view>
+    </transition>
+  </div>
+</template>
+
 <script>
 import Notifications from '../../common/components/notifications/Notifications.vue';
 import './styles/main-layout.scss';
@@ -19,12 +28,3 @@ export default {
   }
 }
 </script>
-
-<template>
-  <div class="main-layout">
-    <notifications :list="notifications" :onClose="onRemoveNotification" />
-    <transition name="fade">
-      <router-view></router-view>
-    </transition>
-  </div>
-</template>

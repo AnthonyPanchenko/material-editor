@@ -1,97 +1,3 @@
-<script>
-import materialsTypes from '../../common/constants/materials-types';
-import { createSelectsOptions, noop, emptyObject } from '../../common/utils/base-helper';
-import selects from './utils/selects';
-import mProps from '../../common/constants/materials-properties';
-import mapedMaterialsProps from './utils/maped-materials-properties';
-import editorsNames from '../../common/constants/editors-names';
-
-import ItemTypeRow from '../item-type-row/ItemTypeRow.vue';
-import ItemNameRow from '../item-name-row/ItemNameRow.vue';
-import Popover from '../../common/components/popover/Popover.vue';
-import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
-import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
-import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
-import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
-import InputFile from '../../common/components/input-file/InputFile.vue';
-import InputNumber from '../../common/components/input-number/InputNumber.vue';
-import ImgBox from '../../common/components/img-box/ImgBox.vue';
-import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
-import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
-import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
-
-export default {
-  name: 'MaterialEditor',
-  props: {
-    activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
-    onSetNewMaterialName: { type: Function, default: noop },
-    onSetActiveMaterialTypeId: { type: Function, default: noop },
-    onOpenShaderEditor: { type: Function, default: noop },
-    onAttachShaders: { type: Function, default: noop },
-    onChange: { type: Function, default: noop },
-    material: { type: Object, default: emptyObject }
-  },
-  components: {
-    ItemTypeRow,
-    ItemNameRow,
-    ImgBox,
-    Popover,
-    InputFile,
-    OutputColorBtn,
-    NumberPicker,
-    ColorPicker,
-    Vec2Picker,
-    InputNumber,
-    CheckboxBtn,
-    CustomSelect,
-    CustomBtn
-  },
-  data() {
-    return {
-      selects,
-      mProps,
-      isOpen: false,
-      editorsNames,
-      currentColorPickerName: '',
-      colorPickerTrigger: null,
-      mapedMaterialsProps,
-      selectOptions: createSelectsOptions(materialsTypes)
-    };
-  },
-  methods: {
-    isDisplayedSection(property) {
-      return this.mapedMaterialsProps[this.activeMaterialTypeId].indexOf(property) !== -1;
-    },
-    onClosePopover(name) {
-      if (this.isOpen) {
-        this.isOpen = false;
-        this.currentColorPickerName = '';
-      }
-    },
-    onToggleColorPickerPopover(triggerRef, name) {
-      this.colorPickerTrigger = triggerRef;
-      this.currentColorPickerName = name;
-      this.isOpen = !this.isOpen;
-    },
-    onChangeSelect(option, fieldName) {
-      this.onChange({ value: option.id, fieldName, id: this.material.id });
-    },
-    onChangeFileInput(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.material.id });
-    },
-    onChangeCheckBox(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.material.id });
-    },
-    onChangeColor(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.material.id });
-    },
-    onChangeNumberInput(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.material.id });
-    }
-  }
-};
-</script>
-
 <template>
   <div class="fieldset">
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
@@ -296,3 +202,97 @@ export default {
 
   </div>
 </template>
+
+<script>
+import materialsTypes from '../../common/constants/materials-types';
+import { createSelectsOptions, noop, emptyObject } from '../../common/utils/base-helper';
+import selects from './utils/selects';
+import mProps from '../../common/constants/materials-properties';
+import mapedMaterialsProps from './utils/maped-materials-properties';
+import editorsNames from '../../common/constants/editors-names';
+
+import ItemTypeRow from '../item-type-row/ItemTypeRow.vue';
+import ItemNameRow from '../item-name-row/ItemNameRow.vue';
+import Popover from '../../common/components/popover/Popover.vue';
+import OutputColorBtn from '../../common/components/output-color-btn/OutputColorBtn.vue';
+import NumberPicker from '../../common/components/number-picker/NumberPicker.vue';
+import ColorPicker from '../../common/components/color-picker/ColorPicker.vue';
+import Vec2Picker from '../../common/components/vec2-picker/Vec2Picker.vue';
+import InputFile from '../../common/components/input-file/InputFile.vue';
+import InputNumber from '../../common/components/input-number/InputNumber.vue';
+import ImgBox from '../../common/components/img-box/ImgBox.vue';
+import CheckboxBtn from '../../common/components/checkbox-btn/CheckboxBtn.vue';
+import CustomSelect from '../../common/components/custom-select/CustomSelect.vue';
+import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
+
+export default {
+  name: 'MaterialEditor',
+  props: {
+    activeMaterialTypeId: { type: String, default: materialsTypes.MESH_BASIC_MATERIAL },
+    onSetNewMaterialName: { type: Function, default: noop },
+    onSetActiveMaterialTypeId: { type: Function, default: noop },
+    onOpenShaderEditor: { type: Function, default: noop },
+    onAttachShaders: { type: Function, default: noop },
+    onChange: { type: Function, default: noop },
+    material: { type: Object, default: emptyObject }
+  },
+  components: {
+    ItemTypeRow,
+    ItemNameRow,
+    ImgBox,
+    Popover,
+    InputFile,
+    OutputColorBtn,
+    NumberPicker,
+    ColorPicker,
+    Vec2Picker,
+    InputNumber,
+    CheckboxBtn,
+    CustomSelect,
+    CustomBtn
+  },
+  data() {
+    return {
+      selects,
+      mProps,
+      isOpen: false,
+      editorsNames,
+      currentColorPickerName: '',
+      colorPickerTrigger: null,
+      mapedMaterialsProps,
+      selectOptions: createSelectsOptions(materialsTypes)
+    };
+  },
+  methods: {
+    isDisplayedSection(property) {
+      return this.mapedMaterialsProps[this.activeMaterialTypeId].indexOf(property) !== -1;
+    },
+    onClosePopover(name) {
+      if (this.isOpen) {
+        this.isOpen = false;
+        this.currentColorPickerName = '';
+      }
+    },
+    onToggleColorPickerPopover(triggerRef, name) {
+      this.colorPickerTrigger = triggerRef;
+      this.currentColorPickerName = name;
+      this.isOpen = !this.isOpen;
+    },
+    onChangeSelect(option, fieldName) {
+      this.onChange({ value: option.id, fieldName, id: this.material.id });
+    },
+    onChangeFileInput(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
+    },
+    onChangeCheckBox(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
+    },
+    onChangeColor(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
+    },
+    onChangeNumberInput(value, fieldName) {
+      this.onChange({ value, fieldName, id: this.material.id });
+    }
+  }
+};
+</script>

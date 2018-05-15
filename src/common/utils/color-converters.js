@@ -34,12 +34,22 @@ export const rgbToXyz = (r, g, b) => {
   };
 };
 
-export const rgbToVector = (rgb) => {
-  return rgb.map(c => +(c / 255).toFixed(3));
+export const rgbaToNormalizedVector = (rgba) => {
+  return [
+    +(rgba[0] / 255).toFixed(3),
+    +(rgba[1] / 255).toFixed(3),
+    +(rgba[2] / 255).toFixed(3),
+    rgba[3]
+  ];
 };
 
-export const vectorToRgb = (vec) => {
-  return vec.map(v => Math.round(Math.abs(v) * 255));
+export const normalizedVectorToRgba = (vec) => {
+  return [
+    Math.round(Math.abs(vec[0]) * 255),
+    Math.round(Math.abs(vec[1]) * 255),
+    Math.round(Math.abs(vec[2]) * 255),
+    (vec.length === 4) ? vec[3] : 1
+  ];
 };
 
 export const hueToRgb = (hue) => {

@@ -51,7 +51,7 @@ export default {
       const matrix = [...this.value];
       matrix[index] = num;
 
-      this.onChange(matrix, this.id);
+      this.onChange(matrix, 'value');
     }
   }
 };

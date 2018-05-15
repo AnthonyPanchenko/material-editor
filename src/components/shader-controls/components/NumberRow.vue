@@ -5,7 +5,7 @@
     <input-number :value="value" :step="step" :onInput="onInputNumberValue" ref="numberPickerTrigger" :onClick="onToggleNumberPickerPopover" />
 
     <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :value="value" :step="step" :onChange="onChange" />
+      <number-picker name="value" :value="value" :step="step" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-pencil" class="primary xs" :data="id" :onClick="onEdit" v-if="!isEditable && !isVisibleRemoveControl" />
@@ -65,7 +65,7 @@ export default {
       this.isOpenNumberPicker = !this.isOpenNumberPicker;
     },
     onInputNumberValue(num) {
-      this.onChange((this.type === 'float') ? num : parseInt(num), this.id);
+      this.onChange((this.type === 'float') ? num : parseInt(num), 'value');
     }
   },
   mounted() {

@@ -44,15 +44,15 @@
     />
 
     <popover v-if="isOpenVec2Picker" :trigger="vec2PickerTrigger" :onClose="onClosePopover">
-      <vec2-picker :name="id" :vector="value" :onChange="onChange" />
+      <vec2-picker name="value" :vector="value" :onChange="onChange" />
     </popover>
 
     <popover v-if="isOpenVec3Picker" :trigger="vec3PickerTrigger" :onClose="onClosePopover">
-      <vec3-picker :name="id" :vector="value" :onChange="onChange" />
+      <vec3-picker name="value" :vector="value" :onChange="onChange" />
     </popover>
 
     <popover v-if="isOpenNumberPicker" :trigger="numberPickerTrigger" :onClose="onClosePopover">
-      <number-picker :name="id" :value="value[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
+      <number-picker name="value" :value="value[3]" :min="min" :max="max" :step="step" :onChange="onChange" />
     </popover>
 
     <custom-btn iconClass="icon-xy" class="xs" ref="vec2PickerTrigger" :onClick="onToggleVec2PickerPopover" v-if="type === 'vec2'" />
@@ -145,7 +145,7 @@ export default {
       const vector = [...this.value];
       vector[axis] = val;
 
-      this.onChange(vector, this.id);
+      this.onChange(vector, 'value');
     }
   },
   mounted() {

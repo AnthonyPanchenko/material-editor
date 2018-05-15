@@ -72,7 +72,7 @@ const state = {
       },
       'e7182e28-10cf-45fe-8b14-da7579a22c14': {
         _id: 'e7182e28-10cf-45fe-8b14-da7579a22c14',
-        value: [70, 70, 220, 1],
+        value: [0.27, 0.27, 0.86, 1],
         name: 'bgColor',
         ctrlType: 'uniform',
         mode: 'color',
@@ -114,7 +114,7 @@ const state = {
       },
       'sdfget234-bgdf4-nbm567-asd3-xsdvgvs2141': {
         _id: 'sdfget234-bgdf4-nbm567-asd3-xsdvgvs2141',
-        value: [70, 70, 220, 1],
+        value: [0.27, 0.27, 0.86, 1],
         name: 'bgColor',
         ctrlType: 'uniform',
         mode: 'color',

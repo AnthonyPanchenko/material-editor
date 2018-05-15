@@ -13,7 +13,7 @@
         value="color"
         name="mode"
         :picked="ctrlData.mode"
-        :onChange="onChangeRadioBtn"
+        :onChange="onChangeControl"
         v-if="ctrlData.dataType === 'vec3' || ctrlData.dataType === 'vec4'"
       />
       <radio-btn
@@ -21,11 +21,11 @@
         value="vector"
         name="mode"
         :picked="ctrlData.mode"
-        :onChange="onChangeRadioBtn"
+        :onChange="onChangeControl"
         v-if="ctrlData.dataType === 'vec3' || ctrlData.dataType === 'vec4'"
       />
 
-      <input-text name="name" placeholder="name..." :onInput="onChangeName" :value="ctrlData.name" />
+      <input-text name="name" placeholder="name..." :onInput="onChangeControl" :value="ctrlData.name" />
 
       <custom-btn iconClass="icon-checkmark" class="success xs" :data="ctrlData._id" :onClick="onCreate" />
       <custom-btn iconClass="icon-close" class="danger xs" :data="ctrlData._id" :onClick="onCancel" />
@@ -133,14 +133,8 @@ export default {
     onChangeSelect(selectedOption, fieldName) {
       this.onChange({ value: selectedOption.id, fieldName, id: this.ctrlData._id });
     },
-    onChangeRadioBtn(value, fieldName) {
+    onChangeControl(value, fieldName) {
       this.onChange({ value, fieldName, id: this.ctrlData._id });
-    },
-    onChangeName(value, fieldName) {
-      this.onChange({ value, fieldName, id: this.ctrlData._id });
-    },
-    onChangeControl(value, id) {
-      this.onChange({ value, fieldName: 'value', id });
     }
   }
 };

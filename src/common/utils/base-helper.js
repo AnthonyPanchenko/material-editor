@@ -15,7 +15,7 @@ export const debounce = function (ms, fn) {
   };
 };
 
-export const createSelectsOptions = (obj) =>
+export const createSelectOptions = (obj) =>
   Object.keys(obj).map(key => ({ title: obj[key], id: obj[key] }));
 
 export const getTouchClickPosition = (event) => ({

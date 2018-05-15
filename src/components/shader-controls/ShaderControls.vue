@@ -52,6 +52,7 @@
           :onCancel="onCancelCreateNewControl"
           :onChange="onChangeNewControlValue"
           :ctrlData="newControl[activeControlType]"
+          :selectOptions="mappedSelectOptions()"
           v-if="!!Object.keys(newControl[activeControlType]).length"
         />
       </transition>
@@ -65,6 +66,7 @@
           :onChange="onChangeControlValue"
           :onRemove="onRemoveControl"
           :isEditable="isEditableControl(ctrlId)"
+          :selectOptions="mappedSelectOptions(controls[ctrlId].dataType)"
           :ctrlData="controls[ctrlId]"
         />
       </div>
@@ -74,6 +76,7 @@
 
 <script>
 import { noop, emptyArray, emptyObject } from '../../common/utils/base-helper';
+import mappedSelectOptions from './utils/mapped-selects-options';
 import ResizeBox from '../../common/components/resize-box/ResizeBox.vue';
 import CustomBtn from '../../common/components/custom-btn/CustomBtn.vue';
 import shadersControlsTypes from '../../common/constants/shaders-controls-types';
@@ -110,6 +113,7 @@ export default {
   },
   data() {
     return {
+      mappedSelectOptions,
       shadersControlsTypes
     };
   },

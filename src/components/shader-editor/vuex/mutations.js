@@ -1,5 +1,5 @@
 import mutationTypes from '../../../common/constants/mutation-types';
-import newControlsInitStates from '../utils/newControlsInitStates';
+import newControlsInitStates from '../utils/new-controls-init-states';
 
 const mutations = {
   [mutationTypes.NEW_CONTROL_SET_VALUE](state, payload) {

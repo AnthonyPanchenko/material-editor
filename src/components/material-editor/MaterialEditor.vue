@@ -205,7 +205,7 @@
 
 <script>
 import materialsTypes from '../../common/constants/materials-types';
-import { createSelectsOptions, noop, emptyObject } from '../../common/utils/base-helper';
+import { createSelectOptions, noop, emptyObject } from '../../common/utils/base-helper';
 import selects from './utils/selects';
 import mProps from '../../common/constants/materials-properties';
 import mapedMaterialsProps from './utils/maped-materials-properties';
@@ -260,7 +260,7 @@ export default {
       currentColorPickerName: '',
       colorPickerTrigger: null,
       mapedMaterialsProps,
-      selectOptions: createSelectsOptions(materialsTypes)
+      selectOptions: createSelectOptions(materialsTypes)
     };
   },
   methods: {

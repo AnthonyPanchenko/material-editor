@@ -1,57 +1,3 @@
-// https://www.easyrgb.com/en/math.php
-// http://www.brucelindbloom.com/index.html?Eqn_RGB_XYZ_Matrix.html
-// sRGB D65
-
-export const xyzToRgb = (x, y, z) => {
-  const dx = x / 100;
-  const dy = y / 100;
-  const dz = z / 100;
-
-  const red = (dx * 3.2404542) + (dy * -1.5371385) + (dz * -0.4985314);
-  const green = (dx * -0.9692660) + (dy * 1.8760108) + (dz * 0.0415560);
-  const blue = (dx * 0.0556434) + (dy * -0.2040259) + (dz * 1.0572252);
-
-  return {
-    r: Math.round(((red > 0.0031308) ? 1.055 * (red ** (1 / 2.4)) - 0.055 : 12.92 * red) * 255),
-    g: Math.round(((green > 0.0031308) ? 1.055 * (green ** (1 / 2.4)) - 0.055 : 12.92 * green) * 255),
-    b: Math.round(((blue > 0.0031308) ? 1.055 * (blue ** (1 / 2.4)) - 0.055 : 12.92 * blue) * 255)
-  };
-};
-
-export const rgbToXyz = (r, g, b) => {
-  const dr = r / 255;
-  const dg = g / 255;
-  const db = b / 255;
-
-  const red = ((dr > 0.04045) ? ((dr + 0.055) / 1.055) ** 2.4 : dr / 12.92) * 100;
-  const green = ((dg > 0.04045) ? ((dg + 0.055) / 1.055) ** 2.4 : dg / 12.92) * 100;
-  const blue = ((db > 0.04045) ? ((db + 0.055) / 1.055) ** 2.4 : db / 12.92) * 100;
-
-  return {
-    x: (red * 0.4124564) + (green * 0.3575761) + (blue * 0.1804375),
-    y: (red * 0.2126729) + (green * 0.7151522) + (blue * 0.0721750),
-    z: (red * 0.0193339) + (green * 0.1191920) + (blue * 0.9503041)
-  };
-};
-
-export const rgbaToNormalizedVector = (rgba) => {
-  return [
-    +(rgba[0] / 255).toFixed(3),
-    +(rgba[1] / 255).toFixed(3),
-    +(rgba[2] / 255).toFixed(3),
-    rgba[3]
-  ];
-};
-
-export const normalizedVectorToRgba = (vec) => {
-  return [
-    Math.round(Math.abs(vec[0]) * 255),
-    Math.round(Math.abs(vec[1]) * 255),
-    Math.round(Math.abs(vec[2]) * 255),
-    (vec.length === 4) ? vec[3] : 1
-  ];
-};
-
 export const hueToRgb = (hue) => {
   const h = hue / 60;
   const mod = Math.floor(h);
@@ -154,6 +100,3 @@ export const hexToRgb = (hex) => {
 
   return color;
 };
-
-export const isHex = (hex) =>
-  /(\b[a-fA-F0-9]{3}\b|\b[a-fA-F0-9]{6}\b|\b[a-fA-F0-9]{8}\b)/.test(hex);

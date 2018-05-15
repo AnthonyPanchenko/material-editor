@@ -1,7 +1,7 @@
 <script>
 import CodeMirror from 'codemirror';
 import { noop } from '../../common/utils/base-helper';
-import specialCharPlaceholder from './utils/specialCharPlaceholder';
+import specialCharPlaceholder from './utils/special-char-placeholder';
 import shadersTypes from '../../common/constants/shaders-types';
 import 'codemirror/addon/search/search';
 import 'codemirror/addon/search/match-highlighter';

@@ -95,8 +95,7 @@ import MatrixRow from './MatrixRow.vue';
 import NumberRow from './NumberRow.vue';
 import VectorRow from './VectorRow.vue';
 import TextureRow from './TextureRow.vue';
-import { createSelectsOptions, noop, emptyObject } from '../../../common/utils/base-helper';
-import shadersDataTypes from '../../../common/constants/shaders-data-types';
+import { noop, emptyObject, emptyArray } from '../../../common/utils/base-helper';
 import InputText from '../../../common/components/input-text/InputText.vue';
 import RadioBtn from '../../../common/components/radio-btn/RadioBtn.vue';
 import CustomSelect from '../../../common/components/custom-select/CustomSelect.vue';
@@ -105,6 +104,7 @@ import CustomBtn from '../../../common/components/custom-btn/CustomBtn.vue';
 export default {
   name: 'CreateNew',
   props: {
+    selectOptions: { type: Array, default: emptyArray },
     isEditable: { type: Boolean, default: false },
     ctrlData: { type: Object, default: emptyObject },
     onChange: { type: Function, default: noop },
@@ -123,11 +123,6 @@ export default {
     MatrixRow,
     NumberRow,
     VectorRow
-  },
-  data() {
-    return {
-      selectOptions: createSelectsOptions(shadersDataTypes)
-    };
   },
   methods: {
     onChangeSelect(selectedOption, fieldName) {

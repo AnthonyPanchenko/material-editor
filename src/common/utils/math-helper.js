@@ -10,10 +10,6 @@ export const roundNum = (x, n = 3) => {
   return Math.round(x * m) / m;
 };
 
-export const isFloat = (n) => {
-  return Number(n) === n && n % 1 !== 0;
-};
-
 export const determinantOfMatrix = (m) =>
   m[0] * (m[4] * m[8] - m[7] * m[5]) - m[1] * (m[3] * m[8] - m[5] * m[6]) + m[2] * (m[3] * m[7] - m[4] * m[6]);
 
@@ -62,20 +58,4 @@ export const matrices = {
   mat2: [1, 0, 0, 1],
   mat3: [1, 0, 0, 0, 1, 0, 0, 0, 1],
   mat4: [1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1]
-};
-
-export const normalizeVector = (vec) => {
-  const sLength = vectorLength(vec) || 1;
-
-  return vec.map(cord => cord / sLength);
-};
-
-export const vectorLength = (vec) => {
-  let scalar = 0;
-
-  for (let i = 0; i < vec.length; i++) {
-    scalar += vec[i] ** 2;
-  }
-
-  return Math.sqrt(scalar);
 };

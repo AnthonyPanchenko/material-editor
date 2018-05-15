@@ -27,7 +27,7 @@
       :min="min"
       :max="max"
       :step="step"
-      v-if="type === 'vec3'"
+      v-if="type === 'vec3' || type === 'vec4'"
       :onInput="onInputVectorValue"
     />
     <input-number

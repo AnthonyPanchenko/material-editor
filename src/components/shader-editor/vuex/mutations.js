@@ -1,12 +1,25 @@
 import mutationTypes from '../../../common/constants/mutation-types';
 import newControlsInitStates from '../utils/new-controls-init-states';
+import controlsInitValues from '../utils/controls-init-values';
 
 const mutations = {
   [mutationTypes.NEW_CONTROL_SET_VALUE](state, payload) {
-    state.newControl[state.activeShaderType][state.activeControlType[state.activeShaderType]][payload.fieldName] = payload.value;
+    const itemCtrl = state.newControl[state.activeShaderType][state.activeControlType[state.activeShaderType]];
+
+    itemCtrl[payload.fieldName] = payload.value;
+
+    if (payload.fieldName === 'dataType') {
+      itemCtrl.value = controlsInitValues[payload.value];
+    }
   },
   [mutationTypes.CONTROL_SET_VALUE](state, payload) {
-    state.controls[state.activeShaderType][payload.id][payload.fieldName] = payload.value;
+    const itemCtrl = state.controls[state.activeShaderType][payload.id];
+
+    itemCtrl[payload.fieldName] = payload.value;
+
+    if (payload.fieldName === 'dataType') {
+      itemCtrl.value = controlsInitValues[payload.value];
+    }
   },
   [mutationTypes.SET_SHADER_VALUE_BY_TYPE](state, value) {
     state.shaders[state.activeShaderType] = value;

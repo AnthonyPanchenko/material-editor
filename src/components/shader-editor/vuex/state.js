@@ -35,7 +35,7 @@ const state = {
   controlsIds: {
     [shadersTypes.FRAGMENT_SHADER]: {
       [shadersControlsTypes.ATTRIBUTE]: ['b49197bd-e97b-4567-b7d9-b852930722f2', 'ba431408-b660-46b6-b0c0-2245ceac0b55'],
-      [shadersControlsTypes.UNIFORM]: ['643ec621-9587-4c66-8f9c-b77cec0eb37b', 'e7182e28-10cf-45fe-8b14-da7579a22c14', 'ac67ef7c-2486-4dd2-ae57-4cec4d06719f'],
+      [shadersControlsTypes.UNIFORM]: ['643ec621-9587-4c66-8f9c-b77cec0eb37b', 'e7182e28-10cf-45fe-8b14-da7579a22c14', 'cvbcbwe4-234d-dfsf-werwr-234hjkgsdfg34', 'ac67ef7c-2486-4dd2-ae57-4cec4d06719f'],
       [shadersControlsTypes.TEXTURE]: ['112c2b71-d8d0-408c-9036-efe0f1549700', 'sdfsdgfg-23424-252sf-b315-4575dfhgde2']
     },
     [shadersTypes.VERTEX_SHADER]: {
@@ -72,8 +72,16 @@ const state = {
       },
       'e7182e28-10cf-45fe-8b14-da7579a22c14': {
         _id: 'e7182e28-10cf-45fe-8b14-da7579a22c14',
-        value: [70, 70, 230, 1],
+        value: [0.27, 0.27, 0.78],
         name: 'bgColor',
+        ctrlType: 'uniform',
+        mode: 'color',
+        dataType: 'vec3'
+      },
+      'cvbcbwe4-234d-dfsf-werwr-234hjkgsdfg34': {
+        _id: 'cvbcbwe4-234d-dfsf-werwr-234hjkgsdfg34',
+        value: [0.27, 0.27, 0.78, 1],
+        name: 'dotColor',
         ctrlType: 'uniform',
         mode: 'color',
         dataType: 'vec4'
@@ -114,7 +122,7 @@ const state = {
       },
       'sdfget234-bgdf4-nbm567-asd3-xsdvgvs2141': {
         _id: 'sdfget234-bgdf4-nbm567-asd3-xsdvgvs2141',
-        value: [72, 74, 255, 1],
+        value: [0.27, 0.73, 0.78, 1],
         name: 'bgColor',
         ctrlType: 'uniform',
         mode: 'color',

@@ -24,9 +24,7 @@
         :onChange="onChangeControl"
         v-if="ctrlData.dataType === 'vec3' || ctrlData.dataType === 'vec4'"
       />
-
       <input-text name="name" placeholder="name..." :onInput="onChangeControl" :value="ctrlData.name" />
-
       <custom-btn iconClass="icon-checkmark" class="success xs" :data="ctrlData._id" :onClick="onCreate" />
       <custom-btn iconClass="icon-close" class="danger xs" :data="ctrlData._id" :onClick="onCancel" />
     </div>

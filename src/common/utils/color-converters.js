@@ -1,3 +1,28 @@
+export const colorToNormalizedVector = (color, type) => {
+  const result = [
+    +(color[0] / 255).toFixed(3),
+    +(color[1] / 255).toFixed(3),
+    +(color[2] / 255).toFixed(3)
+  ];
+
+  if (type === 'vec4') {
+    result[3] = color[3];
+
+    return result;
+  }
+
+  return result;
+};
+
+export const normalizedVectorToColor = (vec) => {
+  return [
+    Math.round(Math.abs(vec[0]) * 255),
+    Math.round(Math.abs(vec[1]) * 255),
+    Math.round(Math.abs(vec[2]) * 255),
+    (vec.length === 4) ? vec[3] : 1
+  ];
+};
+
 export const hueToRgb = (hue) => {
   const h = hue / 60;
   const mod = Math.floor(h);

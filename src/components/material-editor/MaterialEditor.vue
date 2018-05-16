@@ -1,5 +1,7 @@
 <template>
-  <div class="fieldset">
+  <div class="fieldset" v-if="!Object.keys(material).length" />
+
+  <div v-else class="fieldset">
     <item-type-row :typeId="activeMaterialTypeId" :options="selectOptions" :onApply="onSetActiveMaterialTypeId" />
     <item-name-row :name="material['name']" :onApply="onSetNewMaterialName" />
 

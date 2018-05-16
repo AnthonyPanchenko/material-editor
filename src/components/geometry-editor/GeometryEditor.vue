@@ -1,5 +1,7 @@
 <template>
-  <div class="fieldset">
+  <div class="fieldset" v-if="!Object.keys(geometry).length" />
+
+  <div v-else class="fieldset">
     <div class="type">
       <span class="label">Type:</span>
       <span class="title">{{ geometry['type'] }}</span>

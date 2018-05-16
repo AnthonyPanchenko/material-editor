@@ -3,7 +3,7 @@ import transformationsModes from '../../../common/constants/transformations-mode
 
 const state = {
   isOpenGallery: false,
-  isVisibleMeshesList: true,
+  isVisibleMeshesList: false,
   transformationMode: transformationsModes.TRANSLATE,
   activeEditorName: editorsNames.SHADER_EDITOR,
   activeEditableIds: {

@@ -77,12 +77,12 @@ class BaseScene {
     }
   }
 
-  deselectObject() {
-    this.controls.transformControls.detach(this.selectedObject);
-    this.selectedObject = null;
-    this.selectedObjectIndex = undefined;
-    this.deselectObjectCallback();
-  }
+  // deselectObject() {
+  //   this.controls.transformControls.detach(this.selectedObject);
+  //   this.selectedObject = null;
+  //   this.selectedObjectIndex = undefined;
+  //   this.deselectObjectCallback();
+  // }
 
   removeHelper(object) {
     if (this.helpers[object.id] !== undefined) {
@@ -159,9 +159,11 @@ class BaseScene {
       if (this.selectedObjectIndex === undefined || this.selectedObjectIndex !== intersected.index) {
         this.selectObject(intersected.index, intersected.mesh);
       }
-    } else if (this.selectedObjectIndex !== undefined) {
-      this.deselectObject();
     }
+
+    // else if (this.selectedObjectIndex !== undefined) {
+    //   this.deselectObject();
+    // }
   }
 
   renderScene() {

@@ -15,7 +15,11 @@ const object = {
 // geometry
 const geometry = {
   faces: Array(420),
+  vertices: Array(212),
   name: "",
+  type: "SphereGeometry",
+  uuid: "F14813E2-A2C6-4AA8-8EED-9C3295A56DE2",
+
   // SphereGeometry
   parameters: {
     heightSegments: 15,
@@ -64,10 +68,7 @@ const geometry = {
     radiusTop: 2,
     thetaLength: undefined,
     thetaStart: undefined
-  },
-  type: "SphereGeometry",
-  uuid: "F14813E2-A2C6-4AA8-8EED-9C3295A56DE2",
-  vertices: Array(212)
+  }
 };
 
 // material

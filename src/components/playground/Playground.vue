@@ -215,7 +215,8 @@ export default {
     selectMeshInSceneCallback(mesh) {
       this.activeObject = mesh.object;
 
-      console.log(mesh.object.toJSON());
+      console.log(mesh.object);
+      // console.log(mesh.object.toJSON());
     },
     deselectMeshInSceneCallback() {
       this.activeObject = {};

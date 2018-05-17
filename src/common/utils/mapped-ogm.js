@@ -72,69 +72,85 @@ const geometry = {
 };
 
 // material
-
 const material = {
-  alphaMap: null,
-  alphaTest: 0,
-  aoMap: null,
-  aoMapIntensity: 1,
-  blendDst: 205,
-  blendDstAlpha: null,
-  blendEquation: 100,
-  blendEquationAlpha: null,
-  blendSrc: 204,
-  blendSrcAlpha: null,
+  alphaTest: 0.1,
+  blendDst: 205, // int
+  blendDstAlpha: null, // int
+  blendEquation: 100, // int
+  blendEquationAlpha: null, // int
   blending: 1,
+  blendSrc: 204,
+  blendSrcAlpha: null, // int
   clipIntersection: false,
+  clippingPlanes: null, // Array
   clipShadows: false,
-  clippingPlanes: null,
-  color: {
-    b: 0.8,
-    g: 0.8,
-    r: 0.8
-  },
   colorWrite: true,
-  combine: 0,
+  customDepthMaterial: undefined, // Material
+  defines: undefined, // Object
   depthFunc: 3,
   depthTest: true,
   depthWrite: true,
-  dithering: false,
-  envMap: null,
   flatShading: false,
   fog: true,
-  lightMap: null,
-  lightMapIntensity: 1,
+  id: true,
+  isMaterial: true,
   lights: false,
-  map: null,
-  morphTargets: false,
-  name: "",
   needsUpdate: false,
-  opacity: 1,
-  overdraw: 0,
+  opacity: 1.0,
+  overdraw: 0.1,
   polygonOffset: false,
-  polygonOffsetFactor: 0,
-  polygonOffsetUnits: 0,
-  precision: null,
+  polygonOffsetFactor: 0, // int
+  polygonOffsetUnits: 0, // int
+  precision: null, // "highp", "mediump", "lowp" string
   premultipliedAlpha: false,
-  reflectivity: 1,
-  refractionRatio: 0.98,
-  shadowSide: null,
+  dithering: false,
+  shadowSide: null, // int
   side: 2,
-  skinning: false,
-  specularMap: null,
   transparent: false,
-  type: "MeshBasicMaterial",
-  uuid: "F14256A5-DD00-4BDC-AE97-1BBE9F406A11",
   vertexColors: 0,
-  visible: true,
-  wireframe: false,
-  wireframeLinecap: "round",
-  wireframeLinejoin: "round",
-  wireframeLinewidth: 1
+  visible: true
 };
 
+// MeshPhongMaterial material
+const MeshPhongMaterial = {
+  name: "",
+  type: "MeshPhongMaterial",
+  uuid: "F14256A5-DD00-4BDC-AE97-1BBE9F406A11",
+  alphaMap: null,
+  aoMap: null,
+  aoMapIntensity: 1.0,
+  combine: 0, // int
+  bumpMap: null,
+  bumpScale: 1.0,
+  displacementMap: null,
+  displacementScale: 1.0,
+  displacementBias: 1.0,
+  color: { b: 0.8, g: 0.8, r: 0.8 },
+  emissive: { b: 0.8, g: 0.8, r: 0.8 },
+  emissiveMap: null,
+  emissiveIntensity: 1.0,
+  envMap: null,
+  lightMap: null,
+  lightMapIntensity: 1,
+  map: null,
+  morphNormals: false,
+  normalMap: null,
+  normalScale: [0, 1],
+  reflectivity: 1.0,
+  refractionRatio: 1.0,
+  shininess: 1.0,
+  specularMap: null,
+  specular: { b: 0.8, g: 0.8, r: 0.8 },
+  skinning: false,
+  morphTargets: false,
+  wireframe: false,
+  wireframeLinecap: "round", // "butt", "square"
+  wireframeLinejoin: "round", // "bevel", "miter"
+  wireframeLinewidth: 1.0
+};
 
-/////////////////
+//////////////////////////////////////////////////////////////////////////////
+//////////////////////////////////////////////////////////////////////////////
 
 const jsonStructure = {
   geometries: [{
